@@ -14,3 +14,26 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .systemYellow
     }
 }
+
+#if DEBUG
+
+import SwiftUI
+
+// OPTION + CMD + ENTER: 미리보기 화면 띄우기, OPTION + CMD + P: 미리보기 resume
+struct LoginViewControllerPresentable: UIViewControllerRepresentable {
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+    }
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        LoginViewController()
+    }
+}
+
+struct LoginViewControllerPresentable_PreviewProvider: PreviewProvider {
+    static var previews: some View {
+        LoginViewControllerPresentable()
+            .ignoresSafeArea()
+    }
+}
+
+#endif
