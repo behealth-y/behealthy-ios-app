@@ -11,7 +11,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemYellow
+        view.backgroundColor = UIColor.init(named: "mainColor")
     }
 }
 
