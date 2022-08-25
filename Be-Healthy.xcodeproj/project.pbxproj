@@ -15,6 +15,7 @@
 		B727D54C28B70A8600773A12 /* Be_HealthyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D54B28B70A8600773A12 /* Be_HealthyTests.swift */; };
 		B727D55628B70A8600773A12 /* Be_HealthyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D55528B70A8600773A12 /* Be_HealthyUITests.swift */; };
 		B727D55828B70A8600773A12 /* Be_HealthyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D55728B70A8600773A12 /* Be_HealthyUITestsLaunchTests.swift */; };
+		B727D56F28B716FB00773A12 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D56E28B716FB00773A12 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		B727D55128B70A8600773A12 /* Be-HealthyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Be-HealthyUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B727D55528B70A8600773A12 /* Be_HealthyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Be_HealthyUITests.swift; sourceTree = "<group>"; };
 		B727D55728B70A8600773A12 /* Be_HealthyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Be_HealthyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B727D56E28B716FB00773A12 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,7 +100,11 @@
 			isa = PBXGroup;
 			children = (
 				B727D56428B7147A00773A12 /* App */,
-				B727D53828B70A8500773A12 /* ViewController.swift */,
+				B727D56628B7158E00773A12 /* Helper */,
+				B727D56828B7166E00773A12 /* Component */,
+				B727D56928B7169C00773A12 /* VO */,
+				B727D56A28B716AD00773A12 /* Model */,
+				B727D56B28B716BD00773A12 /* ViewController */,
 				B727D53D28B70A8600773A12 /* Assets.xcassets */,
 				B727D53F28B70A8600773A12 /* LaunchScreen.storyboard */,
 				B727D54228B70A8600773A12 /* Info.plist */,
@@ -130,6 +136,51 @@
 				B727D53628B70A8500773A12 /* SceneDelegate.swift */,
 			);
 			path = App;
+			sourceTree = "<group>";
+		};
+		B727D56628B7158E00773A12 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		B727D56828B7166E00773A12 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		B727D56928B7169C00773A12 /* VO */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = VO;
+			sourceTree = "<group>";
+		};
+		B727D56A28B716AD00773A12 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B727D56B28B716BD00773A12 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B727D56C28B716CD00773A12 /* Authentication */,
+				B727D53828B70A8500773A12 /* ViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		B727D56C28B716CD00773A12 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				B727D56E28B716FB00773A12 /* LoginViewController.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B727D56F28B716FB00773A12 /* LoginViewController.swift in Sources */,
 				B727D53928B70A8500773A12 /* ViewController.swift in Sources */,
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
