@@ -19,6 +19,8 @@
 		B727D57228B74EBE00773A12 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B727D57128B74EBE00773A12 /* SnapKit */; };
 		B727D57528B74EC900773A12 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = B727D57428B74EC900773A12 /* Then */; };
 		B727D57728B75EF900773A12 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D57628B75EF900773A12 /* TitleView.swift */; };
+		B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D57A28B7701800773A12 /* UITextField+Extension.swift */; };
+		B727D57D28B7744200773A12 /* BHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D57C28B7744200773A12 /* BHTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		B727D55728B70A8600773A12 /* Be_HealthyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Be_HealthyUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B727D56E28B716FB00773A12 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B727D57628B75EF900773A12 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		B727D57A28B7701800773A12 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
+		B727D57C28B7744200773A12 /* BHTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +151,7 @@
 		B727D56628B7158E00773A12 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				B727D57A28B7701800773A12 /* UITextField+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -155,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				B727D57628B75EF900773A12 /* TitleView.swift */,
+				B727D57C28B7744200773A12 /* BHTextField.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -331,6 +337,8 @@
 				B727D56F28B716FB00773A12 /* LoginViewController.swift in Sources */,
 				B727D53928B70A8500773A12 /* ViewController.swift in Sources */,
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,
+				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
+				B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
 			);

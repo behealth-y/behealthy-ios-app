@@ -64,25 +64,52 @@ class LoginViewController: UIViewController {
             $0.height.equalTo(titleView.snp.width).multipliedBy(0.79 / 1.0)
         }
         
-        let testLabel = UILabel().then {
-            $0.text = """
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-            
-            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-
-            The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham.
-            """
-            $0.numberOfLines = 0
-            $0.textColor = .label
+        // 오류 메시지 label 변수 초기화
+        let errorMsgLabel = UILabel().then {
+            $0.text = "아이디 또는 비밀번호를 다시 입력해주세요."
+            $0.font = .systemFont(ofSize: 12.0)
+            $0.textColor = .systemRed
         }
         
-        contentView.addSubview(testLabel)
+        contentView.addSubview(errorMsgLabel)
         
-        testLabel.snp.makeConstraints {
-            $0.top.equalTo(titleView.snp.bottom).offset(10)
-            $0.leading.trailing.bottom.equalTo(contentView).inset(10)
+        // 오류 메시지 label 위치 잡기
+        errorMsgLabel.snp.makeConstraints {
+            $0.top.equalTo(titleView.snp.bottom).offset(14)
+            $0.leading.equalToSuperview().offset(18)
+            $0.trailing.greaterThanOrEqualToSuperview().offset(18)
+        }
+        
+        // 아이디 / 비밀번호 폼 stackView 변수 초기화
+        let formStackView = UIStackView().then {
+            $0.spacing = 10
+            $0.alignment = .center
+            $0.distribution = .fillEqually
+            $0.axis = .vertical
+        }
+        
+        contentView.addSubview(formStackView)
+        
+        // 아이디 / 비밀번호 폼 위치 잡기
+        formStackView.snp.makeConstraints {
+            $0.top.equalTo(errorMsgLabel.snp.bottom).offset(10)
+            $0.horizontalEdges.equalToSuperview().inset(18)
+            $0.bottom.equalToSuperview().offset(18)
+        }
+        
+        // 아이디 / 비밀번호 textField 변수 초기화
+        let idTextField = BHTextField()
+        let pwTextField = BHTextField()
+        
+        [idTextField, pwTextField].forEach {
+            formStackView.addArrangedSubview($0)
+            $0.delegate = self
+            
+            // 아이디 / 비밀번호 textField 위치 잡기
+            $0.snp.makeConstraints {
+                $0.height.equalTo(60)
+                $0.horizontalEdges.equalToSuperview()
+            }
         }
     }
      
@@ -92,6 +119,7 @@ class LoginViewController: UIViewController {
     }
 }
 
+// MARK: - UIScrollViewDelegate
 extension LoginViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let yPos = scrollView.contentOffset.y
@@ -106,6 +134,22 @@ extension LoginViewController: UIScrollViewDelegate {
         }
         
         self.setNeedsStatusBarAppearanceUpdate()
+    }
+}
+
+// MARK: - UITextFieldDelegate
+// 사용하는 textField에 delegate 설정 필요
+extension LoginViewController: UITextFieldDelegate {
+    // 화면 터치 시 키보드 내리기
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    // return 키 눌렀을 경우 키보드 내리기
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
     }
 }
 
