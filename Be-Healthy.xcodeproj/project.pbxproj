@@ -10,7 +10,6 @@
 		B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53428B70A8500773A12 /* AppDelegate.swift */; };
 		B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53628B70A8500773A12 /* SceneDelegate.swift */; };
 		B727D53928B70A8500773A12 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53828B70A8500773A12 /* ViewController.swift */; };
-		B727D53C28B70A8500773A12 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B727D53A28B70A8500773A12 /* Main.storyboard */; };
 		B727D53E28B70A8600773A12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B727D53D28B70A8600773A12 /* Assets.xcassets */; };
 		B727D54128B70A8600773A12 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B727D53F28B70A8600773A12 /* LaunchScreen.storyboard */; };
 		B727D54C28B70A8600773A12 /* Be_HealthyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D54B28B70A8600773A12 /* Be_HealthyTests.swift */; };
@@ -40,7 +39,6 @@
 		B727D53428B70A8500773A12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B727D53628B70A8500773A12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		B727D53828B70A8500773A12 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B727D53B28B70A8500773A12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B727D53D28B70A8600773A12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B727D54028B70A8600773A12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B727D54228B70A8600773A12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,10 +97,8 @@
 		B727D53328B70A8500773A12 /* Be-Healthy */ = {
 			isa = PBXGroup;
 			children = (
-				B727D53428B70A8500773A12 /* AppDelegate.swift */,
-				B727D53628B70A8500773A12 /* SceneDelegate.swift */,
+				B727D56428B7147A00773A12 /* App */,
 				B727D53828B70A8500773A12 /* ViewController.swift */,
-				B727D53A28B70A8500773A12 /* Main.storyboard */,
 				B727D53D28B70A8600773A12 /* Assets.xcassets */,
 				B727D53F28B70A8600773A12 /* LaunchScreen.storyboard */,
 				B727D54228B70A8600773A12 /* Info.plist */,
@@ -125,6 +121,15 @@
 				B727D55728B70A8600773A12 /* Be_HealthyUITestsLaunchTests.swift */,
 			);
 			path = "Be-HealthyUITests";
+			sourceTree = "<group>";
+		};
+		B727D56428B7147A00773A12 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				B727D53428B70A8500773A12 /* AppDelegate.swift */,
+				B727D53628B70A8500773A12 /* SceneDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,7 +238,6 @@
 			files = (
 				B727D54128B70A8600773A12 /* LaunchScreen.storyboard in Resources */,
 				B727D53E28B70A8600773A12 /* Assets.xcassets in Resources */,
-				B727D53C28B70A8500773A12 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +301,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B727D53A28B70A8500773A12 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B727D53B28B70A8500773A12 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B727D53F28B70A8600773A12 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -444,7 +440,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Be Healthy";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
@@ -473,7 +468,6 @@
 				INFOPLIST_KEY_CFBundleDisplayName = "Be Healthy";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
