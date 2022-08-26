@@ -25,6 +25,7 @@
 		B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58028B8628800773A12 /* UIColor+Extension.swift */; };
 		B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58228B88AAE00773A12 /* UIImage+Extension.swift */; };
 		B727D58528B8925400773A12 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58428B8925400773A12 /* UIViewController+Extension.swift */; };
+		B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58628B89CA100773A12 /* BHSubmitButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		B727D58028B8628800773A12 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B727D58228B88AAE00773A12 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		B727D58428B8925400773A12 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		B727D58628B89CA100773A12 /* BHSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHSubmitButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,6 +175,7 @@
 			children = (
 				B727D57628B75EF900773A12 /* TitleView.swift */,
 				B727D57C28B7744200773A12 /* BHTextField.swift */,
+				B727D58628B89CA100773A12 /* BHSubmitButton.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B727D56F28B716FB00773A12 /* LoginViewController.swift in Sources */,
+				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
 				B727D58528B8925400773A12 /* UIViewController+Extension.swift in Sources */,
 				B727D53928B70A8500773A12 /* ViewController.swift in Sources */,
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,

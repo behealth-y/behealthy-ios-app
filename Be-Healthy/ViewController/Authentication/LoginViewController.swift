@@ -37,7 +37,19 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
+        setupLayout()
+    }
+     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setNeedsStatusBarAppearanceUpdate()
+    }
+}
+
+// MARK: - 레이아웃 설정 관련
+extension LoginViewController {
+    /// 레이아웃 설정
+    fileprivate func setupLayout() {
         self.view.addSubview(scrollView)
         
         // scrollView 위치 잡기
@@ -81,12 +93,7 @@ class LoginViewController: UIViewController {
         }
         
         // 아이디 / 비밀번호 폼 stackView 변수 초기화
-        let formStackView = UIStackView().then {
-            $0.spacing = 10
-            $0.alignment = .center
-            $0.distribution = .fillEqually
-            $0.axis = .vertical
-        }
+        let formStackView = generateFormStackView()
         
         contentView.addSubview(formStackView)
         
@@ -97,53 +104,16 @@ class LoginViewController: UIViewController {
             $0.bottom.equalToSuperview().offset(18)
         }
         
-        // 아이디 / 비밀번호 textField 변수 초기화
-        let idTextField = BHTextField(placeholder: "이메일을 입력하세요.")
-        let pwTextField = BHTextField(placeholder: "비밀번호를 입력하세요.")
-        
-        [idTextField, pwTextField].forEach {
-            formStackView.addArrangedSubview($0)
-            $0.delegate = self
-            
-            // 아이디 / 비밀번호 textField 위치 잡기
-            $0.snp.makeConstraints {
-                $0.height.equalTo(60)
-                $0.horizontalEdges.equalToSuperview()
-            }
-        }
-        
-        // 회원가입 이동 stackView 변수 초기화
-        let registerStackView = UIStackView().then {
-            $0.spacing = 4
-            $0.distribution = .fill
-            $0.axis = .horizontal
-        }
+        // 회원가입 이동 안내 문구 stackView 변수 초기화
+        let registerStackView = generateRegisterStackView()
         
         contentView.addSubview(registerStackView)
         
         // 회원가입 이동 stackView 위치 잡기
         registerStackView.snp.makeConstraints {
-            $0.top.equalTo(pwTextField.snp.bottom).offset(10)
+            $0.top.equalTo(formStackView.snp.bottom).offset(10)
             $0.leading.equalToSuperview().offset(18)
         }
-        
-        // 회원가입 label 변수 초기화
-        let registerLabel = UILabel().then {
-            $0.text = "HEALTHY가 처음이신가요?"
-            $0.font = .systemFont(ofSize: 12.0)
-            $0.textColor = .darkGray
-        }
-        
-        // 회원가입 이동 버튼 변수 초기화
-        let registerButton = UIButton().then {
-            $0.setTitle("회원가입", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 12.0)
-            $0.addUnderLine()
-        }
-        
-        registerStackView.addArrangedSubview(registerLabel)
-        registerStackView.addArrangedSubview(registerButton)
         
         // 비밀번호 찾기 버튼 변수 초기화
         let passwordFindButton = UIButton().then {
@@ -161,29 +131,18 @@ class LoginViewController: UIViewController {
         }
         
         // 로그인 버튼 변수 초기화
-        let loginButton = UIButton().then {
-            $0.setTitle("로그인", for: .normal)
-            $0.setTitleColor(.white, for: .normal)
-            $0.backgroundColor = UIColor.init(named: "mainColor")
-            $0.titleLabel?.font = .systemFont(ofSize: 16.0)
-            $0.layer.cornerRadius = 5.0
-        }
+        let loginButton = BHSubmitButton(title: "로그인")
         
         contentView.addSubview(loginButton)
         
         // 로그인 버튼 위치 잡기
         loginButton.snp.makeConstraints {
-            $0.height.equalTo(55)
             $0.horizontalEdges.equalToSuperview().inset(18)
             $0.top.equalTo(registerStackView.snp.bottom).offset(10)
         }
         
         // SNS 로그인 stackView 변수 초기화
-        let snsLoginStackView = UIStackView().then {
-            $0.spacing = 13
-            $0.distribution = .fill
-            $0.axis = .vertical
-        }
+        let snsLoginStackView = generateSnsLoginStackView()
         
         contentView.addSubview(snsLoginStackView)
         
@@ -191,6 +150,74 @@ class LoginViewController: UIViewController {
         snsLoginStackView.snp.makeConstraints {
             $0.top.equalTo(loginButton.snp.bottom).offset(20)
             $0.horizontalEdges.equalToSuperview().inset(18)
+        }
+    }
+    
+    /// 이메일 / 비밀번호 폼 stackView 생성
+    /// - Returns: 이메일 / 비밀번호 폼 stackView
+    fileprivate func generateFormStackView() -> UIStackView {
+        let stackView = UIStackView().then {
+            $0.spacing = 10
+            $0.alignment = .center
+            $0.distribution = .fillEqually
+            $0.axis = .vertical
+        }
+        
+        // 아이디 / 비밀번호 textField 변수 초기화
+        let idTextField = BHTextField(placeholder: "이메일을 입력하세요.")
+        let pwTextField = BHTextField(placeholder: "비밀번호를 입력하세요.")
+        
+        [idTextField, pwTextField].forEach {
+            stackView.addArrangedSubview($0)
+            $0.delegate = self
+            
+            // 아이디 / 비밀번호 textField 위치 잡기
+            $0.snp.makeConstraints {
+                $0.horizontalEdges.equalToSuperview()
+            }
+        }
+        
+        return stackView
+    }
+    
+    /// 회원가입 이동 안내 문구 stackView 생성
+    /// - Returns: 회원가입 이동 안내 문구 stackView
+    fileprivate func generateRegisterStackView() -> UIStackView {
+        let stackView = UIStackView().then {
+            $0.spacing = 4
+            $0.distribution = .fill
+            $0.axis = .horizontal
+        }
+        
+        // 회원가입 label 변수 초기화
+        let registerLabel = UILabel().then {
+            $0.text = "HEALTHY가 처음이신가요?"
+            $0.font = .systemFont(ofSize: 12.0)
+            $0.textColor = .darkGray
+        }
+        
+        // 회원가입 이동 버튼 변수 초기화
+        let registerButton = UIButton().then {
+            $0.setTitle("회원가입", for: .normal)
+            $0.setTitleColor(.black, for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 12.0)
+            $0.addUnderLine()
+        }
+        
+        [registerLabel, registerButton].forEach {
+            stackView.addArrangedSubview($0)
+        }
+        
+        return stackView
+    }
+    
+    /// SNS 로그인 stackView 생성
+    /// - Returns: SNS 로그인 stackView
+    fileprivate func generateSnsLoginStackView() -> UIStackView {
+        let stackView = UIStackView().then {
+            $0.spacing = 13
+            $0.distribution = .fill
+            $0.axis = .vertical
         }
         
         // 카카오 로그인 버튼 이미지 설정
@@ -232,13 +259,10 @@ class LoginViewController: UIViewController {
             }
         }
         
-        snsLoginStackView.addArrangedSubview(kakaoButton)
-        snsLoginStackView.addArrangedSubview(appleButton)
-    }
-     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setNeedsStatusBarAppearanceUpdate()
+        stackView.addArrangedSubview(kakaoButton)
+        stackView.addArrangedSubview(appleButton)
+        
+        return stackView
     }
 }
 

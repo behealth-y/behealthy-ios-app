@@ -23,11 +23,17 @@ class BHTextField: UITextField {
         self.placeholder = placeholder
     }
     
+    /// 레이아웃 설정
     fileprivate func setupLayout() {
         self.layer.borderWidth = 0.5
         self.layer.borderColor = UIColor.black.cgColor
         self.font = .systemFont(ofSize: 14.0)
         self.textColor = .black
         self.addLeftPadding()
+        
+        // textField 높이
+        self.snp.makeConstraints {
+            $0.height.equalTo(60)
+        }
     }
 }
