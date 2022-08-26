@@ -22,6 +22,8 @@
 		B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D57A28B7701800773A12 /* UITextField+Extension.swift */; };
 		B727D57D28B7744200773A12 /* BHTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D57C28B7744200773A12 /* BHTextField.swift */; };
 		B727D57F28B8568300773A12 /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D57E28B8568300773A12 /* UIButton+Extension.swift */; };
+		B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58028B8628800773A12 /* UIColor+Extension.swift */; };
+		B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58228B88AAE00773A12 /* UIImage+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		B727D57A28B7701800773A12 /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		B727D57C28B7744200773A12 /* BHTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHTextField.swift; sourceTree = "<group>"; };
 		B727D57E28B8568300773A12 /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		B727D58028B8628800773A12 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		B727D58228B88AAE00773A12 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +159,8 @@
 			children = (
 				B727D57A28B7701800773A12 /* UITextField+Extension.swift */,
 				B727D57E28B8568300773A12 /* UIButton+Extension.swift */,
+				B727D58028B8628800773A12 /* UIColor+Extension.swift */,
+				B727D58228B88AAE00773A12 /* UIImage+Extension.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -340,9 +346,11 @@
 				B727D56F28B716FB00773A12 /* LoginViewController.swift in Sources */,
 				B727D53928B70A8500773A12 /* ViewController.swift in Sources */,
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,
+				B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */,
 				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
 				B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */,
 				B727D57F28B8568300773A12 /* UIButton+Extension.swift in Sources */,
+				B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
 			);
@@ -516,7 +524,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5U63B95JW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Be-Healthy/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Be Healthy";
@@ -547,7 +555,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5U63B95JW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Be-Healthy/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Be Healthy";

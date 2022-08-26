@@ -27,6 +27,7 @@ class BHTextField: UITextField {
         self.layer.borderWidth = 0.5
         self.layer.borderColor = UIColor.black.cgColor
         self.font = .systemFont(ofSize: 14.0)
+        self.textColor = .black
         self.addLeftPadding()
     }
 }

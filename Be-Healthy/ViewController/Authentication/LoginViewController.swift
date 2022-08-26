@@ -192,6 +192,48 @@ class LoginViewController: UIViewController {
             $0.top.equalTo(loginButton.snp.bottom).offset(20)
             $0.horizontalEdges.equalToSuperview().inset(18)
         }
+        
+        // 카카오 로그인 버튼 이미지 설정
+        var kakaoButtonConfig = UIButton.Configuration.filled()
+        kakaoButtonConfig.baseBackgroundColor = UIColor(hexFromString: "#FEE500")
+        kakaoButtonConfig.image = UIImage(named: "kakao-symbol")?.resizeImageTo(size: CGSize(width: 18, height: 18))
+        kakaoButtonConfig.imagePadding = 10
+        kakaoButtonConfig.imagePlacement = .leading
+        kakaoButtonConfig.baseForegroundColor = .red
+        
+        // 카카오 로그인 버튼
+        let kakaoButton = UIButton(configuration: kakaoButtonConfig).then {
+            $0.setTitle("카카오로 로그인", for: .normal)
+            $0.setTitleColor(.black, for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 16.0)
+            $0.layer.cornerRadius = 12.0
+            $0.contentMode = .scaleAspectFit
+        }
+        
+        // 애플 로그인 버튼 이미지 설정
+        var appleButtonConfig = UIButton.Configuration.filled()
+        appleButtonConfig.baseBackgroundColor = .black
+        appleButtonConfig.image = UIImage(systemName: "applelogo")
+        appleButtonConfig.imagePadding = 10
+        appleButtonConfig.imagePlacement = .leading
+        
+        // 애플로그인 버튼
+        let appleButton = UIButton(configuration: appleButtonConfig).then {
+            $0.setTitle("Apple로 로그인", for: .normal)
+            $0.setTitleColor(.white, for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 16.0)
+            $0.layer.cornerRadius = 12.0
+        }
+        
+        // 카카오 / 애플 로그인 버튼 위치 잡기
+        [kakaoButton, appleButton].forEach {
+            $0.snp.makeConstraints {
+                $0.height.equalTo(50)
+            }
+        }
+        
+        snsLoginStackView.addArrangedSubview(kakaoButton)
+        snsLoginStackView.addArrangedSubview(appleButton)
     }
      
     override func viewWillAppear(_ animated: Bool) {
