@@ -66,7 +66,7 @@ class LoginViewController: UIViewController {
         
         // 오류 메시지 label 변수 초기화
         let errorMsgLabel = UILabel().then {
-            $0.text = "아이디 또는 비밀번호를 다시 입력해주세요."
+            $0.text = "이메일 또는 비밀번호를 다시 입력해주세요."
             $0.font = .systemFont(ofSize: 12.0)
             $0.textColor = .systemRed
         }
@@ -98,8 +98,8 @@ class LoginViewController: UIViewController {
         }
         
         // 아이디 / 비밀번호 textField 변수 초기화
-        let idTextField = BHTextField()
-        let pwTextField = BHTextField()
+        let idTextField = BHTextField(placeholder: "이메일을 입력하세요.")
+        let pwTextField = BHTextField(placeholder: "비밀번호를 입력하세요.")
         
         [idTextField, pwTextField].forEach {
             formStackView.addArrangedSubview($0)

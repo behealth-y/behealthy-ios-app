@@ -18,11 +18,15 @@ class BHTextField: UITextField {
         super.init(coder: coder)
     }
     
+    convenience init(placeholder: String) {
+        self.init(frame: .zero)
+        self.placeholder = placeholder
+    }
+    
     fileprivate func setupLayout() {
         self.layer.borderWidth = 0.5
         self.layer.borderColor = UIColor.black.cgColor
         self.font = .systemFont(ofSize: 14.0)
-        self.placeholder = "아이디를 입력하세요."
         self.addLeftPadding()
     }
 }
