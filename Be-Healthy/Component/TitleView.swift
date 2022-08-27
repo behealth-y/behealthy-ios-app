@@ -10,6 +10,14 @@ import Then
 import SnapKit
 
 class TitleView: UIView {
+    var title: String? {
+        didSet {
+            titleLabel.text = title
+        }
+    }
+    
+    let titleLabel = UILabel()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
@@ -23,11 +31,8 @@ class TitleView: UIView {
     fileprivate func setupLayout() {
         self.backgroundColor = UIColor.init(named: "mainColor")
         
-        let titleLabel = UILabel().then {
-            $0.text = "로그인"
-            $0.textColor = .white
-            $0.font = .systemFont(ofSize: 35, weight: .bold)
-        }
+        titleLabel.textColor = .white
+        titleLabel.font = .systemFont(ofSize: 35, weight: .bold)
         
         self.addSubview(titleLabel)
         

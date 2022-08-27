@@ -11,16 +11,10 @@ import SnapKit
 
 class LoginViewController: BHAuthViewController {
     
-    /// scrollView 변수 초기화
-    lazy var scrollView = UIScrollView().then {
-        $0.showsVerticalScrollIndicator = false
-        $0.contentInsetAdjustmentBehavior = .never
-        $0.delegate = self
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        titleView.title = "로그인"
         view.backgroundColor = .white
         setupLayout()
     }

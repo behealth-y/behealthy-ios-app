@@ -12,6 +12,14 @@ class BHAuthViewController: UIViewController {
     // 스크롤 시 status Bar 변경하기 위해 사용하는 변수
     var isTitleView: Bool = true
     
+    
+    /// scrollView 변수 초기화
+    lazy var scrollView = UIScrollView().then {
+        $0.showsVerticalScrollIndicator = false
+        $0.contentInsetAdjustmentBehavior = .never
+        $0.delegate = self
+    }
+    
     /// titleView 변수 초기화
     let titleView = TitleView()
     
