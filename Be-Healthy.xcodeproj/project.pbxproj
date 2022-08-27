@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB8E28BA169C004AEEB2 /* RegisterViewController.swift */; };
+		B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */; };
+		B722FB9328BA16C2004AEEB2 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB9228BA16C2004AEEB2 /* PasswordResetViewController.swift */; };
 		B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53428B70A8500773A12 /* AppDelegate.swift */; };
 		B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53628B70A8500773A12 /* SceneDelegate.swift */; };
 		B727D53928B70A8500773A12 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53828B70A8500773A12 /* ViewController.swift */; };
@@ -46,6 +49,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B722FB8E28BA169C004AEEB2 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetAuthViewController.swift; sourceTree = "<group>"; };
+		B722FB9228BA16C2004AEEB2 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
 		B727D53128B70A8500773A12 /* Be-Healthy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Be-Healthy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B727D53428B70A8500773A12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B727D53628B70A8500773A12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -207,6 +213,9 @@
 			isa = PBXGroup;
 			children = (
 				B727D56E28B716FB00773A12 /* LoginViewController.swift */,
+				B722FB8E28BA169C004AEEB2 /* RegisterViewController.swift */,
+				B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */,
+				B722FB9228BA16C2004AEEB2 /* PasswordResetViewController.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -350,6 +359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B727D56F28B716FB00773A12 /* LoginViewController.swift in Sources */,
+				B722FB9328BA16C2004AEEB2 /* PasswordResetViewController.swift in Sources */,
 				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
 				B727D58528B8925400773A12 /* UIViewController+Extension.swift in Sources */,
 				B727D53928B70A8500773A12 /* ViewController.swift in Sources */,
@@ -358,7 +368,9 @@
 				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
 				B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */,
 				B727D57F28B8568300773A12 /* UIButton+Extension.swift in Sources */,
+				B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */,
 				B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */,
+				B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
 			);
