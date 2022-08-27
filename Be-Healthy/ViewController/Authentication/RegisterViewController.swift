@@ -14,17 +14,9 @@ class RegisterViewController: BHAuthViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.barStyle = .black
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .clear
-        
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.standardAppearance = appearance
-        
         view.backgroundColor = .white
+        
+        setupNavigationBar("회원가입")
         
         setKeyboardObserver()
         titleView.title = "회원가입"
@@ -107,13 +99,13 @@ extension RegisterViewController {
             $0.axis = .vertical
         }
         
-        // 아이디 / 비밀번호 textField 변수 초기화
-        let idStackView = generateTextFieldStackView("이메일", placeholder: "이메일 형식")
+        // 폼 textField StackView 변수 초기화
+        let emailStackView = generateTextFieldStackView("이메일", placeholder: "이메일 형식")
         let pwStackView = generateTextFieldStackView("비밀번호", placeholder: "영문, 숫자, 특수문자 조합 최소 8자")
         let pwCheckStackView = generateTextFieldStackView("비밀번호 확인", placeholder: "비밀번호 재입력")
         let nicknameStackView = generateTextFieldStackView("닉네임", placeholder: "국문, 영문 2~8글자")
         
-        [idStackView, pwStackView, pwCheckStackView, nicknameStackView].forEach {
+        [emailStackView, pwStackView, pwCheckStackView, nicknameStackView].forEach {
             stackView.addArrangedSubview($0)
             
             $0.snp.makeConstraints {
@@ -157,20 +149,6 @@ extension RegisterViewController {
     }
 }
 
-#if DEBUG
-
-import SwiftUI
-
-// OPTION + CMD + ENTER: 미리보기 화면 띄우기, OPTION + CMD + P: 미리보기 resume
-struct RegisterViewControllerPresentable: UIViewControllerRepresentable {
-    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
-    }
-    
-    func makeUIViewController(context: Context) -> some UIViewController {
-        RegisterViewController()
-    }
-}
-
 // MARK: - UITextFieldDelegate
 // 사용하는 textField에 delegate 설정 필요
 extension RegisterViewController: UITextFieldDelegate {
@@ -184,6 +162,20 @@ extension RegisterViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         
         return true
+    }
+}
+
+#if DEBUG
+
+import SwiftUI
+
+// OPTION + CMD + ENTER: 미리보기 화면 띄우기, OPTION + CMD + P: 미리보기 resume
+struct RegisterViewControllerPresentable: UIViewControllerRepresentable {
+    func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+    }
+    
+    func makeUIViewController(context: Context) -> some UIViewController {
+        RegisterViewController()
     }
 }
 

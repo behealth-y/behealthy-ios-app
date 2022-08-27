@@ -16,12 +16,10 @@ class LoginViewController: BHAuthViewController {
         
         view.backgroundColor = .white
         
-        navigationItem.title = "로그인"
-        navigationItem.titleView = UIView()
-        navigationController?.view.backgroundColor = .clear
-        navigationController?.navigationBar.barStyle = .black
+        setupNavigationBar("로그인")
         
         titleView.title = "로그인"
+        setKeyboardObserver()
         setupLayout()
     }
 }
@@ -100,6 +98,9 @@ extension LoginViewController {
             $0.setTitleColor(.darkGray, for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 12.0)
         }
+        
+        // 비밀번호 찾기 버튼 눌렀을 때 처리
+        passwordFindButton.addTarget(self, action: #selector(didTapPasswordResetButton), for: .touchUpInside)
         
         contentView.addSubview(passwordFindButton)
         
@@ -183,6 +184,8 @@ extension LoginViewController {
             $0.titleLabel?.font = .systemFont(ofSize: 12.0)
             $0.addUnderLine()
         }
+        
+        // 회원가입 버튼 눌렀을 때 처리
         registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
         
         [registerLabel, registerButton].forEach {
@@ -249,8 +252,14 @@ extension LoginViewController {
 
 // MARK: - Actions
 extension LoginViewController {
+    /// 회원가입 화면 이동
     @objc fileprivate func didTapRegisterButton(_ sender: Any) {
         navigationController?.pushViewController(RegisterViewController(), animated: true)
+    }
+    
+    /// 비밀번호 재설정_인증 화면 이동
+    @objc fileprivate func didTapPasswordResetButton(_ sender: Any) {
+        navigationController?.pushViewController(PasswordResetAuthViewController(), animated: true)
     }
 }
 

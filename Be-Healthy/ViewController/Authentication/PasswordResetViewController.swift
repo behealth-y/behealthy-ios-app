@@ -14,8 +14,12 @@ class PasswordResetViewController: BHAuthViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleView.title = "비밀번호 재설정"
         view.backgroundColor = .white
+        
+        setupNavigationBar("비밀번호 재설정")
+        
+        titleView.title = "비밀번호 재설정"
+        setKeyboardObserver()
         setupLayout()
     }
 }
@@ -49,6 +53,113 @@ extension PasswordResetViewController {
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(titleView.snp.width).multipliedBy(0.79 / 1.0)
         }
+        
+        let formStackView = generateFormStackView()
+        
+        contentView.addSubview(formStackView)
+        
+        formStackView.snp.makeConstraints {
+            $0.top.equalTo(titleView.snp.bottom).offset(18)
+            $0.horizontalEdges.equalToSuperview().inset(18)
+        }
+        
+        let passwordResetButton = BHSubmitButton(title: "설정 완료")
+        
+        contentView.addSubview(passwordResetButton)
+        
+        passwordResetButton.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(18)
+            $0.bottom.equalTo(scrollView.frameLayoutGuide).inset(18)
+            $0.bottom.equalToSuperview().inset(18)
+        }
+        
+        // 오류 메시지 label 변수 초기화
+        let errorMsgLabel = UILabel().then {
+            $0.text = "비밀번호를 다시 입력하세요."
+            $0.font = .systemFont(ofSize: 12.0)
+            $0.textColor = .systemRed
+        }
+        
+        contentView.addSubview(errorMsgLabel)
+        
+        // 오류 메시지 label 위치 잡기
+        errorMsgLabel.snp.makeConstraints {
+            $0.bottom.equalTo(passwordResetButton.snp.top).offset(-10)
+            $0.centerX.equalToSuperview()
+        }
+    }
+    
+    /// 비밀번호 재설정 폼 stackView 생성
+    /// - Returns: 비밀번호 재설정 폼 stackView
+    fileprivate func generateFormStackView() -> UIStackView {
+        let stackView = UIStackView().then {
+            $0.spacing = 12
+            $0.alignment = .center
+            $0.distribution = .fillEqually
+            $0.axis = .vertical
+        }
+        
+        // 폼 textField StackView 변수 초기화
+        let pwStackView = generateTextFieldStackView("비밀번호", placeholder: "영문, 숫자, 특수문자 조합 최소 8자")
+        let pwCheckStackView = generateTextFieldStackView("비밀번호 확인", placeholder: "비밀번호 재입력")
+        
+        [pwStackView, pwCheckStackView].forEach {
+            stackView.addArrangedSubview($0)
+            
+            $0.snp.makeConstraints {
+                $0.horizontalEdges.equalToSuperview()
+            }
+        }
+        
+        return stackView
+    }
+    
+    /// 비밀번호 재설정 폼 > 입력창 stackVeiw 생성
+    /// - Parameters:
+    ///   - label: textField Label
+    ///   - placeholder: textField placeholder
+    /// - Returns: 입력창 stackView
+    fileprivate func generateTextFieldStackView(_ label: String, placeholder: String) -> UIStackView {
+        let stackView = UIStackView().then {
+            $0.spacing = 7
+            $0.alignment = .center
+            $0.axis = .vertical
+            $0.distribution = .fill
+        }
+        
+        let label = UILabel().then {
+            $0.font = .systemFont(ofSize: 14)
+            $0.textColor = UIColor(hexFromString: "#2E2E2E")
+            $0.text = label
+        }
+        
+        let textField = BHTextField(placeholder: placeholder)
+        textField.delegate = self
+        
+        [label, textField].forEach {
+            stackView.addArrangedSubview($0)
+            $0.snp.makeConstraints {
+                $0.horizontalEdges.equalToSuperview()
+            }
+        }
+        
+        return stackView
+    }
+}
+
+// MARK: - UITextFieldDelegate
+// 사용하는 textField에 delegate 설정 필요
+extension PasswordResetViewController: UITextFieldDelegate {
+    // 화면 터치 시 키보드 내리기
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    // return 키 눌렀을 경우 키보드 내리기
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        
+        return true
     }
 }
 

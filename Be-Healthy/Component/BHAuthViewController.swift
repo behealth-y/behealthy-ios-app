@@ -36,6 +36,27 @@ class BHAuthViewController: UIViewController {
 //    }
 }
 
+// MARK: - 레이아웃 설정 관련
+extension BHAuthViewController {
+    /// 네비게이션 바 설정
+    func setupNavigationBar(_ title: String) {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .clear
+        appearance.shadowColor = .clear
+        
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.standardAppearance = appearance
+        
+        navigationItem.title = title
+        navigationItem.titleView = UIView()
+        
+        navigationController?.view.backgroundColor = .clear
+        
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.barStyle = .black
+    }
+}
 
 // MARK: - UIScrollViewDelegate
 extension BHAuthViewController: UIScrollViewDelegate {
