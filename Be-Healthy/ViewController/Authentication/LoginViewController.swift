@@ -17,9 +17,9 @@ class LoginViewController: BHAuthViewController {
         view.backgroundColor = .white
         
         setupNavigationBar("로그인")
+        setupScrollView()
         
         titleView.title = "로그인"
-        setKeyboardObserver()
         setupLayout()
     }
 }
@@ -266,11 +266,6 @@ extension LoginViewController {
 // MARK: - UITextFieldDelegate
 // 사용하는 textField에 delegate 설정 필요
 extension LoginViewController: UITextFieldDelegate {
-    // 화면 터치 시 키보드 내리기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-    
     // return 키 눌렀을 경우 키보드 내리기
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

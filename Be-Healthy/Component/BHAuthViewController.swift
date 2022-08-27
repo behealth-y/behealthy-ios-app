@@ -21,7 +21,7 @@ class BHAuthViewController: UIViewController {
     /// titleView 변수 초기화
     let titleView = TitleView()
     
-    /// status Bar 색상 설정
+    /// status Bar 색상 설정 (UINavigationController 아닐 때)
 //    override var preferredStatusBarStyle: UIStatusBarStyle {
 //        if isTitleView {
 //            return .lightContent
@@ -29,7 +29,7 @@ class BHAuthViewController: UIViewController {
 //            return .default
 //        }
 //    }
-//    
+//
 //    override func viewWillAppear(_ animated: Bool) {
 //        super.viewWillAppear(animated)
 //        setNeedsStatusBarAppearanceUpdate()
@@ -42,10 +42,12 @@ extension BHAuthViewController {
     func setupNavigationBar(_ title: String) {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .clear
         appearance.shadowColor = .clear
+        appearance.backgroundColor = .clear
         
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        
+        appearance.backgroundColor = UIColor.init(named: "mainColor")
         navigationController?.navigationBar.standardAppearance = appearance
         
         navigationItem.title = title
@@ -54,8 +56,52 @@ extension BHAuthViewController {
         navigationController?.view.backgroundColor = .clear
         
         navigationController?.navigationBar.tintColor = .white
-        navigationController?.navigationBar.barStyle = .black
+//        navigationController?.navigationBar.barStyle = .black
     }
+    
+    /// scrollView touchesBegan 호출 안되는 문제 해결
+    func setupScrollView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.isEnabled = true
+        tapGesture.cancelsTouchesInView = false
+        scrollView.addGestureRecognizer(tapGesture)
+    }
+}
+
+// MARK: - Actions
+extension BHAuthViewController {
+    /// 키보드 내리기
+    @objc func handleTapGesture(sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+}
+
+// MARK: - 키보드가 textField 가리는 문제 해결
+extension BHAuthViewController {
+    func setKeyboardObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    /// 키보드 나타날 때 키보드 높이만큼 스크롤
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.size.height, right: 0.0)
+        scrollView.contentInset = contentInset
+    }
+    
+    /// 키보드 숨길때 키보드 높이만큼 스크롤 되었던 거 복구
+    @objc func keyboardWillHide(notification: NSNotification) {
+       guard let userInfo = notification.userInfo,
+             let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+           return
+       }
+       scrollView.contentInset = .zero
+   }
 }
 
 // MARK: - UIScrollViewDelegate

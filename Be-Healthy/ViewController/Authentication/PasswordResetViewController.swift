@@ -17,9 +17,10 @@ class PasswordResetViewController: BHAuthViewController {
         view.backgroundColor = .white
         
         setupNavigationBar("비밀번호 재설정")
+        setupScrollView()
         
-        titleView.title = "비밀번호 재설정"
         setKeyboardObserver()
+        titleView.title = "비밀번호 재설정"
         setupLayout()
     }
 }
@@ -150,11 +151,6 @@ extension PasswordResetViewController {
 // MARK: - UITextFieldDelegate
 // 사용하는 textField에 delegate 설정 필요
 extension PasswordResetViewController: UITextFieldDelegate {
-    // 화면 터치 시 키보드 내리기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-    
     // return 키 눌렀을 경우 키보드 내리기
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
