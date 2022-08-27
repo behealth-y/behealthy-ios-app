@@ -14,8 +14,14 @@ class LoginViewController: BHAuthViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titleView.title = "로그인"
         view.backgroundColor = .white
+        
+        navigationItem.title = "로그인"
+        navigationItem.titleView = UIView()
+        navigationController?.view.backgroundColor = .clear
+        navigationController?.navigationBar.barStyle = .black
+        
+        titleView.title = "로그인"
         setupLayout()
     }
 }
@@ -75,7 +81,6 @@ extension LoginViewController {
         formStackView.snp.makeConstraints {
             $0.top.equalTo(errorMsgLabel.snp.bottom).offset(10)
             $0.horizontalEdges.equalToSuperview().inset(18)
-            $0.bottom.equalToSuperview().offset(18)
         }
         
         // 회원가입 이동 안내 문구 stackView 변수 초기화
@@ -123,6 +128,7 @@ extension LoginViewController {
         // SNS 로그인 stackView 변수 초기화
         snsLoginStackView.snp.makeConstraints {
             $0.top.equalTo(loginButton.snp.bottom).offset(20)
+            $0.bottom.equalToSuperview()
             $0.horizontalEdges.equalToSuperview().inset(18)
         }
     }
@@ -177,6 +183,7 @@ extension LoginViewController {
             $0.titleLabel?.font = .systemFont(ofSize: 12.0)
             $0.addUnderLine()
         }
+        registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
         
         [registerLabel, registerButton].forEach {
             stackView.addArrangedSubview($0)
@@ -237,6 +244,13 @@ extension LoginViewController {
         stackView.addArrangedSubview(appleButton)
         
         return stackView
+    }
+}
+
+// MARK: - Actions
+extension LoginViewController {
+    @objc fileprivate func didTapRegisterButton(_ sender: Any) {
+        navigationController?.pushViewController(RegisterViewController(), animated: true)
     }
 }
 

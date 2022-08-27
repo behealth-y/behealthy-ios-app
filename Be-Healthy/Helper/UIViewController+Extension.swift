@@ -20,8 +20,12 @@ extension UIViewController {
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardRectangle = keyboardFrame.cgRectValue
             let keyboardHeight = keyboardRectangle.height
+            let titleViewHeight = self.view.frame.width / 1.79
             UIView.animate(withDuration: 1) {
-                self.view.window?.frame.origin.y -= keyboardHeight
+                guard let yPos = self.view.window?.frame.origin.y else { return }
+                if yPos >= 0 {
+                    self.view.window?.frame.origin.y -= titleViewHeight
+                }
             }
         }
     }
@@ -30,11 +34,12 @@ extension UIViewController {
     @objc func keyboardWillHide(notification: NSNotification) {
        if self.view.window?.frame.origin.y != 0 {
            if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
-                   let keyboardRectangle = keyboardFrame.cgRectValue
-                   let keyboardHeight = keyboardRectangle.height
-               UIView.animate(withDuration: 1) {
-                   self.view.window?.frame.origin.y += keyboardHeight
-               }
+                    let keyboardRectangle = keyboardFrame.cgRectValue
+                    let keyboardHeight = keyboardRectangle.height
+                    let titleViewHeight = self.view.frame.width / 1.79
+                    UIView.animate(withDuration: 1) {
+                        self.view.window?.frame.origin.y += titleViewHeight
+                    }
            }
        }
    }
