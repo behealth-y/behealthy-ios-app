@@ -105,7 +105,7 @@ extension RegisterViewController {
         }
         
         // 폼 textField StackView 변수 초기화
-        let emailStackView = generateTextFieldStackView("이메일", placeholder: "이메일 형식")
+        let emailStackView = generateTextFieldStackView("이메일", placeholder: "이메일 형식", keyboardType: .emailAddress)
         let pwStackView = generateTextFieldStackView("비밀번호", placeholder: "영문, 숫자, 특수문자 조합 최소 8자", secure: true)
         let pwCheckStackView = generateTextFieldStackView("비밀번호 확인", placeholder: "비밀번호 재입력", secure: true)
         let nicknameStackView = generateTextFieldStackView("닉네임", placeholder: "국문, 영문 2~8글자")
@@ -126,7 +126,7 @@ extension RegisterViewController {
     ///   - label: textField Label
     ///   - placeholder: textField placeholder
     /// - Returns: 입력창 stackView
-    fileprivate func generateTextFieldStackView(_ label: String, placeholder: String, secure: Bool = false) -> UIStackView {
+    fileprivate func generateTextFieldStackView(_ label: String, placeholder: String, keyboardType: UIKeyboardType = .default, secure: Bool = false) -> UIStackView {
         let stackView = UIStackView().then {
             $0.spacing = 7
             $0.alignment = .center
@@ -140,7 +140,7 @@ extension RegisterViewController {
             $0.text = label
         }
         
-        let textField = BHTextField(placeholder: placeholder, secure: secure)
+        let textField = BHTextField(placeholder: placeholder, keyboardType: keyboardType, secure: secure)
         textField.delegate = self
         
         textFields.append(textField)

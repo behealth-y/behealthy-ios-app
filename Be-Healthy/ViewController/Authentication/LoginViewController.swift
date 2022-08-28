@@ -70,12 +70,12 @@ extension LoginViewController {
             $0.trailing.greaterThanOrEqualToSuperview().offset(18)
         }
         
-        // 아이디 / 비밀번호 폼 stackView 변수 초기화
+        // 이메일 / 비밀번호 폼 stackView 변수 초기화
         let formStackView = generateFormStackView()
         
         contentView.addSubview(formStackView)
         
-        // 아이디 / 비밀번호 폼 위치 잡기
+        // 이메일 / 비밀번호 폼 위치 잡기
         formStackView.snp.makeConstraints {
             $0.top.equalTo(errorMsgLabel.snp.bottom).offset(10)
             $0.horizontalEdges.equalToSuperview().inset(18)
@@ -144,15 +144,15 @@ extension LoginViewController {
             $0.axis = .vertical
         }
         
-        // 아이디 / 비밀번호 textField 변수 초기화
-        let idTextField = BHTextField(placeholder: "이메일을 입력하세요.")
+        // 이메일 / 비밀번호 textField 변수 초기화
+        let emailTextField = BHTextField(placeholder: "이메일을 입력하세요.", keyboardType: .emailAddress)
         let pwTextField = BHTextField(placeholder: "비밀번호를 입력하세요.", secure: true)
         
-        [idTextField, pwTextField].forEach {
+        [emailTextField, pwTextField].forEach {
             stackView.addArrangedSubview($0)
             $0.delegate = self
             
-            // 아이디 / 비밀번호 textField 위치 잡기
+            // 이메일 / 비밀번호 textField 위치 잡기
             $0.snp.makeConstraints {
                 $0.horizontalEdges.equalToSuperview()
             }

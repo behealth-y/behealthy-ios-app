@@ -18,9 +18,10 @@ class BHTextField: UITextField {
         super.init(coder: coder)
     }
     
-    convenience init(placeholder: String, secure: Bool = false) {
+    convenience init(placeholder: String, keyboardType: UIKeyboardType = .default, secure: Bool = false) {
         self.init(frame: .zero)
         self.placeholder = placeholder
+        self.keyboardType = keyboardType
         self.isSecureTextEntry = secure
     }
     

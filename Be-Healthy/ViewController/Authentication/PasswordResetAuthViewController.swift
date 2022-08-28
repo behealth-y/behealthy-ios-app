@@ -108,8 +108,8 @@ extension PasswordResetAuthViewController {
         }
         
         // 폼 textField StackView 변수 초기화
-        let emailStackView = generateTextFieldStackView("이메일 주소", placeholder: "이용 중이신 이메일 주소를 입력하세요.")
-        let certNumberStackView = generateTextFieldStackView("인증번호 입력", placeholder: "인증번호를 입력하세요.")
+        let emailStackView = generateTextFieldStackView("이메일 주소", placeholder: "이용 중이신 이메일 주소를 입력하세요.", keyboardType: .emailAddress)
+        let certNumberStackView = generateTextFieldStackView("인증번호 입력", placeholder: "인증번호를 입력하세요.", keyboardType: .numberPad)
         
         // 인증번호 요청 버튼 변수 초기화
         let certNumberButton = BHSubmitButton(title: "인증번호 요청")
@@ -131,7 +131,7 @@ extension PasswordResetAuthViewController {
     ///   - label: textField Label
     ///   - placeholder: textField placeholder
     /// - Returns: 입력창 stackView
-    fileprivate func generateTextFieldStackView(_ label: String, placeholder: String) -> UIStackView {
+    fileprivate func generateTextFieldStackView(_ label: String, placeholder: String, keyboardType: UIKeyboardType = .default) -> UIStackView {
         let stackView = UIStackView().then {
             $0.spacing = 7
             $0.alignment = .center
@@ -145,7 +145,7 @@ extension PasswordResetAuthViewController {
             $0.text = label
         }
         
-        let textField = BHTextField(placeholder: placeholder)
+        let textField = BHTextField(placeholder: placeholder, keyboardType: keyboardType)
         textField.delegate = self
         
         textFields.append(textField)
