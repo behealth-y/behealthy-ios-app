@@ -167,7 +167,7 @@ extension RegisterViewController: UITextFieldDelegate {
     }
     
     // textField 채워지면 회원가입 버튼 활성화 되도록
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         registerButton.isEnabled = true
         
         textFields.forEach {

@@ -180,7 +180,7 @@ extension PasswordResetAuthViewController: UITextFieldDelegate {
     }
     
     // textField 채워지면 비밀번호 재설정 버튼 활성화 되도록
-    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         passwordResetButton.isEnabled = true
         
         textFields.forEach {
