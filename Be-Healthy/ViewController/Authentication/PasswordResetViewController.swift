@@ -138,7 +138,7 @@ extension PasswordResetViewController {
             $0.text = label
         }
         
-        let textField = BHTextField(placeholder: placeholder)
+        let textField = BHTextField(placeholder: placeholder, secure: true)
         textField.delegate = self
         
         textFields.append(textField)

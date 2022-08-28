@@ -18,9 +18,10 @@ class BHTextField: UITextField {
         super.init(coder: coder)
     }
     
-    convenience init(placeholder: String) {
+    convenience init(placeholder: String, secure: Bool = false) {
         self.init(frame: .zero)
         self.placeholder = placeholder
+        self.isSecureTextEntry = secure
     }
     
     /// 레이아웃 설정
@@ -29,6 +30,9 @@ class BHTextField: UITextField {
         self.layer.borderColor = UIColor.black.cgColor
         self.font = .systemFont(ofSize: 14.0)
         self.textColor = .black
+        self.autocapitalizationType = .none
+        self.autocorrectionType = .no
+        
         self.addLeftPadding()
         
         // textField 높이

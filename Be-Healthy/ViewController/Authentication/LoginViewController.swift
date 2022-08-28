@@ -146,7 +146,7 @@ extension LoginViewController {
         
         // 아이디 / 비밀번호 textField 변수 초기화
         let idTextField = BHTextField(placeholder: "이메일을 입력하세요.")
-        let pwTextField = BHTextField(placeholder: "비밀번호를 입력하세요.")
+        let pwTextField = BHTextField(placeholder: "비밀번호를 입력하세요.", secure: true)
         
         [idTextField, pwTextField].forEach {
             stackView.addArrangedSubview($0)
