@@ -11,6 +11,10 @@ import Then
 
 class PasswordResetAuthViewController: BHAuthViewController {
     
+    lazy var passwordResetButton = BHSubmitButton(title: "비밀번호 재설정")
+    
+    var textFields: [BHTextField] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,7 +68,7 @@ extension PasswordResetAuthViewController {
             $0.horizontalEdges.equalToSuperview().inset(18)
         }
         
-        let passwordResetButton = BHSubmitButton(title: "비밀번호 재설정")
+        passwordResetButton.isEnabled = false
         
         // 비밀번호 재설정 버튼 눌렀을 때 처리
         passwordResetButton.addTarget(self, action: #selector(didTapPasswordResetButton), for: .touchUpInside)
@@ -144,6 +148,8 @@ extension PasswordResetAuthViewController {
         let textField = BHTextField(placeholder: placeholder)
         textField.delegate = self
         
+        textFields.append(textField)
+        
         [label, textField].forEach {
             stackView.addArrangedSubview($0)
             $0.snp.makeConstraints {
@@ -171,6 +177,17 @@ extension PasswordResetAuthViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         
         return true
+    }
+    
+    // textField 채워지면 비밀번호 재설정 버튼 활성화 되도록
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        passwordResetButton.isEnabled = true
+        
+        textFields.forEach {
+            if $0.text?.isEmpty ?? false {
+                passwordResetButton.isEnabled = false
+            }
+        }
     }
 }
 

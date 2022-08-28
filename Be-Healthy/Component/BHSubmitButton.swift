@@ -23,6 +23,16 @@ class BHSubmitButton: UIButton {
         self.setTitle(title, for: .normal)
     }
     
+    override var isEnabled: Bool {
+        didSet {
+            if isEnabled {
+                self.backgroundColor = UIColor.init(named: "mainColor")
+            } else {
+                self.backgroundColor = UIColor.init(hexFromString: "#A9A9A9")
+            }
+        }
+    }
+    
     /// 레이아웃 설정
     fileprivate func setupLayout() {
         self.setTitleColor(.white, for: .normal)

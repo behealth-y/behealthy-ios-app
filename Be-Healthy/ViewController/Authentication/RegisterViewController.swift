@@ -11,6 +11,10 @@ import Then
 
 class RegisterViewController: BHAuthViewController {
     
+    lazy var registerButton = BHSubmitButton(title: "회원가입")
+    
+    var textFields: [BHTextField] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +83,7 @@ extension RegisterViewController {
             $0.centerX.equalToSuperview()
         }
         
-        let registerButton = BHSubmitButton(title: "회원가입")
+        registerButton.isEnabled = false
         
         contentView.addSubview(registerButton)
         
@@ -139,6 +143,8 @@ extension RegisterViewController {
         let textField = BHTextField(placeholder: placeholder)
         textField.delegate = self
         
+        textFields.append(textField)
+        
         [label, textField].forEach {
             stackView.addArrangedSubview($0)
             $0.snp.makeConstraints {
@@ -158,6 +164,17 @@ extension RegisterViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         
         return true
+    }
+    
+    // textField 채워지면 회원가입 버튼 활성화 되도록
+    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextField.DidEndEditingReason) {
+        registerButton.isEnabled = true
+        
+        textFields.forEach {
+            if $0.text?.isEmpty ?? false {
+                registerButton.isEnabled = false
+            }
+        }
     }
 }
 
