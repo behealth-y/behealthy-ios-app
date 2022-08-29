@@ -13,7 +13,7 @@
 		B722FB9528BA19DD004AEEB2 /* BHAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB9428BA19DD004AEEB2 /* BHAuthViewController.swift */; };
 		B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53428B70A8500773A12 /* AppDelegate.swift */; };
 		B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53628B70A8500773A12 /* SceneDelegate.swift */; };
-		B727D53928B70A8500773A12 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53828B70A8500773A12 /* ViewController.swift */; };
+		B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53828B70A8500773A12 /* HomeViewController.swift */; };
 		B727D53E28B70A8600773A12 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B727D53D28B70A8600773A12 /* Assets.xcassets */; };
 		B727D54128B70A8600773A12 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B727D53F28B70A8600773A12 /* LaunchScreen.storyboard */; };
 		B727D54C28B70A8600773A12 /* Be_HealthyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D54B28B70A8600773A12 /* Be_HealthyTests.swift */; };
@@ -30,6 +30,7 @@
 		B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58228B88AAE00773A12 /* UIImage+Extension.swift */; };
 		B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58628B89CA100773A12 /* BHSubmitButton.swift */; };
 		B792954628BC6447007D6045 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954528BC6447007D6045 /* ToastView.swift */; };
+		B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954728BCA33D007D6045 /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,7 +58,7 @@
 		B727D53128B70A8500773A12 /* Be-Healthy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Be-Healthy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B727D53428B70A8500773A12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B727D53628B70A8500773A12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		B727D53828B70A8500773A12 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B727D53828B70A8500773A12 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B727D53D28B70A8600773A12 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B727D54028B70A8600773A12 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B727D54228B70A8600773A12 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,6 +76,7 @@
 		B727D58228B88AAE00773A12 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		B727D58628B89CA100773A12 /* BHSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHSubmitButton.swift; sourceTree = "<group>"; };
 		B792954528BC6447007D6045 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		B792954728BCA33D007D6045 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,8 +208,9 @@
 		B727D56B28B716BD00773A12 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B792954928BCA344007D6045 /* Layout */,
 				B727D56C28B716CD00773A12 /* Authentication */,
-				B727D53828B70A8500773A12 /* ViewController.swift */,
+				B727D53828B70A8500773A12 /* HomeViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -221,6 +224,14 @@
 				B722FB9228BA16C2004AEEB2 /* PasswordResetViewController.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		B792954928BCA344007D6045 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				B792954728BCA33D007D6045 /* TabBarViewController.swift */,
+			);
+			path = Layout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -366,10 +377,11 @@
 				B727D56F28B716FB00773A12 /* LoginViewController.swift in Sources */,
 				B722FB9328BA16C2004AEEB2 /* PasswordResetViewController.swift in Sources */,
 				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
-				B727D53928B70A8500773A12 /* ViewController.swift in Sources */,
+				B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */,
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,
 				B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */,
 				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
+				B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */,
 				B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */,
 				B727D57F28B8568300773A12 /* UIButton+Extension.swift in Sources */,
 				B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */,

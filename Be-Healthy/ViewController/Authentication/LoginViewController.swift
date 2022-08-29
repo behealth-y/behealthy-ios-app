@@ -113,6 +113,9 @@ extension LoginViewController {
         // 로그인 버튼 변수 초기화
         let loginButton = BHSubmitButton(title: "로그인")
         
+        // 로그인 버튼 눌렀을 때 처리
+        loginButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
+        
         contentView.addSubview(loginButton)
         
         // 로그인 버튼 위치 잡기
@@ -260,6 +263,11 @@ extension LoginViewController {
     /// 비밀번호 재설정_인증 화면 이동
     @objc fileprivate func didTapPasswordResetButton(_ sender: Any) {
         navigationController?.pushViewController(PasswordResetAuthViewController(), animated: true)
+    }
+    
+    /// 루트 뷰 컨트롤러 변경
+    @objc fileprivate func didTapLoginButton(_ sender: Any) {
+        self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
     }
 }
 

@@ -162,7 +162,7 @@ extension RegisterViewController {
 // MARK: - Actions
 extension RegisterViewController {
     // 회원가입 처리
-    @objc func didTapRegisterButton(_ sender: Any) {
+    @objc fileprivate func didTapRegisterButton(_ sender: Any) {
         showToast(msg: "회원가입이 완료되었습니다.\n이제 Healthy와 함께 건강해질 준비 되셨나요?")
     }
 }
