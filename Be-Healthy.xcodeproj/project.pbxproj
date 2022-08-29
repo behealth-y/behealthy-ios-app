@@ -29,6 +29,7 @@
 		B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58028B8628800773A12 /* UIColor+Extension.swift */; };
 		B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58228B88AAE00773A12 /* UIImage+Extension.swift */; };
 		B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58628B89CA100773A12 /* BHSubmitButton.swift */; };
+		B792954628BC6447007D6045 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954528BC6447007D6045 /* ToastView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		B727D58028B8628800773A12 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B727D58228B88AAE00773A12 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		B727D58628B89CA100773A12 /* BHSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHSubmitButton.swift; sourceTree = "<group>"; };
+		B792954528BC6447007D6045 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +184,7 @@
 				B727D57C28B7744200773A12 /* BHTextField.swift */,
 				B727D58628B89CA100773A12 /* BHSubmitButton.swift */,
 				B722FB9428BA19DD004AEEB2 /* BHAuthViewController.swift */,
+				B792954528BC6447007D6045 /* ToastView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -358,6 +361,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B792954628BC6447007D6045 /* ToastView.swift in Sources */,
 				B722FB9528BA19DD004AEEB2 /* BHAuthViewController.swift in Sources */,
 				B727D56F28B716FB00773A12 /* LoginViewController.swift in Sources */,
 				B722FB9328BA16C2004AEEB2 /* PasswordResetViewController.swift in Sources */,

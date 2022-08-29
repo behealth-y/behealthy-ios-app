@@ -85,6 +85,9 @@ extension RegisterViewController {
         
         registerButton.isEnabled = false
         
+        // 회원가입 버튼 눌렀을 때 처리
+        registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
+        
         contentView.addSubview(registerButton)
         
         registerButton.snp.makeConstraints {
@@ -153,6 +156,14 @@ extension RegisterViewController {
         }
         
         return stackView
+    }
+}
+
+// MARK: - Actions
+extension RegisterViewController {
+    // 회원가입 처리
+    @objc func didTapRegisterButton(_ sender: Any) {
+        showToast(msg: "회원가입이 완료되었습니다.\n이제 Healthy와 함께 건강해질 준비 되셨나요?")
     }
 }
 
