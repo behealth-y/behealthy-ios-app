@@ -13,13 +13,33 @@ class TabBarViewController: UITabBarController {
         tabBar.unselectedItemTintColor = UIColor.init(named: "mainColor")
         
         let firstNav = UINavigationController.init(rootViewController: HomeViewController())
+        let secondNav = UINavigationController.init(rootViewController: HomeViewController())
+        let thirdNav = UINavigationController.init(rootViewController: HomeViewController())
+        let fourthNav = UINavigationController.init(rootViewController: HomeViewController())
+        let fifthNav = UINavigationController.init(rootViewController: HomeViewController())
         
-        self.viewControllers = [firstNav]
+        self.viewControllers = [firstNav, secondNav, thirdNav, fourthNav, fifthNav]
         
-        let firstTabBarItem = UITabBarItem(title: "홈", image: UIImage(systemName: "house"), tag: 0)
+        let firstTabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "house"), tag: 0)
         firstTabBarItem.selectedImage = UIImage(systemName: "house.fill")
         
+        let secondTabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "calendar.circle"), tag: 1)
+        secondTabBarItem.selectedImage = UIImage(systemName: "calendar.circle.fill")
+        
+        let thirdTabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "plus.circle"), tag: 2)
+        thirdTabBarItem.selectedImage = UIImage(systemName: "plus.circle.fill")
+        
+        let fourthTabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "person.2"), tag: 3)
+        fourthTabBarItem.selectedImage = UIImage(systemName: "person.2.fill")
+        
+        let fifthTabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "person.circle"), tag: 4)
+        fifthTabBarItem.selectedImage = UIImage(systemName: "person.circle.fill")
+        
         firstNav.tabBarItem = firstTabBarItem
+        secondNav.tabBarItem = secondTabBarItem
+        thirdNav.tabBarItem = thirdTabBarItem
+        fourthNav.tabBarItem = fourthTabBarItem
+        fifthNav.tabBarItem = fifthTabBarItem
     }
 }
 
