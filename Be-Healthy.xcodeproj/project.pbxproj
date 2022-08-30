@@ -183,10 +183,10 @@
 			isa = PBXGroup;
 			children = (
 				B727D57628B75EF900773A12 /* TitleView.swift */,
+				B792954528BC6447007D6045 /* ToastView.swift */,
 				B727D57C28B7744200773A12 /* BHTextField.swift */,
 				B727D58628B89CA100773A12 /* BHSubmitButton.swift */,
 				B722FB9428BA19DD004AEEB2 /* BHAuthViewController.swift */,
-				B792954528BC6447007D6045 /* ToastView.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";

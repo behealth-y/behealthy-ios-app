@@ -8,38 +8,51 @@
 import UIKit
 
 class TabBarViewController: UITabBarController {
+    var index = 0
+    
     override func viewDidLoad() {
         tabBar.tintColor = UIColor.init(named: "mainColor")
         tabBar.unselectedItemTintColor = UIColor.init(named: "mainColor")
+        tabBar.backgroundColor = .white
         
+        setupLayout()
+    }
+    
+    func setupLayout() {
         let firstNav = UINavigationController.init(rootViewController: HomeViewController())
         let secondNav = UINavigationController.init(rootViewController: HomeViewController())
-        let thirdNav = UINavigationController.init(rootViewController: HomeViewController())
+        let thirdNav = UINavigationController.init(rootViewController: UIViewController())
         let fourthNav = UINavigationController.init(rootViewController: HomeViewController())
         let fifthNav = UINavigationController.init(rootViewController: HomeViewController())
         
         self.viewControllers = [firstNav, secondNav, thirdNav, fourthNav, fifthNav]
         
-        let firstTabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "house"), tag: 0)
-        firstTabBarItem.selectedImage = UIImage(systemName: "house.fill")
-        
-        let secondTabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "calendar.circle"), tag: 1)
-        secondTabBarItem.selectedImage = UIImage(systemName: "calendar.circle.fill")
-        
-        let thirdTabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "plus.circle"), tag: 2)
-        thirdTabBarItem.selectedImage = UIImage(systemName: "plus.circle.fill")
-        
-        let fourthTabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "person.2"), tag: 3)
-        fourthTabBarItem.selectedImage = UIImage(systemName: "person.2.fill")
-        
-        let fifthTabBarItem = UITabBarItem(title: "", image: UIImage(systemName: "person.circle"), tag: 4)
-        fifthTabBarItem.selectedImage = UIImage(systemName: "person.circle.fill")
+        let firstTabBarItem = UITabBarItem(title: "", image: UIImage(named: "home"), tag: 0)
+        let secondTabBarItem = UITabBarItem(title: "", image: UIImage(named: "calendar"), tag: 1)
+        let fourthTabBarItem = UITabBarItem(title: "", image: UIImage(named: "community"), tag: 3)
+        let fifthTabBarItem = UITabBarItem(title: "", image: UIImage(named: "mypage"), tag: 4)
         
         firstNav.tabBarItem = firstTabBarItem
         secondNav.tabBarItem = secondTabBarItem
-        thirdNav.tabBarItem = thirdTabBarItem
         fourthNav.tabBarItem = fourthTabBarItem
         fifthNav.tabBarItem = fifthTabBarItem
+        
+        setupMiddleButton()
+    }
+    
+    func setupMiddleButton() {
+        let middleButton = UIButton(frame: CGRect(x: (self.view.bounds.width / 2) - 35, y: -10, width: 75, height: 75))
+        
+        middleButton.setBackgroundImage(UIImage(named: "add"), for: .normal)
+        
+        self.tabBar.addSubview(middleButton)
+        middleButton.addTarget(self, action: #selector(menuButtonAction), for: .touchUpInside)
+        
+        self.view.layoutIfNeeded()
+    }
+    
+    @objc func menuButtonAction(sender: UIButton) {
+
     }
 }
 
