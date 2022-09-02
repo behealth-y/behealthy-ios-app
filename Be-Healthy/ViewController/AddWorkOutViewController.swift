@@ -135,8 +135,8 @@ extension AddWorkOutViewController {
             $0.axis = .vertical
         }
         
-        // 폼 > 운동 종류 textField 변수 초기화
-        let typeTextField = UITextField().then {
+        // 폼 > textField 변수 초기화
+        let textField = UITextField().then {
             $0.font = .boldSystemFont(ofSize: 16)
             $0.placeholder = placeholder
             $0.autocapitalizationType = .none
@@ -144,10 +144,10 @@ extension AddWorkOutViewController {
             $0.delegate = self
         }
         
-        stackView.addArrangedSubview(typeTextField)
+        stackView.addArrangedSubview(textField)
         
-        // 폼 > 운동 종류 textField 위치 잡기
-        typeTextField.snp.makeConstraints {
+        // 폼 > textField 위치 잡기
+        textField.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
             $0.height.equalTo(30)
         }
