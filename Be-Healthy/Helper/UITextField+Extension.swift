@@ -21,4 +21,19 @@ extension UITextField {
         layer.addSublayer(bottomLine)
         layer.masksToBounds = true
     }
+    
+    func setDatePicker(target: Any, selector: Selector, isCount: Bool = false) {
+        let width = self.bounds.width
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = isCount ? .countDownTimer : .date
+        datePicker.preferredDatePickerStyle = .wheels
+        datePicker.locale = Locale(identifier: "ko_KR")
+        self.inputView = datePicker
+        
+        let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: width, height: 44))
+        let flexible = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let barButton = UIBarButtonItem(title: "확인", style: .plain, target: target, action: selector)
+        toolBar.setItems([flexible, barButton], animated: false)
+        self.inputAccessoryView = toolBar
+    }
 }

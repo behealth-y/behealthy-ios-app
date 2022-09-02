@@ -97,11 +97,11 @@ extension AddWorkOutViewController {
             $0.size.equalTo(80)
         }
         
-        let typeStackView = generateTextFieldStackView(placeholder: "어떤 운동을 하셨나요?")
-        let dateStackView = generateTextFieldStackView(placeholder: "언제 운동을 하셨나요?")
-        let timeStackView = generateTextFieldStackView(placeholder: "시간을 설정해주세요. :)")
-        let countStackView = generateTextFieldStackView(placeholder: "세트와 횟수를 설정해주세요. :)")
-        let contentStackView = generateTextFieldStackView(placeholder: "내용을 추가해주세요.")
+        let typeStackView = generateTextFieldStackView(placeholder: "어떤 운동을 하셨나요?", type: "text")
+        let dateStackView = generateTextFieldStackView(placeholder: "언제 운동을 하셨나요?", type: "date")
+        let timeStackView = generateTextFieldStackView(placeholder: "시간을 설정해주세요. :)", type: "time")
+        let countStackView = generateTextFieldStackView(placeholder: "세트와 횟수를 설정해주세요. :)", type: "text")
+        let contentStackView = generateTextFieldStackView(placeholder: "내용을 추가해주세요.", type: "content")
         
         [typeStackView, dateStackView, timeStackView, countStackView, contentStackView].forEach {
             stackView.addArrangedSubview($0)
@@ -127,7 +127,7 @@ extension AddWorkOutViewController {
     /// 입력칭 StackView 생성
     /// - Parameter placeholder: textField placeholder
     /// - Returns: 입력창 stackView
-    fileprivate func generateTextFieldStackView(placeholder: String) -> UIStackView {
+    fileprivate func generateTextFieldStackView(placeholder: String, type: String) -> UIStackView {
         let stackView = UIStackView().then {
             $0.spacing = 0
             $0.alignment = .center
@@ -142,6 +142,15 @@ extension AddWorkOutViewController {
             $0.autocapitalizationType = .none
             $0.autocorrectionType = .no
             $0.delegate = self
+        }
+        
+        switch type {
+        case "date":
+            textField.setDatePicker(target: self, selector: #selector(handleDatePicker))
+        case "time":
+            textField.setDatePicker(target: self, selector: #selector(handleDatePicker), isCount: true)
+        default:
+            break
         }
         
         stackView.addArrangedSubview(textField)
@@ -207,6 +216,13 @@ extension AddWorkOutViewController {
         }
         
         return stackView
+    }
+}
+
+// MARK: - Actions
+extension AddWorkOutViewController {
+    @objc func handleDatePicker() {
+        
     }
 }
 
