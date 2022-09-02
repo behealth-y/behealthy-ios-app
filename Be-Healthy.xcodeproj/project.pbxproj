@@ -29,6 +29,7 @@
 		B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58028B8628800773A12 /* UIColor+Extension.swift */; };
 		B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58228B88AAE00773A12 /* UIImage+Extension.swift */; };
 		B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58628B89CA100773A12 /* BHSubmitButton.swift */; };
+		B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */; };
 		B792954628BC6447007D6045 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954528BC6447007D6045 /* ToastView.swift */; };
 		B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954728BCA33D007D6045 /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -75,6 +76,7 @@
 		B727D58028B8628800773A12 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B727D58228B88AAE00773A12 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		B727D58628B89CA100773A12 /* BHSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHSubmitButton.swift; sourceTree = "<group>"; };
+		B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkOutViewController.swift; sourceTree = "<group>"; };
 		B792954528BC6447007D6045 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		B792954728BCA33D007D6045 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -211,6 +213,7 @@
 				B792954928BCA344007D6045 /* Layout */,
 				B727D56C28B716CD00773A12 /* Authentication */,
 				B727D53828B70A8500773A12 /* HomeViewController.swift */,
+				B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */,
 				B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
+				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -52,7 +52,9 @@ class TabBarViewController: UITabBarController {
     }
     
     @objc func menuButtonAction(sender: UIButton) {
-
+        let vc = AddWorkOutViewController()
+        vc.sheetPresentationController?.prefersGrabberVisible = true
+        self.present(vc, animated: true)
     }
 }
 
