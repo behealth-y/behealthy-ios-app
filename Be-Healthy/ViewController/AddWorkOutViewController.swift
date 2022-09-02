@@ -18,6 +18,7 @@ class AddWorkOutViewController: UIViewController {
         
         view.backgroundColor = .white
         
+        setKeyboardObserver()
         setupLayout()
     }
 }
@@ -47,6 +48,8 @@ extension AddWorkOutViewController {
         // 폼 > stackView 변수 초기화
         let stackView = generateFormStackView()
         
+        contentView.addSubview(stackView)
+        
         // 폼 > stackView 위치 잡기
         stackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(34)
@@ -70,7 +73,7 @@ extension AddWorkOutViewController {
     /// - Returns: 폼 stackView
     fileprivate func generateFormStackView() -> UIStackView {
         let stackView = UIStackView().then {
-            $0.spacing = 30
+            $0.spacing = 40
             $0.alignment = .center
             $0.distribution = .fill
             $0.axis = .vertical
@@ -79,7 +82,7 @@ extension AddWorkOutViewController {
         // 폼 > 이모지 선택 버튼 변수 초기화
         let emojiSelectButton = UIButton().then {
             $0.layer.borderColor = UIColor.init(named: "mainColor")?.cgColor
-            $0.layer.borderWidth = 0.5
+            $0.layer.borderWidth = 1
             $0.layer.cornerRadius = 40
             $0.clipsToBounds = true
             $0.titleLabel?.font = .systemFont(ofSize: 50)
@@ -94,11 +97,27 @@ extension AddWorkOutViewController {
             $0.size.equalTo(80)
         }
         
-        let textFieldStackView = generateTextFieldStackView(placeholder: "어떤 운동을 하셨나요?")
+        let typeStackView = generateTextFieldStackView(placeholder: "어떤 운동을 하셨나요?")
+        let dateStackView = generateTextFieldStackView(placeholder: "언제 운동을 하셨나요?")
+        let timeStackView = generateTextFieldStackView(placeholder: "시간을 설정해주세요. :)")
+        let countStackView = generateTextFieldStackView(placeholder: "세트와 횟수를 설정해주세요. :)")
+        let contentStackView = generateTextFieldStackView(placeholder: "내용을 추가해주세요.")
         
-        stackView.addArrangedSubview(textFieldStackView)
+        [typeStackView, dateStackView, timeStackView, countStackView, contentStackView].forEach {
+            stackView.addArrangedSubview($0)
+            
+            $0.snp.makeConstraints {
+                $0.horizontalEdges.equalToSuperview().inset(18)
+            }
+        }
         
-        textFieldStackView.snp.makeConstraints {
+        // 폼 > 운동 강도 선택 stackView 변수 초기화
+        let intensityStackView = generateIntensityStackView()
+        
+        stackView.addArrangedSubview(intensityStackView)
+        
+        // 폼 > 운동 강도 선택 stackView 위치 잡기
+        intensityStackView.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(18)
         }
         
@@ -107,7 +126,7 @@ extension AddWorkOutViewController {
     
     /// 입력칭 StackView 생성
     /// - Parameter placeholder: textField placeholder
-    /// - Returns: 입력칭 stackView
+    /// - Returns: 입력창 stackView
     fileprivate func generateTextFieldStackView(placeholder: String) -> UIStackView {
         let stackView = UIStackView().then {
             $0.spacing = 0
@@ -120,6 +139,9 @@ extension AddWorkOutViewController {
         let typeTextField = UITextField().then {
             $0.font = .boldSystemFont(ofSize: 16)
             $0.placeholder = placeholder
+            $0.autocapitalizationType = .none
+            $0.autocorrectionType = .no
+            $0.delegate = self
         }
         
         stackView.addArrangedSubview(typeTextField)
@@ -138,7 +160,50 @@ extension AddWorkOutViewController {
         
         bottomBorder.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(0.5)
+            $0.height.equalTo(1)
+        }
+        
+        return stackView
+    }
+    
+    /// 운동 강도 stackView 생성
+    /// - Returns: 운동강도 stackView
+    fileprivate func generateIntensityStackView() -> UIStackView {
+        let stackView = UIStackView().then {
+            $0.spacing = 15
+            $0.alignment = .leading
+            $0.distribution = .fill
+            $0.axis = .vertical
+        }
+        
+        let intensityTitleLabel = UILabel().then {
+            $0.text = "운동 강도를 선택해주세요"
+            $0.font = .boldSystemFont(ofSize: 14)
+        }
+        
+        stackView.addArrangedSubview(intensityTitleLabel)
+        
+        // 운동 강도 버튼 stackView 변수 초기화
+        let intensitySelectStackView = UIStackView().then {
+            $0.spacing = 10
+            $0.distribution = .fillEqually
+            $0.axis = .horizontal
+        }
+        
+        stackView.addArrangedSubview(intensitySelectStackView)
+        
+        intensitySelectStackView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview()
+        }
+        
+        // 운동 강도 버튼 변수 초기화
+        let intensityVeryHighButton = IntensityButton(title: "매우 힘듦")
+        let intensityHighButton = IntensityButton(title: "힘듦")
+        let intensityMidiumButton = IntensityButton(title: "적당함")
+        let intensityLowButton = IntensityButton(title: "할 만했음")
+        
+        [intensityVeryHighButton, intensityHighButton, intensityMidiumButton, intensityLowButton].forEach {
+            intensitySelectStackView.addArrangedSubview($0)
         }
         
         return stackView
@@ -159,6 +224,33 @@ extension AddWorkOutViewController: UITextFieldDelegate {
         
         return true
     }
+}
+
+// MARK: - 키보드가 textField 가리는 문제 해결
+extension AddWorkOutViewController {
+    func setKeyboardObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    /// 키보드 나타날 때 키보드 높이만큼 스크롤
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.size.height, right: 0.0)
+        scrollView.contentInset = contentInset
+    }
+    
+    /// 키보드 숨길때 키보드 높이만큼 스크롤 되었던 거 복구
+    @objc func keyboardWillHide(notification: NSNotification) {
+       guard let userInfo = notification.userInfo,
+             let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+           return
+       }
+       scrollView.contentInset = .zero
+   }
 }
 
 #if DEBUG
