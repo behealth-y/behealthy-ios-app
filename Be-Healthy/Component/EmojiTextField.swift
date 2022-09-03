@@ -30,10 +30,6 @@ extension EmojiTextField: UITextFieldDelegate {
         return false
     }
     
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return false
-    }
-    
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         return false
     }
