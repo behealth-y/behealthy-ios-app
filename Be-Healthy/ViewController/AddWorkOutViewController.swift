@@ -20,6 +20,7 @@ class AddWorkOutViewController: UIViewController {
         
         setKeyboardObserver()
         setupLayout()
+        setupScrollView()
     }
 }
 
@@ -73,7 +74,7 @@ extension AddWorkOutViewController {
     /// - Returns: 폼 stackView
     fileprivate func generateFormStackView() -> UIStackView {
         let stackView = UIStackView().then {
-            $0.spacing = 40
+            $0.spacing = 30
             $0.alignment = .center
             $0.distribution = .fill
             $0.axis = .vertical
@@ -101,9 +102,10 @@ extension AddWorkOutViewController {
         
         let typeStackView = generateTextFieldStackView(placeholder: "어떤 운동을 하셨나요?", type: "text")
         let dateStackView = generateTextFieldStackView(placeholder: "언제 운동을 하셨나요?", type: "date")
-        let timeStackView = generateTextFieldStackView(placeholder: "시간을 설정해주세요. :)", type: "time")
-        let countStackView = generateTextFieldStackView(placeholder: "세트와 횟수를 설정해주세요. :)", type: "text")
-        let contentStackView = generateTextFieldStackView(placeholder: "내용을 추가해주세요.", type: "content")
+        let timeStackView = generateTextFieldStackView(placeholder: "얼마나 운동을 하셨나요?", type: "time")
+        let countStackView = generateTextFieldStackView(placeholder: "운동 세트와 횟수를 알려주세요!", type: "text")
+//        let contentStackView = generateTextFieldStackView(placeholder: "내용을 추가해주세요.", type: "content")
+        let contentStackView = generateContentStackView()
         
         [typeStackView, dateStackView, timeStackView, countStackView, contentStackView].forEach {
             stackView.addArrangedSubview($0)
@@ -177,6 +179,51 @@ extension AddWorkOutViewController {
         return stackView
     }
     
+    /// 내용 추가 stackView 생성
+    /// - Returns: 내용 추가 stackView
+    fileprivate func generateContentStackView() -> UIStackView {
+        let stackView = UIStackView().then {
+            $0.spacing = 3
+            $0.alignment = .center
+            $0.distribution = .fill
+            $0.axis = .vertical
+        }
+        
+        // 내용 추가 textview 변수 초기화
+        let contentView = UITextView().then {
+            $0.text = "내용을 추가해주세요."
+            $0.textColor = .placeholderText
+            $0.font = .boldSystemFont(ofSize: 16)
+            $0.autocapitalizationType = .none
+            $0.autocorrectionType = .no
+            $0.showsHorizontalScrollIndicator = false
+            $0.delegate = self
+            $0.isScrollEnabled = false
+            $0.textContainer.lineFragmentPadding = .zero
+        }
+        
+        stackView.addArrangedSubview(contentView)
+        
+        // 내용 추가 textview 위치 잡기
+        contentView.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(30)
+        }
+        
+        let bottomBorder = UIView().then {
+            $0.backgroundColor = UIColor.init(named: "mainColor")
+        }
+        
+        stackView.addArrangedSubview(bottomBorder)
+        
+        bottomBorder.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview()
+            $0.height.equalTo(1)
+        }
+        
+        return stackView
+    }
+    
     /// 운동 강도 stackView 생성
     /// - Returns: 운동강도 stackView
     fileprivate func generateIntensityStackView() -> UIStackView {
@@ -188,8 +235,8 @@ extension AddWorkOutViewController {
         }
         
         let intensityTitleLabel = UILabel().then {
-            $0.text = "운동 강도를 선택해주세요"
-            $0.font = .boldSystemFont(ofSize: 14)
+            $0.text = "운동 강도를 선택해주세요."
+            $0.font = .boldSystemFont(ofSize: 16)
         }
         
         stackView.addArrangedSubview(intensityTitleLabel)
@@ -219,28 +266,68 @@ extension AddWorkOutViewController {
         
         return stackView
     }
+    
+    /// scrollView touchesBegan 호출 안되는 문제 해결
+    func setupScrollView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.isEnabled = true
+        tapGesture.cancelsTouchesInView = false
+        scrollView.addGestureRecognizer(tapGesture)
+    }
 }
 
 // MARK: - Actions
 extension AddWorkOutViewController {
+    /// 키보드 내리기
+    @objc func handleTapGesture(sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+    
+    /// datePicker 선택 시 이벤트 처리
     @objc func handleDatePicker() {
-        
+        self.view.endEditing(true)
     }
 }
 
 // MARK: - UITextFieldDelegate
 // 사용하는 textField에 delegate 설정 필요
 extension AddWorkOutViewController: UITextFieldDelegate {
-    // 화면 터치 시 키보드 내리기
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-    
     // return 키 눌렀을 경우 키보드 내리기
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
         return true
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension AddWorkOutViewController: UITextViewDelegate {
+    /// textview 높이 자동조절
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: textView.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+
+        textView.constraints.forEach { (constraint) in
+            if estimatedSize.height > 30 {
+                if constraint.firstAttribute == .height {
+                    constraint.constant = estimatedSize.height
+                }
+            }
+        }
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        guard textView.textColor == .placeholderText else { return }
+        textView.textColor = .label
+        textView.text = nil
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "내용을 추가해주세요."
+            textView.textColor = .placeholderText
+        }
     }
 }
 
@@ -257,7 +344,7 @@ extension AddWorkOutViewController {
               let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
             return
         }
-        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.size.height, right: 0.0)
+        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.size.height + 5, right: 0.0)
         scrollView.contentInset = contentInset
     }
     
