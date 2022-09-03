@@ -19,21 +19,26 @@ class IntensityButton: UIButton {
         super.init(coder: coder)
     }
     
-    convenience init(title: String) {
+    convenience init(title: String, tag: Int) {
         self.init(frame: .zero)
         self.setTitle(title, for: .normal)
+        self.tag = tag
     }
     
     /// 레이아웃 설정
     fileprivate func setupLayout() {
-        var config = UIButton.Configuration.plain()
-        config.buttonSize = .mini
+//        var config = UIButton.Configuration.tinted()
+//        config.buttonSize = .mini
+//        config.baseBackgroundColor = .clear
+//        config.baseForegroundColor = UIColor.init(named: "mainColor")
+//
+//        self.configuration = config
         
-        self.configuration = config
         self.setTitleColor(UIColor.init(named: "mainColor"), for: .normal)
-        self.titleLabel?.font = .boldSystemFont(ofSize: 11)
+        self.setTitleColor(.white, for: .selected)
+        self.titleLabel?.font = .boldSystemFont(ofSize: 12)
         self.layer.borderWidth = 0.5
         self.layer.borderColor = UIColor.init(named: "mainColor")?.cgColor
-        self.layer.cornerRadius = 10
+        self.layer.cornerRadius = 5
     }
 }

@@ -13,6 +13,17 @@ class AddWorkOutViewController: UIViewController {
     // scrollView 변수 초기화
     let scrollView = UIScrollView()
     
+    // 선택된 운동 강도 버튼의 tag
+    var intensity: Int = 0
+    
+    // 운동 강도 버튼 변수 초기화
+    lazy var intensityButtons: [IntensityButton] = [
+        IntensityButton(title: "Very Hard", tag: 0),
+        IntensityButton(title: "Hard", tag: 1),
+        IntensityButton(title: "Normal", tag: 2),
+        IntensityButton(title: "Easy", tag: 3)
+    ]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -254,14 +265,14 @@ extension AddWorkOutViewController {
             $0.horizontalEdges.equalToSuperview()
         }
         
-        // 운동 강도 버튼 변수 초기화
-        let intensityVeryHighButton = IntensityButton(title: "매우 힘듦")
-        let intensityHighButton = IntensityButton(title: "힘듦")
-        let intensityMidiumButton = IntensityButton(title: "적당함")
-        let intensityLowButton = IntensityButton(title: "할 만했음")
-        
-        [intensityVeryHighButton, intensityHighButton, intensityMidiumButton, intensityLowButton].forEach {
+        intensityButtons.forEach {
             intensitySelectStackView.addArrangedSubview($0)
+            $0.addTarget(self, action: #selector(didTapIntensityButton), for: .touchUpInside)
+            
+            if $0.tag == intensity {
+                $0.isSelected = true
+                $0.backgroundColor = UIColor(named: "mainColor")
+            }
         }
         
         return stackView
@@ -280,13 +291,29 @@ extension AddWorkOutViewController {
 // MARK: - Actions
 extension AddWorkOutViewController {
     /// 키보드 내리기
-    @objc func handleTapGesture(sender: UITapGestureRecognizer) {
+    @objc fileprivate func handleTapGesture(sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
     
     /// datePicker 선택 시 이벤트 처리
-    @objc func handleDatePicker() {
+    @objc fileprivate func handleDatePicker() {
         self.view.endEditing(true)
+    }
+    
+    /// 운동 강도 버튼 눌렀을 때 이벤트 처리
+    /// - Parameter sender: 운동 강도 버튼
+    @objc fileprivate func didTapIntensityButton(_ sender: IntensityButton) {
+        intensity = sender.tag
+        
+        intensityButtons.forEach { button in
+            if button.tag == intensity {
+                intensityButtons[button.tag].isSelected = true
+                intensityButtons[button.tag].backgroundColor = UIColor.init(named: "mainColor")
+            } else {
+                intensityButtons[button.tag].isSelected = false
+                intensityButtons[button.tag].backgroundColor = .clear
+            }
+        }
     }
 }
 
