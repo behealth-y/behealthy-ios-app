@@ -31,6 +31,7 @@
 		B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58628B89CA100773A12 /* BHSubmitButton.swift */; };
 		B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */; };
 		B7825BF328C1E3ED005DF613 /* IntensityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF228C1E3ED005DF613 /* IntensityButton.swift */; };
+		B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */; };
 		B792954628BC6447007D6045 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954528BC6447007D6045 /* ToastView.swift */; };
 		B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954728BCA33D007D6045 /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
@@ -79,6 +80,7 @@
 		B727D58628B89CA100773A12 /* BHSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHSubmitButton.swift; sourceTree = "<group>"; };
 		B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkOutViewController.swift; sourceTree = "<group>"; };
 		B7825BF228C1E3ED005DF613 /* IntensityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButton.swift; sourceTree = "<group>"; };
+		B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
 		B792954528BC6447007D6045 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		B792954728BCA33D007D6045 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,6 +194,7 @@
 				B727D57C28B7744200773A12 /* BHTextField.swift */,
 				B727D58628B89CA100773A12 /* BHSubmitButton.swift */,
 				B722FB9428BA19DD004AEEB2 /* BHAuthViewController.swift */,
+				B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				B722FB9528BA19DD004AEEB2 /* BHAuthViewController.swift in Sources */,
 				B7825BF328C1E3ED005DF613 /* IntensityButton.swift in Sources */,
 				B727D56F28B716FB00773A12 /* LoginViewController.swift in Sources */,
+				B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */,
 				B722FB9328BA16C2004AEEB2 /* PasswordResetViewController.swift in Sources */,
 				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
 				B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */,

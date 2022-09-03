@@ -80,19 +80,21 @@ extension AddWorkOutViewController {
         }
         
         // 폼 > 이모지 선택 버튼 변수 초기화
-        let emojiSelectButton = UIButton().then {
+        let emojiTextField = EmojiTextField().then {
             $0.layer.borderColor = UIColor.init(named: "mainColor")?.cgColor
             $0.layer.borderWidth = 1
             $0.layer.cornerRadius = 40
             $0.clipsToBounds = true
-            $0.titleLabel?.font = .systemFont(ofSize: 50)
-            $0.setTitle("🔥", for: .normal)
+            $0.font = .systemFont(ofSize: 50)
+            $0.textAlignment = .center
+            $0.tintColor = .clear
+            $0.text = "🔥"
         }
         
-        stackView.addArrangedSubview(emojiSelectButton)
+        stackView.addArrangedSubview(emojiTextField)
         
         // 폼 > 이모지 선택 버튼 위치 잡기
-        emojiSelectButton.snp.makeConstraints {
+        emojiTextField.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.size.equalTo(80)
         }
