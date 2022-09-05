@@ -88,13 +88,14 @@ extension AddWorkOutViewController {
             $0.spacing = 30
             $0.alignment = .center
             $0.distribution = .fill
+            $0.isLayoutMarginsRelativeArrangement = true
             $0.axis = .vertical
         }
         
         // 폼 > 이모지 선택 버튼 변수 초기화
         let emojiTextField = EmojiTextField().then {
             $0.layer.borderColor = UIColor.init(named: "mainColor")?.cgColor
-            $0.layer.borderWidth = 1
+            $0.layer.borderWidth = 0.8
             $0.layer.cornerRadius = 40
             $0.clipsToBounds = true
             $0.font = .systemFont(ofSize: 50)
@@ -144,10 +145,14 @@ extension AddWorkOutViewController {
     /// - Returns: 입력창 stackView
     fileprivate func generateTextFieldStackView(placeholder: String, type: String) -> UIStackView {
         let stackView = UIStackView().then {
-            $0.spacing = 0
-            $0.alignment = .center
+            $0.spacing = 0.2
+            $0.alignment = .fill
             $0.distribution = .fill
             $0.axis = .vertical
+        }
+        
+        stackView.snp.makeConstraints {
+            $0.height.equalTo(31)
         }
         
         // 폼 > textField 변수 초기화
@@ -184,7 +189,6 @@ extension AddWorkOutViewController {
         
         bottomBorder.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(1)
         }
         
         return stackView
@@ -229,7 +233,7 @@ extension AddWorkOutViewController {
         
         bottomBorder.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(1)
+            $0.height.equalTo(0.8)
         }
         
         return stackView
@@ -248,6 +252,7 @@ extension AddWorkOutViewController {
         let intensityTitleLabel = UILabel().then {
             $0.text = "운동 강도를 선택해주세요."
             $0.font = .boldSystemFont(ofSize: 16)
+            $0.textColor = UIColor.init(named: "mainColor")
         }
         
         stackView.addArrangedSubview(intensityTitleLabel)

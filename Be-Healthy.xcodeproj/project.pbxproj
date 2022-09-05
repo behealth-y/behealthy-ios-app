@@ -218,8 +218,8 @@
 			children = (
 				B792954928BCA344007D6045 /* Layout */,
 				B727D56C28B716CD00773A12 /* Authentication */,
+				B7825BF428C596FC005DF613 /* AddWorkOut */,
 				B727D53828B70A8500773A12 /* HomeViewController.swift */,
-				B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -233,6 +233,14 @@
 				B722FB9228BA16C2004AEEB2 /* PasswordResetViewController.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		B7825BF428C596FC005DF613 /* AddWorkOut */ = {
+			isa = PBXGroup;
+			children = (
+				B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */,
+			);
+			path = AddWorkOut;
 			sourceTree = "<group>";
 		};
 		B792954928BCA344007D6045 /* Layout */ = {
