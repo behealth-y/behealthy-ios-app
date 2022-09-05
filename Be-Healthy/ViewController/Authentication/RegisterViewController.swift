@@ -47,7 +47,7 @@ extension RegisterViewController {
         // contentView 위치 잡기
         contentView.snp.makeConstraints {
             $0.width.equalTo(scrollView.snp.width)
-            $0.edges.equalTo(scrollView)
+            $0.edges.equalTo(scrollView.contentLayoutGuide)
         }
         
         contentView.addSubview(titleView)
@@ -68,21 +68,6 @@ extension RegisterViewController {
             $0.horizontalEdges.equalToSuperview().inset(18)
         }
         
-        // 오류 메시지 label 변수 초기화
-        let errorMsgLabel = UILabel().then {
-            $0.text = "빈 값에 모든 값을 넣어주세요."
-            $0.font = .systemFont(ofSize: 12.0)
-            $0.textColor = .systemRed
-        }
-        
-        contentView.addSubview(errorMsgLabel)
-        
-        // 오류 메시지 label 위치 잡기
-        errorMsgLabel.snp.makeConstraints {
-            $0.top.equalTo(formStackView.snp.bottom).offset(44)
-            $0.centerX.equalToSuperview()
-        }
-        
         registerButton.isEnabled = false
         
         // 회원가입 버튼 눌렀을 때 처리
@@ -92,7 +77,7 @@ extension RegisterViewController {
         
         registerButton.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(18)
-            $0.top.equalTo(errorMsgLabel.snp.bottom).offset(10)
+            $0.top.equalTo(formStackView.snp.bottom).offset(18)
             $0.bottom.equalToSuperview().inset(18)
         }
     }

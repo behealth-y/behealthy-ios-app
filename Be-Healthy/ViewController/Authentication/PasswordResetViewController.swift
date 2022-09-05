@@ -74,23 +74,8 @@ extension PasswordResetViewController {
         
         passwordResetButton.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(18)
-            $0.bottom.equalTo(scrollView.frameLayoutGuide).inset(18)
+            $0.top.equalTo(formStackView.snp.bottom).offset(18)
             $0.bottom.equalToSuperview().inset(18)
-        }
-        
-        // 오류 메시지 label 변수 초기화
-        let errorMsgLabel = UILabel().then {
-            $0.text = "비밀번호를 다시 입력하세요."
-            $0.font = .systemFont(ofSize: 12.0)
-            $0.textColor = .systemRed
-        }
-        
-        contentView.addSubview(errorMsgLabel)
-        
-        // 오류 메시지 label 위치 잡기
-        errorMsgLabel.snp.makeConstraints {
-            $0.bottom.equalTo(passwordResetButton.snp.top).offset(-10)
-            $0.centerX.equalToSuperview()
         }
     }
     
