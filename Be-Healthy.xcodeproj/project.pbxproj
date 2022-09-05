@@ -31,6 +31,7 @@
 		B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58628B89CA100773A12 /* BHSubmitButton.swift */; };
 		B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */; };
 		B7825BF328C1E3ED005DF613 /* IntensityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF228C1E3ED005DF613 /* IntensityButton.swift */; };
+		B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */; };
 		B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */; };
 		B792954628BC6447007D6045 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954528BC6447007D6045 /* ToastView.swift */; };
 		B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954728BCA33D007D6045 /* TabBarViewController.swift */; };
@@ -80,6 +81,7 @@
 		B727D58628B89CA100773A12 /* BHSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHSubmitButton.swift; sourceTree = "<group>"; };
 		B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkOutViewController.swift; sourceTree = "<group>"; };
 		B7825BF228C1E3ED005DF613 /* IntensityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButton.swift; sourceTree = "<group>"; };
+		B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
 		B792954528BC6447007D6045 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		B792954728BCA33D007D6045 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				B792954928BCA344007D6045 /* Layout */,
 				B727D56C28B716CD00773A12 /* Authentication */,
 				B7825BF428C596FC005DF613 /* AddWorkOut */,
+				B7825BF528C5ACBC005DF613 /* Profile */,
 				B727D53828B70A8500773A12 /* HomeViewController.swift */,
 			);
 			path = ViewController;
@@ -241,6 +244,14 @@
 				B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */,
 			);
 			path = AddWorkOut;
+			sourceTree = "<group>";
+		};
+		B7825BF528C5ACBC005DF613 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		B792954928BCA344007D6045 /* Layout */ = {
@@ -407,6 +418,7 @@
 				B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */,
 				B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
+				B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */,
 				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
 			);

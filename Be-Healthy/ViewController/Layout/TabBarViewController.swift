@@ -19,11 +19,18 @@ class TabBarViewController: UITabBarController {
     }
     
     func setupLayout() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        
+        tabBar.standardAppearance = appearance
+        tabBar.scrollEdgeAppearance = appearance
+        
         let firstNav = UINavigationController.init(rootViewController: HomeViewController())
         let secondNav = UINavigationController.init(rootViewController: HomeViewController())
         let thirdNav = UINavigationController.init(rootViewController: UIViewController())
         let fourthNav = UINavigationController.init(rootViewController: HomeViewController())
-        let fifthNav = UINavigationController.init(rootViewController: HomeViewController())
+        let fifthNav = UINavigationController.init(rootViewController: ProfileViewController())
         
         self.viewControllers = [firstNav, secondNav, thirdNav, fourthNav, fifthNav]
         
