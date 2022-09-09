@@ -246,6 +246,7 @@ extension AccountSettingViewController {
             $0.titleLabel?.font = .systemFont(ofSize: 12.0)
             $0.addUnderLine()
         }
+        logoutButton.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
         
         let divisionView = UIView().then {
             $0.backgroundColor = UIColor.init(named: "mainColor")
@@ -257,14 +258,15 @@ extension AccountSettingViewController {
         }
         
         // 회원탈퇴 이동 버튼 변수 초기화
-        let leaveButton = UIButton().then {
+        let deleteIdButton = UIButton().then {
             $0.setTitle("회원탈퇴", for: .normal)
             $0.setTitleColor(UIColor.init(hexFromString: "B0B0B0"), for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 12.0)
             $0.addUnderLine()
         }
+        deleteIdButton.addTarget(self, action: #selector(didTapDeleteIdButton), for: .touchUpInside)
         
-        [logoutButton, divisionView, leaveButton].forEach {
+        [logoutButton, divisionView, deleteIdButton].forEach {
             stackView.addArrangedSubview($0)
         }
         
@@ -274,8 +276,21 @@ extension AccountSettingViewController {
 
 // MARK: - Actions
 extension AccountSettingViewController {
+    /// 비밀번호 변경 눌렀을 때 처리
     @objc fileprivate func didTapPasswordResetView() {
         navigationController?.pushViewController(PasswordResetAuthViewController(), animated: true)
+    }
+    
+    /// 로그아웃 눌렀을 때 처리
+    @objc fileprivate func didTapLogoutButton() {
+        navigationController?.popToRootViewController(animated: false)
+        let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+        sceneDelegate.window?.rootViewController = LoginViewController()
+    }
+    
+    /// 회원탈퇴 눌렀을 때 처리
+    @objc fileprivate func didTapDeleteIdButton() {
+        navigationController?.pushViewController(DeleteIdViewController(), animated: true)
     }
 }
 

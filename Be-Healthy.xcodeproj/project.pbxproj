@@ -38,6 +38,7 @@
 		B7D1E4AF28CB68FB008C5E0C /* BHTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */; };
 		B7D1E4B128CB7075008C5E0C /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */; };
 		B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */; };
+		B7D1E4B528CBA0B5008C5E0C /* DeleteIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B428CBA0B5008C5E0C /* DeleteIdViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +92,7 @@
 		B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHTextFieldView.swift; sourceTree = "<group>"; };
 		B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSettingView.swift; sourceTree = "<group>"; };
+		B7D1E4B428CBA0B5008C5E0C /* DeleteIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteIdViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 				B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */,
 				B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */,
 				B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */,
+				B7D1E4B428CBA0B5008C5E0C /* DeleteIdViewController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,
 				B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */,
 				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
+				B7D1E4B528CBA0B5008C5E0C /* DeleteIdViewController.swift in Sources */,
 				B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */,
 				B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */,
 				B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */,
