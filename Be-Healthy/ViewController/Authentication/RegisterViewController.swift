@@ -13,7 +13,7 @@ class RegisterViewController: BHAuthViewController {
     
     lazy var registerButton = BHSubmitButton(title: "회원가입")
     
-    var textFields: [BHTextField] = []
+    var textFields: [UITextField] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -128,12 +128,12 @@ extension RegisterViewController {
             $0.text = label
         }
         
-        let textField = BHTextField(placeholder: placeholder, keyboardType: keyboardType, secure: secure)
-        textField.delegate = self
+        let textFieldView = BHTextFieldView(placeholder: placeholder, keyboardType: keyboardType, secure: secure)
+        textFieldView.textField.delegate = self
         
-        textFields.append(textField)
+        textFields.append(textFieldView.textField)
         
-        [label, textField].forEach {
+        [label, textFieldView].forEach {
             stackView.addArrangedSubview($0)
             $0.snp.makeConstraints {
                 $0.horizontalEdges.equalToSuperview()

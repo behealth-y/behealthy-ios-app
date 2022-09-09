@@ -13,7 +13,7 @@ class PasswordResetViewController: BHAuthViewController {
     
     lazy var passwordResetButton = BHSubmitButton(title: "설정 완료")
     
-    var textFields: [BHTextField] = []
+    var textFields: [UITextField] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,12 +123,12 @@ extension PasswordResetViewController {
             $0.text = label
         }
         
-        let textField = BHTextField(placeholder: placeholder, secure: true)
-        textField.delegate = self
+        let textFieldView = BHTextFieldView(placeholder: placeholder, secure: true)
+        textFieldView.textField.delegate = self
         
-        textFields.append(textField)
+        textFields.append(textFieldView.textField)
         
-        [label, textField].forEach {
+        [label, textFieldView].forEach {
             stackView.addArrangedSubview($0)
             $0.snp.makeConstraints {
                 $0.horizontalEdges.equalToSuperview()
