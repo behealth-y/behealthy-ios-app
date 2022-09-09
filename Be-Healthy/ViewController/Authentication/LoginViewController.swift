@@ -251,7 +251,7 @@ extension LoginViewController {
     
     /// 루트 뷰 컨트롤러 변경
     @objc fileprivate func didTapLoginButton(_ sender: Any) {
-        self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
+        self.view.window?.windowScene?.keyWindow?.rootViewController = GoalTimeSettingView()
     }
 }
 

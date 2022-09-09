@@ -79,7 +79,7 @@ extension ProfileViewController {
             $0.bottom.equalToSuperview().inset(tabBarController?.tabBar.frame.height ?? 0.0)
         }
         
-        let goalTimeSettingView = generateSettingView(title: "목표 시간 설정", tag: 0)
+        let goalTimeSettingView = generateSettingView(title: "목표 운동시간 설정", tag: 0)
         let contentsSettingView = generateSettingView(title: "게시글 관리", tag: 1)
         let accountSettingView = generateSettingView(title: "계정 설정", tag: 2)
         let appSettingView = generateSettingView(title: "알림 설정", tag: 3)

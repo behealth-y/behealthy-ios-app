@@ -37,6 +37,7 @@
 		B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954728BCA33D007D6045 /* TabBarViewController.swift */; };
 		B7D1E4AF28CB68FB008C5E0C /* BHTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */; };
 		B7D1E4B128CB7075008C5E0C /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */; };
+		B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,7 @@
 		B792954728BCA33D007D6045 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHTextFieldView.swift; sourceTree = "<group>"; };
 		B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
+		B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSettingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,6 +258,7 @@
 			children = (
 				B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */,
 				B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */,
+				B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
 				B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */,
 				B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */,
+				B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */,
 				B727D57F28B8568300773A12 /* UIButton+Extension.swift in Sources */,
 				B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */,
 				B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */,
