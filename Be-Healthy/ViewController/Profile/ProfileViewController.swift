@@ -79,17 +79,19 @@ extension ProfileViewController {
             $0.bottom.equalToSuperview().inset(tabBarController?.tabBar.frame.height ?? 0.0)
         }
         
-        let profileSettingView = generateSettingView(title: "프로필 관리", tag: 0)
-        let accountSettingView = generateSettingView(title: "계정 설정", tag: 1)
-        let appSettingView = generateSettingView(title: "APP 설정", tag: 2)
-        let noticeView = generateSettingView(title: "공지사항", tag: 3)
+        let goalTimeSettingView = generateSettingView(title: "목표 시간 설정", tag: 0)
+        let contentsSettingView = generateSettingView(title: "게시글 관리", tag: 1)
+        let accountSettingView = generateSettingView(title: "계정 설정", tag: 2)
+        let appSettingView = generateSettingView(title: "알림 설정", tag: 3)
+        let noticeView = generateSettingView(title: "공지사항", tag: 4)
+        let versionInfoView = generateSettingView(title: "버전 정보", tag: 5)
         
-        settingStackView.addArrangedSubview(profileSettingView)
-        settingStackView.addArrangedSubview(accountSettingView)
-        settingStackView.addArrangedSubview(appSettingView)
-        settingStackView.addArrangedSubview(noticeView)
+        [goalTimeSettingView, contentsSettingView, accountSettingView, appSettingView, noticeView, versionInfoView].forEach {
+            settingStackView.addArrangedSubview($0)
+            generateSettingViewTapGesture($0)
+        }
         
-        profileSettingView.snp.makeConstraints {
+        goalTimeSettingView.snp.makeConstraints {
             $0.height.equalTo(80)
         }
     }
@@ -134,7 +136,9 @@ extension ProfileViewController {
     ///   - tag: 목록 tag
     /// - Returns: 설정 > 목록 view
     fileprivate func generateSettingView(title: String, tag: Int) -> UIView {
-        let view = UIView()
+        let view = UIView().then {
+            $0.tag = tag
+        }
         
         let titleLabel = UILabel().then {
             $0.text = title
@@ -148,19 +152,19 @@ extension ProfileViewController {
             $0.leading.equalToSuperview()
         }
         
-        let imageView = UIImageView().then {
-            $0.image = UIImage(systemName: "chevron.right")
-            $0.tintColor = .black
-        }
-        
-        view.addSubview(imageView)
-        
-        imageView.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview()
-        }
-        
-        if tag < 3 {
+        if tag < 5 {
+            let imageView = UIImageView().then {
+                $0.image = UIImage(systemName: "chevron.right")
+                $0.tintColor = .black
+            }
+            
+            view.addSubview(imageView)
+            
+            imageView.snp.makeConstraints {
+                $0.centerY.equalToSuperview()
+                $0.trailing.equalToSuperview()
+            }
+            
             let bottomBorder = UIView().then {
                 $0.backgroundColor = UIColor.init(hexFromString: "#A9A9A9")
             }
@@ -172,9 +176,44 @@ extension ProfileViewController {
                 $0.bottom.equalToSuperview()
                 $0.height.equalTo(0.5)
             }
+        } else { // 버전 정보의 경우
+            var version: String?
+            
+            if let infoDict = Bundle.main.infoDictionary {
+                version = infoDict["CFBundleShortVersionString"] as? String
+            }
+            
+            let versionLabel = UILabel().then {
+                $0.text = version ?? ""
+                $0.font = .systemFont(ofSize: 16)
+            }
+            
+            view.addSubview(versionLabel)
+            
+            versionLabel.snp.makeConstraints {
+                $0.centerY.equalToSuperview()
+                $0.trailing.equalToSuperview()
+            }
         }
         
         return view
+    }
+}
+
+// MARK: - Actions
+extension ProfileViewController {
+    func generateSettingViewTapGesture(_ view: UIView) {
+        switch view.tag {
+        case 2:
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAccountSettingView))
+            view.addGestureRecognizer(tapGesture)
+        default:
+            break
+        }
+    }
+    
+    @objc fileprivate func didTapAccountSettingView(_ sender: UITapGestureRecognizer) {
+        navigationController?.pushViewController(AccountSettingViewController(), animated: true)
     }
 }
 
