@@ -87,18 +87,22 @@ extension RegisterViewController {
     fileprivate func generateFormStackView() -> UIStackView {
         let stackView = UIStackView().then {
             $0.spacing = 12
-            $0.alignment = .center
-            $0.distribution = .fillEqually
+            $0.alignment = .fill
+            $0.distribution = .fill
             $0.axis = .vertical
         }
         
         // 폼 textField StackView 변수 초기화
         let emailStackView = generateTextFieldStackView("이메일", placeholder: "이메일 형식", keyboardType: .emailAddress)
+        let certNumberStackView = generateTextFieldStackView("인증번호 입력", placeholder: "인증번호를 입력하세요.", keyboardType: .numberPad)
         let pwStackView = generateTextFieldStackView("비밀번호", placeholder: "영문, 숫자, 특수문자 조합 최소 8자", secure: true)
         let pwCheckStackView = generateTextFieldStackView("비밀번호 확인", placeholder: "비밀번호 재입력", secure: true)
         let nicknameStackView = generateTextFieldStackView("닉네임", placeholder: "국문, 영문 2~8글자")
         
-        [emailStackView, pwStackView, pwCheckStackView, nicknameStackView].forEach {
+        // 인증번호 요청 버튼 변수 초기화
+        let certNumberButton = BHSubmitButton(title: "인증번호 요청")
+        
+        [emailStackView, certNumberButton, certNumberStackView, pwStackView, pwCheckStackView, nicknameStackView].forEach {
             stackView.addArrangedSubview($0)
             
             $0.snp.makeConstraints {

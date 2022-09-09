@@ -27,7 +27,7 @@ class ToastView: UIView {
     }
     
     func setupLayout() {
-        self.backgroundColor = UIColor.init(hexFromString: "#ffffff", alpha: 0.7)
+        self.backgroundColor = UIColor.init(hexFromString: "#ffffff", alpha: 1)
         self.layer.cornerRadius = 10
         self.alpha = 0
         
