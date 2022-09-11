@@ -213,7 +213,10 @@ extension ProfileViewController {
     }
     
     @objc fileprivate func didTapAccountSettingView(_ sender: UITapGestureRecognizer) {
-        navigationController?.pushViewController(AccountSettingViewController(), animated: true)
+        let vc = AccountSettingViewController()
+        vc.hidesBottomBarWhenPushed = true
+        
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
