@@ -31,10 +31,11 @@ class CalendarViewController: UIViewController {
         $0.appearance.weekdayTextColor = UIColor.init(named: "mainColor")
         
         $0.placeholderType = .fillHeadTail
+        
         $0.appearance.titlePlaceholderColor = UIColor.init(hexFromString: "B0B0B0")
         $0.appearance.titleDefaultColor = UIColor.init(hexFromString: "2E2E2E")
         $0.appearance.titleFont = .systemFont(ofSize: 12)
-         
+        
         $0.appearance.todaySelectionColor = .white
         $0.appearance.todayColor = .white
         $0.appearance.titleTodayColor = UIColor.init(hexFromString: "2E2E2E")
@@ -101,16 +102,15 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
         return UIColor.init(named: "mainColor")
     }
-//    
+
 //    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
 //
 //        let labelMy2 = UILabel(frame: CGRect(x: 0, y: 35, width: cell.bounds.width, height: 10))
-//            labelMy2.font = .systemFont(ofSize: 8)
-//            labelMy2.text = "1시간 10분"
-//            labelMy2.textAlignment = .center
-//            labelMy2.textColor = UIColor.init(named: "mainColor")
-//            cell.addSubview(labelMy2)
-//
+//        labelMy2.font = .systemFont(ofSize: 8)
+//        labelMy2.text = "1시간 10분"
+//        labelMy2.textAlignment = .center
+//        labelMy2.textColor = UIColor.init(named: "mainColor")
+//        cell.addSubview(labelMy2)
 //    }
 }
 
