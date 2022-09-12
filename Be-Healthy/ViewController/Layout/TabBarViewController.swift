@@ -27,7 +27,7 @@ class TabBarViewController: UITabBarController {
         tabBar.scrollEdgeAppearance = appearance
         
         let firstNav = UINavigationController.init(rootViewController: HomeViewController())
-        let secondNav = UINavigationController.init(rootViewController: HomeViewController())
+        let secondNav = UINavigationController.init(rootViewController: CalendarViewController())
         let thirdNav = UINavigationController.init(rootViewController: UIViewController())
         let fourthNav = UINavigationController.init(rootViewController: HomeViewController())
         let fifthNav = UINavigationController.init(rootViewController: ProfileViewController())

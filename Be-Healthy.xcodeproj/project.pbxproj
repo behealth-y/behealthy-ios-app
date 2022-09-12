@@ -35,10 +35,12 @@
 		B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */; };
 		B792954628BC6447007D6045 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954528BC6447007D6045 /* ToastView.swift */; };
 		B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954728BCA33D007D6045 /* TabBarViewController.swift */; };
+		B7B2E05328CF594800BD3E09 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = B7B2E05228CF594800BD3E09 /* FSCalendar */; };
 		B7D1E4AF28CB68FB008C5E0C /* BHTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */; };
 		B7D1E4B128CB7075008C5E0C /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */; };
 		B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */; };
 		B7D1E4B528CBA0B5008C5E0C /* DeleteIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B428CBA0B5008C5E0C /* DeleteIdViewController.swift */; };
+		B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,7 @@
 		B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSettingView.swift; sourceTree = "<group>"; };
 		B7D1E4B428CBA0B5008C5E0C /* DeleteIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteIdViewController.swift; sourceTree = "<group>"; };
+		B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B727D57228B74EBE00773A12 /* SnapKit in Frameworks */,
+				B7B2E05328CF594800BD3E09 /* FSCalendar in Frameworks */,
 				B727D57528B74EC900773A12 /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -231,6 +235,7 @@
 				B727D56C28B716CD00773A12 /* Authentication */,
 				B7825BF428C596FC005DF613 /* AddWorkOut */,
 				B7825BF528C5ACBC005DF613 /* Profile */,
+				B7F2BC2C28CF4AE300413836 /* Calendar */,
 				B727D53828B70A8500773A12 /* HomeViewController.swift */,
 			);
 			path = ViewController;
@@ -274,6 +279,14 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
+		B7F2BC2C28CF4AE300413836 /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -293,6 +306,7 @@
 			packageProductDependencies = (
 				B727D57128B74EBE00773A12 /* SnapKit */,
 				B727D57428B74EC900773A12 /* Then */,
+				B7B2E05228CF594800BD3E09 /* FSCalendar */,
 			);
 			productName = "Be-Healthy";
 			productReference = B727D53128B70A8500773A12 /* Be-Healthy.app */;
@@ -369,6 +383,7 @@
 			packageReferences = (
 				B727D57028B74EBE00773A12 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B727D57328B74EC900773A12 /* XCRemoteSwiftPackageReference "Then" */,
+				B7B2E05128CF594800BD3E09 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 			);
 			productRefGroup = B727D53228B70A8500773A12 /* Products */;
 			projectDirPath = "";
@@ -420,6 +435,7 @@
 				B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */,
 				B7D1E4B128CB7075008C5E0C /* AccountSettingViewController.swift in Sources */,
 				B722FB9328BA16C2004AEEB2 /* PasswordResetViewController.swift in Sources */,
+				B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */,
 				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
 				B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */,
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,
@@ -792,6 +808,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		B7B2E05128CF594800BD3E09 /* XCRemoteSwiftPackageReference "FSCalendar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/WenchaoD/FSCalendar";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -804,6 +828,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B727D57328B74EC900773A12 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		B7B2E05228CF594800BD3E09 /* FSCalendar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7B2E05128CF594800BD3E09 /* XCRemoteSwiftPackageReference "FSCalendar" */;
+			productName = FSCalendar;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
