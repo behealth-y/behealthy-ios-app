@@ -550,7 +550,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Be Healthy";
+				INFOPLIST_KEY_CFBundleDisplayName = "BE HEALTHY";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -605,7 +605,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_KEY_CFBundleDisplayName = "Be Healthy";
+				INFOPLIST_KEY_CFBundleDisplayName = "BE HEALTHY";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -627,7 +627,7 @@
 				DEVELOPMENT_TEAM = 5U63B95JW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Be-Healthy/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Be Healthy";
+				INFOPLIST_KEY_CFBundleDisplayName = "BE HEALTHY";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
@@ -658,7 +658,7 @@
 				DEVELOPMENT_TEAM = 5U63B95JW2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Be-Healthy/Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = "Be Healthy";
+				INFOPLIST_KEY_CFBundleDisplayName = "BE HEALTHY";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = UIInterfaceOrientationPortrait;
