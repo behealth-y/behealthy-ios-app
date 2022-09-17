@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="TopThreeCollectionViewCell" customModule="Be_Healthy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="390" height="156"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="390" height="156"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LAURA LEE님, 오늘은 이 운동 어떠신가요?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D1a-Wq-Wxj">
+                        <rect key="frame" x="18" y="0.0" width="247.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                        <color key="textColor" name="mainColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Healthy가 추천하는 Top 3 운동을 확인해보세요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0t-3z-zvb">
+                        <rect key="frame" x="18" y="23" width="240.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hQM-in-kqT">
+                        <rect key="frame" x="18" y="47.5" width="354" height="98.5"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="hQM-in-kqT" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="18" id="5va-kX-Ojm"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="D1a-Wq-Wxj" secondAttribute="trailing" constant="18" id="89e-kw-HC1"/>
+                <constraint firstItem="Q0t-3z-zvb" firstAttribute="top" secondItem="D1a-Wq-Wxj" secondAttribute="bottom" constant="6" id="TcV-fu-Xhy"/>
+                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Q0t-3z-zvb" secondAttribute="trailing" constant="18" id="W6f-7s-b4o"/>
+                <constraint firstItem="D1a-Wq-Wxj" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="axo-JB-1gX"/>
+                <constraint firstAttribute="trailing" secondItem="hQM-in-kqT" secondAttribute="trailing" constant="18" id="oWj-kd-o4V"/>
+                <constraint firstItem="D1a-Wq-Wxj" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="18" id="qA8-xF-meC"/>
+                <constraint firstItem="Q0t-3z-zvb" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="18" id="teS-Nf-Fnk"/>
+                <constraint firstItem="hQM-in-kqT" firstAttribute="top" secondItem="Q0t-3z-zvb" secondAttribute="bottom" constant="10" id="vkO-FG-8Rs"/>
+                <constraint firstAttribute="bottom" secondItem="hQM-in-kqT" secondAttribute="bottom" constant="10" id="zHW-vo-5Bh"/>
+            </constraints>
+            <size key="customSize" width="315" height="156"/>
+            <connections>
+                <outlet property="topThreeView" destination="hQM-in-kqT" id="afD-Eb-cJb"/>
+            </connections>
+            <point key="canvasLocation" x="328.98550724637681" y="119.86607142857142"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <namedColor name="mainColor">
+            <color red="1" green="0.43529411764705883" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

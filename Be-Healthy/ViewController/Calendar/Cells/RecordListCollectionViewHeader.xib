@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="" id="U6b-Vx-4bR">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9월 1일 운동기록" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XsF-wk-PIc">
+                    <rect key="frame" x="0.0" y="0.0" width="96" height="50"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                    <color key="textColor" name="mainColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총 2시간 15분, 목표 달성!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zeY-79-ReF">
+                    <rect key="frame" x="175" y="0.0" width="145" height="50"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <constraints>
+                <constraint firstItem="zeY-79-ReF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="XsF-wk-PIc" secondAttribute="trailing" constant="10" id="2vG-EV-VP9"/>
+                <constraint firstAttribute="trailing" secondItem="zeY-79-ReF" secondAttribute="trailing" id="7Dm-Fe-NqA"/>
+                <constraint firstItem="zeY-79-ReF" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="PRc-ne-Zgd"/>
+                <constraint firstItem="XsF-wk-PIc" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="XZl-4A-mQS"/>
+                <constraint firstItem="zeY-79-ReF" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="iCu-t9-bDb"/>
+                <constraint firstItem="XsF-wk-PIc" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="p2R-FW-Ade"/>
+                <constraint firstItem="XsF-wk-PIc" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="pfr-3Z-qqu"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="107"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <namedColor name="mainColor">
+            <color red="1" green="0.43529411764705883" blue="0.38039215686274508" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

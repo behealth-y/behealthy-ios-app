@@ -36,6 +36,12 @@
 		B792954628BC6447007D6045 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954528BC6447007D6045 /* ToastView.swift */; };
 		B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954728BCA33D007D6045 /* TabBarViewController.swift */; };
 		B7B2E05328CF594800BD3E09 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = B7B2E05228CF594800BD3E09 /* FSCalendar */; };
+		B7BDD7F728D59AEC000E644A /* TopThreeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BDD7F528D59AEC000E644A /* TopThreeCollectionViewCell.swift */; };
+		B7BDD7F828D59AEC000E644A /* TopThreeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BDD7F628D59AEC000E644A /* TopThreeCollectionViewCell.xib */; };
+		B7CFA25F28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CFA25D28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift */; };
+		B7CFA26028D5B0F200E9DC12 /* RecordListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CFA25E28D5B0F200E9DC12 /* RecordListCollectionViewCell.xib */; };
+		B7CFA26328D5C79000E9DC12 /* RecordListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CFA26128D5C79000E9DC12 /* RecordListCollectionViewHeader.swift */; };
+		B7CFA26428D5C79000E9DC12 /* RecordListCollectionViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CFA26228D5C79000E9DC12 /* RecordListCollectionViewHeader.xib */; };
 		B7D1E4AF28CB68FB008C5E0C /* BHTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */; };
 		B7D1E4B128CB7075008C5E0C /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */; };
 		B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */; };
@@ -91,6 +97,12 @@
 		B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
 		B792954528BC6447007D6045 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		B792954728BCA33D007D6045 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		B7BDD7F528D59AEC000E644A /* TopThreeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopThreeCollectionViewCell.swift; sourceTree = "<group>"; };
+		B7BDD7F628D59AEC000E644A /* TopThreeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopThreeCollectionViewCell.xib; sourceTree = "<group>"; };
+		B7CFA25D28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListCollectionViewCell.swift; sourceTree = "<group>"; };
+		B7CFA25E28D5B0F200E9DC12 /* RecordListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordListCollectionViewCell.xib; sourceTree = "<group>"; };
+		B7CFA26128D5C79000E9DC12 /* RecordListCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListCollectionViewHeader.swift; sourceTree = "<group>"; };
+		B7CFA26228D5C79000E9DC12 /* RecordListCollectionViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordListCollectionViewHeader.xib; sourceTree = "<group>"; };
 		B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHTextFieldView.swift; sourceTree = "<group>"; };
 		B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSettingView.swift; sourceTree = "<group>"; };
@@ -279,9 +291,23 @@
 			path = Layout;
 			sourceTree = "<group>";
 		};
+		B7BDD7F428D59A86000E644A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B7BDD7F528D59AEC000E644A /* TopThreeCollectionViewCell.swift */,
+				B7BDD7F628D59AEC000E644A /* TopThreeCollectionViewCell.xib */,
+				B7CFA25D28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift */,
+				B7CFA25E28D5B0F200E9DC12 /* RecordListCollectionViewCell.xib */,
+				B7CFA26128D5C79000E9DC12 /* RecordListCollectionViewHeader.swift */,
+				B7CFA26228D5C79000E9DC12 /* RecordListCollectionViewHeader.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		B7F2BC2C28CF4AE300413836 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				B7BDD7F428D59A86000E644A /* Cells */,
 				B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */,
 			);
 			path = Calendar;
@@ -402,7 +428,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B727D54128B70A8600773A12 /* LaunchScreen.storyboard in Resources */,
+				B7BDD7F828D59AEC000E644A /* TopThreeCollectionViewCell.xib in Resources */,
+				B7CFA26028D5B0F200E9DC12 /* RecordListCollectionViewCell.xib in Resources */,
 				B727D53E28B70A8600773A12 /* Assets.xcassets in Resources */,
+				B7CFA26428D5C79000E9DC12 /* RecordListCollectionViewHeader.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +467,7 @@
 				B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */,
 				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
 				B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */,
+				B7BDD7F728D59AEC000E644A /* TopThreeCollectionViewCell.swift in Sources */,
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,
 				B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */,
 				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
@@ -449,7 +479,9 @@
 				B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */,
 				B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */,
 				B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */,
+				B7CFA25F28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
+				B7CFA26328D5C79000E9DC12 /* RecordListCollectionViewHeader.swift in Sources */,
 				B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */,
 				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,

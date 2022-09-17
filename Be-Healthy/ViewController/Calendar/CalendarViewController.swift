@@ -14,6 +14,21 @@ class CalendarViewController: UIViewController {
     /// scrollView 변수 초기화
     lazy var scrollView = UIScrollView()
     
+    let layout = UICollectionViewFlowLayout().then {
+        $0.scrollDirection = .vertical
+    }
+    
+    /// collectionView 변수 초기화
+    lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout).then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.showsVerticalScrollIndicator = false
+        
+        $0.register(UINib(nibName: TopThreeCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: TopThreeCollectionViewCell.identifier)
+        $0.register(UINib(nibName: RecordListCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: RecordListCollectionViewCell.identifier)
+        $0.register(UINib(nibName: RecordListCollectionViewHeader.identifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: RecordListCollectionViewHeader.identifier)
+    }
+    
     lazy var calendarView = FSCalendar().then {
         $0.delegate = self
         $0.dataSource = self
@@ -89,9 +104,17 @@ extension CalendarViewController {
         
         calendarView.snp.makeConstraints {
             $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(18)
             $0.height.equalTo(calendarView.snp.width).multipliedBy(0.84 / 1.0)
+        }
+        
+        contentView.addSubview(collectionView)
+        
+        collectionView.snp.makeConstraints {
+            $0.top.equalTo(calendarView.snp.bottom).offset(10)
+            $0.horizontalEdges.equalToSuperview().inset(18)
+            $0.bottom.equalTo(scrollView.safeAreaLayoutGuide).inset(20)
+            $0.bottom.equalToSuperview()
         }
     }
 }
@@ -112,6 +135,62 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
 //        labelMy2.textColor = UIColor.init(named: "mainColor")
 //        cell.addSubview(labelMy2)
 //    }
+}
+
+// MARK: - UICollectionViewDelegate, UICollectionViewDataSource
+extension CalendarViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if section == 0 {
+            return 0
+        } else {
+            return 10
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.section == 0 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TopThreeCollectionViewCell.identifier, for: indexPath) as! TopThreeCollectionViewCell
+            
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordListCollectionViewCell.identifier, for: indexPath) as! RecordListCollectionViewCell
+            
+            return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecordListCollectionViewHeader.identifier, for: indexPath)
+            return headerView
+        default:
+            assert(false)
+        }
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension CalendarViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 0 {
+            return CGSize(width: collectionView.frame.width, height: 150)
+        } else {
+            return CGSize(width: collectionView.frame.width, height: 50)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 0 {
+            return .zero
+        } else {
+            return CGSize(width: collectionView.frame.width, height: 50)
+        }
+    }
 }
 
 #if DEBUG
