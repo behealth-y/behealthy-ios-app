@@ -58,7 +58,7 @@ class CalendarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
+//        setupNavigationBar()
         setupLayout()
     }
 }
@@ -88,7 +88,9 @@ extension CalendarViewController {
         view.addSubview(scrollView)
         
         scrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview()
         }
         
         let contentView = UIView()
