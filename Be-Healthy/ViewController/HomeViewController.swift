@@ -26,7 +26,7 @@ extension HomeViewController {
     fileprivate func setupNavigationBar() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-//        appearance.shadowColor = .clear
+        appearance.shadowColor = .clear
         appearance.backgroundColor = .white
         appearance.titleTextAttributes = [.foregroundColor: UIColor.init(named: "mainColor")!]
         
@@ -40,7 +40,7 @@ extension HomeViewController {
     
     /// 레이아웃 설정
     fileprivate func setupLayout() {
-        view.backgroundColor = .systemPink
+        view.backgroundColor = .white
     }
 }
 
