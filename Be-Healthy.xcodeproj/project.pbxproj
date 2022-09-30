@@ -38,7 +38,7 @@
 		B7B2E05328CF594800BD3E09 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = B7B2E05228CF594800BD3E09 /* FSCalendar */; };
 		B7BDD7F728D59AEC000E644A /* TopThreeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BDD7F528D59AEC000E644A /* TopThreeCollectionViewCell.swift */; };
 		B7BDD7F828D59AEC000E644A /* TopThreeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BDD7F628D59AEC000E644A /* TopThreeCollectionViewCell.xib */; };
-		B7C17A1828E729B80056F8F9 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = B7C17A1728E729B80056F8F9 /* Charts */; };
+		B7C17A1E28E730AE0056F8F9 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = B7C17A1D28E730AE0056F8F9 /* Charts */; };
 		B7CFA25F28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CFA25D28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift */; };
 		B7CFA26028D5B0F200E9DC12 /* RecordListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CFA25E28D5B0F200E9DC12 /* RecordListCollectionViewCell.xib */; };
 		B7CFA26328D5C79000E9DC12 /* RecordListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CFA26128D5C79000E9DC12 /* RecordListCollectionViewHeader.swift */; };
@@ -119,7 +119,7 @@
 				B727D57228B74EBE00773A12 /* SnapKit in Frameworks */,
 				B7B2E05328CF594800BD3E09 /* FSCalendar in Frameworks */,
 				B727D57528B74EC900773A12 /* Then in Frameworks */,
-				B7C17A1828E729B80056F8F9 /* Charts in Frameworks */,
+				B7C17A1E28E730AE0056F8F9 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,7 +335,7 @@
 				B727D57128B74EBE00773A12 /* SnapKit */,
 				B727D57428B74EC900773A12 /* Then */,
 				B7B2E05228CF594800BD3E09 /* FSCalendar */,
-				B7C17A1728E729B80056F8F9 /* Charts */,
+				B7C17A1D28E730AE0056F8F9 /* Charts */,
 			);
 			productName = "Be-Healthy";
 			productReference = B727D53128B70A8500773A12 /* Be-Healthy.app */;
@@ -413,7 +413,7 @@
 				B727D57028B74EBE00773A12 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				B727D57328B74EC900773A12 /* XCRemoteSwiftPackageReference "Then" */,
 				B7B2E05128CF594800BD3E09 /* XCRemoteSwiftPackageReference "FSCalendar" */,
-				B7C17A1628E729B80056F8F9 /* XCRemoteSwiftPackageReference "Charts" */,
+				B7C17A1C28E730AE0056F8F9 /* XCRemoteSwiftPackageReference "Charts" */,
 			);
 			productRefGroup = B727D53228B70A8500773A12 /* Products */;
 			projectDirPath = "";
@@ -852,12 +852,12 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		B7C17A1628E729B80056F8F9 /* XCRemoteSwiftPackageReference "Charts" */ = {
+		B7C17A1C28E730AE0056F8F9 /* XCRemoteSwiftPackageReference "Charts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/danielgindi/Charts";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 3.0.0;
+				minimumVersion = 4.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -878,9 +878,9 @@
 			package = B7B2E05128CF594800BD3E09 /* XCRemoteSwiftPackageReference "FSCalendar" */;
 			productName = FSCalendar;
 		};
-		B7C17A1728E729B80056F8F9 /* Charts */ = {
+		B7C17A1D28E730AE0056F8F9 /* Charts */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B7C17A1628E729B80056F8F9 /* XCRemoteSwiftPackageReference "Charts" */;
+			package = B7C17A1C28E730AE0056F8F9 /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = Charts;
 		};
 /* End XCSwiftPackageProductDependency section */
