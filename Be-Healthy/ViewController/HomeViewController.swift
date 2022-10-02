@@ -8,15 +8,24 @@
 import UIKit
 import Then
 import SnapKit
+import Charts
 
 class HomeViewController: UIViewController {
     /// scrollView 변수 초기화
     lazy var scrollView = UIScrollView()
     
+    // 이번 주 평균 운동 시간 차트
+    lazy var barChartView = BarChartView()
+    
+    // 이번 주 운동 시간 변수
+    var weekDays: [String] = ["월", "화", "수", "목", "금", "토", "일"]
+    var time: [Double] = [30, 60, 90, 120, 180, 240, 300]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         setupLayout()
+        setupChart(dataPoints: weekDays, values: time)
     }
 }
 
@@ -237,7 +246,68 @@ extension HomeViewController {
             $0.trailing.lessThanOrEqualToSuperview().inset(20)
         }
         
+        view.addSubview(barChartView)
+        
+        barChartView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.bottom.equalToSuperview().inset(10)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
         return view
+    }
+}
+
+// MARK: 이번 주 평균 운동 시간 차트 설정
+extension HomeViewController {
+    func setupChart(dataPoints: [String], values: [Double]) {
+        var dataEntries: [BarChartDataEntry] = []
+        for i in 0 ..< dataPoints.count {
+            let dataEntry = BarChartDataEntry(x: Double(i), y: values[i])
+            dataEntries.append(dataEntry)
+        }
+        
+        let chartDataSet = BarChartDataSet(entries: dataEntries, label: "운동 시간(분)")
+        
+        chartDataSet.colors = [.white]
+        chartDataSet.highlightEnabled = false
+        chartDataSet.valueTextColor = .clear
+        
+        let chartData = BarChartData(dataSet: chartDataSet)
+        
+        // 데이터 없을 때 처리
+//        barChartView.noDataText = "데이터가 없습니다."
+//        barChartView.noDataFont = .systemFont(ofSize: 20)
+//        barChartView.noDataTextColor = .white
+        
+        // 차트 데이터
+        barChartView.data = chartData
+        
+        // 차트 확대 방지
+        barChartView.doubleTapToZoomEnabled = false
+        
+        // x축
+        barChartView.xAxis.drawGridLinesEnabled = false
+        barChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: weekDays)
+        barChartView.xAxis.setLabelCount(dataPoints.count, force: false)
+        barChartView.xAxis.labelPosition = .bottom
+        barChartView.xAxis.labelTextColor = .white
+        barChartView.xAxis.labelFont = .boldSystemFont(ofSize: 16)
+        barChartView.xAxis.axisLineColor = .white
+        
+        // left축
+        barChartView.leftAxis.drawGridLinesEnabled = false
+        barChartView.leftAxis.labelTextColor = .white
+        barChartView.leftAxis.axisMaximum = 300
+        barChartView.leftAxis.axisMinimum = 0
+        barChartView.leftAxis.axisLineColor = .white
+        
+        // right축
+        barChartView.rightAxis.enabled = false
+        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
+        
+        // 범례
+        barChartView.legend.enabled = false
     }
 }
 
@@ -262,6 +332,3 @@ struct HomeViewControllerPresentable_PreviewProvider: PreviewProvider {
 }
 
 #endif
-
-
-
