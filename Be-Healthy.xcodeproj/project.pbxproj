@@ -168,9 +168,7 @@
 				B727D56428B7147A00773A12 /* App */,
 				B727D56628B7158E00773A12 /* Helper */,
 				B727D56828B7166E00773A12 /* Component */,
-				B727D56928B7169C00773A12 /* VO */,
-				B727D56A28B716AD00773A12 /* Model */,
-				B727D56B28B716BD00773A12 /* ViewController */,
+				B727D56B28B716BD00773A12 /* UserInterfaces */,
 				B727D53D28B70A8600773A12 /* Assets.xcassets */,
 				B727D53F28B70A8600773A12 /* LaunchScreen.storyboard */,
 				B727D54228B70A8600773A12 /* Info.plist */,
@@ -231,21 +229,7 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
-		B727D56928B7169C00773A12 /* VO */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = VO;
-			sourceTree = "<group>";
-		};
-		B727D56A28B716AD00773A12 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		B727D56B28B716BD00773A12 /* ViewController */ = {
+		B727D56B28B716BD00773A12 /* UserInterfaces */ = {
 			isa = PBXGroup;
 			children = (
 				B792954928BCA344007D6045 /* Layout */,
@@ -255,7 +239,7 @@
 				B7F2BC2C28CF4AE300413836 /* Calendar */,
 				B727D53828B70A8500773A12 /* HomeViewController.swift */,
 			);
-			path = ViewController;
+			path = UserInterfaces;
 			sourceTree = "<group>";
 		};
 		B727D56C28B716CD00773A12 /* Authentication */ = {
