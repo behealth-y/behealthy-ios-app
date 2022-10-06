@@ -39,6 +39,7 @@
 		B7BDD7F728D59AEC000E644A /* TopThreeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BDD7F528D59AEC000E644A /* TopThreeCollectionViewCell.swift */; };
 		B7BDD7F828D59AEC000E644A /* TopThreeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7BDD7F628D59AEC000E644A /* TopThreeCollectionViewCell.xib */; };
 		B7C17A1E28E730AE0056F8F9 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = B7C17A1D28E730AE0056F8F9 /* Charts */; };
+		B7C7BAF928EEF82100CC574E /* LeftAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C7BAF828EEF82100CC574E /* LeftAxisValueFormatter.swift */; };
 		B7CFA25F28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CFA25D28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift */; };
 		B7CFA26028D5B0F200E9DC12 /* RecordListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CFA25E28D5B0F200E9DC12 /* RecordListCollectionViewCell.xib */; };
 		B7CFA26328D5C79000E9DC12 /* RecordListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CFA26128D5C79000E9DC12 /* RecordListCollectionViewHeader.swift */; };
@@ -100,6 +101,7 @@
 		B792954728BCA33D007D6045 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		B7BDD7F528D59AEC000E644A /* TopThreeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopThreeCollectionViewCell.swift; sourceTree = "<group>"; };
 		B7BDD7F628D59AEC000E644A /* TopThreeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopThreeCollectionViewCell.xib; sourceTree = "<group>"; };
+		B7C7BAF828EEF82100CC574E /* LeftAxisValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAxisValueFormatter.swift; sourceTree = "<group>"; };
 		B7CFA25D28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListCollectionViewCell.swift; sourceTree = "<group>"; };
 		B7CFA25E28D5B0F200E9DC12 /* RecordListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordListCollectionViewCell.xib; sourceTree = "<group>"; };
 		B7CFA26128D5C79000E9DC12 /* RecordListCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListCollectionViewHeader.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				B727D57E28B8568300773A12 /* UIButton+Extension.swift */,
 				B727D58028B8628800773A12 /* UIColor+Extension.swift */,
 				B727D58228B88AAE00773A12 /* UIImage+Extension.swift */,
+				B7C7BAF828EEF82100CC574E /* LeftAxisValueFormatter.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				B7CFA25F28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
 				B7CFA26328D5C79000E9DC12 /* RecordListCollectionViewHeader.swift in Sources */,
+				B7C7BAF928EEF82100CC574E /* LeftAxisValueFormatter.swift in Sources */,
 				B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */,
 				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,

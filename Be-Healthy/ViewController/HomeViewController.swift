@@ -275,6 +275,7 @@ extension HomeViewController {
         
         let chartData = BarChartData(dataSet: chartDataSet)
         
+        chartData.barWidth = Double(0.5)
         // 데이터 없을 때 처리
 //        barChartView.noDataText = "데이터가 없습니다."
 //        barChartView.noDataFont = .systemFont(ofSize: 20)
@@ -299,12 +300,14 @@ extension HomeViewController {
         barChartView.leftAxis.drawGridLinesEnabled = false
         barChartView.leftAxis.labelTextColor = .white
         barChartView.leftAxis.axisMaximum = 300
-        barChartView.leftAxis.axisMinimum = 0
+//        barChartView.leftAxis.axisMinimum = 0
         barChartView.leftAxis.axisLineColor = .white
+        
+        barChartView.leftAxis.valueFormatter = LeftAxisValueFormatter()
         
         // right축
         barChartView.rightAxis.enabled = false
-        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 2.0)
+        barChartView.animate(xAxisDuration: 2.0, yAxisDuration: 3.0)
         
         // 범례
         barChartView.legend.enabled = false
