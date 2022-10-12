@@ -251,7 +251,9 @@ extension LoginViewController {
     
     /// 루트 뷰 컨트롤러 변경
     @objc fileprivate func didTapLoginButton(_ sender: Any) {
-        self.view.window?.windowScene?.keyWindow?.rootViewController = GoalTimeSettingView()
+    // Test 용
+    //        AuthenticationService.shared.login(email: "gusdn5387@naver.com", password: "abcdef!23456")
+        navigationController?.pushViewController(GoalTimeSettingView(), animated: true)
     }
 }
 

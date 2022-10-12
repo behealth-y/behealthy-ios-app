@@ -152,6 +152,8 @@ extension RegisterViewController {
 extension RegisterViewController {
     // 회원가입 처리
     @objc fileprivate func didTapRegisterButton(_ sender: Any) {
+        // Test 용
+//        AuthenticationService.shared.signup(user: User(email: "gusdn5387@naver.com", password: "abcdef!23456", name: "Harry"))
         showToast(msg: "회원가입이 완료되었습니다.\n이제 Healthy와 함께 건강해질 준비 되셨나요?")
     }
 }

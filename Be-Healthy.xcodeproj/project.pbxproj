@@ -48,6 +48,12 @@
 		B7D1E4B128CB7075008C5E0C /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */; };
 		B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */; };
 		B7D1E4B528CBA0B5008C5E0C /* DeleteIdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B428CBA0B5008C5E0C /* DeleteIdViewController.swift */; };
+		B7D442C328F6FF8C00994AD3 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B7D442C228F6FF8C00994AD3 /* Alamofire */; };
+		B7D442C728F700B300994AD3 /* AuthenticationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442C628F700B300994AD3 /* AuthenticationService.swift */; };
+		B7D442C928F7015600994AD3 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442C828F7015600994AD3 /* Config.swift */; };
+		B7D442CB28F7038300994AD3 /* SignUpResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CA28F7038300994AD3 /* SignUpResultData.swift */; };
+		B7D442CE28F7048200994AD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CD28F7048200994AD3 /* User.swift */; };
+		B7D442D028F7061D00994AD3 /* LoginResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CF28F7061D00994AD3 /* LoginResultData.swift */; };
 		B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +116,11 @@
 		B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSettingView.swift; sourceTree = "<group>"; };
 		B7D1E4B428CBA0B5008C5E0C /* DeleteIdViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteIdViewController.swift; sourceTree = "<group>"; };
+		B7D442C628F700B300994AD3 /* AuthenticationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationService.swift; sourceTree = "<group>"; };
+		B7D442C828F7015600994AD3 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		B7D442CA28F7038300994AD3 /* SignUpResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResultData.swift; sourceTree = "<group>"; };
+		B7D442CD28F7048200994AD3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B7D442CF28F7061D00994AD3 /* LoginResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResultData.swift; sourceTree = "<group>"; };
 		B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,6 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7D442C328F6FF8C00994AD3 /* Alamofire in Frameworks */,
 				B727D57228B74EBE00773A12 /* SnapKit in Frameworks */,
 				B7B2E05328CF594800BD3E09 /* FSCalendar in Frameworks */,
 				B727D57528B74EC900773A12 /* Then in Frameworks */,
@@ -198,6 +210,7 @@
 			children = (
 				B727D53428B70A8500773A12 /* AppDelegate.swift */,
 				B727D53628B70A8500773A12 /* SceneDelegate.swift */,
+				B7D442C828F7015600994AD3 /* Config.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -245,6 +258,9 @@
 		B727D56C28B716CD00773A12 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				B7D442C428F7009600994AD3 /* VO */,
+				B7D442CC28F7047300994AD3 /* Models */,
+				B7D442C528F7009E00994AD3 /* Services */,
 				B727D56E28B716FB00773A12 /* LoginViewController.swift */,
 				B722FB8E28BA169C004AEEB2 /* RegisterViewController.swift */,
 				B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */,
@@ -293,6 +309,31 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		B7D442C428F7009600994AD3 /* VO */ = {
+			isa = PBXGroup;
+			children = (
+				B7D442CA28F7038300994AD3 /* SignUpResultData.swift */,
+				B7D442CF28F7061D00994AD3 /* LoginResultData.swift */,
+			);
+			path = VO;
+			sourceTree = "<group>";
+		};
+		B7D442C528F7009E00994AD3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B7D442C628F700B300994AD3 /* AuthenticationService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		B7D442CC28F7047300994AD3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B7D442CD28F7048200994AD3 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		B7F2BC2C28CF4AE300413836 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
@@ -323,6 +364,7 @@
 				B727D57428B74EC900773A12 /* Then */,
 				B7B2E05228CF594800BD3E09 /* FSCalendar */,
 				B7C17A1D28E730AE0056F8F9 /* Charts */,
+				B7D442C228F6FF8C00994AD3 /* Alamofire */,
 			);
 			productName = "Be-Healthy";
 			productReference = B727D53128B70A8500773A12 /* Be-Healthy.app */;
@@ -401,6 +443,7 @@
 				B727D57328B74EC900773A12 /* XCRemoteSwiftPackageReference "Then" */,
 				B7B2E05128CF594800BD3E09 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				B7C17A1C28E730AE0056F8F9 /* XCRemoteSwiftPackageReference "Charts" */,
+				B7D442C128F6FF8C00994AD3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 			);
 			productRefGroup = B727D53228B70A8500773A12 /* Products */;
 			projectDirPath = "";
@@ -463,6 +506,7 @@
 				B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */,
 				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
 				B7D1E4B528CBA0B5008C5E0C /* DeleteIdViewController.swift in Sources */,
+				B7D442D028F7061D00994AD3 /* LoginResultData.swift in Sources */,
 				B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */,
 				B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */,
 				B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */,
@@ -471,10 +515,14 @@
 				B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */,
 				B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */,
 				B7CFA25F28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift in Sources */,
+				B7D442CE28F7048200994AD3 /* User.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
+				B7D442C728F700B300994AD3 /* AuthenticationService.swift in Sources */,
+				B7D442CB28F7038300994AD3 /* SignUpResultData.swift in Sources */,
 				B7CFA26328D5C79000E9DC12 /* RecordListCollectionViewHeader.swift in Sources */,
 				B7C7BAF928EEF82100CC574E /* LeftAxisValueFormatter.swift in Sources */,
 				B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */,
+				B7D442C928F7015600994AD3 /* Config.swift in Sources */,
 				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
 			);
@@ -848,6 +896,14 @@
 				minimumVersion = 4.0.0;
 			};
 		};
+		B7D442C128F6FF8C00994AD3 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -870,6 +926,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B7C17A1C28E730AE0056F8F9 /* XCRemoteSwiftPackageReference "Charts" */;
 			productName = Charts;
+		};
+		B7D442C228F6FF8C00994AD3 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B7D442C128F6FF8C00994AD3 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
