@@ -160,6 +160,22 @@ extension HomeViewController {
             $0.leading.equalToSuperview().inset(20)
         }
         
+        /// 편집 버튼
+        let editButton = UIButton().then {
+            $0.setTitle(":", for: .normal)
+            $0.setTitleColor(.black, for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+            $0.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
+        }
+        
+        view.addSubview(editButton)
+        
+        editButton.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel)
+            $0.leading.greaterThanOrEqualTo(titleLabel).offset(10)
+            $0.trailing.equalToSuperview().inset(5)
+        }
+        
         let descriptionLabel = UILabel().then {
             $0.text = "LAURA LEE님!\n목표 운동시간까지 2시간 남았습니다. :)"
             $0.font = .systemFont(ofSize: 16, weight: .semibold)
@@ -311,6 +327,15 @@ extension HomeViewController {
         
         // 범례
         barChartView.legend.enabled = false
+    }
+}
+
+// MARK: - Actions
+extension HomeViewController {
+    /// 목표 달성률 편집 버튼 클릭 시
+    @objc func didTapEditButton(sender: UIButton) {
+        let actionSheet = Helper().actionSheet()
+        present(actionSheet, animated: true)
     }
 }
 

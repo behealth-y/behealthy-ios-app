@@ -21,24 +21,28 @@ class Helper {
     }
     
     /// Action Sheet 생성
-    func actionSheet() -> UIAlertController {
+    func actionSheet(delete: Bool = false) -> UIAlertController {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let editAction = UIAlertAction(title: "편집", style: .default) { _ in
             print("편집")
         }
         
-        let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-            print("삭제")
-        }
-        
         let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
             print("취소")
         }
         
-        actionSheet.addAction(editAction)
-        actionSheet.addAction(deleteAction)
-        actionSheet.addAction(cancelAction)
+        [editAction, cancelAction].forEach {
+            actionSheet.addAction($0)
+        }
+        
+        if delete == true {
+            let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
+                print("삭제")
+            }
+            
+            actionSheet.addAction(deleteAction)
+        }
         
         return actionSheet
     }

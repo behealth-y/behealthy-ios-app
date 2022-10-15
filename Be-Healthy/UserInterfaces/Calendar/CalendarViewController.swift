@@ -200,7 +200,7 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - RecordListCollectionViewCellDelegate
 extension CalendarViewController: RecordListCollectionViewCellDelegate {
     func showMoreMenu() {
-        let actionSheet = Helper().actionSheet()
+        let actionSheet = Helper().actionSheet(delete: true)
         self.present(actionSheet, animated: true)
     }
 }
