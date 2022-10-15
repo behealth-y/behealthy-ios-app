@@ -9,35 +9,35 @@ import UIKit
 import SnapKit
 
 class BHTextFieldView: UIView {
-    let textField = BHTextField()
+    var inputTextField: BHTextField?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    convenience init(parameterName: String, placeholder: String, keyboardType: UIKeyboardType = .default, secure: Bool = false) {
+    convenience init(textField: BHTextField) {
         self.init(frame: .zero)
-        textField.placeholder = placeholder
-        textField.keyboardType = keyboardType
-        textField.isSecureTextEntry = secure
-        textField.parameterName = parameterName
+        inputTextField = textField
+        
+        setupLayout()
     }
     
     /// 레이아웃 설정
     fileprivate func setupLayout() {
+        guard let inputTextField = inputTextField else { return }
+        
         self.snp.makeConstraints {
             $0.height.equalTo(60)
         }
         
-        self.addSubview(textField)
+        self.addSubview(inputTextField)
         
         // textField 높이
-        textField.snp.makeConstraints {
+        inputTextField.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         

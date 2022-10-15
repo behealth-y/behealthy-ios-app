@@ -8,6 +8,12 @@
 import UIKit
 
 class AccountSettingViewController: BHAuthViewController {
+    lazy var nicknameTextField = BHTextField().then {
+        $0.placeholder = "변경하실 닉네임을 입력해주세요! (국/영문 최대 2~8자)"
+        $0.keyboardType = .emailAddress
+        $0.delegate = self
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -219,8 +225,7 @@ extension AccountSettingViewController {
             $0.leading.equalToSuperview()
         }
         
-        let textFieldView = BHTextFieldView(parameterName: "nickName", placeholder: "변경하실 닉네임을 입력해주세요! (국/영문 최대 2~8자)")
-        textFieldView.textField.delegate = self
+        let textFieldView = BHTextFieldView(textField: nicknameTextField)
         
         view.addSubview(textFieldView)
         

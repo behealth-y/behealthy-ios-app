@@ -10,6 +10,17 @@ import Then
 import SnapKit
 
 class LoginViewController: BHAuthViewController {
+    lazy var emailTextField = BHTextField().then {
+        $0.placeholder = "이메일을 입력하세요."
+        $0.keyboardType = .emailAddress
+        $0.delegate = self
+    }
+    
+    lazy var pwTextField = BHTextField().then {
+        $0.placeholder = "비밀번호를 입력하세요."
+        $0.isSecureTextEntry = true
+        $0.delegate = self
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,12 +143,11 @@ extension LoginViewController {
         }
         
         // 이메일 / 비밀번호 textField 변수 초기화
-        let emailTextFieldView = BHTextFieldView(parameterName: "email", placeholder: "이메일을 입력하세요.", keyboardType: .emailAddress)
-        let pwTextFieldView = BHTextFieldView(parameterName: "password", placeholder: "비밀번호를 입력하세요.", secure: true)
+        let emailTextFieldView = BHTextFieldView(textField: emailTextField)
+        let pwTextFieldView = BHTextFieldView(textField: pwTextField)
         
         [emailTextFieldView, pwTextFieldView].forEach {
             stackView.addArrangedSubview($0)
-            $0.textField.delegate = self
             
             // 이메일 / 비밀번호 textField 위치 잡기
             $0.snp.makeConstraints {

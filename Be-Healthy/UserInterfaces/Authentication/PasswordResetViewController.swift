@@ -10,6 +10,17 @@ import SnapKit
 import Then
 
 class PasswordResetViewController: BHAuthViewController {
+    lazy var pwTextField = BHTextField().then {
+        $0.placeholder = "영문, 숫자, 특수문자 조합 최소 8자"
+        $0.isSecureTextEntry = true
+        $0.delegate = self
+    }
+    
+    lazy var pwCheckTextField = BHTextField().then {
+        $0.placeholder = "비밀번호 재입력"
+        $0.isSecureTextEntry = true
+        $0.delegate = self
+    }
     
     lazy var passwordResetButton = BHSubmitButton(title: "설정 완료")
     
@@ -90,8 +101,8 @@ extension PasswordResetViewController {
         }
         
         // 폼 textField StackView 변수 초기화
-        let pwStackView = generateTextFieldStackView("비밀번호", parameterName: "password", placeholder: "영문, 숫자, 특수문자 조합 최소 8자")
-        let pwCheckStackView = generateTextFieldStackView("비밀번호 확인", parameterName: "passwordCheck", placeholder: "비밀번호 재입력")
+        let pwStackView = generateTextFieldStackView("비밀번호", textField: pwTextField)
+        let pwCheckStackView = generateTextFieldStackView("비밀번호 확인", textField: pwCheckTextField)
         
         [pwStackView, pwCheckStackView].forEach {
             stackView.addArrangedSubview($0)
@@ -109,7 +120,7 @@ extension PasswordResetViewController {
     ///   - label: textField Label
     ///   - placeholder: textField placeholder
     /// - Returns: 입력창 stackView
-    fileprivate func generateTextFieldStackView(_ label: String, parameterName: String, placeholder: String) -> UIStackView {
+    fileprivate func generateTextFieldStackView(_ label: String, textField: BHTextField) -> UIStackView {
         let stackView = UIStackView().then {
             $0.spacing = 7
             $0.alignment = .center
@@ -123,10 +134,9 @@ extension PasswordResetViewController {
             $0.text = label
         }
         
-        let textFieldView = BHTextFieldView(parameterName: parameterName, placeholder: placeholder, secure: true)
-        textFieldView.textField.delegate = self
+        let textFieldView = BHTextFieldView(textField: textField)
         
-        textFields.append(textFieldView.textField)
+        textFields.append(textField)
         
         [label, textFieldView].forEach {
             stackView.addArrangedSubview($0)
