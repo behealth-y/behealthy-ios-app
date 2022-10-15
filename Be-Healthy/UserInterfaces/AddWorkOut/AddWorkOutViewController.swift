@@ -10,6 +10,65 @@ import SnapKit
 import Then
 
 class AddWorkOutViewController: UIViewController {
+    lazy var typeTextField = UITextField().then {
+        $0.font = .boldSystemFont(ofSize: 16)
+        $0.placeholder = "어떤 운동을 하셨나요?"
+        $0.autocapitalizationType = .none
+        $0.autocorrectionType = .no
+        $0.delegate = self
+    }
+    
+    lazy var dateTextField = UITextField().then {
+        $0.font = .boldSystemFont(ofSize: 16)
+        $0.placeholder = "언제 운동을 하셨나요?"
+        $0.autocapitalizationType = .none
+        $0.autocorrectionType = .no
+        $0.delegate = self
+        $0.setDatePicker(target: self, selector: #selector(handleDatePicker))
+    }
+    
+    lazy var timeTextField = UITextField().then {
+        $0.font = .boldSystemFont(ofSize: 16)
+        $0.placeholder = "얼마나 운동을 하셨나요?"
+        $0.autocapitalizationType = .none
+        $0.autocorrectionType = .no
+        $0.delegate = self
+        $0.setDatePicker(target: self, selector: #selector(handleDatePicker), isCount: true)
+    }
+    
+    lazy var countTextField = UITextField().then {
+        $0.font = .boldSystemFont(ofSize: 16)
+        $0.placeholder = "운동 세트와 횟수를 알려주세요!"
+        $0.autocapitalizationType = .none
+        $0.autocorrectionType = .no
+        $0.delegate = self
+    }
+    
+    // 폼 > 이모지 선택 버튼 변수 초기화
+    lazy var emojiTextField = EmojiTextField().then {
+        $0.layer.borderColor = UIColor.init(named: "mainColor")?.cgColor
+        $0.layer.borderWidth = 0.8
+        $0.layer.cornerRadius = 40
+        $0.clipsToBounds = true
+        $0.font = .systemFont(ofSize: 50)
+        $0.textAlignment = .center
+        $0.tintColor = .clear
+        $0.text = "🔥"
+    }
+    
+    // 내용 추가 textview 변수 초기화
+    lazy var contentView = UITextView().then {
+        $0.text = "내용을 추가해주세요."
+        $0.textColor = .placeholderText
+        $0.font = .boldSystemFont(ofSize: 16)
+        $0.autocapitalizationType = .none
+        $0.autocorrectionType = .no
+        $0.showsHorizontalScrollIndicator = false
+        $0.delegate = self
+        $0.isScrollEnabled = false
+        $0.textContainer.lineFragmentPadding = .zero
+    }
+    
     // scrollView 변수 초기화
     let scrollView = UIScrollView()
     
@@ -92,18 +151,6 @@ extension AddWorkOutViewController {
             $0.axis = .vertical
         }
         
-        // 폼 > 이모지 선택 버튼 변수 초기화
-        let emojiTextField = EmojiTextField().then {
-            $0.layer.borderColor = UIColor.init(named: "mainColor")?.cgColor
-            $0.layer.borderWidth = 0.8
-            $0.layer.cornerRadius = 40
-            $0.clipsToBounds = true
-            $0.font = .systemFont(ofSize: 50)
-            $0.textAlignment = .center
-            $0.tintColor = .clear
-            $0.text = "🔥"
-        }
-        
         stackView.addArrangedSubview(emojiTextField)
         
         // 폼 > 이모지 선택 버튼 위치 잡기
@@ -112,11 +159,10 @@ extension AddWorkOutViewController {
             $0.size.equalTo(80)
         }
         
-        let typeStackView = generateTextFieldStackView(placeholder: "어떤 운동을 하셨나요?", type: "text")
-        let dateStackView = generateTextFieldStackView(placeholder: "언제 운동을 하셨나요?", type: "date")
-        let timeStackView = generateTextFieldStackView(placeholder: "얼마나 운동을 하셨나요?", type: "time")
-        let countStackView = generateTextFieldStackView(placeholder: "운동 세트와 횟수를 알려주세요!", type: "text")
-//        let contentStackView = generateTextFieldStackView(placeholder: "내용을 추가해주세요.", type: "content")
+        let typeStackView = generateTextFieldStackView(textField: typeTextField)
+        let dateStackView = generateTextFieldStackView(textField: dateTextField)
+        let timeStackView = generateTextFieldStackView(textField: timeTextField)
+        let countStackView = generateTextFieldStackView(textField: countTextField)
         let contentStackView = generateContentStackView()
         
         [typeStackView, dateStackView, timeStackView, countStackView, contentStackView].forEach {
@@ -143,7 +189,7 @@ extension AddWorkOutViewController {
     /// 입력칭 StackView 생성
     /// - Parameter placeholder: textField placeholder
     /// - Returns: 입력창 stackView
-    fileprivate func generateTextFieldStackView(placeholder: String, type: String) -> UIStackView {
+    fileprivate func generateTextFieldStackView(textField: UITextField) -> UIStackView {
         let stackView = UIStackView().then {
             $0.spacing = 0.2
             $0.alignment = .fill
@@ -153,24 +199,6 @@ extension AddWorkOutViewController {
         
         stackView.snp.makeConstraints {
             $0.height.equalTo(31)
-        }
-        
-        // 폼 > textField 변수 초기화
-        let textField = UITextField().then {
-            $0.font = .boldSystemFont(ofSize: 16)
-            $0.placeholder = placeholder
-            $0.autocapitalizationType = .none
-            $0.autocorrectionType = .no
-            $0.delegate = self
-        }
-        
-        switch type {
-        case "date":
-            textField.setDatePicker(target: self, selector: #selector(handleDatePicker))
-        case "time":
-            textField.setDatePicker(target: self, selector: #selector(handleDatePicker), isCount: true)
-        default:
-            break
         }
         
         stackView.addArrangedSubview(textField)
@@ -202,19 +230,6 @@ extension AddWorkOutViewController {
             $0.alignment = .center
             $0.distribution = .fill
             $0.axis = .vertical
-        }
-        
-        // 내용 추가 textview 변수 초기화
-        let contentView = UITextView().then {
-            $0.text = "내용을 추가해주세요."
-            $0.textColor = .placeholderText
-            $0.font = .boldSystemFont(ofSize: 16)
-            $0.autocapitalizationType = .none
-            $0.autocorrectionType = .no
-            $0.showsHorizontalScrollIndicator = false
-            $0.delegate = self
-            $0.isScrollEnabled = false
-            $0.textContainer.lineFragmentPadding = .zero
         }
         
         stackView.addArrangedSubview(contentView)
