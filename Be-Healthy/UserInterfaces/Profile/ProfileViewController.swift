@@ -226,7 +226,7 @@ extension ProfileViewController {
         }
     }
     
-    /// 계정 설정 이동
+    /// 목표 운동 시간 설정 화면 이동
     @objc fileprivate func didTapGoalTimeSettingView(_ sender: UITapGestureRecognizer) {
         let vc = GoalTimeSettingView()
         vc.hidesBottomBarWhenPushed = true
@@ -234,7 +234,7 @@ extension ProfileViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    /// 계정 설정 이동
+    /// 계정 설정 화면 이동
     @objc fileprivate func didTapAccountSettingView(_ sender: UITapGestureRecognizer) {
         let vc = AccountSettingViewController()
         vc.hidesBottomBarWhenPushed = true
