@@ -7,6 +7,16 @@
 
 import UIKit
 
+/// 설정 > 목록 view.tag
+enum SettingView: Int {
+    case goalTimeSettingView = 0
+    case contentsSettingView = 1
+    case accountSettingView = 2
+    case appSettingView = 3
+    case noticeView = 4
+    case versionInfoView = 5
+}
+
 class ProfileViewController: BHAuthViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -202,9 +212,13 @@ extension ProfileViewController {
 
 // MARK: - Actions
 extension ProfileViewController {
+    /// 설정 > 목록 > 뷰 클릭 시
     func generateSettingViewTapGesture(_ view: UIView) {
         switch view.tag {
-        case 2:
+        case SettingView.goalTimeSettingView.rawValue:
+            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapGoalTimeSettingView))
+            view.addGestureRecognizer(tapGesture)
+        case SettingView.accountSettingView.rawValue:
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapAccountSettingView))
             view.addGestureRecognizer(tapGesture)
         default:
@@ -212,6 +226,15 @@ extension ProfileViewController {
         }
     }
     
+    /// 계정 설정 이동
+    @objc fileprivate func didTapGoalTimeSettingView(_ sender: UITapGestureRecognizer) {
+        let vc = GoalTimeSettingView()
+        vc.hidesBottomBarWhenPushed = true
+        
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    /// 계정 설정 이동
     @objc fileprivate func didTapAccountSettingView(_ sender: UITapGestureRecognizer) {
         let vc = AccountSettingViewController()
         vc.hidesBottomBarWhenPushed = true
