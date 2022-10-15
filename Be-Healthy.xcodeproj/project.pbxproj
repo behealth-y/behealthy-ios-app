@@ -54,6 +54,7 @@
 		B7D442CB28F7038300994AD3 /* SignUpResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CA28F7038300994AD3 /* SignUpResultData.swift */; };
 		B7D442CE28F7048200994AD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CD28F7048200994AD3 /* User.swift */; };
 		B7D442D028F7061D00994AD3 /* LoginResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CF28F7061D00994AD3 /* LoginResultData.swift */; };
+		B7E3A90328FAD16C005E6EB0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E3A90228FAD16C005E6EB0 /* Helper.swift */; };
 		B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -121,6 +122,7 @@
 		B7D442CA28F7038300994AD3 /* SignUpResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResultData.swift; sourceTree = "<group>"; };
 		B7D442CD28F7048200994AD3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B7D442CF28F7061D00994AD3 /* LoginResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResultData.swift; sourceTree = "<group>"; };
+		B7E3A90228FAD16C005E6EB0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -223,6 +225,7 @@
 				B727D58028B8628800773A12 /* UIColor+Extension.swift */,
 				B727D58228B88AAE00773A12 /* UIImage+Extension.swift */,
 				B7C7BAF828EEF82100CC574E /* LeftAxisValueFormatter.swift */,
+				B7E3A90228FAD16C005E6EB0 /* Helper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -513,6 +516,7 @@
 				B727D57F28B8568300773A12 /* UIButton+Extension.swift in Sources */,
 				B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */,
 				B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */,
+				B7E3A90328FAD16C005E6EB0 /* Helper.swift in Sources */,
 				B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */,
 				B7CFA25F28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift in Sources */,
 				B7D442CE28F7048200994AD3 /* User.swift in Sources */,

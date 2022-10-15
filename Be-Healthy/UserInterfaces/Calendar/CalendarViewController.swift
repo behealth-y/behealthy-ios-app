@@ -160,6 +160,7 @@ extension CalendarViewController: UICollectionViewDelegate, UICollectionViewData
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordListCollectionViewCell.identifier, for: indexPath) as! RecordListCollectionViewCell
+            cell.delegate = self
             
             return cell
         }
@@ -192,6 +193,15 @@ extension CalendarViewController: UICollectionViewDelegateFlowLayout {
         } else {
             return CGSize(width: collectionView.frame.width, height: 50)
         }
+    }
+}
+
+
+// MARK: - RecordListCollectionViewCellDelegate
+extension CalendarViewController: RecordListCollectionViewCellDelegate {
+    func showMoreMenu() {
+        let actionSheet = Helper().actionSheet()
+        self.present(actionSheet, animated: true)
     }
 }
 

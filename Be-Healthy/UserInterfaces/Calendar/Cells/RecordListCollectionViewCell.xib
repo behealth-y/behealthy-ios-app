@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,6 +42,9 @@
                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="17"/>
                             <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </buttonConfiguration>
+                        <connections>
+                            <action selector="didTapMoreButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="h5K-Bf-ODJ"/>
+                        </connections>
                     </button>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏃‍♂️" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H83-9P-Sgn">
                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -75,6 +79,7 @@
             <connections>
                 <outlet property="bottomBorder" destination="uNc-WL-Jwn" id="qe1-CQ-d0v"/>
                 <outlet property="emojiLabel" destination="H83-9P-Sgn" id="zyL-B7-FBy"/>
+                <outlet property="moreButton" destination="rnP-Os-rLc" id="QeV-b8-GWK"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="106.47321428571428"/>
         </collectionViewCell>
