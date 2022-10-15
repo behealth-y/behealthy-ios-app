@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class BHTextFieldView: UIView {
-    let textField = UITextField()
+    let textField = BHTextField()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -20,11 +20,12 @@ class BHTextFieldView: UIView {
         super.init(coder: coder)
     }
     
-    convenience init(placeholder: String, keyboardType: UIKeyboardType = .default, secure: Bool = false) {
+    convenience init(parameterName: String, placeholder: String, keyboardType: UIKeyboardType = .default, secure: Bool = false) {
         self.init(frame: .zero)
         textField.placeholder = placeholder
         textField.keyboardType = keyboardType
         textField.isSecureTextEntry = secure
+        textField.parameterName = parameterName
     }
     
     /// 레이아웃 설정
@@ -34,13 +35,6 @@ class BHTextFieldView: UIView {
         }
         
         self.addSubview(textField)
-        
-        textField.font = .systemFont(ofSize: 14.0)
-        textField.textColor = .black
-        textField.autocapitalizationType = .none
-        textField.autocorrectionType = .no
-        
-        textField.addLeftPadding()
         
         // textField 높이
         textField.snp.makeConstraints {

@@ -132,8 +132,8 @@ extension LoginViewController {
         }
         
         // 이메일 / 비밀번호 textField 변수 초기화
-        let emailTextFieldView = BHTextFieldView(placeholder: "이메일을 입력하세요.", keyboardType: .emailAddress)
-        let pwTextFieldView = BHTextFieldView(placeholder: "비밀번호를 입력하세요.", secure: true)
+        let emailTextFieldView = BHTextFieldView(parameterName: "email", placeholder: "이메일을 입력하세요.", keyboardType: .emailAddress)
+        let pwTextFieldView = BHTextFieldView(parameterName: "password", placeholder: "비밀번호를 입력하세요.", secure: true)
         
         [emailTextFieldView, pwTextFieldView].forEach {
             stackView.addArrangedSubview($0)

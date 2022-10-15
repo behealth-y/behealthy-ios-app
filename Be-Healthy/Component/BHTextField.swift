@@ -9,6 +9,8 @@ import UIKit
 import SnapKit
 
 class BHTextField: UITextField {
+    var parameterName: String?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
@@ -18,27 +20,13 @@ class BHTextField: UITextField {
         super.init(coder: coder)
     }
     
-    convenience init(placeholder: String, keyboardType: UIKeyboardType = .default, secure: Bool = false) {
-        self.init(frame: .zero)
-        self.placeholder = placeholder
-        self.keyboardType = keyboardType
-        self.isSecureTextEntry = secure
-    }
-    
     /// 레이아웃 설정
     fileprivate func setupLayout() {
-        self.layer.borderWidth = 0.5
-        self.layer.borderColor = UIColor.black.cgColor
         self.font = .systemFont(ofSize: 14.0)
         self.textColor = .black
         self.autocapitalizationType = .none
         self.autocorrectionType = .no
         
         self.addLeftPadding()
-        
-        // textField 높이
-        self.snp.makeConstraints {
-            $0.height.equalTo(60)
-        }
     }
 }

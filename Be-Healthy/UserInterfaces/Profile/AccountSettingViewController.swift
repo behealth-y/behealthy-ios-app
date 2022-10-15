@@ -219,7 +219,7 @@ extension AccountSettingViewController {
             $0.leading.equalToSuperview()
         }
         
-        let textFieldView = BHTextFieldView(placeholder: "변경하실 닉네임을 입력해주세요! (국/영문 최대 2~8자)")
+        let textFieldView = BHTextFieldView(parameterName: "nickName", placeholder: "변경하실 닉네임을 입력해주세요! (국/영문 최대 2~8자)")
         textFieldView.textField.delegate = self
         
         view.addSubview(textFieldView)
