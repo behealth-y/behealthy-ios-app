@@ -17,6 +17,8 @@ class RecordListCollectionViewCell: UICollectionViewCell {
     weak var delegate: RecordListCollectionViewCellDelegate?
      
     @IBOutlet weak var emojiLabel: UILabel!
+    @IBOutlet weak var workOutNameLabel: UILabel!
+    @IBOutlet weak var workOutTimeLabel: UILabel!
     @IBOutlet weak var bottomBorder: UIView!
     @IBOutlet weak var moreButton: UIButton!
     
@@ -34,11 +36,24 @@ class RecordListCollectionViewCell: UICollectionViewCell {
 }
 
 extension RecordListCollectionViewCell {
+    // 레이아웃 설정
     fileprivate func setupLayout() {
 //        emojiLabel.layer.borderWidth = 0.3
 //        emojiLabel.layer.borderColor = UIColor.init(hexFromString: "B0B0B0").cgColor
 //        emojiLabel.layer.cornerRadius = emojiLabel.frame.width / 2
         
+        emojiLabel.text = ""
+        workOutTimeLabel.text = ""
+        workOutTimeLabel.text = ""
+        
         bottomBorder.backgroundColor = UIColor.init(hexFromString: "B0B0B0")
+    }
+    
+    func updateUI(data: WorkOutRecord?) {
+        guard let data = data else { return }
+        
+        emojiLabel.text = data.emoji
+        workOutNameLabel.text = data.workOutName
+        workOutTimeLabel.text = "\(data.workOutTime)분"
     }
 }

@@ -17,7 +17,7 @@ enum SettingView: Int {
     case versionInfoView = 5
 }
 
-class ProfileViewController: BHAuthViewController {
+class ProfileViewController: BHBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         

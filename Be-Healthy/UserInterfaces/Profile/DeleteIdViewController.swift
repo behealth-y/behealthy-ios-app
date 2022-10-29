@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DeleteIdViewController: BHAuthViewController {
+class DeleteIdViewController: BHBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         

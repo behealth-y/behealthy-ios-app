@@ -11,6 +11,9 @@ import SnapKit
 import FSCalendar
 
 class CalendarViewController: UIViewController {
+    let viewModel = WorkOutRecordViewModel.shared
+    var workOutRecordList: [WorkOutRecord]?
+    
     /// scrollView 변수 초기화
     lazy var scrollView = UIScrollView()
     
@@ -58,8 +61,19 @@ class CalendarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel.bindWorkOutRecordViewModelToController = { [weak self] in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.workOutRecordList = self.viewModel.getAll()
+                self.collectionView.reloadData()
+            }
+        }
+        
 //        setupNavigationBar()
         setupLayout()
+        setupData()
     }
 }
 
@@ -121,6 +135,14 @@ extension CalendarViewController {
     }
 }
 
+extension CalendarViewController {
+    fileprivate func setupData() {
+        for _ in 1...10 {
+            viewModel.insert(WorkOutRecord(idx: 0, emoji: "🏃‍♂️", workOutName: "러닝", workOutTime: 35))
+        }
+    }
+}
+
 // MARK: - FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     // 선택된 날짜 배경색
@@ -149,7 +171,7 @@ extension CalendarViewController: UICollectionViewDelegate, UICollectionViewData
         if section == 0 {
             return 1
         } else {
-            return 10
+            return workOutRecordList?.count ?? 0
         }
     }
     
@@ -161,6 +183,11 @@ extension CalendarViewController: UICollectionViewDelegate, UICollectionViewData
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordListCollectionViewCell.identifier, for: indexPath) as! RecordListCollectionViewCell
             cell.delegate = self
+
+            if let workOutRecordList = workOutRecordList {
+                let data = workOutRecordList[indexPath.item]
+                cell.updateUI(data: data)
+            }
             
             return cell
         }

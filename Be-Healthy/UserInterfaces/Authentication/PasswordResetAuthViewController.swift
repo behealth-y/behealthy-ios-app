@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class PasswordResetAuthViewController: BHAuthViewController {
+class PasswordResetAuthViewController: BHBaseViewController {
     lazy var emailTextField = BHTextField().then {
         $0.placeholder = "이메일 형식"
         $0.keyboardType = .emailAddress

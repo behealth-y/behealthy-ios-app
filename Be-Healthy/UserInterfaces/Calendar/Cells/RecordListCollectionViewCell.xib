@@ -80,6 +80,8 @@
                 <outlet property="bottomBorder" destination="uNc-WL-Jwn" id="qe1-CQ-d0v"/>
                 <outlet property="emojiLabel" destination="H83-9P-Sgn" id="zyL-B7-FBy"/>
                 <outlet property="moreButton" destination="rnP-Os-rLc" id="QeV-b8-GWK"/>
+                <outlet property="workOutNameLabel" destination="GA1-z0-cwV" id="1Rf-RY-f9q"/>
+                <outlet property="workOutTimeLabel" destination="XRO-5L-6ZT" id="9qg-SD-Hhg"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="106.47321428571428"/>
         </collectionViewCell>

@@ -10,7 +10,7 @@
 		B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB8E28BA169C004AEEB2 /* RegisterViewController.swift */; };
 		B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */; };
 		B722FB9328BA16C2004AEEB2 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB9228BA16C2004AEEB2 /* PasswordResetViewController.swift */; };
-		B722FB9528BA19DD004AEEB2 /* BHAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB9428BA19DD004AEEB2 /* BHAuthViewController.swift */; };
+		B722FB9528BA19DD004AEEB2 /* BHBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB9428BA19DD004AEEB2 /* BHBaseViewController.swift */; };
 		B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53428B70A8500773A12 /* AppDelegate.swift */; };
 		B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53628B70A8500773A12 /* SceneDelegate.swift */; };
 		B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D53828B70A8500773A12 /* HomeViewController.swift */; };
@@ -29,6 +29,8 @@
 		B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58028B8628800773A12 /* UIColor+Extension.swift */; };
 		B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58228B88AAE00773A12 /* UIImage+Extension.swift */; };
 		B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58628B89CA100773A12 /* BHSubmitButton.swift */; };
+		B776F435290D1927009DA6B5 /* WorkOutRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776F434290D1927009DA6B5 /* WorkOutRecord.swift */; };
+		B776F43A290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776F439290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift */; };
 		B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */; };
 		B7825BF328C1E3ED005DF613 /* IntensityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF228C1E3ED005DF613 /* IntensityButton.swift */; };
 		B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */; };
@@ -79,7 +81,7 @@
 		B722FB8E28BA169C004AEEB2 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetAuthViewController.swift; sourceTree = "<group>"; };
 		B722FB9228BA16C2004AEEB2 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
-		B722FB9428BA19DD004AEEB2 /* BHAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHAuthViewController.swift; sourceTree = "<group>"; };
+		B722FB9428BA19DD004AEEB2 /* BHBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHBaseViewController.swift; sourceTree = "<group>"; };
 		B727D53128B70A8500773A12 /* Be-Healthy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Be-Healthy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B727D53428B70A8500773A12 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B727D53628B70A8500773A12 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,8 @@
 		B727D58028B8628800773A12 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B727D58228B88AAE00773A12 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		B727D58628B89CA100773A12 /* BHSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHSubmitButton.swift; sourceTree = "<group>"; };
+		B776F434290D1927009DA6B5 /* WorkOutRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutRecord.swift; sourceTree = "<group>"; };
+		B776F439290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutRecordViewModel.swift; sourceTree = "<group>"; };
 		B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkOutViewController.swift; sourceTree = "<group>"; };
 		B7825BF228C1E3ED005DF613 /* IntensityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButton.swift; sourceTree = "<group>"; };
 		B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +185,10 @@
 			children = (
 				B727D56428B7147A00773A12 /* App */,
 				B727D56628B7158E00773A12 /* Helper */,
+				B7D442C428F7009600994AD3 /* VO */,
+				B776F430290D17BE009DA6B5 /* ViewModel */,
+				B7D442CC28F7047300994AD3 /* Model */,
+				B7D442C528F7009E00994AD3 /* Services */,
 				B727D56828B7166E00773A12 /* Component */,
 				B727D56B28B716BD00773A12 /* UserInterfaces */,
 				B727D53D28B70A8600773A12 /* Assets.xcassets */,
@@ -236,11 +244,11 @@
 				B727D57628B75EF900773A12 /* TitleView.swift */,
 				B792954528BC6447007D6045 /* ToastView.swift */,
 				B7825BF228C1E3ED005DF613 /* IntensityButton.swift */,
+				B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */,
 				B727D57C28B7744200773A12 /* BHTextField.swift */,
 				B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */,
 				B727D58628B89CA100773A12 /* BHSubmitButton.swift */,
-				B722FB9428BA19DD004AEEB2 /* BHAuthViewController.swift */,
-				B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */,
+				B722FB9428BA19DD004AEEB2 /* BHBaseViewController.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -261,15 +269,29 @@
 		B727D56C28B716CD00773A12 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
-				B7D442C428F7009600994AD3 /* VO */,
-				B7D442CC28F7047300994AD3 /* Models */,
-				B7D442C528F7009E00994AD3 /* Services */,
 				B727D56E28B716FB00773A12 /* LoginViewController.swift */,
 				B722FB8E28BA169C004AEEB2 /* RegisterViewController.swift */,
 				B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */,
 				B722FB9228BA16C2004AEEB2 /* PasswordResetViewController.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		B776F42F290D1624009DA6B5 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				B7D442CA28F7038300994AD3 /* SignUpResultData.swift */,
+				B7D442CF28F7061D00994AD3 /* LoginResultData.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		B776F430290D17BE009DA6B5 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B776F439290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		B7825BF428C596FC005DF613 /* AddWorkOut */ = {
@@ -315,8 +337,7 @@
 		B7D442C428F7009600994AD3 /* VO */ = {
 			isa = PBXGroup;
 			children = (
-				B7D442CA28F7038300994AD3 /* SignUpResultData.swift */,
-				B7D442CF28F7061D00994AD3 /* LoginResultData.swift */,
+				B776F42F290D1624009DA6B5 /* Authentication */,
 			);
 			path = VO;
 			sourceTree = "<group>";
@@ -329,12 +350,13 @@
 			path = Services;
 			sourceTree = "<group>";
 		};
-		B7D442CC28F7047300994AD3 /* Models */ = {
+		B7D442CC28F7047300994AD3 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				B7D442CD28F7048200994AD3 /* User.swift */,
+				B776F434290D1927009DA6B5 /* WorkOutRecord.swift */,
 			);
-			path = Models;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		B7F2BC2C28CF4AE300413836 /* Calendar */ = {
@@ -494,7 +516,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B792954628BC6447007D6045 /* ToastView.swift in Sources */,
-				B722FB9528BA19DD004AEEB2 /* BHAuthViewController.swift in Sources */,
+				B722FB9528BA19DD004AEEB2 /* BHBaseViewController.swift in Sources */,
 				B7D1E4AF28CB68FB008C5E0C /* BHTextFieldView.swift in Sources */,
 				B7825BF328C1E3ED005DF613 /* IntensityButton.swift in Sources */,
 				B727D56F28B716FB00773A12 /* LoginViewController.swift in Sources */,
@@ -513,12 +535,14 @@
 				B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */,
 				B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */,
 				B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */,
+				B776F435290D1927009DA6B5 /* WorkOutRecord.swift in Sources */,
 				B727D57F28B8568300773A12 /* UIButton+Extension.swift in Sources */,
 				B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */,
 				B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */,
 				B7E3A90328FAD16C005E6EB0 /* Helper.swift in Sources */,
 				B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */,
 				B7CFA25F28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift in Sources */,
+				B776F43A290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift in Sources */,
 				B7D442CE28F7048200994AD3 /* User.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
 				B7D442C728F700B300994AD3 /* AuthenticationService.swift in Sources */,

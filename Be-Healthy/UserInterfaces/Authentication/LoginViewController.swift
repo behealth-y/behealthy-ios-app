@@ -9,7 +9,7 @@ import UIKit
 import Then
 import SnapKit
 
-class LoginViewController: BHAuthViewController {
+class LoginViewController: BHBaseViewController {
     lazy var emailTextField = BHTextField().then {
         $0.placeholder = "이메일을 입력하세요."
         $0.keyboardType = .emailAddress

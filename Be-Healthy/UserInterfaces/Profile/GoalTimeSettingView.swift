@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class GoalTimeSettingView: BHAuthViewController {
+class GoalTimeSettingView: BHBaseViewController {
     // 목표 운동시간 변수 초기화
     var timeInt: Int = 0
     

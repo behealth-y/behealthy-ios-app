@@ -1,5 +1,5 @@
 //
-//  BHAuthViewController.swift
+//  BHBaseViewController.swift
 //  Be-Healthy
 //
 //  Created by 박현우 on 2022/08/27.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BHAuthViewController: UIViewController {
+class BHBaseViewController: UIViewController {
     
     // 스크롤 시 status Bar 변경하기 위해 사용하는 변수
     var isTitleView: Bool = true
@@ -37,7 +37,7 @@ class BHAuthViewController: UIViewController {
 }
 
 // MARK: - 레이아웃 설정 관련
-extension BHAuthViewController {
+extension BHBaseViewController {
     /// 네비게이션 바 설정
     func setupNavigationBar(_ title: String) {
         let appearance = UINavigationBarAppearance()
@@ -70,7 +70,7 @@ extension BHAuthViewController {
 }
 
 // MARK: - Actions
-extension BHAuthViewController {
+extension BHBaseViewController {
     /// 키보드 내리기
     @objc func handleTapGesture(sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
@@ -78,7 +78,7 @@ extension BHAuthViewController {
 }
 
 // MARK: - 키보드가 textField 가리는 문제 해결
-extension BHAuthViewController {
+extension BHBaseViewController {
     func setKeyboardObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -105,7 +105,7 @@ extension BHAuthViewController {
 }
 
 // MARK: - UIScrollViewDelegate
-extension BHAuthViewController: UIScrollViewDelegate {
+extension BHBaseViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let yPos = scrollView.contentOffset.y
         

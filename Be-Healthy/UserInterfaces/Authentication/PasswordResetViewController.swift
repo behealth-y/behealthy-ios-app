@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class PasswordResetViewController: BHAuthViewController {
+class PasswordResetViewController: BHBaseViewController {
     lazy var pwTextField = BHTextField().then {
         $0.placeholder = "영문, 숫자, 특수문자 조합 최소 8자"
         $0.isSecureTextEntry = true

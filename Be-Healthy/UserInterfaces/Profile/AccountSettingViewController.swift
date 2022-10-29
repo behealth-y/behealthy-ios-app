@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AccountSettingViewController: BHAuthViewController {
+class AccountSettingViewController: BHBaseViewController {
     lazy var nicknameTextField = BHTextField().then {
         $0.placeholder = "변경하실 닉네임을 입력해주세요! (국/영문 최대 2~8자)"
         $0.keyboardType = .emailAddress
