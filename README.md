@@ -13,3 +13,8 @@
 - 캘린더를 통한 날짜별 운동 기록 확인
 - '오운완' 커뮤니티를 통한 다른 사람들과 운동 기록 공유
 ## Screenshot
+![로그 인화면](./screenshot/login.jpg)
+![메인 화면](./screenshot/main.jpg)
+![운동 기록 등록 화면](./screenshot/addWorkOut.jpg)
+![캘린더 화면](./screenshot/calendar.jpg)
+![마이페이지 화면](./screenshot/myPage.jpg)
