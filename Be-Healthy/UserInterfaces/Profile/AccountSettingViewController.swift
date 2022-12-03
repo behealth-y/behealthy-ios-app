@@ -290,7 +290,9 @@ extension AccountSettingViewController {
     @objc fileprivate func didTapLogoutButton() {
         navigationController?.popToRootViewController(animated: false)
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-        sceneDelegate.window?.rootViewController = LoginViewController()
+        let nav = UINavigationController(rootViewController: LoginViewController())
+        
+        sceneDelegate.window?.rootViewController = nav
     }
     
     /// 회원탈퇴 눌렀을 때 처리
