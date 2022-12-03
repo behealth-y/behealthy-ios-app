@@ -138,7 +138,7 @@ extension AccountSettingViewController {
         }
         
         let bottomBorder = UIView().then {
-            $0.backgroundColor = UIColor.init(hexFromString: "B0B0B0")
+            $0.backgroundColor = .border
         }
         
         view.addSubview(bottomBorder)
@@ -190,7 +190,7 @@ extension AccountSettingViewController {
         
         
         let bottomBorder = UIView().then {
-            $0.backgroundColor = UIColor.init(hexFromString: "B0B0B0")
+            $0.backgroundColor = .border
         }
         
         view.addSubview(bottomBorder)
@@ -247,7 +247,7 @@ extension AccountSettingViewController {
         // 로그아웃 이동 버튼 변수 초기화
         let logoutButton = UIButton().then {
             $0.setTitle("로그아웃", for: .normal)
-            $0.setTitleColor(UIColor.init(hexFromString: "B0B0B0"), for: .normal)
+            $0.setTitleColor(.border, for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 12.0)
             $0.addUnderLine()
         }
@@ -265,7 +265,7 @@ extension AccountSettingViewController {
         // 회원탈퇴 이동 버튼 변수 초기화
         let deleteIdButton = UIButton().then {
             $0.setTitle("회원탈퇴", for: .normal)
-            $0.setTitleColor(UIColor.init(hexFromString: "B0B0B0"), for: .normal)
+            $0.setTitleColor(.border, for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 12.0)
             $0.addUnderLine()
         }

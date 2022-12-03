@@ -23,7 +23,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
+//        setupNavigationBar()
         setupLayout()
         setupChart(dataPoints: weekDays, values: time)
     }

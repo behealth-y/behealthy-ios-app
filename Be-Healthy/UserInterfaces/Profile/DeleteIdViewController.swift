@@ -133,7 +133,7 @@ extension DeleteIdViewController {
         let label = UILabel().then {
             $0.text = text
             $0.font = .systemFont(ofSize: 14)
-            $0.textColor = UIColor.init(hexFromString: "B0B0B0")
+            $0.textColor = .border
         }
         
         let attributeString = NSMutableAttributedString()

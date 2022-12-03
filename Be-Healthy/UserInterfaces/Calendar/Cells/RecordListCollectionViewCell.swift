@@ -46,7 +46,7 @@ extension RecordListCollectionViewCell {
         workOutTimeLabel.text = ""
         workOutTimeLabel.text = ""
         
-        bottomBorder.backgroundColor = UIColor.init(hexFromString: "B0B0B0")
+        bottomBorder.backgroundColor = .border
     }
     
     func updateUI(data: WorkOutRecord?) {

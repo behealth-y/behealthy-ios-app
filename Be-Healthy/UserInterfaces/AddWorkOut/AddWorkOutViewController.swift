@@ -20,7 +20,7 @@ class AddWorkOutViewController: UIViewController {
     
     lazy var dateTextField = UITextField().then {
         $0.font = .boldSystemFont(ofSize: 16)
-        $0.placeholder = "언제 운동을 하셨나요?"
+        $0.placeholder = "운동 시작 시간을 알려주세요!"
         $0.autocapitalizationType = .none
         $0.autocorrectionType = .no
         $0.delegate = self
@@ -29,7 +29,7 @@ class AddWorkOutViewController: UIViewController {
     
     lazy var timeTextField = UITextField().then {
         $0.font = .boldSystemFont(ofSize: 16)
-        $0.placeholder = "얼마나 운동을 하셨나요?"
+        $0.placeholder = "운동 종료 시간을 알려주세요!"
         $0.autocapitalizationType = .none
         $0.autocorrectionType = .no
         $0.delegate = self
@@ -46,7 +46,7 @@ class AddWorkOutViewController: UIViewController {
     
     // 폼 > 이모지 선택 버튼 변수 초기화
     lazy var emojiTextField = EmojiTextField().then {
-        $0.layer.borderColor = UIColor.init(named: "mainColor")?.cgColor
+        $0.layer.borderColor = UIColor.border.cgColor
         $0.layer.borderWidth = 0.8
         $0.layer.cornerRadius = 40
         $0.clipsToBounds = true
@@ -77,10 +77,10 @@ class AddWorkOutViewController: UIViewController {
     
     // 운동 강도 버튼 변수 초기화
     lazy var intensityButtons: [IntensityButton] = [
-        IntensityButton(title: "Very Hard", tag: 0),
-        IntensityButton(title: "Hard", tag: 1),
-        IntensityButton(title: "Normal", tag: 2),
-        IntensityButton(title: "Easy", tag: 3)
+        IntensityButton(title: "매우 힘듦", tag: 0),
+        IntensityButton(title: "힘듦", tag: 1),
+        IntensityButton(title: "적당함", tag: 2),
+        IntensityButton(title: "쉬웠음", tag: 3)
     ]
     
     override func viewDidLoad() {
@@ -130,6 +130,7 @@ extension AddWorkOutViewController {
         
         // 운동 추가하기 버튼 변수 초기화
         let submitButton = BHSubmitButton(title: "운동 추가하기")
+        submitButton.isEnabled = false
         
         contentView.addSubview(submitButton)
         
@@ -210,7 +211,7 @@ extension AddWorkOutViewController {
         }
         
         let bottomBorder = UIView().then {
-            $0.backgroundColor = UIColor.init(named: "mainColor")
+            $0.backgroundColor = .border
         }
         
         stackView.addArrangedSubview(bottomBorder)
@@ -241,7 +242,7 @@ extension AddWorkOutViewController {
         }
         
         let bottomBorder = UIView().then {
-            $0.backgroundColor = UIColor.init(named: "mainColor")
+            $0.backgroundColor = .border
         }
         
         stackView.addArrangedSubview(bottomBorder)

@@ -40,7 +40,8 @@ extension UIColor {
     }
 
     static var peaGreen: UIColor { return UIColor(hexFromString: "#7dbf0d") }
-
+    static var border: UIColor { return UIColor.init(hexFromString: "#B0B0B0") }
+    
     // MARK: hex code를 이용하여 정의
 
     // ex. UIColor(hex: 0xF5663F)

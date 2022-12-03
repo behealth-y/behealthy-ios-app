@@ -50,7 +50,7 @@ class CalendarViewController: UIViewController {
         
         $0.placeholderType = .fillHeadTail
         
-        $0.appearance.titlePlaceholderColor = UIColor.init(hexFromString: "B0B0B0")
+        $0.appearance.titlePlaceholderColor = .border
         $0.appearance.titleDefaultColor = UIColor.init(hexFromString: "2E2E2E")
         $0.appearance.titleFont = .systemFont(ofSize: 12)
         

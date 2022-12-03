@@ -108,7 +108,7 @@ extension GoalTimeSettingView {
         }
         
         let bottomBorder = UIView().then {
-            $0.backgroundColor = UIColor.init(hexFromString: "B0B0B0")
+            $0.backgroundColor = .border
         }
         
         contentView.addSubview(bottomBorder)
