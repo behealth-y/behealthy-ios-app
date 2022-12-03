@@ -20,28 +20,29 @@ class AddWorkOutViewController: UIViewController {
     
     lazy var dateTextField = UITextField().then {
         $0.font = .boldSystemFont(ofSize: 16)
-        $0.placeholder = "운동 시작 시간을 알려주세요!"
+        $0.placeholder = "언제 운동을 하셨나요?"
         $0.autocapitalizationType = .none
         $0.autocorrectionType = .no
         $0.delegate = self
         $0.setDatePicker(target: self, selector: #selector(handleDatePicker))
     }
     
-    lazy var timeTextField = UITextField().then {
+    lazy var startTimeTextField = UITextField().then {
+        $0.font = .boldSystemFont(ofSize: 16)
+        $0.placeholder = "운동 시작 시간을 알려주세요!"
+        $0.autocapitalizationType = .none
+        $0.autocorrectionType = .no
+        $0.delegate = self
+        $0.setDatePicker(target: self, selector: #selector(handleDatePicker), isTime: true)
+    }
+    
+    lazy var endTimeTextField = UITextField().then {
         $0.font = .boldSystemFont(ofSize: 16)
         $0.placeholder = "운동 종료 시간을 알려주세요!"
         $0.autocapitalizationType = .none
         $0.autocorrectionType = .no
         $0.delegate = self
-        $0.setDatePicker(target: self, selector: #selector(handleDatePicker), isCount: true)
-    }
-    
-    lazy var countTextField = UITextField().then {
-        $0.font = .boldSystemFont(ofSize: 16)
-        $0.placeholder = "운동 세트와 횟수를 알려주세요!"
-        $0.autocapitalizationType = .none
-        $0.autocorrectionType = .no
-        $0.delegate = self
+        $0.setDatePicker(target: self, selector: #selector(handleDatePicker), isTime: true)
     }
     
     // 폼 > 이모지 선택 버튼 변수 초기화
@@ -162,11 +163,11 @@ extension AddWorkOutViewController {
         
         let typeStackView = generateTextFieldStackView(textField: typeTextField)
         let dateStackView = generateTextFieldStackView(textField: dateTextField)
-        let timeStackView = generateTextFieldStackView(textField: timeTextField)
-        let countStackView = generateTextFieldStackView(textField: countTextField)
+        let startTimeStackView = generateTextFieldStackView(textField: startTimeTextField)
+        let endTimeStackView = generateTextFieldStackView(textField: endTimeTextField)
         let contentStackView = generateContentStackView()
         
-        [typeStackView, dateStackView, timeStackView, countStackView, contentStackView].forEach {
+        [typeStackView, dateStackView, startTimeStackView, endTimeStackView, contentStackView].forEach {
             stackView.addArrangedSubview($0)
             
             $0.snp.makeConstraints {

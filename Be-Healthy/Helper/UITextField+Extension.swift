@@ -22,10 +22,10 @@ extension UITextField {
         layer.masksToBounds = true
     }
     
-    func setDatePicker(target: Any, selector: Selector, isCount: Bool = false) {
+    func setDatePicker(target: Any, selector: Selector, isTime: Bool = false) {
         let width = self.bounds.width
         let datePicker = UIDatePicker()
-        datePicker.datePickerMode = isCount ? .countDownTimer : .date
+        datePicker.datePickerMode = isTime ? .time : .date // isCount .countDownTimer
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.locale = Locale(identifier: "ko_KR")
         self.inputView = datePicker

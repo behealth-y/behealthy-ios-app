@@ -21,7 +21,7 @@ class GoalTimeSettingView: BHBaseViewController {
         $0.autocapitalizationType = .none
         $0.autocorrectionType = .no
         $0.delegate = self
-        $0.setDatePicker(target: self, selector: #selector(handleDatePicker), isCount: true)
+//        $0.setDatePicker(target: self, selector: #selector(handleDatePicker), isCount: true)
         $0.addLeftPadding()
         
         if let datePicker = $0.inputView as? UIDatePicker {
