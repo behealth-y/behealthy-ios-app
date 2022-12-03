@@ -18,7 +18,8 @@ class AuthenticationService {
         let params = [
             "email": user.email,
             "password": user.password,
-            "name": user.name
+            "name": user.name,
+            "emailVerificationCode": user.verificationCode
         ]
         
         let headers: HTTPHeaders = [
@@ -86,6 +87,7 @@ class AuthenticationService {
                 case .success:
                     guard let data = response.value else { return }
                     print(data)
+                    completion()
                 case let .failure(error):
                     print(error)
                 }

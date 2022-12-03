@@ -44,8 +44,9 @@ class RegisterViewController: BHBaseViewController {
     
     private var textFields: [BHTextField] = []
     
-    // 인증번호 완료 여부
-    private var isCompletedCerNumber: Bool = false
+    // 인증코드 완료 여부
+    private var isCompletedVerficationCode: Bool = false
+    private var verificationCode: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -185,14 +186,14 @@ extension RegisterViewController {
     // 회원가입 처리
     @objc private func didTapRegisterButton(_ sender: Any) {
         // Test 용
-//        AuthenticationService.shared.signup(user: User(email: "gusdn5387@naver.com", password: "abcdef!23456", name: "Harry"))
+//        AuthenticationService.shared.signup(user: User(email: "gusdn5387@naver.com", password: "abcdef!23456", name: "Harry", verificationCode: ""))
         showToast(msg: "회원가입이 완료되었습니다.\n이제 Healthy와 함께 건강해질 준비 되셨나요?")
     }
     
     // 인증번호 요청
     @objc private func didTapCertNumberButton(_ sender: Any) {
-        AuthenticationService.shared.requestCertNumber(email: "gusdn5387@naver.com") {
-            
+        AuthenticationService.shared.requestCertNumber(email: "gusdn5387@naver.com") { [weak self] in
+            self?.isCompletedVerficationCode = true
         }
     }
 }
