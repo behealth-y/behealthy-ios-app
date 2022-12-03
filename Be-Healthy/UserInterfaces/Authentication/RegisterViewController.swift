@@ -10,39 +10,42 @@ import SnapKit
 import Then
 
 class RegisterViewController: BHBaseViewController {
-    lazy var emailTextField = BHTextField().then {
+    private lazy var emailTextField = BHTextField().then {
         $0.placeholder = "이메일 형식"
         $0.keyboardType = .emailAddress
         $0.delegate = self
     }
     
-    lazy var certNumberTextField = BHTextField().then {
+    private lazy var certNumberTextField = BHTextField().then {
         $0.placeholder = "인증번호를 입력하세요."
         $0.keyboardType = .numberPad
         $0.delegate = self
     }
     
-    lazy var pwTextField = BHTextField().then {
+    private lazy var pwTextField = BHTextField().then {
         $0.placeholder = "영문, 숫자, 특수문자 조합 최소 8자"
         $0.isSecureTextEntry = true
         $0.delegate = self
     }
     
-    lazy var pwCheckTextField = BHTextField().then {
+    private lazy var pwCheckTextField = BHTextField().then {
         $0.placeholder = "비밀번호 재입력"
         $0.isSecureTextEntry = true
         $0.delegate = self
     }
     
-    lazy var nicknameTextField = BHTextField().then {
+    private lazy var nicknameTextField = BHTextField().then {
         $0.placeholder = "국문, 영문 2~8글자"
         $0.keyboardType = .emailAddress
         $0.delegate = self
     }
     
-    lazy var registerButton = BHSubmitButton(title: "회원가입")
+    private lazy var registerButton = BHSubmitButton(title: "회원가입")
     
-    var textFields: [BHTextField] = []
+    private var textFields: [BHTextField] = []
+    
+    // 인증번호 완료 여부
+    private var isCompletedCerNumber: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +64,7 @@ class RegisterViewController: BHBaseViewController {
 // MARK: - 레이아웃 설정 관련
 extension RegisterViewController {
     /// 레이아웃 설정
-    fileprivate func setupLayout() {
+    private func setupLayout() {
         self.view.addSubview(scrollView)
         
         // scrollView 위치 잡기
@@ -113,7 +116,7 @@ extension RegisterViewController {
     
     /// 회원가입 폼 stackView 생성
     /// - Returns: 회원가입 폼 stackView
-    fileprivate func generateFormStackView() -> UIStackView {
+    private func generateFormStackView() -> UIStackView {
         let stackView = UIStackView().then {
             $0.spacing = 12
             $0.alignment = .fill
@@ -130,6 +133,7 @@ extension RegisterViewController {
         
         // 인증번호 요청 버튼 변수 초기화
         let certNumberButton = BHSubmitButton(title: "인증번호 요청")
+        certNumberButton.addTarget(self, action: #selector(didTapCertNumberButton), for: .touchUpInside)
         
         [emailStackView, certNumberButton, certNumberStackView, pwStackView, pwCheckStackView, nicknameStackView].forEach {
             stackView.addArrangedSubview($0)
@@ -142,12 +146,12 @@ extension RegisterViewController {
         return stackView
     }
     
-    /// 회원가입 폼 > 입력창 stackVeiw 생성
+    /// 회원가입 폼 > 입력창 stackView 생성
     /// - Parameters:
     ///   - label: textField Label
     ///   - placeholder: textField placeholder
     /// - Returns: 입력창 stackView
-    fileprivate func generateTextFieldStackView(_ label: String, textField: BHTextField) -> UIStackView {
+    private func generateTextFieldStackView(_ label: String, textField: BHTextField) -> UIStackView {
         let stackView = UIStackView().then {
             $0.spacing = 7
             $0.alignment = .center
@@ -179,10 +183,17 @@ extension RegisterViewController {
 // MARK: - Actions
 extension RegisterViewController {
     // 회원가입 처리
-    @objc fileprivate func didTapRegisterButton(_ sender: Any) {
+    @objc private func didTapRegisterButton(_ sender: Any) {
         // Test 용
 //        AuthenticationService.shared.signup(user: User(email: "gusdn5387@naver.com", password: "abcdef!23456", name: "Harry"))
         showToast(msg: "회원가입이 완료되었습니다.\n이제 Healthy와 함께 건강해질 준비 되셨나요?")
+    }
+    
+    // 인증번호 요청
+    @objc private func didTapCertNumberButton(_ sender: Any) {
+        AuthenticationService.shared.requestCertNumber(email: "gusdn5387@naver.com") {
+            
+        }
     }
 }
 
@@ -215,6 +226,7 @@ import SwiftUI
 // OPTION + CMD + ENTER: 미리보기 화면 띄우기, OPTION + CMD + P: 미리보기 resume
 struct RegisterViewControllerPresentable: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        
     }
     
     func makeUIViewController(context: Context) -> some UIViewController {

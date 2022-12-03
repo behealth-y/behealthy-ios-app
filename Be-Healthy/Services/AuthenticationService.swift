@@ -65,4 +65,30 @@ class AuthenticationService {
                 }
             }
     }
+    
+    // 인증번호 요청
+    func requestCertNumber(email: String, completion: @escaping () -> Void) {
+        let url = URL(string: "\(Config().apiUrl)/api/auth/email-verification")!
+        
+        let params = [
+            "email": email,
+        ]
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json"
+        ]
+    
+        print("\(#function) url : \(url), params: \(params)")
+        
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
+            .responseString { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.value else { return }
+                    print(data)
+                case let .failure(error):
+                    print(error)
+                }
+            }
+    }
 }

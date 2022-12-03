@@ -58,6 +58,7 @@
 		B7D442D028F7061D00994AD3 /* LoginResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CF28F7061D00994AD3 /* LoginResultData.swift */; };
 		B7E3A90328FAD16C005E6EB0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E3A90228FAD16C005E6EB0 /* Helper.swift */; };
 		B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */; };
+		B7F67684293B343C008C72DC /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67683293B343C008C72DC /* CommunityViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +129,7 @@
 		B7D442CF28F7061D00994AD3 /* LoginResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResultData.swift; sourceTree = "<group>"; };
 		B7E3A90228FAD16C005E6EB0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
+		B7F67683293B343C008C72DC /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 				B792954928BCA344007D6045 /* Layout */,
 				B727D56C28B716CD00773A12 /* Authentication */,
 				B7825BF428C596FC005DF613 /* AddWorkOut */,
+				B7F67682293B3427008C72DC /* Community */,
 				B7825BF528C5ACBC005DF613 /* Profile */,
 				B7F2BC2C28CF4AE300413836 /* Calendar */,
 				B727D53828B70A8500773A12 /* HomeViewController.swift */,
@@ -366,6 +369,14 @@
 				B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		B7F67682293B3427008C72DC /* Community */ = {
+			isa = PBXGroup;
+			children = (
+				B7F67683293B343C008C72DC /* CommunityViewController.swift */,
+			);
+			path = Community;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -550,6 +561,7 @@
 				B7CFA26328D5C79000E9DC12 /* RecordListCollectionViewHeader.swift in Sources */,
 				B7C7BAF928EEF82100CC574E /* LeftAxisValueFormatter.swift in Sources */,
 				B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */,
+				B7F67684293B343C008C72DC /* CommunityViewController.swift in Sources */,
 				B7D442C928F7015600994AD3 /* Config.swift in Sources */,
 				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
