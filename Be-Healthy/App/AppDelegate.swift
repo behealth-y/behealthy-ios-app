@@ -6,15 +6,16 @@
 //
 
 import UIKit
+import KakaoSDKCommon
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // LaunchScreen 노출 시간 조정
         Thread.sleep(forTimeInterval: 1.0)
+        
+        KakaoSDK.initSDK(appKey: "3bb94cb0bfaa0d054202fe2cb9548187")
         
         return true
     }

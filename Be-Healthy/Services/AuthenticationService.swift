@@ -7,6 +7,9 @@
 
 import Foundation
 import Alamofire
+import KakaoSDKUser
+import KakaoSDKAuth
+import KakaoSDKCommon
 
 class AuthenticationService {
     static let shared = AuthenticationService()
@@ -67,7 +70,43 @@ class AuthenticationService {
             }
     }
     
-    // 인증번호 요청
+    /// 카카오 로그인
+    func kakaoLogin(completion: @escaping () -> Void) {
+        // 카카오톡이 설치되어 있는 경우
+        if (UserApi.isKakaoTalkLoginAvailable()) {
+            // 카카오 로그인
+            UserApi.shared.loginWithKakaoTalk {(oauthToken, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    completion()
+                }
+            }
+        } else {
+            // 카카오 계정으로 로그인
+            UserApi.shared.loginWithKakaoAccount {(oauthToken, error) in
+                if let error = error {
+                    print(error)
+                } else {
+                    completion()
+                }
+            }
+        }
+    }
+    
+    /// 카카오 로그아웃
+    func kakaoLogout(completion: @escaping () -> Void) {
+        UserApi.shared.logout {(error) in
+            if let error = error {
+                print(error)
+            }
+            else {
+                print("logout() success.")
+            }
+        }
+    }
+    
+    /// 인증번호 요청
     func requestCertNumber(email: String, completion: @escaping () -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth/email-verification")!
         

@@ -31,7 +31,7 @@ class FirstViewController: UIViewController {
         config.image = UIImage(named: "kakao-symbol")?.resizeImageTo(size: CGSize(width: 18, height: 18))
         config.imagePadding = 10
         config.imagePlacement = .leading
-        config.baseForegroundColor = .red
+        config.baseForegroundColor = .black
         
         return config
     }()
@@ -43,6 +43,8 @@ class FirstViewController: UIViewController {
         $0.titleLabel?.font = .systemFont(ofSize: 16.0)
         $0.layer.cornerRadius = 12.0
         $0.contentMode = .scaleAspectFit
+        
+        $0.addTarget(self, action: #selector(didTapKakaoLoginButton), for: .touchUpInside)
     }
     
     // 애플 로그인 버튼 이미지 설정
@@ -147,6 +149,16 @@ extension FirstViewController {
             $0.height.equalTo(0.5)
             $0.trailing.equalToSuperview()
             $0.centerY.equalTo(orTextLabel)
+        }
+    }
+}
+
+// MARK: - Action
+extension FirstViewController {
+    @objc private func didTapKakaoLoginButton() {
+        AuthenticationService.shared.kakaoLogin { [weak self] in
+//            self?.navigationController?.pushViewController(GoalTimeSettingView(), animated: true)
+            self?.view.window?.windowScene?.keyWindow?.rootViewController = GoalTimeSettingView()
         }
     }
 }
