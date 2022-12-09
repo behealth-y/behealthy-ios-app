@@ -16,6 +16,81 @@ class FirstViewController: UIViewController {
         $0.font = .systemFont(ofSize: 50, weight: .init(900))
     }
     
+    private let snsLoginStackView = UIStackView().then {
+        $0.spacing = 13
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.axis = .vertical
+    }
+    
+    // 카카오 로그인 버튼 이미지 설정
+    private let kakaoLoginButtonConfig: UIButton.Configuration = {
+        var config = UIButton.Configuration.filled()
+        
+        config.baseBackgroundColor = UIColor(hexFromString: "#FEE500")
+        config.image = UIImage(named: "kakao-symbol")?.resizeImageTo(size: CGSize(width: 18, height: 18))
+        config.imagePadding = 10
+        config.imagePlacement = .leading
+        config.baseForegroundColor = .red
+        
+        return config
+    }()
+    
+    // 카카오 로그인 버튼
+    private lazy var kakaoLoginButton = UIButton(configuration: kakaoLoginButtonConfig).then {
+        $0.setTitle("카카오로 로그인", for: .normal)
+        $0.setTitleColor(.black, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 16.0)
+        $0.layer.cornerRadius = 12.0
+        $0.contentMode = .scaleAspectFit
+    }
+    
+    // 애플 로그인 버튼 이미지 설정
+    private let appleLoginButtonConfig: UIButton.Configuration = {
+        var config = UIButton.Configuration.filled()
+        
+        config.baseBackgroundColor = .black
+        config.image = UIImage(systemName: "applelogo")
+        config.imagePadding = 10
+        config.imagePlacement = .leading
+        
+        return config
+    }()
+    
+    // 애플 로그인 버튼
+    private lazy var appleLoginButton = UIButton(configuration: appleLoginButtonConfig).then {
+        $0.setTitle("Apple로 로그인", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 16.0)
+        $0.layer.cornerRadius = 12.0
+    }
+    
+    // 이메일로 로그인 버튼
+    private let emailLoginButton = UIButton().then {
+        $0.backgroundColor = UIColor.init(named: "mainColor")
+        $0.setTitle("이메일로 시작하기", for: .normal)
+        $0.setTitleColor(.white, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 16.0)
+        $0.layer.cornerRadius = 12.0
+    }
+    
+    private let orTextView = UIView()
+    
+    private let borderView = UIView().then {
+        $0.backgroundColor = .init(hexFromString: "2E2E2E")
+    }
+    
+    private let borderView2 = UIView().then {
+        $0.backgroundColor = .init(hexFromString: "2E2E2E")
+    }
+    
+    // "또는"
+    private let orTextLabel = UILabel().then {
+        $0.text = "또는"
+        $0.font = .systemFont(ofSize: 12)
+        $0.textColor = .init(hexFromString: "2E2E2E")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,11 +103,50 @@ extension FirstViewController {
     private func setupLayout() {
         view.backgroundColor = .white
         
-        view.addSubview(logoLabel)
+        [logoLabel, snsLoginStackView].forEach {
+            view.addSubview($0)
+        }
         
         logoLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.centerY.equalToSuperview().offset(-50)
+        }
+        
+        snsLoginStackView.snp.makeConstraints {
+            $0.top.greaterThanOrEqualTo(logoLabel.snp.bottom)
+            $0.bottom.equalToSuperview().inset(45)
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        [kakaoLoginButton, appleLoginButton, orTextView, emailLoginButton].forEach {
+            snsLoginStackView.addArrangedSubview($0)
+            
+            let height = $0 == orTextView ? 20 : 50
+            $0.snp.makeConstraints {
+                $0.height.equalTo(height)
+            }
+        }
+        
+        [borderView, orTextLabel, borderView2].forEach {
+            orTextView.addSubview($0)
+        }
+        
+        borderView.snp.makeConstraints {
+            $0.height.equalTo(0.5)
+            $0.leading.equalToSuperview()
+            $0.centerY.equalTo(orTextLabel)
+        }
+        
+        orTextLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.leading.equalTo(borderView.snp.trailing).offset(30)
+            $0.trailing.equalTo(borderView2.snp.leading).offset(-30)
+        }
+        
+        borderView2.snp.makeConstraints {
+            $0.height.equalTo(0.5)
+            $0.trailing.equalToSuperview()
+            $0.centerY.equalTo(orTextLabel)
         }
     }
 }
