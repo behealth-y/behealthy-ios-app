@@ -7,6 +7,7 @@
 
 import UIKit
 import KakaoSDKCommon
+import Firebase
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,6 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // LaunchScreen 노출 시간 조정
         Thread.sleep(forTimeInterval: 1.0)
         
+        // Firebase
+        FirebaseApp.configure()
+        
+        // KAKAO
         KakaoSDK.initSDK(appKey: "3bb94cb0bfaa0d054202fe2cb9548187")
         
         return true

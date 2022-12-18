@@ -199,7 +199,7 @@ extension CalendarViewController: UICollectionViewDelegate, UICollectionViewData
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecordListCollectionViewHeader.identifier, for: indexPath)
             return headerView
         default:
-            assert(false)
+            return UICollectionReusableView()
         }
     }
 }

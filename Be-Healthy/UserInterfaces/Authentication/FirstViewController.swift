@@ -93,6 +93,16 @@ class FirstViewController: UIViewController {
         $0.textColor = .init(hexFromString: "2E2E2E")
     }
     
+    private let moveToLoginLabel = UILabel().then {
+        let text = "이미 Be Healthy 회원이신가요? 로그인"
+        let attributeString = NSMutableAttributedString(string: text)
+        attributeString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: (text as NSString).range(of: "로그인"))
+        
+        $0.attributedText = attributeString
+        $0.font = .systemFont(ofSize: 10)
+        $0.textColor = .init(hexFromString: "2E2E2E")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -105,19 +115,19 @@ extension FirstViewController {
     private func setupLayout() {
         view.backgroundColor = .white
         
-        [logoLabel, snsLoginStackView].forEach {
+        [logoLabel, snsLoginStackView, moveToLoginLabel].forEach {
             view.addSubview($0)
         }
         
         logoLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview().offset(-50)
+            $0.centerY.equalToSuperview().offset(-95)
         }
         
         snsLoginStackView.snp.makeConstraints {
             $0.top.greaterThanOrEqualTo(logoLabel.snp.bottom)
-            $0.bottom.equalToSuperview().inset(45)
             $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.bottom.equalTo(moveToLoginLabel.snp.top).offset(-13)
         }
         
         [kakaoLoginButton, appleLoginButton, orTextView, emailLoginButton].forEach {
@@ -150,6 +160,11 @@ extension FirstViewController {
             $0.trailing.equalToSuperview()
             $0.centerY.equalTo(orTextLabel)
         }
+        
+        moveToLoginLabel.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(45)
+            $0.centerX.equalToSuperview()
+        }
     }
 }
 
@@ -159,6 +174,9 @@ extension FirstViewController {
         AuthenticationService.shared.kakaoLogin { [weak self] in
 //            self?.navigationController?.pushViewController(GoalTimeSettingView(), animated: true)
             self?.view.window?.windowScene?.keyWindow?.rootViewController = GoalTimeSettingView()
+            
+//            let numbers = [0]
+//            let _ = numbers[1]
         }
     }
 }
