@@ -1,0 +1,69 @@
+//
+//  BaseViewController.swift
+//  Be-Healthy
+//
+//  Created by 박현우 on 2022/12/29.
+//
+
+import UIKit
+
+class BaseViewController: UIViewController {
+    
+    /// scrollView 변수 초기화
+    lazy var scrollView = UIScrollView().then {
+        $0.contentInsetAdjustmentBehavior = .never
+    }
+    
+    override func viewDidLoad() {
+        setupScrollView()
+        setKeyboardObserver()
+    }
+}
+
+// MARK: - 레이아웃 설정 관련
+extension BaseViewController {
+    /// scrollView touchesBegan 호출 안되는 문제 해결
+    func setupScrollView() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture))
+        tapGesture.numberOfTapsRequired = 1
+        tapGesture.isEnabled = true
+        tapGesture.cancelsTouchesInView = false
+        scrollView.addGestureRecognizer(tapGesture)
+    }
+}
+
+// MARK: - Actions
+extension BaseViewController {
+    /// 키보드 내리기
+    @objc func handleTapGesture(sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
+    }
+}
+
+// MARK: - 키보드가 textField 가리는 문제 해결
+extension BaseViewController {
+    func setKeyboardObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    /// 키보드 나타날 때 키보드 높이만큼 스크롤
+    @objc func keyboardWillShow(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.size.height, right: 0.0)
+        scrollView.contentInset = contentInset
+    }
+    
+    /// 키보드 숨길때 키보드 높이만큼 스크롤 되었던 거 복구
+    @objc func keyboardWillHide(notification: NSNotification) {
+       guard let userInfo = notification.userInfo,
+             let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+           return
+       }
+        
+       scrollView.contentInset = .zero
+   }
+}

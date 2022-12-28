@@ -65,6 +65,8 @@
 		B7D442CB28F7038300994AD3 /* SignUpResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CA28F7038300994AD3 /* SignUpResultData.swift */; };
 		B7D442CE28F7048200994AD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CD28F7048200994AD3 /* User.swift */; };
 		B7D442D028F7061D00994AD3 /* LoginResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CF28F7061D00994AD3 /* LoginResultData.swift */; };
+		B7E19160295CD11A00A20F2F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E1915F295CD11A00A20F2F /* BaseViewController.swift */; };
+		B7E19164295CEC3100A20F2F /* GoalTimeSettingModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E19163295CEC3100A20F2F /* GoalTimeSettingModalView.swift */; };
 		B7E3A90328FAD16C005E6EB0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E3A90228FAD16C005E6EB0 /* Helper.swift */; };
 		B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */; };
 		B7F67684293B343C008C72DC /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67683293B343C008C72DC /* CommunityViewController.swift */; };
@@ -138,6 +140,8 @@
 		B7D442CA28F7038300994AD3 /* SignUpResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResultData.swift; sourceTree = "<group>"; };
 		B7D442CD28F7048200994AD3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B7D442CF28F7061D00994AD3 /* LoginResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResultData.swift; sourceTree = "<group>"; };
+		B7E1915F295CD11A00A20F2F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		B7E19163295CEC3100A20F2F /* GoalTimeSettingModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSettingModalView.swift; sourceTree = "<group>"; };
 		B7E3A90228FAD16C005E6EB0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		B7F67683293B343C008C72DC /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
@@ -264,6 +268,8 @@
 		B727D56828B7166E00773A12 /* Component */ = {
 			isa = PBXGroup;
 			children = (
+				B7E19162295CEBFD00A20F2F /* Modal */,
+				B7E19161295CEBF400A20F2F /* Old */,
 				B727D57628B75EF900773A12 /* TitleView.swift */,
 				B792954528BC6447007D6045 /* ToastView.swift */,
 				B7825BF228C1E3ED005DF613 /* IntensityButton.swift */,
@@ -271,7 +277,7 @@
 				B727D57C28B7744200773A12 /* BHTextField.swift */,
 				B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */,
 				B727D58628B89CA100773A12 /* BHSubmitButton.swift */,
-				B722FB9428BA19DD004AEEB2 /* BHBaseViewController.swift */,
+				B7E1915F295CD11A00A20F2F /* BaseViewController.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -382,6 +388,22 @@
 				B776F434290D1927009DA6B5 /* WorkOutRecord.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B7E19161295CEBF400A20F2F /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				B722FB9428BA19DD004AEEB2 /* BHBaseViewController.swift */,
+			);
+			path = Old;
+			sourceTree = "<group>";
+		};
+		B7E19162295CEBFD00A20F2F /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				B7E19163295CEC3100A20F2F /* GoalTimeSettingModalView.swift */,
+			);
+			path = Modal;
 			sourceTree = "<group>";
 		};
 		B7F2BC2C28CF4AE300413836 /* Calendar */ = {
@@ -589,11 +611,13 @@
 				B7D1E4B128CB7075008C5E0C /* AccountSettingViewController.swift in Sources */,
 				B722FB9328BA16C2004AEEB2 /* PasswordResetViewController.swift in Sources */,
 				B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */,
+				B7E19160295CD11A00A20F2F /* BaseViewController.swift in Sources */,
 				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
 				B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */,
 				B7BDD7F728D59AEC000E644A /* TopThreeCollectionViewCell.swift in Sources */,
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,
 				B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */,
+				B7E19164295CEC3100A20F2F /* GoalTimeSettingModalView.swift in Sources */,
 				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
 				B7D1E4B528CBA0B5008C5E0C /* DeleteIdViewController.swift in Sources */,
 				B7D442D028F7061D00994AD3 /* LoginResultData.swift in Sources */,
