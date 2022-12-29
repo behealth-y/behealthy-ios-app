@@ -37,6 +37,9 @@
 		B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */; };
 		B792954628BC6447007D6045 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954528BC6447007D6045 /* ToastView.swift */; };
 		B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954728BCA33D007D6045 /* TabBarViewController.swift */; };
+		B79547DB295D704B0003B7EE /* String+Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79547DA295D704B0003B7EE /* String+Validate.swift */; };
+		B79547DD295D70530003B7EE /* UIControl+EventPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79547DC295D70530003B7EE /* UIControl+EventPublisher.swift */; };
+		B79547DF295D731D0003B7EE /* CustomPulbisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79547DE295D731D0003B7EE /* CustomPulbisher.swift */; };
 		B7B0206729432FE6007C04AB /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = B7B0206629432FE6007C04AB /* KakaoSDK */; };
 		B7B0206929432FE6007C04AB /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B7B0206829432FE6007C04AB /* KakaoSDKAuth */; };
 		B7B0206B29432FE6007C04AB /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = B7B0206A29432FE6007C04AB /* KakaoSDKCommon */; };
@@ -123,6 +126,9 @@
 		B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
 		B792954528BC6447007D6045 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		B792954728BCA33D007D6045 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		B79547DA295D704B0003B7EE /* String+Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validate.swift"; sourceTree = "<group>"; };
+		B79547DC295D70530003B7EE /* UIControl+EventPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+EventPublisher.swift"; sourceTree = "<group>"; };
+		B79547DE295D731D0003B7EE /* CustomPulbisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPulbisher.swift; sourceTree = "<group>"; };
 		B7B0207929433AA6007C04AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7BDD7F528D59AEC000E644A /* TopThreeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopThreeCollectionViewCell.swift; sourceTree = "<group>"; };
 		B7BDD7F628D59AEC000E644A /* TopThreeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopThreeCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -255,12 +261,10 @@
 		B727D56628B7158E00773A12 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				B727D57A28B7701800773A12 /* UITextField+Extension.swift */,
-				B727D57E28B8568300773A12 /* UIButton+Extension.swift */,
-				B727D58028B8628800773A12 /* UIColor+Extension.swift */,
-				B727D58228B88AAE00773A12 /* UIImage+Extension.swift */,
-				B7C7BAF828EEF82100CC574E /* LeftAxisValueFormatter.swift */,
+				B79547D9295D702B0003B7EE /* Extension */,
 				B7E3A90228FAD16C005E6EB0 /* Helper.swift */,
+				B7C7BAF828EEF82100CC574E /* LeftAxisValueFormatter.swift */,
+				B79547DE295D731D0003B7EE /* CustomPulbisher.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -350,6 +354,19 @@
 				B792954728BCA33D007D6045 /* TabBarViewController.swift */,
 			);
 			path = Layout;
+			sourceTree = "<group>";
+		};
+		B79547D9295D702B0003B7EE /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B727D57A28B7701800773A12 /* UITextField+Extension.swift */,
+				B727D57E28B8568300773A12 /* UIButton+Extension.swift */,
+				B727D58028B8628800773A12 /* UIColor+Extension.swift */,
+				B727D58228B88AAE00773A12 /* UIImage+Extension.swift */,
+				B79547DA295D704B0003B7EE /* String+Validate.swift */,
+				B79547DC295D70530003B7EE /* UIControl+EventPublisher.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		B7BDD7F428D59A86000E644A /* Cells */ = {
@@ -612,6 +629,7 @@
 				B722FB9328BA16C2004AEEB2 /* PasswordResetViewController.swift in Sources */,
 				B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */,
 				B7E19160295CD11A00A20F2F /* BaseViewController.swift in Sources */,
+				B79547DB295D704B0003B7EE /* String+Validate.swift in Sources */,
 				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
 				B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */,
 				B7BDD7F728D59AEC000E644A /* TopThreeCollectionViewCell.swift in Sources */,
@@ -621,6 +639,7 @@
 				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
 				B7D1E4B528CBA0B5008C5E0C /* DeleteIdViewController.swift in Sources */,
 				B7D442D028F7061D00994AD3 /* LoginResultData.swift in Sources */,
+				B79547DF295D731D0003B7EE /* CustomPulbisher.swift in Sources */,
 				B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */,
 				B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */,
 				B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */,
@@ -644,6 +663,7 @@
 				B7D442C928F7015600994AD3 /* Config.swift in Sources */,
 				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
+				B79547DD295D70530003B7EE /* UIControl+EventPublisher.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

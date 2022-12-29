@@ -67,13 +67,14 @@ class FirstViewController: UIViewController {
         $0.layer.cornerRadius = 12.0
     }
     
-    // 이메일로 로그인 버튼
-    private let emailLoginButton = UIButton().then {
+    // 이메일로 시작하기 버튼
+    private let emailRegisterButton = UIButton().then {
         $0.backgroundColor = UIColor.init(named: "mainColor")
         $0.setTitle("이메일로 시작하기", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16.0)
         $0.layer.cornerRadius = 12.0
+        $0.addTarget(self, action: #selector(didTapEmailRegisterButton), for: .touchUpInside)
     }
     
     private let orTextView = UIView()
@@ -99,7 +100,7 @@ class FirstViewController: UIViewController {
         attributeString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: (text as NSString).range(of: "로그인"))
         
         $0.attributedText = attributeString
-        $0.font = .systemFont(ofSize: 10)
+        $0.font = .systemFont(ofSize: 12)
         $0.textColor = .init(hexFromString: "2E2E2E")
     }
     
@@ -130,7 +131,7 @@ extension FirstViewController {
             $0.bottom.equalTo(moveToLoginLabel.snp.top).offset(-13)
         }
         
-        [kakaoLoginButton, appleLoginButton, orTextView, emailLoginButton].forEach {
+        [kakaoLoginButton, appleLoginButton, orTextView, emailRegisterButton].forEach {
             snsLoginStackView.addArrangedSubview($0)
             
             let height = $0 == orTextView ? 20 : 50
@@ -178,5 +179,9 @@ extension FirstViewController {
 //            let numbers = [0]
 //            let _ = numbers[1]
         }
+    }
+    
+    @objc private func didTapEmailRegisterButton() {
+        navigationController?.pushViewController(RegisterViewController(), animated: true)
     }
 }

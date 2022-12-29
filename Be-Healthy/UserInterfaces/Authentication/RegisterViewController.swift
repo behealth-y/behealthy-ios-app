@@ -8,110 +8,247 @@
 import UIKit
 import SnapKit
 import Then
+import Combine
 
-class RegisterViewController: BHBaseViewController {
+// MARK: 회원가입 프로세스 순서
+enum RegisterProcess: Int {
+    case enterEmail
+    case enterAuthNumber
+    case enterPassword
+    case enterPasswordConfirm
+    case enterNickname
+}
+
+class RegisterViewController: BaseViewController {
+    private var cancellables: Set<AnyCancellable> = .init()
+    
+    private var registerProcess: RegisterProcess = .enterEmail
+    
+    // 입력 확인 여부
+    private var enteredEmail = false
+    private var enteredAuthNumber = false
+    private var enteredPassword = false
+    private var enteredPasswordConfirm = false
+    private var enteredNickname = false
+    
+    // 인증코드 확인 여부
+    private var isConfirmAuthNumber = false
+    private var authNumber: String?
+    
+    private lazy var formStackView = generateFormStackView()
+    
+    // MARK: - 상단 타이틀
+    private let titles = [
+        "반갑습니다.\n사용하실 이메일 주소를 알려주세요!",
+        "좋아요!\n발송된 인증번호를 입력해주세요.",
+        "인증번호 확인 완료!\n사용하실 비밀번호를 입력해주세요.",
+        "거의 다 왔어요!\n비밀번호를 한 번 더 입력해주세요. :)",
+        "마지막 단계!\n사용하실 멋진 닉네임을 입력해볼까요?",
+    ]
+    
+    private lazy var titleLabel = UILabel().then {
+        $0.text = titles[registerProcess.rawValue]
+        $0.font = .boldSystemFont(ofSize: 20)
+        $0.numberOfLines = 2
+    }
+    
+    // MARK: - 이메일 주소
+    private let emailStackView = UIStackView().then {
+        $0.spacing = 3
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.axis = .vertical
+    }
+    
+    private let emailLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .init(hexFromString: "#2E2E2E")
+        $0.text = "이메일 주소"
+    }
+    
     private lazy var emailTextField = BHTextField().then {
-        $0.placeholder = "이메일 형식"
-        $0.keyboardType = .emailAddress
+        $0.placeholder = "이메일 주소"
+        $0.textContentType = .emailAddress
         $0.delegate = self
     }
     
-    private lazy var certNumberTextField = BHTextField().then {
-        $0.placeholder = "인증번호를 입력하세요."
+    private let emailBottomBorder = UIView().then {
+        $0.backgroundColor = .border
+    }
+    
+    private let emailErrorLabel = UILabel().then {
+        $0.text = "이메일 주소를 확인해주세요!"
+        $0.font = .systemFont(ofSize: 13)
+        $0.textColor = .systemRed
+        
+        $0.isHidden = true
+    }
+    
+    // MARK: - 인증번호
+    private let authNumberStackView = UIStackView().then {
+        $0.spacing = 3
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.axis = .vertical
+    }
+    
+    private let authNumberLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .init(hexFromString: "#2E2E2E")
+        $0.text = "인증번호"
+    }
+    
+    private lazy var authNumberTextField = BHTextField().then {
+        $0.placeholder = "인증번호를 입력해주세요."
         $0.keyboardType = .numberPad
         $0.delegate = self
     }
     
-    private lazy var pwTextField = BHTextField().then {
+    private let authNumberBottomBorder = UIView().then {
+        $0.backgroundColor = .border
+    }
+    
+    private let authNumberErrorLabel = UILabel().then {
+        $0.text = "발송된 인증번호를 다시 확인해주세요!"
+        $0.font = .systemFont(ofSize: 13)
+        $0.textColor = .systemRed
+        
+        $0.isHidden = true
+    }
+    
+    // MARK: - 비밀번호
+    private let passwordStackView = UIStackView().then {
+        $0.spacing = 3
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.axis = .vertical
+    }
+    
+    private let passwordLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .init(hexFromString: "#2E2E2E")
+        $0.text = "비밀번호"
+    }
+    
+    private lazy var passwordTextField = BHTextField().then {
         $0.placeholder = "영문, 숫자, 특수문자 조합 최소 8자"
         $0.isSecureTextEntry = true
         $0.delegate = self
     }
     
-    private lazy var pwCheckTextField = BHTextField().then {
-        $0.placeholder = "비밀번호 재입력"
+    private let passwordBottomBorder = UIView().then {
+        $0.backgroundColor = .border
+    }
+    
+    private let passwordErrorLabel = UILabel().then {
+        $0.text = "비밀번호를 확인해주세요!"
+        $0.font = .systemFont(ofSize: 13)
+        $0.textColor = .systemRed
+        
+        $0.isHidden = true
+    }
+    
+    // MARK: - 비밀번호 확인
+    private let passwordConfirmStackView = UIStackView().then {
+        $0.spacing = 3
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.axis = .vertical
+    }
+    
+    private let passwordConfirmLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .init(hexFromString: "#2E2E2E")
+        $0.text = "비밀번호 확인"
+    }
+    
+    private lazy var passwordConfirmTextField = BHTextField().then {
+        $0.placeholder = "비밀번호를 다시 한 번 입력해주세요."
         $0.isSecureTextEntry = true
         $0.delegate = self
     }
     
+    private let passwordConfirmBottomBorder = UIView().then {
+        $0.backgroundColor = .border
+    }
+    
+    private let passwordConfirmErrorLabel = UILabel().then {
+        $0.text = "비밀번호를 다시 확인해주세요!"
+        $0.font = .systemFont(ofSize: 13)
+        $0.textColor = .systemRed
+        
+        $0.isHidden = true
+    }
+    
+    // MARK: - 닉네임
+    private let nicknameStackView = UIStackView().then {
+        $0.spacing = 3
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.axis = .vertical
+    }
+    
+    private let nicknameLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .init(hexFromString: "#2E2E2E")
+        $0.text = "닉네임"
+    }
+    
     private lazy var nicknameTextField = BHTextField().then {
-        $0.placeholder = "국문, 영문 2~8글자"
-        $0.keyboardType = .emailAddress
+        $0.placeholder = "최대 2~8자 내외"
         $0.delegate = self
     }
     
-    private lazy var registerButton = BHSubmitButton(title: "회원가입")
+    private let nicknameBottomBorder = UIView().then {
+        $0.backgroundColor = .border
+    }
     
-    private var textFields: [BHTextField] = []
+    private let nicknameErrorLabel = UILabel().then {
+        $0.text = "닉네임을 확인해주세요!"
+        $0.font = .systemFont(ofSize: 13)
+        $0.textColor = .systemRed
+        
+        $0.isHidden = true
+    }
     
-    // 인증코드 완료 여부
-    private var isCompletedVerficationCode: Bool = false
-    private var verificationCode: String?
+    // MARK: - 폼 제출 버튼
+    private lazy var submitButton = BHSubmitButton(title: "인증번호 요청").then {
+        $0.isEnabled = false
+        $0.addTarget(self, action: #selector(didTapSubmitButton), for: .touchUpInside)
+    }
     
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
-        setupNavigationBar("회원가입")
-        setupScrollView()
-        
-        setKeyboardObserver()
-        titleView.title = "회원가입"
-        setupLayout()
+        setupViews()
+        bind()
     }
 }
 
-// MARK: - 레이아웃 설정 관련
+// MARK: - Extension
 extension RegisterViewController {
-    /// 레이아웃 설정
-    private func setupLayout() {
-        self.view.addSubview(scrollView)
-        
-        // scrollView 위치 잡기
-        scrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+    // MARK: View
+    private func setupViews() {
+        [titleLabel, formStackView, submitButton].forEach {
+            view.addSubview($0)
         }
         
-        let contentView = UIView()
-        
-        scrollView.addSubview(contentView)
-        
-        // contentView 위치 잡기
-        contentView.snp.makeConstraints {
-            $0.width.equalTo(scrollView.snp.width)
-            $0.edges.equalTo(scrollView.contentLayoutGuide)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            $0.horizontalEdges.equalToSuperview().inset(30)
         }
-        
-        contentView.addSubview(titleView)
-        
-        // titleView 위치 잡기
-        titleView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(titleView.snp.width).multipliedBy(0.79 / 1.0)
-        }
-        
-        let formStackView = generateFormStackView()
-        
-        contentView.addSubview(formStackView)
         
         formStackView.snp.makeConstraints {
-            $0.top.equalTo(titleView.snp.bottom).offset(18)
-            $0.horizontalEdges.equalToSuperview().inset(18)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(25)
+            $0.horizontalEdges.equalToSuperview().inset(30)
         }
         
-        registerButton.isEnabled = false
-        
-        // 회원가입 버튼 눌렀을 때 처리
-        registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
-        
-        contentView.addSubview(registerButton)
-        
-        registerButton.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(18)
-            $0.top.equalTo(formStackView.snp.bottom).offset(18)
-            $0.bottom.equalToSuperview().inset(18)
+        submitButton.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(30)
+            $0.top.greaterThanOrEqualTo(formStackView.snp.bottom).offset(10)
+            $0.bottom.equalToSuperview().inset(25)
         }
     }
     
@@ -119,85 +256,203 @@ extension RegisterViewController {
     /// - Returns: 회원가입 폼 stackView
     private func generateFormStackView() -> UIStackView {
         let stackView = UIStackView().then {
-            $0.spacing = 12
+            $0.spacing = 18
             $0.alignment = .fill
             $0.distribution = .fill
             $0.axis = .vertical
         }
         
         // 폼 textField StackView 변수 초기화
-        let emailStackView = generateTextFieldStackView("이메일", textField: emailTextField)
-        let certNumberStackView = generateTextFieldStackView("인증번호 입력", textField: certNumberTextField)
-        let pwStackView = generateTextFieldStackView("비밀번호", textField: pwTextField)
-        let pwCheckStackView = generateTextFieldStackView("비밀번호 확인", textField: pwCheckTextField)
-        let nicknameStackView = generateTextFieldStackView("닉네임", textField: nicknameTextField)
+        [emailTextField, authNumberTextField, passwordTextField, passwordConfirmTextField, nicknameTextField].forEach {
+            $0.snp.makeConstraints { make in
+                make.height.equalTo(60)
+            }
+        }
         
-        // 인증번호 요청 버튼 변수 초기화
-        let certNumberButton = BHSubmitButton(title: "인증번호 요청")
-        certNumberButton.addTarget(self, action: #selector(didTapCertNumberButton), for: .touchUpInside)
+        [emailBottomBorder, authNumberBottomBorder, passwordBottomBorder, passwordConfirmBottomBorder, nicknameBottomBorder].forEach {
+            $0.snp.makeConstraints { make in
+                make.height.equalTo(1)
+            }
+        }
         
-        [emailStackView, certNumberButton, certNumberStackView, pwStackView, pwCheckStackView, nicknameStackView].forEach {
-            stackView.addArrangedSubview($0)
+        [emailLabel, emailTextField, emailBottomBorder, emailErrorLabel].forEach {
+            emailStackView.addArrangedSubview($0)
+        }
+        
+        [authNumberLabel, authNumberTextField, authNumberBottomBorder, authNumberErrorLabel].forEach {
+            authNumberStackView.addArrangedSubview($0)
+        }
+        
+        [passwordLabel, passwordTextField, passwordBottomBorder, passwordErrorLabel].forEach {
+            passwordStackView.addArrangedSubview($0)
+        }
+        
+        [passwordConfirmLabel, passwordConfirmTextField, passwordConfirmBottomBorder, passwordConfirmErrorLabel].forEach {
+            passwordConfirmStackView.addArrangedSubview($0)
+        }
+        
+        [nicknameLabel, nicknameTextField, nicknameBottomBorder, nicknameErrorLabel].forEach {
+            nicknameStackView.addArrangedSubview($0)
+        }
+        
+        //        [emailStackView, authNumberStackView, passwordStackView, passwordConfirmStackView, nicknameStackView].forEach {
+        //            stackView.addArrangedSubview($0)
+        //        }
+        
+        stackView.addArrangedSubview(emailStackView)
+        
+        return stackView
+    }
+    
+    // MARK: Bind
+    private func bind() {
+        [emailTextField, authNumberTextField, passwordTextField, passwordConfirmTextField, nicknameTextField].forEach {
+            let textField = $0
             
-            $0.snp.makeConstraints {
-                $0.horizontalEdges.equalToSuperview()
-            }
+            $0.textPublisher.sink { [weak self] _ in
+                self?.validate(textField)
+            }.store(in: &cancellables)
         }
-        
-        return stackView
     }
     
-    /// 회원가입 폼 > 입력창 stackView 생성
-    /// - Parameters:
-    ///   - label: textField Label
-    ///   - placeholder: textField placeholder
-    /// - Returns: 입력창 stackView
-    private func generateTextFieldStackView(_ label: String, textField: BHTextField) -> UIStackView {
-        let stackView = UIStackView().then {
-            $0.spacing = 7
-            $0.alignment = .center
-            $0.axis = .vertical
-            $0.distribution = .fill
-        }
+    // MARK: Validate
+    private func validate(_ textField: UITextField) {
+        let text = textField.text!
         
-        let label = UILabel().then {
-            $0.font = .systemFont(ofSize: 14)
-            $0.textColor = UIColor(hexFromString: "#2E2E2E")
-            $0.text = label
-        }
-        
-        let textFieldView = BHTextFieldView(textField: textField)
-        
-        textFields.append(textField)
-        
-        [label, textFieldView].forEach {
-            stackView.addArrangedSubview($0)
-            $0.snp.makeConstraints {
-                $0.horizontalEdges.equalToSuperview()
+        switch textField {
+        case emailTextField:
+            if text.emailValidate() {
+                emailBottomBorder.backgroundColor = .lightGray
+                emailErrorLabel.isHidden = true
+                
+                enteredEmail = true
+            } else {
+                emailBottomBorder.backgroundColor = .systemRed
+                emailErrorLabel.isHidden = false
+                
+                enteredEmail = false
             }
+        case authNumberTextField:
+            if text.authNumberValidate() {
+                authNumberBottomBorder.backgroundColor = .lightGray
+                authNumberErrorLabel.isHidden = true
+                
+                textField.resignFirstResponder()
+                
+                enteredAuthNumber = true
+            } else {
+                authNumberBottomBorder.backgroundColor = .systemRed
+                authNumberErrorLabel.isHidden = false
+                
+                enteredAuthNumber = false
+            }
+        case passwordTextField:
+            if text.passwordValidate() {
+                passwordBottomBorder.backgroundColor = .lightGray
+                passwordErrorLabel.isHidden = true
+                
+                enteredPassword = true
+            } else {
+                passwordBottomBorder.backgroundColor = .systemRed
+                passwordErrorLabel.isHidden = false
+                
+                enteredPassword = false
+            }
+            
+            checkEqualPassword()
+        case passwordConfirmTextField:
+            checkEqualPassword()
+        case nicknameTextField:
+            if text.nicknameValiate(){
+                nicknameBottomBorder.backgroundColor = .lightGray
+                nicknameErrorLabel.isHidden = true
+                
+                enteredNickname = true
+            } else {
+                nicknameBottomBorder.backgroundColor = .systemRed
+                nicknameErrorLabel.isHidden = false
+                
+                enteredNickname = false
+            }
+        default:
+            break
         }
         
-        return stackView
-    }
-}
-
-// MARK: - Actions
-extension RegisterViewController {
-    // 회원가입 처리
-    @objc private func didTapRegisterButton(_ sender: Any) {
-        // Test 용
-//        AuthenticationService.shared.signup(user: User(email: "gusdn5387@naver.com", password: "abcdef!23456", name: "Harry", verificationCode: ""))
-        showToast(msg: "회원가입이 완료되었습니다.\n이제 Healthy와 함께 건강해질 준비 되셨나요?")
+        if (enteredEmail && registerProcess == .enterEmail) ||
+            (enteredAuthNumber && registerProcess == .enterAuthNumber) ||
+            (enteredPassword && registerProcess == .enterPassword) ||
+            (enteredPassword && enteredPasswordConfirm && registerProcess == .enterPasswordConfirm) ||
+            (enteredNickname && registerProcess == .enterNickname)
+        {
+            submitButton.isEnabled = true
+        } else {
+            submitButton.isEnabled = false
+        }
     }
     
-    // 인증번호 요청
-    @objc private func didTapCertNumberButton(_ sender: Any) {
-        AuthenticationService.shared.requestCertNumber(email: "gusdn5387@naver.com") { [weak self] in
-            self?.isCompletedVerficationCode = true
+    private func checkEqualPassword() {
+        let passwordText = passwordTextField.text!
+        let passwordConfirmText = passwordConfirmTextField.text!
+        
+        guard passwordText.count > 0, passwordConfirmText.count > 0 else { return }
+        
+        if passwordText == passwordConfirmText {
+            passwordConfirmBottomBorder.backgroundColor = .lightGray
+            passwordConfirmErrorLabel.isHidden = true
+            
+            enteredPasswordConfirm = true
+        } else {
+            passwordConfirmBottomBorder.backgroundColor = .systemRed
+            passwordConfirmErrorLabel.isHidden = false
+            
+            enteredPasswordConfirm = false
+        }
+    }
+    
+    // MARK: Actions
+    /// 회원가입 처리
+    @objc private func didTapSubmitButton(_ sender: Any) {
+        var nextRegisterProcess: RegisterProcess?
+        
+        switch registerProcess {
+        case .enterEmail:
+            nextRegisterProcess = .enterAuthNumber
+            
+            submitButton.setTitle("인증번호 확인", for: .normal)
+            
+            formStackView.insertArrangedSubview(authNumberStackView, at: 0)
+        case .enterAuthNumber:
+            nextRegisterProcess = .enterPassword
+            
+            emailTextField.isEnabled = false
+            authNumberTextField.isEnabled = false
+            
+            submitButton.setTitle("다음", for: .normal)
+            
+            formStackView.insertArrangedSubview(passwordStackView, at: 0)
+        case .enterPassword:
+            nextRegisterProcess = .enterPasswordConfirm
+            
+            formStackView.insertArrangedSubview(passwordConfirmStackView, at: 0)
+        case .enterPasswordConfirm:
+            nextRegisterProcess = .enterNickname
+            
+            passwordTextField.isEnabled = false
+            passwordConfirmTextField.isEnabled = false
+            
+            formStackView.insertArrangedSubview(nicknameStackView, at: 0)
+        case .enterNickname:
+            self.view.window?.windowScene?.keyWindow?.rootViewController = GoalTimeSettingView()
+        }
+        
+        if nextRegisterProcess != nil {
+            registerProcess = nextRegisterProcess!
+            titleLabel.text = titles[registerProcess.rawValue]
+            submitButton.isEnabled = false
         }
     }
 }
-
+    
 // MARK: - UITextFieldDelegate
 // 사용하는 textField에 delegate 설정 필요
 extension RegisterViewController: UITextFieldDelegate {
@@ -206,17 +461,6 @@ extension RegisterViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         
         return true
-    }
-    
-    // textField 채워지면 회원가입 버튼 활성화 되도록
-    func textFieldDidChangeSelection(_ textField: UITextField) {
-        registerButton.isEnabled = true
-        
-        textFields.forEach {
-            if $0.text?.isEmpty ?? false {
-                registerButton.isEnabled = false
-            }
-        }
     }
 }
 

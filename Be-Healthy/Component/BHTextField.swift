@@ -24,9 +24,10 @@ class BHTextField: UITextField {
     fileprivate func setupLayout() {
         self.font = .systemFont(ofSize: 14.0)
         self.textColor = .black
-        self.autocapitalizationType = .none
-        self.autocorrectionType = .no
-        
         self.addLeftPadding()
+        
+        self.enablesReturnKeyAutomatically = true // 값 입력 시 리턴 키 활성화
+        self.autocorrectionType = .no // 자동 완성
+        self.autocapitalizationType = .none // 첫 글자 대문자
     }
 }

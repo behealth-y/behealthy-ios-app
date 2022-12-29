@@ -26,9 +26,9 @@ class BHSubmitButton: UIButton {
     override var isEnabled: Bool {
         didSet {
             if isEnabled {
-                self.backgroundColor = UIColor.init(named: "mainColor")
+                self.backgroundColor = .init(named: "mainColor")
             } else {
-                self.backgroundColor = UIColor.init(hexFromString: "#A9A9A9")
+                self.backgroundColor = .init(hexFromString: "#A9A9A9")
             }
         }
     }

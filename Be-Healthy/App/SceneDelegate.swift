@@ -20,8 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        let nav = UINavigationController(rootViewController: LoginViewController())
-        window?.rootViewController = GoalTimeSettingView()
+        let nav = UINavigationController(rootViewController: FirstViewController())
+        window?.rootViewController = nav
         window?.makeKeyAndVisible()
     }
 
