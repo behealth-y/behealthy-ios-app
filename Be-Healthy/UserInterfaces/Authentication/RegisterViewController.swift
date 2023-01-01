@@ -104,6 +104,13 @@ class RegisterViewController: BaseViewController {
         $0.delegate = self
     }
     
+    private let authNumberTimerLabel = UILabel().then {
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .systemRed
+        $0.text = "03:00"
+    }
+    
     private let authNumberBottomBorder = UIView().then {
         $0.backgroundColor = .border
     }
@@ -279,7 +286,17 @@ extension RegisterViewController {
             emailStackView.addArrangedSubview($0)
         }
         
-        [authNumberLabel, authNumberTextField, authNumberBottomBorder, authNumberErrorLabel].forEach {
+        let authNumberFieldStackView = UIStackView().then {
+            $0.axis = .horizontal
+            $0.distribution = .fill
+            $0.alignment = .fill
+            $0.spacing = 0
+        }
+        
+        authNumberFieldStackView.addArrangedSubview(authNumberTextField)
+        authNumberFieldStackView.addArrangedSubview(authNumberTimerLabel)
+        
+        [authNumberLabel, authNumberFieldStackView, authNumberBottomBorder, authNumberErrorLabel].forEach {
             authNumberStackView.addArrangedSubview($0)
         }
         
@@ -452,15 +469,35 @@ extension RegisterViewController {
         }
     }
 }
-    
+
 // MARK: - UITextFieldDelegate
 // 사용하는 textField에 delegate 설정 필요
 extension RegisterViewController: UITextFieldDelegate {
-    // return 키 눌렀을 경우 키보드 내리기
+    /// return 키 눌렀을 경우 키보드 내리기
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
         return true
+    }
+    
+    /// 인증번호 5글자 넘어가면 더 이상 입력 못하게 처리
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return false }
+        
+        // 백 스페이스 감지
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 {
+                return true
+            }
+        }
+        
+        switch textField {
+        case authNumberTextField:
+            return text.count < 5
+        default:
+            return true
+        }
     }
 }
 
