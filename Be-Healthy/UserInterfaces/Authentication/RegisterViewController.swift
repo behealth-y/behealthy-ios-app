@@ -104,11 +104,22 @@ class RegisterViewController: BaseViewController {
         $0.delegate = self
     }
     
-    private let authNumberTimerLabel = UILabel().then {
+    private let authNumberFieldStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.distribution = .fill
+        $0.alignment = .fill
+        $0.spacing = 0
+    }
+    
+    private let authNumberResendLabel = UILabel().then {
+        let attribute = [ NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue ]
+        let attributeString = NSMutableAttributedString(string: "재발송", attributes: attribute)
+        
+        $0.attributedText = attributeString
+        
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         $0.font = .systemFont(ofSize: 14)
-        $0.textColor = .systemRed
-        $0.text = "03:00"
+//        $0.text = "재발송"
     }
     
     private let authNumberBottomBorder = UIView().then {
@@ -286,15 +297,9 @@ extension RegisterViewController {
             emailStackView.addArrangedSubview($0)
         }
         
-        let authNumberFieldStackView = UIStackView().then {
-            $0.axis = .horizontal
-            $0.distribution = .fill
-            $0.alignment = .fill
-            $0.spacing = 0
+        [authNumberTextField, authNumberResendLabel].forEach {
+            authNumberFieldStackView.addArrangedSubview($0)
         }
-        
-        authNumberFieldStackView.addArrangedSubview(authNumberTextField)
-        authNumberFieldStackView.addArrangedSubview(authNumberTimerLabel)
         
         [authNumberLabel, authNumberFieldStackView, authNumberBottomBorder, authNumberErrorLabel].forEach {
             authNumberStackView.addArrangedSubview($0)
@@ -444,7 +449,12 @@ extension RegisterViewController {
             emailTextField.isEnabled = false
             authNumberTextField.isEnabled = false
             
+            emailTextField.textColor = .init(hexFromString: "#868181")
+            authNumberTextField.textColor = .init(hexFromString: "#868181")
+            
             submitButton.setTitle("다음", for: .normal)
+            
+            authNumberResendLabel.isHidden = true
             
             formStackView.insertArrangedSubview(passwordStackView, at: 0)
         case .enterPassword:
@@ -456,6 +466,9 @@ extension RegisterViewController {
             
             passwordTextField.isEnabled = false
             passwordConfirmTextField.isEnabled = false
+            
+            passwordTextField.textColor = .init(hexFromString: "#868181")
+            passwordConfirmTextField.textColor = .init(hexFromString: "#868181")
             
             formStackView.insertArrangedSubview(nicknameStackView, at: 0)
         case .enterNickname:
