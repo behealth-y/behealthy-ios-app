@@ -94,7 +94,7 @@ class FirstViewController: UIViewController {
         $0.textColor = .init(hexFromString: "2E2E2E")
     }
     
-    private let moveToLoginLabel = UILabel().then {
+    private lazy var moveToLoginLabel = UILabel().then {
         let text = "이미 Be Healthy 회원이신가요? 로그인"
         let attributeString = NSMutableAttributedString(string: text)
         attributeString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: (text as NSString).range(of: "로그인"))
@@ -102,6 +102,10 @@ class FirstViewController: UIViewController {
         $0.attributedText = attributeString
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .init(hexFromString: "2E2E2E")
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapMoveToLoginLabel))
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(tapGesture)
     }
     
     override func viewDidLoad() {
@@ -111,7 +115,7 @@ class FirstViewController: UIViewController {
     }
 }
 
-// MARK: - 레이아웃 관련
+// MARK: - Extension
 extension FirstViewController {
     private func setupLayout() {
         view.backgroundColor = .white
@@ -167,10 +171,9 @@ extension FirstViewController {
             $0.centerX.equalToSuperview()
         }
     }
-}
-
-// MARK: - Action
-extension FirstViewController {
+    
+    // MARK: Actions
+    /// 카카오로 로그인
     @objc private func didTapKakaoLoginButton() {
         AuthenticationService.shared.kakaoLogin { [weak self] in
 //            self?.navigationController?.pushViewController(GoalTimeSettingView(), animated: true)
@@ -181,7 +184,14 @@ extension FirstViewController {
         }
     }
     
+    /// 이메일로 시작하기
     @objc private func didTapEmailRegisterButton() {
         navigationController?.pushViewController(RegisterViewController(), animated: true)
+    }
+    
+    /// 로그인
+    @objc private func didTapMoveToLoginLabel(sender: UITapGestureRecognizer){
+        print(#function)
+        navigationController?.pushViewController(LoginViewController(), animated: true)
     }
 }

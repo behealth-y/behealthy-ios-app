@@ -39,7 +39,7 @@ class RegisterViewController: BaseViewController {
     
     // MARK: - 상단 타이틀
     private let titles = [
-        "반갑습니다.\n사용하실 이메일 주소를 알려주세요!",
+        "반가워요. :)\n사용하실 이메일 주소를 알려주세요!",
         "좋아요!\n발송된 인증번호를 입력해주세요.",
         "인증번호 확인 완료!\n사용하실 비밀번호를 입력해주세요.",
         "거의 다 왔어요!\n비밀번호를 한 번 더 입력해주세요. :)",
@@ -70,6 +70,23 @@ class RegisterViewController: BaseViewController {
         $0.placeholder = "이메일 주소"
         $0.textContentType = .emailAddress
         $0.delegate = self
+    }
+    
+    private let emailFieldStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.distribution = .fill
+        $0.alignment = .fill
+        $0.spacing = 0
+    }
+    
+    private let emailDoubleCheckLabel = UILabel().then {
+        let attribute = [ NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue ]
+        let attributeString = NSMutableAttributedString(string: "중복확인", attributes: attribute)
+        
+        $0.attributedText = attributeString
+        
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        $0.font = .systemFont(ofSize: 14)
     }
     
     private let emailBottomBorder = UIView().then {
@@ -293,7 +310,11 @@ extension RegisterViewController {
             }
         }
         
-        [emailLabel, emailTextField, emailBottomBorder, emailErrorLabel].forEach {
+        [emailTextField, emailDoubleCheckLabel].forEach {
+            emailFieldStackView.addArrangedSubview($0)
+        }
+        
+        [emailLabel, emailFieldStackView, emailBottomBorder, emailErrorLabel].forEach {
             emailStackView.addArrangedSubview($0)
         }
         
@@ -440,16 +461,18 @@ extension RegisterViewController {
         case .enterEmail:
             nextRegisterProcess = .enterAuthNumber
             
+            emailTextField.isEnabled = false
+            emailTextField.textColor = .init(hexFromString: "#868181")
+            
             submitButton.setTitle("인증번호 확인", for: .normal)
+            
+            emailDoubleCheckLabel.isHidden = true
             
             formStackView.insertArrangedSubview(authNumberStackView, at: 0)
         case .enterAuthNumber:
             nextRegisterProcess = .enterPassword
             
-            emailTextField.isEnabled = false
             authNumberTextField.isEnabled = false
-            
-            emailTextField.textColor = .init(hexFromString: "#868181")
             authNumberTextField.textColor = .init(hexFromString: "#868181")
             
             submitButton.setTitle("다음", for: .normal)

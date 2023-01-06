@@ -303,9 +303,9 @@
 		B727D56C28B716CD00773A12 /* Authentication */ = {
 			isa = PBXGroup;
 			children = (
+				B7D70A3629683E480091D172 /* Old */,
 				B727D56E28B716FB00773A12 /* LoginViewController.swift */,
 				B722FB8E28BA169C004AEEB2 /* RegisterViewController.swift */,
-				B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */,
 				B722FB9228BA16C2004AEEB2 /* PasswordResetViewController.swift */,
 				B7F67685293B5C2E008C72DC /* FirstViewController.swift */,
 			);
@@ -405,6 +405,14 @@
 				B776F434290D1927009DA6B5 /* WorkOutRecord.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B7D70A3629683E480091D172 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */,
+			);
+			path = Old;
 			sourceTree = "<group>";
 		};
 		B7E19161295CEBF400A20F2F /* Old */ = {

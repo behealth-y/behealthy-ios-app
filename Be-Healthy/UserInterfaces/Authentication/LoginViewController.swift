@@ -6,271 +6,271 @@
 //
 
 import UIKit
-import Then
 import SnapKit
+import Then
+import Combine
 
-class LoginViewController: BHBaseViewController {
-    lazy var emailTextField = BHTextField().then {
-        $0.placeholder = "이메일을 입력하세요."
-        $0.keyboardType = .emailAddress
+// MARK: 회원가입 프로세스 순서
+enum LoginProcess: Int {
+    case enterEmail
+    case enterPassword
+}
+
+class LoginViewController: BaseViewController {
+    private var cancellables: Set<AnyCancellable> = .init()
+    
+    private var loginProcess: LoginProcess = .enterEmail
+    
+    // 입력 확인 여부
+    private var enteredEmail = false
+    private var enteredPassword = false
+    
+    private lazy var formStackView = generateFormStackView()
+    
+    // MARK: - 상단 타이틀
+    private let titles = [
+        "반가워요! :D\n가입하신 이메일 주소를 입력해주세요!",
+        "좋아요!\n가입하신 비밀번호를 입력해주세요!",
+    ]
+    
+    private lazy var titleLabel = UILabel().then {
+        $0.text = titles[loginProcess.rawValue]
+        $0.font = .boldSystemFont(ofSize: 20)
+        $0.numberOfLines = 2
+    }
+    
+    // MARK: - 이메일 주소
+    private let emailStackView = UIStackView().then {
+        $0.spacing = 3
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.axis = .vertical
+    }
+    
+    private let emailLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .init(hexFromString: "#2E2E2E")
+        $0.text = "이메일 주소"
+    }
+    
+    private lazy var emailTextField = BHTextField().then {
+        $0.placeholder = "이메일 주소"
+        $0.textContentType = .emailAddress
         $0.delegate = self
     }
     
-    lazy var pwTextField = BHTextField().then {
-        $0.placeholder = "비밀번호를 입력하세요."
+    private let emailFieldStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.distribution = .fill
+        $0.alignment = .fill
+        $0.spacing = 0
+    }
+    
+    private let emailBottomBorder = UIView().then {
+        $0.backgroundColor = .border
+    }
+    
+    private let emailErrorLabel = UILabel().then {
+        $0.text = "이메일 주소를 확인해주세요!"
+        $0.font = .systemFont(ofSize: 13)
+        $0.textColor = .systemRed
+        
+        $0.isHidden = true
+    }
+    
+    // MARK: - 비밀번호
+    private let passwordStackView = UIStackView().then {
+        $0.spacing = 3
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.axis = .vertical
+    }
+    
+    private let passwordLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .init(hexFromString: "#2E2E2E")
+        $0.text = "비밀번호"
+    }
+    
+    private lazy var passwordTextField = BHTextField().then {
+        $0.placeholder = "영문, 숫자, 특수문자 조합 최소 8자"
         $0.isSecureTextEntry = true
         $0.delegate = self
     }
     
+    private let passwordBottomBorder = UIView().then {
+        $0.backgroundColor = .border
+    }
+    
+    private let passwordErrorLabel = UILabel().then {
+        $0.text = "비밀번호를 확인해주세요!"
+        $0.font = .systemFont(ofSize: 13)
+        $0.textColor = .systemRed
+        
+        $0.isHidden = true
+    }
+    
+    // MARK: - 폼 제출 버튼
+    private lazy var submitButton = BHSubmitButton(title: "비밀번호 입력").then {
+        $0.isEnabled = false
+        $0.addTarget(self, action: #selector(didTapSubmitButton), for: .touchUpInside)
+    }
+    
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        
-        setupNavigationBar("로그인")
-        setupScrollView()
-        
-        titleView.title = "로그인"
-        setupLayout()
+        setupViews()
+        bind()
     }
 }
 
-// MARK: - 레이아웃 설정 관련
+// MARK: - Extension
 extension LoginViewController {
-    /// 레이아웃 설정
-    fileprivate func setupLayout() {
-        self.view.addSubview(scrollView)
-        
-        // scrollView 위치 잡기
-        scrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+    // MARK: View
+    private func setupViews() {
+        [titleLabel, formStackView, submitButton].forEach {
+            view.addSubview($0)
         }
         
-        let contentView = UIView()
-        
-        scrollView.addSubview(contentView)
-        
-        // contentView 위치 잡기
-        contentView.snp.makeConstraints {
-            $0.width.equalTo(scrollView.snp.width)
-            $0.edges.equalTo(scrollView)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            $0.horizontalEdges.equalToSuperview().inset(30)
         }
         
-        contentView.addSubview(titleView)
-        
-        // titleView 위치 잡기
-        titleView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(titleView.snp.width).multipliedBy(0.79 / 1.0)
-        }
-        
-        // 이메일 / 비밀번호 폼 stackView 변수 초기화
-        let formStackView = generateFormStackView()
-        
-        contentView.addSubview(formStackView)
-        
-        // 이메일 / 비밀번호 폼 위치 잡기
         formStackView.snp.makeConstraints {
-            $0.top.equalTo(titleView.snp.bottom).offset(24)
-            $0.horizontalEdges.equalToSuperview().inset(18)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(25)
+            $0.horizontalEdges.equalToSuperview().inset(30)
         }
         
-        // 회원가입 이동 안내 문구 stackView 변수 초기화
-        let registerStackView = generateRegisterStackView()
-        
-        contentView.addSubview(registerStackView)
-        
-        // 회원가입 이동 stackView 위치 잡기
-        registerStackView.snp.makeConstraints {
-            $0.top.equalTo(formStackView.snp.bottom).offset(10)
-            $0.leading.equalToSuperview().offset(18)
-        }
-        
-        // 비밀번호 찾기 버튼 변수 초기화
-        let passwordFindButton = UIButton().then {
-            $0.setTitle("비밀번호 찾기", for: .normal)
-            $0.setTitleColor(.darkGray, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 12.0)
-        }
-        
-        // 비밀번호 찾기 버튼 눌렀을 때 처리
-        passwordFindButton.addTarget(self, action: #selector(didTapPasswordResetButton), for: .touchUpInside)
-        
-        contentView.addSubview(passwordFindButton)
-        
-        // 비밀번호 찾기 버튼 위치 잡기
-        passwordFindButton.snp.makeConstraints {
-            $0.centerY.equalTo(registerStackView)
-            $0.trailing.equalToSuperview().inset(18)
-        }
-        
-        // 로그인 버튼 변수 초기화
-        let loginButton = BHSubmitButton(title: "로그인")
-        
-        // 로그인 버튼 눌렀을 때 처리
-        loginButton.addTarget(self, action: #selector(didTapLoginButton), for: .touchUpInside)
-        
-        contentView.addSubview(loginButton)
-        
-        // 로그인 버튼 위치 잡기
-        loginButton.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(18)
-            $0.top.equalTo(registerStackView.snp.bottom).offset(10)
-        }
-        
-        // SNS 로그인 stackView 변수 초기화
-        let snsLoginStackView = generateSnsLoginStackView()
-        
-        contentView.addSubview(snsLoginStackView)
-        
-        // SNS 로그인 stackView 변수 초기화
-        snsLoginStackView.snp.makeConstraints {
-            $0.top.equalTo(loginButton.snp.bottom).offset(20)
-            $0.bottom.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(18)
+        submitButton.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview().inset(30)
+            $0.top.greaterThanOrEqualTo(formStackView.snp.bottom).offset(10)
+            $0.bottom.equalToSuperview().inset(25)
         }
     }
     
-    /// 이메일 / 비밀번호 폼 stackView 생성
-    /// - Returns: 이메일 / 비밀번호 폼 stackView
-    fileprivate func generateFormStackView() -> UIStackView {
+    /// 로그인 폼 stackView 생성
+    /// - Returns: 로그인 폼 stackView
+    private func generateFormStackView() -> UIStackView {
         let stackView = UIStackView().then {
-            $0.spacing = 10
-            $0.alignment = .center
-            $0.distribution = .fillEqually
+            $0.spacing = 18
+            $0.alignment = .fill
+            $0.distribution = .fill
             $0.axis = .vertical
         }
         
-        // 이메일 / 비밀번호 textField 변수 초기화
-        let emailTextFieldView = BHTextFieldView(textField: emailTextField)
-        let pwTextFieldView = BHTextFieldView(textField: pwTextField)
+        // 폼 textField StackView 변수 초기화
+        [emailTextField, passwordTextField].forEach {
+            $0.snp.makeConstraints { make in
+                make.height.equalTo(60)
+            }
+        }
         
-        [emailTextFieldView, pwTextFieldView].forEach {
-            stackView.addArrangedSubview($0)
+        [emailBottomBorder, passwordBottomBorder].forEach {
+            $0.snp.makeConstraints { make in
+                make.height.equalTo(1)
+            }
+        }
+        
+        [emailLabel, emailTextField, emailBottomBorder, emailErrorLabel].forEach {
+            emailStackView.addArrangedSubview($0)
+        }
+        
+        [passwordLabel, passwordTextField, passwordBottomBorder, passwordErrorLabel].forEach {
+            passwordStackView.addArrangedSubview($0)
+        }
+        
+        stackView.addArrangedSubview(emailStackView)
+        
+        return stackView
+    }
+    
+    // MARK: Bind
+    private func bind() {
+        [emailTextField, passwordTextField].forEach {
+            let textField = $0
             
-            // 이메일 / 비밀번호 textField 위치 잡기
-            $0.snp.makeConstraints {
-                $0.horizontalEdges.equalToSuperview()
+            $0.textPublisher.sink { [weak self] _ in
+                self?.validate(textField)
+            }.store(in: &cancellables)
+        }
+    }
+    
+    // MARK: Validate
+    private func validate(_ textField: UITextField) {
+        let text = textField.text!
+        
+        switch textField {
+        case emailTextField:
+            if text.emailValidate() {
+                emailBottomBorder.backgroundColor = .lightGray
+                emailErrorLabel.isHidden = true
+                
+                enteredEmail = true
+            } else {
+                emailBottomBorder.backgroundColor = .systemRed
+                emailErrorLabel.isHidden = false
+                
+                enteredEmail = false
             }
-        }
-        
-        return stackView
-    }
-    
-    /// 회원가입 이동 안내 문구 stackView 생성
-    /// - Returns: 회원가입 이동 안내 문구 stackView
-    fileprivate func generateRegisterStackView() -> UIStackView {
-        let stackView = UIStackView().then {
-            $0.spacing = 4
-            $0.distribution = .fill
-            $0.axis = .horizontal
-        }
-        
-        // 회원가입 label 변수 초기화
-        let registerLabel = UILabel().then {
-            $0.text = "HEALTHY가 처음이신가요?"
-            $0.font = .systemFont(ofSize: 12.0)
-            $0.textColor = .darkGray
-        }
-        
-        // 회원가입 이동 버튼 변수 초기화
-        let registerButton = UIButton().then {
-            $0.setTitle("회원가입", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 12.0)
-            $0.addUnderLine()
-        }
-        
-        // 회원가입 버튼 눌렀을 때 처리
-        registerButton.addTarget(self, action: #selector(didTapRegisterButton), for: .touchUpInside)
-        
-        [registerLabel, registerButton].forEach {
-            stackView.addArrangedSubview($0)
-        }
-        
-        return stackView
-    }
-    
-    /// SNS 로그인 stackView 생성
-    /// - Returns: SNS 로그인 stackView
-    fileprivate func generateSnsLoginStackView() -> UIStackView {
-        let stackView = UIStackView().then {
-            $0.spacing = 13
-            $0.distribution = .fill
-            $0.axis = .vertical
-        }
-        
-        // 카카오 로그인 버튼 이미지 설정
-        var kakaoButtonConfig = UIButton.Configuration.filled()
-        kakaoButtonConfig.baseBackgroundColor = UIColor(hexFromString: "#FEE500")
-        kakaoButtonConfig.image = UIImage(named: "kakao-symbol")?.resizeImageTo(size: CGSize(width: 18, height: 18))
-        kakaoButtonConfig.imagePadding = 10
-        kakaoButtonConfig.imagePlacement = .leading
-        kakaoButtonConfig.baseForegroundColor = .red
-        
-        // 카카오 로그인 버튼
-        let kakaoButton = UIButton(configuration: kakaoButtonConfig).then {
-            $0.setTitle("카카오로 로그인", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 16.0)
-            $0.layer.cornerRadius = 12.0
-            $0.contentMode = .scaleAspectFit
-        }
-        
-        // 애플 로그인 버튼 이미지 설정
-        var appleButtonConfig = UIButton.Configuration.filled()
-        appleButtonConfig.baseBackgroundColor = .black
-        appleButtonConfig.image = UIImage(systemName: "applelogo")
-        appleButtonConfig.imagePadding = 10
-        appleButtonConfig.imagePlacement = .leading
-        
-        // 애플로그인 버튼
-        let appleButton = UIButton(configuration: appleButtonConfig).then {
-            $0.setTitle("Apple로 로그인", for: .normal)
-            $0.setTitleColor(.white, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 16.0)
-            $0.layer.cornerRadius = 12.0
-        }
-        
-        // 카카오 / 애플 로그인 버튼 위치 잡기
-        [kakaoButton, appleButton].forEach {
-            $0.snp.makeConstraints {
-                $0.height.equalTo(50)
+        case passwordTextField:
+            if text.passwordValidate() {
+                passwordBottomBorder.backgroundColor = .lightGray
+                passwordErrorLabel.isHidden = true
+                
+                enteredPassword = true
+            } else {
+                passwordBottomBorder.backgroundColor = .systemRed
+                passwordErrorLabel.isHidden = false
+                
+                enteredPassword = false
             }
+        default:
+            break
         }
         
-        stackView.addArrangedSubview(kakaoButton)
-        stackView.addArrangedSubview(appleButton)
+        if (enteredEmail && loginProcess == .enterEmail) ||
+            (enteredPassword && loginProcess == .enterPassword)
+        {
+            submitButton.isEnabled = true
+        } else {
+            submitButton.isEnabled = false
+        }
+    }
+    
+    // MARK: Actions
+    /// 로그인 처리
+    @objc private func didTapSubmitButton(_ sender: Any) {
+        var nextLoginProcess: LoginProcess?
         
-        return stackView
-    }
-}
-
-// MARK: - Actions
-extension LoginViewController {
-    /// 회원가입 화면 이동
-    @objc fileprivate func didTapRegisterButton(_ sender: Any) {
-        navigationController?.pushViewController(RegisterViewController(), animated: true)
-    }
-    
-    /// 비밀번호 재설정_인증 화면 이동
-    @objc fileprivate func didTapPasswordResetButton(_ sender: Any) {
-        navigationController?.pushViewController(PasswordResetAuthViewController(), animated: true)
-    }
-    
-    /// 루트 뷰 컨트롤러 변경
-    @objc fileprivate func didTapLoginButton(_ sender: Any) {
-    // Test 용
-    //        AuthenticationService.shared.login(email: "gusdn5387@naver.com", password: "abcdef!23456")
-        navigationController?.pushViewController(GoalTimeSettingView(), animated: true)
+        switch loginProcess {
+        case .enterEmail:
+            nextLoginProcess = .enterPassword
+            
+            emailTextField.isEnabled = false
+            emailTextField.textColor = .init(hexFromString: "#868181")
+            
+            submitButton.setTitle("로그인", for: .normal)
+            
+            formStackView.insertArrangedSubview(passwordStackView, at: 0)
+        case .enterPassword:
+            self.view.window?.windowScene?.keyWindow?.rootViewController = GoalTimeSettingView()
+        }
+        
+        if nextLoginProcess != nil {
+            loginProcess = nextLoginProcess!
+            titleLabel.text = titles[loginProcess.rawValue]
+            submitButton.isEnabled = false
+        }
     }
 }
 
 // MARK: - UITextFieldDelegate
 // 사용하는 textField에 delegate 설정 필요
 extension LoginViewController: UITextFieldDelegate {
-    // return 키 눌렀을 경우 키보드 내리기
+    /// return 키 눌렀을 경우 키보드 내리기
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         
@@ -285,6 +285,7 @@ import SwiftUI
 // OPTION + CMD + ENTER: 미리보기 화면 띄우기, OPTION + CMD + P: 미리보기 resume
 struct LoginViewControllerPresentable: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
+        
     }
     
     func makeUIViewController(context: Context) -> some UIViewController {
