@@ -283,7 +283,7 @@ extension AccountSettingViewController {
 extension AccountSettingViewController {
     /// 비밀번호 변경 눌렀을 때 처리
     @objc fileprivate func didTapPasswordResetView() {
-        navigationController?.pushViewController(PasswordResetAuthViewController(), animated: true)
+        navigationController?.pushViewController(PasswordResetViewController(), animated: true)
     }
     
     /// 로그아웃 눌렀을 때 처리

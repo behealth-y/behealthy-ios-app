@@ -208,7 +208,7 @@ class RegisterViewController: BaseViewController {
     }
     
     private let passwordConfirmErrorLabel = UILabel().then {
-        $0.text = "비밀번호를 다시 확인해주세요!"
+        $0.text = "비밀번호를 다시 확인해주세요. :("
         $0.font = .systemFont(ofSize: 13)
         $0.textColor = .systemRed
         
