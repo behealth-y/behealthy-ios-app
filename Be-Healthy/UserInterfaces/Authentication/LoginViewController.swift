@@ -205,26 +205,14 @@ extension LoginViewController {
         switch textField {
         case emailTextField:
             if text.emailValidate() {
-                emailBottomBorder.backgroundColor = .lightGray
-                emailErrorLabel.isHidden = true
-                
                 enteredEmail = true
             } else {
-                emailBottomBorder.backgroundColor = .systemRed
-                emailErrorLabel.isHidden = false
-                
                 enteredEmail = false
             }
         case passwordTextField:
             if text.passwordValidate() {
-                passwordBottomBorder.backgroundColor = .lightGray
-                passwordErrorLabel.isHidden = true
-                
                 enteredPassword = true
             } else {
-                passwordBottomBorder.backgroundColor = .systemRed
-                passwordErrorLabel.isHidden = false
-                
                 enteredPassword = false
             }
         default:
@@ -249,8 +237,8 @@ extension LoginViewController {
         case .enterEmail:
             nextLoginProcess = .enterPassword
             
-            emailTextField.isEnabled = false
-            emailTextField.textColor = .init(hexFromString: "#868181")
+//            emailTextField.isEnabled = false
+//            emailTextField.textColor = .init(hexFromString: "#868181")
             
             submitButton.setTitle("로그인", for: .normal)
             
