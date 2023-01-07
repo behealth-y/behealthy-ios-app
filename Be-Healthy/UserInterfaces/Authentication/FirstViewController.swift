@@ -186,14 +186,13 @@ extension FirstViewController {
         }
     }
     
-    /// 이메일로 시작하기
+    /// 회원가입 화면 열기
     @objc private func didTapEmailRegisterButton() {
         navigationController?.pushViewController(RegisterViewController(), animated: true)
     }
     
-    /// 로그인
+    /// 로그인 화면 열기
     @objc private func didTapMoveToLoginLabel(sender: UITapGestureRecognizer){
-        print(#function)
         navigationController?.pushViewController(LoginViewController(), animated: true)
     }
 }

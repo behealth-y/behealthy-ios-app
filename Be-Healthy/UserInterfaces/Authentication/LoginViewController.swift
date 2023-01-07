@@ -59,23 +59,36 @@ class LoginViewController: BaseViewController {
         $0.delegate = self
     }
     
-    private let emailFieldStackView = UIStackView().then {
-        $0.axis = .horizontal
-        $0.distribution = .fill
-        $0.alignment = .fill
-        $0.spacing = 0
-    }
-    
     private let emailBottomBorder = UIView().then {
         $0.backgroundColor = .border
     }
     
+    private let emailLabelStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.distribution = .fill
+        $0.alignment = .trailing
+        $0.spacing = 0
+    }
+    
     private let emailErrorLabel = UILabel().then {
-        $0.text = "이메일 주소를 확인해주세요!"
+        $0.text = ""
+//        $0.text = "이메일 주소를 확인해주세요!"
         $0.font = .systemFont(ofSize: 13)
         $0.textColor = .systemRed
+    }
+    
+    private lazy var moveToPasswordResetLabel = UILabel().then {
+        let attribute = [ NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue ]
+        let attributeString = NSMutableAttributedString(string: "비밀번호를 잊으셨나요?", attributes: attribute)
         
-        $0.isHidden = true
+        $0.attributedText = attributeString
+        
+        $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        $0.font = .systemFont(ofSize: 14)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapMoveToPasswordResetLabel))
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(tapGesture)
     }
     
     // MARK: - 비밀번호
@@ -174,7 +187,11 @@ extension LoginViewController {
             }
         }
         
-        [emailLabel, emailTextField, emailBottomBorder, emailErrorLabel].forEach {
+        [emailErrorLabel, moveToPasswordResetLabel].forEach {
+            emailLabelStackView.addArrangedSubview($0)
+        }
+        
+        [emailLabel, emailTextField, emailBottomBorder, emailLabelStackView].forEach {
             emailStackView.addArrangedSubview($0)
         }
         
@@ -254,6 +271,11 @@ extension LoginViewController {
             titleLabel.text = titles[loginProcess.rawValue]
             submitButton.isEnabled = false
         }
+    }
+    
+    /// 비밀번호 재설정 화면 열기
+    @objc private func didTapMoveToPasswordResetLabel(sender: UITapGestureRecognizer){
+        navigationController?.pushViewController(PasswordResetViewController(), animated: true)
     }
 }
 

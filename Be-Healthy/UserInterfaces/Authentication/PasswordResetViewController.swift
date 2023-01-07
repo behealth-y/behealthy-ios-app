@@ -429,7 +429,7 @@ extension PasswordResetViewController: UITextFieldDelegate {
         return true
     }
     
-    /// 인증번호 5글자 넘어가면 더 이상 입력 못하게 처리
+    /// 인증번호 6글자 넘어가면 더 이상 입력 못하게 처리
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         guard let text = textField.text else { return false }
         
@@ -443,7 +443,7 @@ extension PasswordResetViewController: UITextFieldDelegate {
         
         switch textField {
         case authNumberTextField:
-            return text.count < 5
+            return text.count < 6
         default:
             return true
         }

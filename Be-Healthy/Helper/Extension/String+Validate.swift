@@ -27,8 +27,8 @@ extension String {
         return self.count >= 2 && self.count <= 8
     }
     
-    /// 인증번호 (5자리인지)
+    /// 인증번호 (6자리인지)
     func authNumberValidate() -> Bool {
-        return self.count == 5
+        return self.count == 6
     }
 }
