@@ -477,7 +477,7 @@ extension RegisterViewController {
             
             submitButton.setTitle("다음", for: .normal)
             
-            authNumberResendLabel.isHidden = true
+            authNumberStackView.isHidden = true
             
             formStackView.insertArrangedSubview(passwordStackView, at: 0)
         case .enterPassword:
