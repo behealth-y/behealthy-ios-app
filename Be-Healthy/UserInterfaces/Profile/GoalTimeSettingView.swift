@@ -10,6 +10,9 @@ import SnapKit
 import Then
 
 class GoalTimeSettingView: BaseViewController {
+    // 회원가입 / 로그인 프로세스에서 열리는 경우
+    var openedAuthProcess: Bool = false
+    
     // 목표 운동시간
     private var timeInt: Int = 0
     
@@ -126,7 +129,11 @@ extension GoalTimeSettingView {
     }
     
     @objc private func didTapSubmitButton() {
-        self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
+        if openedAuthProcess {
+            self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
 }
 

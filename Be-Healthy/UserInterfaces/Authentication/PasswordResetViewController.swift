@@ -408,7 +408,7 @@ extension PasswordResetViewController {
             
             formStackView.insertArrangedSubview(passwordConfirmStackView, at: 0)
         case .enterPasswordConfirm:
-            self.view.window?.windowScene?.keyWindow?.rootViewController = GoalTimeSettingView()
+            navigationController?.popViewController(animated: true)
         }
         
         if nextPasswordResetProcess != nil {

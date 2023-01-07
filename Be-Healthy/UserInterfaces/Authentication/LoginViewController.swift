@@ -244,7 +244,9 @@ extension LoginViewController {
             
             formStackView.insertArrangedSubview(passwordStackView, at: 0)
         case .enterPassword:
-            self.view.window?.windowScene?.keyWindow?.rootViewController = GoalTimeSettingView()
+            let vc = GoalTimeSettingView()
+            vc.openedAuthProcess = true
+            self.view.window?.windowScene?.keyWindow?.rootViewController = vc
         }
         
         if nextLoginProcess != nil {

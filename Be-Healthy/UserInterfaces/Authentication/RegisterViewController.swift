@@ -495,7 +495,9 @@ extension RegisterViewController {
             
             formStackView.insertArrangedSubview(nicknameStackView, at: 0)
         case .enterNickname:
-            self.view.window?.windowScene?.keyWindow?.rootViewController = GoalTimeSettingView()
+            let vc = GoalTimeSettingView()
+            vc.openedAuthProcess = true
+            self.view.window?.windowScene?.keyWindow?.rootViewController = vc
         }
         
         if nextRegisterProcess != nil {
