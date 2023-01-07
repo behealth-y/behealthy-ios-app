@@ -21,7 +21,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         
         let nav = UINavigationController(rootViewController: FirstViewController())
-        window?.rootViewController = nav
+//        window?.rootViewController = nav
+        window?.rootViewController = GoalTimeSettingView()
         window?.makeKeyAndVisible()
     }
 

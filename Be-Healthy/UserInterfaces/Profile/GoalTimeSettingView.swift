@@ -45,13 +45,19 @@ class GoalTimeSettingView: BaseViewController {
     private lazy var timeLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 30, weight: .heavy)
         $0.attributedText = setTimeText()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTimeLabel))
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(tapGesture)
     }
     
     private let timeLabelBottomBorder = UIView().then {
         $0.backgroundColor = .border
     }
     
-    private let submitButton = BHSubmitButton(title: "설정하기")
+    private let submitButton = BHSubmitButton(title: "설정하기").then {
+        $0.isEnabled = false
+    }
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
@@ -112,28 +118,21 @@ extension GoalTimeSettingView {
             $0.bottom.equalToSuperview().inset(25)
         }
     }
-}
-
-// MARK: - Actions
-extension GoalTimeSettingView {
-    @objc private func handleDatePicker() {
-//        if let datePicker = self.textField.inputView as? UIDatePicker {
-//            timeInt = Int(datePicker.countDownDuration) / 60
-//        }
-//
-//        let hour : Int = timeInt / 60
-//        let minute : Int = timeInt % 60
-//
-//        self.textField.text = "\(hour) 시간 \(minute) 분"
-//        self.textField.resignFirstResponder()
-    }
     
+    // MARK: Actions
     @objc private func didTapSubmitButton() {
         if openedAuthProcess {
             self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
         } else {
             navigationController?.popViewController(animated: true)
         }
+    }
+    
+    /// 비밀번호 재설정 화면 열기
+    @objc private func didTapTimeLabel(sender: UITapGestureRecognizer){
+        let vc = GoalTimeSettingModalView()
+        vc.modalPresentationStyle = .overCurrentContext
+        self.present(vc, animated: false)
     }
 }
 

@@ -49,23 +49,39 @@ extension BaseViewController {
         self.view.endEditing(true)
     }
     
-    /// 키보드 나타날 때 키보드 높이만큼 스크롤
-    @objc func keyboardWillShow(notification: NSNotification) {
-        guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-            return
-        }
-        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.size.height, right: 0.0)
-        scrollView.contentInset = contentInset
-    }
+//    /// 키보드 나타날 때 키보드 높이만큼 스크롤
+//    @objc func keyboardWillShow(notification: NSNotification) {
+//        guard let userInfo = notification.userInfo,
+//              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+//            return
+//        }
+//        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.size.height, right: 0.0)
+//        scrollView.contentInset = contentInset
+//    }
+//
+//    /// 키보드 숨길때 키보드 높이만큼 스크롤 되었던 거 복구
+//    @objc func keyboardWillHide(notification: NSNotification) {
+//        print(#function)
+//        guard let userInfo = notification.userInfo,
+//              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+//            return
+//        }
+//
+//        scrollView.contentInset = .zero
+//    }
     
-    /// 키보드 숨길때 키보드 높이만큼 스크롤 되었던 거 복구
-    @objc func keyboardWillHide(notification: NSNotification) {
-        guard let userInfo = notification.userInfo,
-              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-            return
+    /// 키보드 나타날 때 키보드 높이만큼 스크롤
+    @objc func keyboardWillShow(_ notification: NSNotification){
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            UIView.animate(withDuration: 0.3, animations: {
+                self.scrollView.transform = CGAffineTransform(translationX: 0, y: -keyboardSize.height)
+            })
+            
         }
+    }
         
-        scrollView.contentInset = .zero
+    /// 키보드 숨길때 키보드 높이만큼 스크롤 되었던 거 복구
+    @objc func keyboardWillHide(_ notification: NSNotification){
+        self.scrollView.transform = .identity
     }
 }
