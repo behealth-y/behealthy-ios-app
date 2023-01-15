@@ -56,7 +56,7 @@ class GoalTimeSettingView: BaseViewController {
     }
     
     private let submitButton = BHSubmitButton(title: "설정하기").then {
-        $0.isEnabled = false
+        $0.isEnabled = true
     }
     
     // MARK: - LifeCycle
@@ -128,7 +128,7 @@ extension GoalTimeSettingView {
         }
     }
     
-    /// 비밀번호 재설정 화면 열기
+    /// 목표 시간 설정 모달 화면 열기
     @objc private func didTapTimeLabel(sender: UITapGestureRecognizer){
         let vc = GoalTimeSettingModalView()
         vc.modalPresentationStyle = .overCurrentContext

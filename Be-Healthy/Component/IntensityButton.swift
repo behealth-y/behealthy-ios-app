@@ -34,11 +34,15 @@ class IntensityButton: UIButton {
 //
 //        self.configuration = config
         
-        self.setTitleColor(UIColor.init(named: "mainColor"), for: .normal)
+        self.snp.makeConstraints {
+            $0.height.equalTo(30)
+        }
+        
+        self.setTitleColor(UIColor.init(hexFromString: "#2E2E2E"), for: .normal)
         self.setTitleColor(.white, for: .selected)
         self.titleLabel?.font = .boldSystemFont(ofSize: 12)
         self.layer.borderWidth = 0.5
-        self.layer.borderColor = UIColor.init(named: "mainColor")?.cgColor
+        self.layer.borderColor = UIColor.init(hexFromString: "#2E2E2E").cgColor
         self.layer.cornerRadius = 5
     }
 }

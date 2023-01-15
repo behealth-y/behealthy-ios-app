@@ -9,6 +9,7 @@ import UIKit
 
 protocol RecordListCollectionViewCellDelegate: NSObject {
     func showMoreMenu()
+    func updateConstraints()
 }
 
 class RecordListCollectionViewCell: UICollectionViewCell {
@@ -24,20 +25,18 @@ class RecordListCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        setupLayout()
+        setupCell()
     }
     
-    // MARK: - Actions
-    
-    /// 더 보기 버튼 클릭 시 편집 / 삭제 선택 메뉴 노출
-    @IBAction func didTapMoreButton(_ sender: UIButton) {
-        delegate?.showMoreMenu()
+    override func layoutSubviews() {
+        delegate?.updateConstraints()
     }
 }
 
+// MARK: - Extension
 extension RecordListCollectionViewCell {
     // 레이아웃 설정
-    fileprivate func setupLayout() {
+    fileprivate func setupCell() {
 //        emojiLabel.layer.borderWidth = 0.3
 //        emojiLabel.layer.borderColor = UIColor.init(hexFromString: "B0B0B0").cgColor
 //        emojiLabel.layer.cornerRadius = emojiLabel.frame.width / 2
@@ -55,5 +54,11 @@ extension RecordListCollectionViewCell {
         emojiLabel.text = data.emoji
         workOutNameLabel.text = data.workOutName
         workOutTimeLabel.text = "\(data.workOutTime)분"
+    }
+    
+    // MARK: Action
+    /// 더 보기 버튼 클릭 시 편집 / 삭제 선택 메뉴 노출
+    @IBAction func didTapMoreButton(_ sender: UIButton) {
+        delegate?.showMoreMenu()
     }
 }

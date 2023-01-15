@@ -18,25 +18,25 @@
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="러닝" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GA1-z0-cwV">
-                        <rect key="frame" x="57" y="14.5" width="30" height="21"/>
+                        <rect key="frame" x="75" y="14.5" width="30" height="21"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="35분" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XRO-5L-6ZT">
-                        <rect key="frame" x="321.5" y="0.0" width="36" height="49.5"/>
+                        <rect key="frame" x="303.5" y="0.0" width="36" height="49.5"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uNc-WL-Jwn">
-                        <rect key="frame" x="57" y="49.5" width="333" height="0.5"/>
+                        <rect key="frame" x="75" y="49.5" width="297" height="0.5"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="0.29999999999999999" id="iEb-Sr-TWe"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rnP-Os-rLc">
-                        <rect key="frame" x="364.5" y="0.0" width="25.5" height="49.5"/>
+                        <rect key="frame" x="346.5" y="0.0" width="25.5" height="49.5"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" title=":" buttonSize="mini">
                             <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="17"/>
@@ -47,7 +47,7 @@
                         </connections>
                     </button>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🏃‍♂️" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H83-9P-Sgn">
-                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                        <rect key="frame" x="18" y="0.0" width="50" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="Cht-Ml-r9G"/>
                             <constraint firstAttribute="width" constant="50" id="FmH-e9-rYG"/>
@@ -68,11 +68,11 @@
                 <constraint firstItem="rnP-Os-rLc" firstAttribute="centerY" secondItem="XRO-5L-6ZT" secondAttribute="centerY" id="U19-JP-MI8"/>
                 <constraint firstItem="GA1-z0-cwV" firstAttribute="leading" secondItem="H83-9P-Sgn" secondAttribute="trailing" constant="7" id="ZLa-Kw-nzg"/>
                 <constraint firstItem="uNc-WL-Jwn" firstAttribute="top" secondItem="XRO-5L-6ZT" secondAttribute="bottom" id="bBF-LJ-QD4"/>
-                <constraint firstAttribute="trailing" secondItem="rnP-Os-rLc" secondAttribute="trailing" id="bkn-49-har"/>
-                <constraint firstAttribute="trailing" secondItem="uNc-WL-Jwn" secondAttribute="trailing" id="cAz-aC-ihE"/>
+                <constraint firstAttribute="trailing" secondItem="rnP-Os-rLc" secondAttribute="trailing" constant="18" id="bkn-49-har"/>
+                <constraint firstItem="rnP-Os-rLc" firstAttribute="trailing" secondItem="uNc-WL-Jwn" secondAttribute="trailing" id="cAz-aC-ihE"/>
                 <constraint firstItem="uNc-WL-Jwn" firstAttribute="leading" secondItem="GA1-z0-cwV" secondAttribute="leading" id="dT5-bh-Dsa"/>
                 <constraint firstAttribute="bottom" secondItem="H83-9P-Sgn" secondAttribute="bottom" id="fwj-0J-6Tp"/>
-                <constraint firstItem="H83-9P-Sgn" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="qcO-5s-rQU"/>
+                <constraint firstItem="H83-9P-Sgn" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="18" id="qcO-5s-rQU"/>
                 <constraint firstAttribute="bottom" secondItem="uNc-WL-Jwn" secondAttribute="bottom" id="tJb-FX-fW6"/>
                 <constraint firstItem="XRO-5L-6ZT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="GA1-z0-cwV" secondAttribute="trailing" constant="10" id="vK4-go-tS0"/>
             </constraints>

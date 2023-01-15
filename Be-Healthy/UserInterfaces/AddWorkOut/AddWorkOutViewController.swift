@@ -84,26 +84,31 @@ class AddWorkOutViewController: UIViewController {
         IntensityButton(title: "쉬웠음", tag: 3)
     ]
     
+    private let submitButton = BHSubmitButton(title: "운동 추가하기")
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         
         setKeyboardObserver()
-        setupLayout()
+        setupViews()
         setupScrollView()
     }
 }
 
-// MARK: - 레이아웃 설정 관련
+// MARK: - Extension
 extension AddWorkOutViewController {
-    /// 레이아웃 설정
-    fileprivate func setupLayout() {
-        self.view.addSubview(scrollView)
+    /// 뷰설정
+    private func setupViews() {
+        [scrollView, submitButton].forEach {
+            view.addSubview($0)
+        }
         
         // scrollView 위치 잡기
         scrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(submitButton.snp.top)
         }
         
         // contentView 변수 초기화
@@ -114,7 +119,7 @@ extension AddWorkOutViewController {
         // contentView 위치 잡기
         contentView.snp.makeConstraints {
             $0.width.equalToSuperview()
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(scrollView.contentLayoutGuide)
         }
         
         // 폼 > stackView 변수 초기화
@@ -126,19 +131,18 @@ extension AddWorkOutViewController {
         stackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(34)
             $0.horizontalEdges.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(30)
+            $0.bottom.equalToSuperview()
         }
         
         // 운동 추가하기 버튼 변수 초기화
-        let submitButton = BHSubmitButton(title: "운동 추가하기")
         submitButton.isEnabled = false
-        
-        contentView.addSubview(submitButton)
         
         // 운동 추가하기 버튼 위치 잡기
         submitButton.snp.makeConstraints {
+            $0.top.equalTo(scrollView.snp.bottom).offset(30)
             $0.horizontalEdges.equalToSuperview().inset(18)
-            $0.bottom.equalTo(scrollView.frameLayoutGuide).inset(30)
+            $0.bottom.equalToSuperview().inset(30)
+//            $0.bottom.equalTo(scrollView.frameLayoutGuide).inset(30)
         }
     }
     
@@ -183,6 +187,7 @@ extension AddWorkOutViewController {
         // 폼 > 운동 강도 선택 stackView 위치 잡기
         intensityStackView.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(18)
+            $0.bottom.equalToSuperview().inset(30)
         }
         
         return stackView
@@ -268,8 +273,8 @@ extension AddWorkOutViewController {
         
         let intensityTitleLabel = UILabel().then {
             $0.text = "운동 강도를 선택해주세요."
-            $0.font = .boldSystemFont(ofSize: 16)
-            $0.textColor = UIColor.init(named: "mainColor")
+            $0.font = .systemFont(ofSize: 15, weight: .init(500))
+            $0.textColor = UIColor.init(hexFromString: "#2E2E2E")
         }
         
         stackView.addArrangedSubview(intensityTitleLabel)
@@ -293,7 +298,7 @@ extension AddWorkOutViewController {
             
             if $0.tag == intensity {
                 $0.isSelected = true
-                $0.backgroundColor = UIColor(named: "mainColor")
+                $0.backgroundColor = UIColor(hexFromString: "#2E2E2E")
             }
         }
         
@@ -330,7 +335,7 @@ extension AddWorkOutViewController {
         intensityButtons.forEach { button in
             if button.tag == intensity {
                 intensityButtons[button.tag].isSelected = true
-                intensityButtons[button.tag].backgroundColor = UIColor.init(named: "mainColor")
+                intensityButtons[button.tag].backgroundColor = UIColor.init(hexFromString: "#2E2E2E")
             } else {
                 intensityButtons[button.tag].isSelected = false
                 intensityButtons[button.tag].backgroundColor = .clear
