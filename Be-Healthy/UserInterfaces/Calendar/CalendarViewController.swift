@@ -91,6 +91,7 @@ class CalendarViewController: BaseViewController {
     
     /// collectionView 변수 초기화
     lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout).then {
+        $0.isHidden = true
         $0.delegate = self
         $0.dataSource = self
         $0.showsVerticalScrollIndicator = false
@@ -99,6 +100,23 @@ class CalendarViewController: BaseViewController {
         
         $0.register(UINib(nibName: RecordListCollectionViewCell.identifier, bundle: nil), forCellWithReuseIdentifier: RecordListCollectionViewCell.identifier)
         $0.register(UINib(nibName: RecordListCollectionViewHeader.identifier, bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: RecordListCollectionViewHeader.identifier)
+    }
+    
+    // MARK: - 운동 기록 없을 때
+    private let noRecordView = UIView().then {
+        $0.isHidden = true
+    }
+    
+    private let noRecordLabel = UILabel().then {
+        $0.text = "저장된 운동 기록이 없어요..\n지금 운동 추가하러 가볼까요?"
+        $0.font = .systemFont(ofSize: 18)
+        $0.textColor = .border
+        $0.numberOfLines = 2
+        $0.textAlignment = .center
+    }
+    
+    private let noRecordImgView = UIImageView().then {
+        $0.image = UIImage(named: "arrow_down")
     }
     
     // MARK: - LifeCycle
@@ -152,14 +170,22 @@ extension CalendarViewController {
         
         view.addSubview(scrollView)
         
+        [stackView, prevMonthButton, nextMonthButton, weeklyBottomBorder].forEach {
+            scrollView.addSubview($0)
+        }
+        
+        [calendarView, noRecordView, collectionView].forEach {
+            stackView.addArrangedSubview($0)
+        }
+        
+        [noRecordLabel, noRecordImgView].forEach {
+            noRecordView.addSubview($0)
+        }
+        
         scrollView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
             $0.horizontalEdges.equalToSuperview()
-        }
-        
-        [stackView, prevMonthButton, nextMonthButton, weeklyBottomBorder].forEach {
-            scrollView.addSubview($0)
         }
         
         stackView.snp.makeConstraints {
@@ -167,10 +193,7 @@ extension CalendarViewController {
             $0.edges.equalTo(scrollView.contentLayoutGuide)
         }
         
-        [calendarView, collectionView].forEach {
-            stackView.addArrangedSubview($0)
-        }
-        
+        // MARK: 달력 > AutoLayout
         calendarView.snp.makeConstraints {
             $0.height.equalTo(calendarView.snp.width).multipliedBy(0.84 / 1.0)
         }
@@ -191,6 +214,23 @@ extension CalendarViewController {
             $0.horizontalEdges.equalToSuperview().inset(18)
         }
         
+        // MARK: 운동 기록 없을 때 > AutoLayout
+        noRecordView.snp.makeConstraints {
+            $0.top.equalTo(calendarView.snp.bottom)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        noRecordLabel.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(noRecordImgView.snp.top).offset(-20)
+        }
+        
+        noRecordImgView.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
+        }
+        
+        // MARK: 운동 기록 내역 > AutoLayout
         collectionView.snp.makeConstraints {
             $0.height.equalTo(300)
         }
@@ -205,6 +245,8 @@ extension CalendarViewController {
             viewModel.insert(WorkOutRecord(idx: 3, emoji: "🏊‍♀️", workOutName: "수영", workOutTime: 50))
             viewModel.insert(WorkOutRecord(idx: 4, emoji: "🤸‍♂️", workOutName: "스트레칭", workOutTime: 20))
         }
+        
+        collectionView.isHidden = false
     }
     
     // MARK: Action
