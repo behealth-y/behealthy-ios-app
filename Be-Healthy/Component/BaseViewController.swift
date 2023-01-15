@@ -22,6 +22,7 @@ class BaseViewController: UIViewController {
 
 // MARK: - Extension
 extension BaseViewController {
+    // MARK: Actions
     /// 화면 터치 시 키보드 내리기
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
@@ -42,33 +43,10 @@ extension BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    // MARK: Actions
-    
     /// 키보드 내리기
     @objc func handleTapGesture(sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
-    
-//    /// 키보드 나타날 때 키보드 높이만큼 스크롤
-//    @objc func keyboardWillShow(notification: NSNotification) {
-//        guard let userInfo = notification.userInfo,
-//              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-//            return
-//        }
-//        let contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardFrame.size.height, right: 0.0)
-//        scrollView.contentInset = contentInset
-//    }
-//
-//    /// 키보드 숨길때 키보드 높이만큼 스크롤 되었던 거 복구
-//    @objc func keyboardWillHide(notification: NSNotification) {
-//        print(#function)
-//        guard let userInfo = notification.userInfo,
-//              let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
-//            return
-//        }
-//
-//        scrollView.contentInset = .zero
-//    }
     
     /// 키보드 나타날 때 키보드 높이만큼 스크롤
     @objc func keyboardWillShow(_ notification: NSNotification){

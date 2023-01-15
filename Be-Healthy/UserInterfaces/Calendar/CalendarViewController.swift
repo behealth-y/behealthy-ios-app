@@ -249,7 +249,7 @@ extension CalendarViewController {
         collectionView.isHidden = false
     }
     
-    // MARK: Action
+    // MARK: Actions
     /// 달력 > 이전 / 다음 버튼 누를 시 페이지 이동
     @objc private func moveCurrentPage(_ sender: UIButton) {
         let calendar = Calendar(identifier: .gregorian)

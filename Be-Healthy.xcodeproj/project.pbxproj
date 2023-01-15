@@ -40,6 +40,8 @@
 		B79547DB295D704B0003B7EE /* String+Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79547DA295D704B0003B7EE /* String+Validate.swift */; };
 		B79547DD295D70530003B7EE /* UIControl+EventPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79547DC295D70530003B7EE /* UIControl+EventPublisher.swift */; };
 		B79547DF295D731D0003B7EE /* CustomPulbisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79547DE295D731D0003B7EE /* CustomPulbisher.swift */; };
+		B7A70AEA2973E9EE00D5628A /* CommunityFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A70AE92973E9EE00D5628A /* CommunityFormView.swift */; };
+		B7A70AEC2973EA0200D5628A /* CommunityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A70AEB2973EA0200D5628A /* CommunityDetailView.swift */; };
 		B7B0206729432FE6007C04AB /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = B7B0206629432FE6007C04AB /* KakaoSDK */; };
 		B7B0206929432FE6007C04AB /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B7B0206829432FE6007C04AB /* KakaoSDKAuth */; };
 		B7B0206B29432FE6007C04AB /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = B7B0206A29432FE6007C04AB /* KakaoSDKCommon */; };
@@ -72,7 +74,7 @@
 		B7E19164295CEC3100A20F2F /* GoalTimeSettingModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E19163295CEC3100A20F2F /* GoalTimeSettingModalView.swift */; };
 		B7E3A90328FAD16C005E6EB0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E3A90228FAD16C005E6EB0 /* Helper.swift */; };
 		B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */; };
-		B7F67684293B343C008C72DC /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67683293B343C008C72DC /* CommunityViewController.swift */; };
+		B7F67684293B343C008C72DC /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67683293B343C008C72DC /* CommunityView.swift */; };
 		B7F67686293B5C2E008C72DC /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67685293B5C2E008C72DC /* FirstViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -129,6 +131,8 @@
 		B79547DA295D704B0003B7EE /* String+Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validate.swift"; sourceTree = "<group>"; };
 		B79547DC295D70530003B7EE /* UIControl+EventPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+EventPublisher.swift"; sourceTree = "<group>"; };
 		B79547DE295D731D0003B7EE /* CustomPulbisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPulbisher.swift; sourceTree = "<group>"; };
+		B7A70AE92973E9EE00D5628A /* CommunityFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityFormView.swift; sourceTree = "<group>"; };
+		B7A70AEB2973EA0200D5628A /* CommunityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailView.swift; sourceTree = "<group>"; };
 		B7B0207929433AA6007C04AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7BDD7F528D59AEC000E644A /* TopThreeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopThreeCollectionViewCell.swift; sourceTree = "<group>"; };
 		B7BDD7F628D59AEC000E644A /* TopThreeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopThreeCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -150,7 +154,7 @@
 		B7E19163295CEC3100A20F2F /* GoalTimeSettingModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSettingModalView.swift; sourceTree = "<group>"; };
 		B7E3A90228FAD16C005E6EB0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		B7F67683293B343C008C72DC /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
+		B7F67683293B343C008C72DC /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
 		B7F67685293B5C2E008C72DC /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -369,6 +373,13 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
+		B7A70AE82973E9D400D5628A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		B7BDD7F428D59A86000E644A /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -443,7 +454,10 @@
 		B7F67682293B3427008C72DC /* Community */ = {
 			isa = PBXGroup;
 			children = (
-				B7F67683293B343C008C72DC /* CommunityViewController.swift */,
+				B7A70AE82973E9D400D5628A /* Cells */,
+				B7F67683293B343C008C72DC /* CommunityView.swift */,
+				B7A70AE92973E9EE00D5628A /* CommunityFormView.swift */,
+				B7A70AEB2973EA0200D5628A /* CommunityDetailView.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -635,6 +649,7 @@
 				B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */,
 				B7D1E4B128CB7075008C5E0C /* AccountSettingViewController.swift in Sources */,
 				B722FB9328BA16C2004AEEB2 /* PasswordResetViewController.swift in Sources */,
+				B7A70AEA2973E9EE00D5628A /* CommunityFormView.swift in Sources */,
 				B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */,
 				B7E19160295CD11A00A20F2F /* BaseViewController.swift in Sources */,
 				B79547DB295D704B0003B7EE /* String+Validate.swift in Sources */,
@@ -653,6 +668,7 @@
 				B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */,
 				B776F435290D1927009DA6B5 /* WorkOutRecord.swift in Sources */,
 				B727D57F28B8568300773A12 /* UIButton+Extension.swift in Sources */,
+				B7A70AEC2973EA0200D5628A /* CommunityDetailView.swift in Sources */,
 				B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */,
 				B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */,
 				B7E3A90328FAD16C005E6EB0 /* Helper.swift in Sources */,
@@ -667,7 +683,7 @@
 				B7C7BAF928EEF82100CC574E /* LeftAxisValueFormatter.swift in Sources */,
 				B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */,
 				B7F67686293B5C2E008C72DC /* FirstViewController.swift in Sources */,
-				B7F67684293B343C008C72DC /* CommunityViewController.swift in Sources */,
+				B7F67684293B343C008C72DC /* CommunityView.swift in Sources */,
 				B7D442C928F7015600994AD3 /* Config.swift in Sources */,
 				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,

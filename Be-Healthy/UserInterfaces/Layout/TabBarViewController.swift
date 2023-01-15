@@ -29,7 +29,7 @@ class TabBarViewController: UITabBarController {
         let firstNav = HomeViewController()
         let secondNav = CalendarViewController()
         let thirdNav = UINavigationController.init(rootViewController: UIViewController())
-        let fourthNav = UINavigationController.init(rootViewController: CommunityViewController())
+        let fourthNav = UINavigationController.init(rootViewController: CommunityView())
         let fifthNav = UINavigationController.init(rootViewController: ProfileViewController())
         
         self.viewControllers = [firstNav, secondNav, thirdNav, fourthNav, fifthNav]
