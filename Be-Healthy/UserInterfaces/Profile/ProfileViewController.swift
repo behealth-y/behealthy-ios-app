@@ -17,17 +17,14 @@ enum SettingView: Int {
     case versionInfoView = 5
 }
 
-class ProfileViewController: BHBaseViewController {
+class ProfileViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         
-        setupNavigationBar("마이페이지")
         setupScrollView()
-        
-        titleView.title = "마이페이지"
-        setupLayout()
+        setupViews()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,10 +40,10 @@ class ProfileViewController: BHBaseViewController {
     }
 }
 
-// MARK: - 레이아웃 설정 관련
+// MARK: - Extensions
 extension ProfileViewController {
-    /// 레이아웃 설정
-    fileprivate func setupLayout() {
+    // MARK: View
+    fileprivate func setupViews() {
         self.view.addSubview(scrollView)
         
         // scrollView 위치 잡기
@@ -64,15 +61,6 @@ extension ProfileViewController {
             $0.edges.equalTo(scrollView)
         }
         
-        contentView.addSubview(titleView)
-        
-        // titleView 위치 잡기
-        titleView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(titleView.snp.width).multipliedBy(0.79 / 1.0)
-        }
-        
         // 프로필 stackView 변수 초기화
         let profileStackView = generateProfileStackView()
         
@@ -80,7 +68,7 @@ extension ProfileViewController {
         
         // 프로필 stackView 위치 잡기
         profileStackView.snp.makeConstraints {
-            $0.top.equalTo(titleView.snp.bottom).offset(25)
+            $0.top.equalToSuperview().offset(83)
             $0.horizontalEdges.equalToSuperview()
         }
         
@@ -122,32 +110,45 @@ extension ProfileViewController {
     /// - Returns: 프로필 stackView
     fileprivate func generateProfileStackView() -> UIStackView{
         let stackView = UIStackView().then {
-            $0.spacing = 10
+            $0.spacing = 20
             $0.alignment = .center
             $0.distribution = .fill
             $0.axis = .vertical
         }
         
-        let text = "반갑습니다!\n LAURA님"
-        let attributeString = NSMutableAttributedString(string: text)
-        attributeString.addAttributes([.foregroundColor: UIColor.init(named: "mainColor")!, .font: UIFont.systemFont(ofSize: 30.0, weight: .semibold)], range: (text as NSString).range(of: "LAURA"))
-        attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 25.0), range: (text as NSString).range(of: "반갑습니다!"))
+        let profileView = UIView().then {
+            $0.backgroundColor = .white
+            $0.layer.borderColor = UIColor.border.cgColor
+            $0.layer.borderWidth = 0.5
+            $0.layer.cornerRadius = 50
+        }
+        
+        let profileImgView = UIImageView().then {
+            $0.image = UIImage(systemName: "person.fill")
+            $0.tintColor = .black
+        }
         
         let welcomeLabel = UILabel().then {
-            $0.font = .systemFont(ofSize: 30.0)
+            $0.font = .boldSystemFont(ofSize: 20.0)
             $0.textAlignment = .center
-            $0.attributedText = attributeString
+            $0.text = "반갑습니다!\n 비헬시님"
             $0.numberOfLines = 0
         }
         
-        stackView.addArrangedSubview(welcomeLabel)
+        profileView.addSubview(profileImgView)
         
-        let emailLabel = UILabel().then {
-            $0.text = "laura.lee.x316@gmail.com"
-            $0.font = .systemFont(ofSize: 14)
+        [profileView, welcomeLabel].forEach {
+            stackView.addArrangedSubview($0)
         }
         
-        stackView.addArrangedSubview(emailLabel)
+        profileView.snp.makeConstraints {
+            $0.size.equalTo(100)
+        }
+        
+        profileImgView.snp.makeConstraints {
+            $0.size.equalTo(60)
+            $0.center.equalTo(profileView)
+        }
         
         return stackView
     }
@@ -220,10 +221,8 @@ extension ProfileViewController {
         
         return view
     }
-}
-
-// MARK: - Actions
-extension ProfileViewController {
+    
+    // MARK: Actions
     /// 설정 > 목록 > 뷰 클릭 시
     func generateSettingViewTapGesture(_ view: UIView) {
         switch view.tag {
