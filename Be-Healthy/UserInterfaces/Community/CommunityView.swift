@@ -8,21 +8,26 @@
 import UIKit
 
 class CommunityView: BaseViewController {
-    private let compositionalLayout: UICollectionViewCompositionalLayout = {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(150))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5)
-        
-        return UICollectionViewCompositionalLayout(section: section)
-    }()
+//    private let compositionalLayout: UICollectionViewCompositionalLayout = {
+//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .absolute(150))
+//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+//
+//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150))
+//        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+//
+//        let section = NSCollectionLayoutSection(group: group)
+//        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 5, bottom: 10, trailing: 5)
+//
+//        return UICollectionViewCompositionalLayout(section: section)
+//    }()
+    private var communitys = [Community]()
+//
+    private lazy var pinterestLayout = PinterestLayout().then {
+        $0.delegate = self
+    }
     
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: compositionalLayout).then {
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: pinterestLayout).then {
         
         $0.delegate = self
         $0.dataSource = self
@@ -35,6 +40,17 @@ class CommunityView: BaseViewController {
         
         setupNavigationBar()
         setupViews()
+        
+        communitys = [
+            Community(image: UIImage(named: "image1")!),
+            Community(image: UIImage(named: "image2")!),
+            Community(image: UIImage(named: "image3")!),
+            Community(image: UIImage(named: "image4")!),
+            Community(image: UIImage(named: "image5")!),
+            Community(image: UIImage(named: "image6")!),
+            Community(image: UIImage(named: "image7")!),
+            Community(image: UIImage(named: "image8")!),
+        ]
     }
 }
 
@@ -80,16 +96,33 @@ extension CommunityView {
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource
 extension CommunityView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return communitys.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommunityCell.identifier, for: indexPath) as! CommunityCell
         
+        let image = communitys[indexPath.row].image
+        cell.updateUI(image: image)
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+      let itemSize = (collectionView.frame.width - (collectionView.contentInset.left + collectionView.contentInset.right + 10)) / 2
+      return CGSize(width: itemSize, height: itemSize)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         navigationController?.pushViewController(CommunityDetailView(), animated: true)
     }
+}
+
+// MARK: - PinterestLayoutDelegate
+extension CommunityView: PinterestLayoutDelegate {
+  func collectionView(
+    _ collectionView: UICollectionView,
+    heightForPhotoAtIndexPath indexPath:IndexPath) -> CGFloat {
+    return communitys[indexPath.item].image.size.height
+  }
 }

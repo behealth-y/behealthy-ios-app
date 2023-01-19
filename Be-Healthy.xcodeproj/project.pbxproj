@@ -35,6 +35,8 @@
 		B7825BF328C1E3ED005DF613 /* IntensityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF228C1E3ED005DF613 /* IntensityButton.swift */; };
 		B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */; };
 		B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */; };
+		B790C4C029791C3600876698 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4BF29791C3600876698 /* PinterestLayout.swift */; };
+		B790C4C229791CF700876698 /* Community.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4C129791CF700876698 /* Community.swift */; };
 		B792954628BC6447007D6045 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954528BC6447007D6045 /* ToastView.swift */; };
 		B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954728BCA33D007D6045 /* TabBarViewController.swift */; };
 		B79547DB295D704B0003B7EE /* String+Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79547DA295D704B0003B7EE /* String+Validate.swift */; };
@@ -127,6 +129,8 @@
 		B7825BF228C1E3ED005DF613 /* IntensityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButton.swift; sourceTree = "<group>"; };
 		B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
+		B790C4BF29791C3600876698 /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
+		B790C4C129791CF700876698 /* Community.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Community.swift; sourceTree = "<group>"; };
 		B792954528BC6447007D6045 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		B792954728BCA33D007D6045 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		B79547DA295D704B0003B7EE /* String+Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validate.swift"; sourceTree = "<group>"; };
@@ -288,6 +292,7 @@
 				B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */,
 				B727D58628B89CA100773A12 /* BHSubmitButton.swift */,
 				B7E1915F295CD11A00A20F2F /* BaseViewController.swift */,
+				B790C4BF29791C3600876698 /* PinterestLayout.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -417,6 +422,7 @@
 			children = (
 				B7D442CD28F7048200994AD3 /* User.swift */,
 				B776F434290D1927009DA6B5 /* WorkOutRecord.swift */,
+				B790C4C129791CF700876698 /* Community.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -659,6 +665,7 @@
 				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
 				B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */,
 				B7BDD7F728D59AEC000E644A /* TopThreeCollectionViewCell.swift in Sources */,
+				B790C4C229791CF700876698 /* Community.swift in Sources */,
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,
 				B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */,
 				B7E19164295CEC3100A20F2F /* GoalTimeSettingModalView.swift in Sources */,
@@ -675,6 +682,7 @@
 				B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */,
 				B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */,
 				B7E3A90328FAD16C005E6EB0 /* Helper.swift in Sources */,
+				B790C4C029791C3600876698 /* PinterestLayout.swift in Sources */,
 				B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */,
 				B7CFA25F28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift in Sources */,
 				B776F43A290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift in Sources */,
