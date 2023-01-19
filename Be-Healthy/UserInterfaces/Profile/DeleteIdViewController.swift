@@ -141,7 +141,7 @@ extension DeleteIdViewController {
     @objc fileprivate func didTapDeleteIdButton() {
         navigationController?.popToRootViewController(animated: false)
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
-        let nav = UINavigationController(rootViewController: LoginViewController())
+        let nav = UINavigationController(rootViewController: FirstViewController())
         
         sceneDelegate.window?.rootViewController = nav
     }

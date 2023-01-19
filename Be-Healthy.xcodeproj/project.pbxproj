@@ -37,6 +37,8 @@
 		B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */; };
 		B790C4C029791C3600876698 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4BF29791C3600876698 /* PinterestLayout.swift */; };
 		B790C4C229791CF700876698 /* Community.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4C129791CF700876698 /* Community.swift */; };
+		B790C4C42979364800876698 /* CommunityDetailBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4C32979364800876698 /* CommunityDetailBannerCell.swift */; };
+		B790C4C72979367A00876698 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B790C4C62979367A00876698 /* Kingfisher */; };
 		B792954628BC6447007D6045 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954528BC6447007D6045 /* ToastView.swift */; };
 		B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B792954728BCA33D007D6045 /* TabBarViewController.swift */; };
 		B79547DB295D704B0003B7EE /* String+Validate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79547DA295D704B0003B7EE /* String+Validate.swift */; };
@@ -131,6 +133,7 @@
 		B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
 		B790C4BF29791C3600876698 /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 		B790C4C129791CF700876698 /* Community.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Community.swift; sourceTree = "<group>"; };
+		B790C4C32979364800876698 /* CommunityDetailBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailBannerCell.swift; sourceTree = "<group>"; };
 		B792954528BC6447007D6045 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		B792954728BCA33D007D6045 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		B79547DA295D704B0003B7EE /* String+Validate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Validate.swift"; sourceTree = "<group>"; };
@@ -171,6 +174,7 @@
 			files = (
 				B7B0206B29432FE6007C04AB /* KakaoSDKCommon in Frameworks */,
 				B7B0206929432FE6007C04AB /* KakaoSDKAuth in Frameworks */,
+				B790C4C72979367A00876698 /* Kingfisher in Frameworks */,
 				B7D442C328F6FF8C00994AD3 /* Alamofire in Frameworks */,
 				B727D57228B74EBE00773A12 /* SnapKit in Frameworks */,
 				B7B2E05328CF594800BD3E09 /* FSCalendar in Frameworks */,
@@ -384,6 +388,7 @@
 			isa = PBXGroup;
 			children = (
 				B7A70AED2973EBFB00D5628A /* CommunityCell.swift */,
+				B790C4C32979364800876698 /* CommunityDetailBannerCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -502,6 +507,7 @@
 				B7B0207129433A44007C04AB /* FirebaseAnalytics */,
 				B7B0207329433A44007C04AB /* FirebaseCrashlytics */,
 				B7B0207529433A44007C04AB /* FirebaseMessaging */,
+				B790C4C62979367A00876698 /* Kingfisher */,
 			);
 			productName = "Be-Healthy";
 			productReference = B727D53128B70A8500773A12 /* Be-Healthy.app */;
@@ -583,6 +589,7 @@
 				B7D442C128F6FF8C00994AD3 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				B7B0206529432FE6007C04AB /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
 				B7B0207029433A44007C04AB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				B790C4C52979367A00876698 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = B727D53228B70A8500773A12 /* Products */;
 			projectDirPath = "";
@@ -662,6 +669,7 @@
 				B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */,
 				B7E19160295CD11A00A20F2F /* BaseViewController.swift in Sources */,
 				B79547DB295D704B0003B7EE /* String+Validate.swift in Sources */,
+				B790C4C42979364800876698 /* CommunityDetailBannerCell.swift in Sources */,
 				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
 				B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */,
 				B7BDD7F728D59AEC000E644A /* TopThreeCollectionViewCell.swift in Sources */,
@@ -1058,6 +1066,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		B790C4C52979367A00876698 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		B7B0206529432FE6007C04AB /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/kakao/kakao-ios-sdk";
@@ -1110,6 +1126,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B727D57328B74EC900773A12 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		B790C4C62979367A00876698 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B790C4C52979367A00876698 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		B7B0206629432FE6007C04AB /* KakaoSDK */ = {
 			isa = XCSwiftPackageProductDependency;
