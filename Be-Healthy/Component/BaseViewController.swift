@@ -16,7 +16,6 @@ class BaseViewController: UIViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         setupScrollView()
-        setKeyboardObserver()
     }
 }
 

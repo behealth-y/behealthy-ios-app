@@ -7,11 +7,22 @@
 
 import UIKit
 
-class AccountSettingViewController: BHBaseViewController {
-    lazy var nicknameTextField = BHTextField().then {
+class AccountSettingViewController: BaseViewController {
+    // MARK: 닉네임
+    private lazy var nicknameTextField = BHTextField().then {
         $0.placeholder = "변경하실 닉네임을 입력해주세요! (국/영문 최대 2~8자)"
         $0.keyboardType = .emailAddress
         $0.delegate = self
+    }
+    
+    // MARK: 회원탈퇴
+    // 회원탈퇴 이동 버튼 변수 초기화
+    private lazy var deleteIdButton = UIButton().then {
+        $0.setTitle("회원탈퇴", for: .normal)
+        $0.setTitleColor(.border, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 12.0)
+        $0.addUnderLine()
+        $0.addTarget(self, action: #selector(didTapDeleteIdButton), for: .touchUpInside)
     }
     
     override func viewDidLoad() {
@@ -19,86 +30,64 @@ class AccountSettingViewController: BHBaseViewController {
         
         view.backgroundColor = .white
         
-        setupNavigationBar("계정 설정")
-        setupScrollView()
-        
-        setKeyboardObserver()
-        titleView.title = "계정 설정"
-        setupLayout()
+        setupNavigationBar()
+        setupViews()
     }
 }
 
-// MARK: - 레이아웃 설정 관련
+// MARK: - Extension
 extension AccountSettingViewController {
-    /// 레이아웃 설정
-    fileprivate func setupLayout() {
-        self.view.addSubview(scrollView)
+    // MARK: View
+    /// 네비게이션 바 설정
+    func setupNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.shadowColor = .clear
+        appearance.backgroundColor = .white
         
-        // scrollView 위치 잡기
-        scrollView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.standardAppearance = appearance
         
-        let contentView = UIView()
-        
-        scrollView.addSubview(contentView)
-        
-        // contentView 위치 잡기
-        contentView.snp.makeConstraints {
-            $0.width.equalTo(scrollView.snp.width)
-            $0.edges.equalTo(scrollView)
-        }
-        
-        contentView.addSubview(titleView)
-        
-        // titleView 위치 잡기
-        titleView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(titleView.snp.width).multipliedBy(0.79 / 1.0)
-        }
-        
+        navigationItem.title = "계정 설정"
+    }
+    
+    /// 뷰 설정
+    fileprivate func setupViews() {
         let stackView = UIStackView().then {
             $0.axis = .vertical
-            $0.spacing = 25
+            $0.spacing = 0
             $0.distribution = .fill
-            $0.alignment = .center
+            $0.alignment = .leading
         }
         
-        contentView.addSubview(stackView)
+        view.addSubview(stackView)
         
         stackView.snp.makeConstraints {
-            $0.top.equalTo(titleView.snp.bottom).offset(25)
-            $0.horizontalEdges.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(30)
+            $0.horizontalEdges.equalToSuperview().inset(18)
         }
         
         let emailView = generateEmailView()
         let passwordResetView = generatePasswordResetView()
         let nicknameEditView = generateNicknameEditView()
+        let logoutView = generateLogoutView()
         
-        [emailView, passwordResetView, nicknameEditView].forEach {
+        [emailView, passwordResetView, nicknameEditView, logoutView, deleteIdButton].forEach {
             stackView.addArrangedSubview($0)
-            $0.snp.makeConstraints {
-                $0.horizontalEdges.equalToSuperview().inset(18)
+            
+            if $0 != deleteIdButton {
+                $0.snp.makeConstraints { make in
+                    make.horizontalEdges.equalToSuperview()
+                }
             }
         }
         
         let submitButton = BHSubmitButton(title: "수정 완료")
         
-        contentView.addSubview(submitButton)
+        view.addSubview(submitButton)
         
         submitButton.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview().inset(18)
-            $0.top.equalTo(stackView.snp.bottom).offset(25)
-        }
-        
-        let buttonStackView = generateButtonStackView()
-        
-        contentView.addSubview(buttonStackView)
-        
-        buttonStackView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.top.equalTo(submitButton.snp.bottom).offset(25)
             $0.bottom.equalToSuperview().inset(25)
         }
     }
@@ -108,20 +97,9 @@ extension AccountSettingViewController {
     fileprivate func generateEmailView() -> UIView {
         let view = UIView()
         
-        view.snp.makeConstraints {
-            $0.height.equalTo(80)
-        }
-        
         let titleLabel = UILabel().then {
             $0.text = "이메일"
             $0.font = .boldSystemFont(ofSize: 18)
-        }
-        
-        view.addSubview(titleLabel)
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview()
         }
         
         let emailLabel = UILabel().then {
@@ -130,18 +108,27 @@ extension AccountSettingViewController {
             $0.textColor = UIColor.init(hexFromString: "868181")
         }
         
-        view.addSubview(emailLabel)
+        let bottomBorder = UIView().then {
+            $0.backgroundColor = .border
+        }
+        
+        [titleLabel, emailLabel, bottomBorder].forEach {
+            view.addSubview($0)
+        }
+        
+        view.snp.makeConstraints {
+            $0.height.equalTo(80)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview()
+        }
         
         emailLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.equalToSuperview().inset(10)
         }
-        
-        let bottomBorder = UIView().then {
-            $0.backgroundColor = .border
-        }
-        
-        view.addSubview(bottomBorder)
         
         bottomBorder.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
@@ -160,20 +147,9 @@ extension AccountSettingViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapPasswordResetView))
         view.addGestureRecognizer(tapGesture)
         
-        view.snp.makeConstraints {
-            $0.height.equalTo(50)
-        }
-        
         let titleLabel = UILabel().then {
             $0.text = "비밀번호 변경"
             $0.font = .boldSystemFont(ofSize: 18)
-        }
-        
-        view.addSubview(titleLabel)
-        
-        titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.equalToSuperview()
         }
         
         let imageView = UIImageView().then {
@@ -181,19 +157,27 @@ extension AccountSettingViewController {
             $0.tintColor = .black
         }
         
-        view.addSubview(imageView)
+        let bottomBorder = UIView().then {
+            $0.backgroundColor = .border
+        }
+        
+        [titleLabel, imageView, bottomBorder].forEach {
+            view.addSubview($0)
+        }
+        
+        view.snp.makeConstraints {
+            $0.height.equalTo(80)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview()
+        }
         
         imageView.snp.makeConstraints {
             $0.centerY.equalTo(titleLabel)
             $0.trailing.equalToSuperview()
         }
-        
-        
-        let bottomBorder = UIView().then {
-            $0.backgroundColor = .border
-        }
-        
-        view.addSubview(bottomBorder)
         
         bottomBorder.snp.makeConstraints {
             $0.horizontalEdges.equalToSuperview()
@@ -209,85 +193,92 @@ extension AccountSettingViewController {
     fileprivate func generateNicknameEditView() -> UIView {
         let view = UIView()
         
-        view.snp.makeConstraints {
-            $0.height.equalTo(80)
-        }
-        
         let titleLabel = UILabel().then {
             $0.text = "닉네임"
             $0.font = .boldSystemFont(ofSize: 18)
         }
         
-        view.addSubview(titleLabel)
+        let textFieldView = BHTextFieldView(textField: nicknameTextField)
+        
+        [titleLabel, textFieldView].forEach {
+            view.addSubview($0)
+        }
+        
+        view.snp.makeConstraints {
+            $0.height.equalTo(105)
+        }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().inset(25)
             $0.leading.equalToSuperview()
         }
         
-        let textFieldView = BHTextFieldView(textField: nicknameTextField)
-        
-        view.addSubview(textFieldView)
-        
         textFieldView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom)
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
         
         return view
     }
     
-    fileprivate func generateButtonStackView() -> UIStackView {
-        let stackView = UIStackView().then {
-            $0.axis = .horizontal
-            $0.spacing = 15
-            $0.distribution = .fill
-            $0.alignment = .fill
+    /// 로그아웃 뷰 생성
+    /// - Returns: 로그아웃 뷰
+    fileprivate func generateLogoutView() -> UIView {
+        let view = UIView()
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapLogoutView))
+        view.addGestureRecognizer(tapGesture)
+        
+        let titleLabel = UILabel().then {
+            $0.text = "로그아웃"
+            $0.font = .boldSystemFont(ofSize: 18)
         }
         
-        // 로그아웃 이동 버튼 변수 초기화
-        let logoutButton = UIButton().then {
-            $0.setTitle("로그아웃", for: .normal)
-            $0.setTitleColor(.border, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 12.0)
-            $0.addUnderLine()
-        }
-        logoutButton.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
-        
-        let divisionView = UIView().then {
-            $0.backgroundColor = UIColor.init(named: "mainColor")
+        let imageView = UIImageView().then {
+            $0.image = UIImage(systemName: "chevron.right")
+            $0.tintColor = .black
         }
         
-        divisionView.snp.makeConstraints {
-            $0.width.equalTo(1)
-            $0.height.equalTo(12)
+        let bottomBorder = UIView().then {
+            $0.backgroundColor = .border
         }
         
-        // 회원탈퇴 이동 버튼 변수 초기화
-        let deleteIdButton = UIButton().then {
-            $0.setTitle("회원탈퇴", for: .normal)
-            $0.setTitleColor(.border, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 12.0)
-            $0.addUnderLine()
-        }
-        deleteIdButton.addTarget(self, action: #selector(didTapDeleteIdButton), for: .touchUpInside)
-        
-        [logoutButton, divisionView, deleteIdButton].forEach {
-            stackView.addArrangedSubview($0)
+        [titleLabel, imageView, bottomBorder].forEach {
+            view.addSubview($0)
         }
         
-        return stackView
+        view.snp.makeConstraints {
+            $0.height.equalTo(80)
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview()
+        }
+        
+        imageView.snp.makeConstraints {
+            $0.centerY.equalTo(titleLabel)
+            $0.trailing.equalToSuperview()
+        }
+        
+        bottomBorder.snp.makeConstraints {
+            $0.horizontalEdges.equalToSuperview()
+            $0.bottom.equalToSuperview()
+            $0.height.equalTo(0.5)
+        }
+        
+        return view
     }
-}
-
-// MARK: - Actions
-extension AccountSettingViewController {
+    
+    // MARK: Actions
     /// 비밀번호 변경 눌렀을 때 처리
     @objc fileprivate func didTapPasswordResetView() {
         navigationController?.pushViewController(PasswordResetViewController(), animated: true)
     }
     
     /// 로그아웃 눌렀을 때 처리
-    @objc fileprivate func didTapLogoutButton() {
+    @objc fileprivate func didTapLogoutView() {
         AuthenticationService.shared.kakaoLogout { }
         
         navigationController?.popToRootViewController(animated: false)

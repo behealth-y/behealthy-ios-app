@@ -7,62 +7,68 @@
 
 import UIKit
 
-class DeleteIdViewController: BHBaseViewController {
+class DeleteIdViewController: BaseViewController {
+    private let titleLabel = UILabel().then {
+        $0.text = "안녕하세요, LAURA LEE님!\n그동안 헬시를 이용해주셔서 감사합니다."
+        $0.font = .systemFont(ofSize: 18, weight: .semibold)
+        $0.textColor = UIColor.init(named: "mainColor")
+        $0.numberOfLines = 0
+    }
+    
+    private let descriptionLabel = UILabel().then {
+        $0.text = "회원 탈퇴를 원하신다면, 하단의 내용 확인을 부탁드립니다."
+        $0.font = .systemFont(ofSize: 14, weight: .semibold)
+    }
+    
+    private lazy var stackView = generateContentStackView()
+    
+    private lazy var submitButton = BHSubmitButton(title: "탈퇴하기").then {
+        $0.addTarget(self, action: #selector(didTapDeleteIdButton), for: .touchUpInside)
+    }
+    
+    private let checkLabel = UILabel().then {
+        $0.text = "정말로 헬시를 떠나실건가요? :("
+        $0.font = .systemFont(ofSize: 14, weight: .semibold)
+        $0.textColor = UIColor.init(named: "mainColor")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .white
         
-        setupNavigationBar("회원 탈퇴")
-        
-        titleView.title = "회원 탈퇴"
-        setupLayout()
+        setupNavigationBar()
+        setupViews()
     }
 }
 
-// MARK: - 레이아웃 설정 관련
+// MARK: - Extension
 extension DeleteIdViewController {
-    /// 레이아웃 설정
-    fileprivate func setupLayout() {
-        let contentView = UIView()
+    // MARK: View
+    /// 네비게이션 바 설정
+    func setupNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.shadowColor = .clear
+        appearance.backgroundColor = .white
         
-        view.addSubview(contentView)
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.standardAppearance = appearance
         
-        // contentView 위치 잡기
-        contentView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+        navigationItem.title = "회원 탈퇴"
+    }
+    
+    /// 뷰 설정
+    fileprivate func setupViews() {
+        [titleLabel, descriptionLabel, stackView, submitButton, checkLabel].forEach {
+            view.addSubview($0)
         }
-        
-        contentView.addSubview(titleView)
-        
-        // titleView 위치 잡기
-        titleView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(titleView.snp.width).multipliedBy(0.79 / 1.0)
-        }
-        
-        let titleLabel = UILabel().then {
-            $0.text = "안녕하세요, LAURA LEE님!\n그동안 헬시를 이용해주셔서 감사합니다."
-            $0.font = .systemFont(ofSize: 18, weight: .semibold)
-            $0.textColor = UIColor.init(named: "mainColor")
-            $0.numberOfLines = 0
-        }
-        
-        contentView.addSubview(titleLabel)
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(titleView.snp.bottom).offset(20)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(20)
             $0.leading.equalToSuperview().inset(18)
             $0.trailing.lessThanOrEqualToSuperview().inset(18)
         }
-        
-        let descriptionLabel = UILabel().then {
-            $0.text = "회원 탈퇴를 원하신다면, 하단의 내용 확인을 부탁드립니다."
-            $0.font = .systemFont(ofSize: 14, weight: .semibold)
-        }
-        
-        contentView.addSubview(descriptionLabel)
         
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
@@ -70,35 +76,16 @@ extension DeleteIdViewController {
             $0.trailing.lessThanOrEqualToSuperview().inset(18)
         }
         
-        // 회원 탈퇴 주의사항 stackView 변수 초기화
-        let stackView = generateContentStackView()
-        
-        contentView.addSubview(stackView)
-        
-        // 회원 탈퇴 주의사항 stackView 위치 잡기
         stackView.snp.makeConstraints {
             $0.top.equalTo(descriptionLabel.snp.bottom).offset(9)
             $0.leading.equalToSuperview().inset(18)
             $0.trailing.lessThanOrEqualToSuperview().inset(18)
         }
         
-        let submitButton = BHSubmitButton(title: "탈퇴하기")
-        submitButton.addTarget(self, action: #selector(didTapDeleteIdButton), for: .touchUpInside)
-        
-        contentView.addSubview(submitButton)
-        
         submitButton.snp.makeConstraints {
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(30)
+            $0.bottom.equalToSuperview().inset(25)
             $0.horizontalEdges.equalToSuperview().inset(18)
         }
-        
-        let checkLabel = UILabel().then {
-            $0.text = "정말로 헬시를 떠나실건가요? :("
-            $0.font = .systemFont(ofSize: 14, weight: .semibold)
-            $0.textColor = UIColor.init(named: "mainColor")
-        }
-        
-        contentView.addSubview(checkLabel)
         
         checkLabel.snp.makeConstraints {
             $0.bottom.equalTo(submitButton.snp.top).offset(-12)
