@@ -84,7 +84,9 @@ class AddWorkOutViewController: UIViewController {
         IntensityButton(title: "쉬웠음", tag: 3)
     ]
     
-    private let submitButton = BHSubmitButton(title: "운동 추가하기")
+    private let submitButton = BHSubmitButton(title: "운동 추가하기").then {
+        $0.isEnabled = false
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,7 +110,6 @@ extension AddWorkOutViewController {
         // scrollView 위치 잡기
         scrollView.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
-            $0.bottom.equalTo(submitButton.snp.top)
         }
         
         // contentView 변수 초기화
@@ -134,12 +135,9 @@ extension AddWorkOutViewController {
             $0.bottom.equalToSuperview()
         }
         
-        // 운동 추가하기 버튼 변수 초기화
-        submitButton.isEnabled = false
-        
         // 운동 추가하기 버튼 위치 잡기
         submitButton.snp.makeConstraints {
-            $0.top.equalTo(scrollView.snp.bottom).offset(30)
+            $0.top.equalTo(scrollView.snp.bottom)
             $0.horizontalEdges.equalToSuperview().inset(18)
             $0.bottom.equalToSuperview().inset(30)
 //            $0.bottom.equalTo(scrollView.frameLayoutGuide).inset(30)

@@ -13,10 +13,48 @@ import PhotosUI
 final class CommunityFormView: BaseViewController {
     private var configuration = PHPickerConfiguration()
     
-    private lazy var button = UIButton().then {
-        $0.setTitleColor(.black, for: .normal)
-        $0.setTitle("이미지 선택", for: .normal)
-        $0.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+    private let stackView = UIStackView().then {
+        $0.spacing = 12
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.axis = .vertical
+    }
+    
+    // MARK: 이미지 폼
+    
+    // MARK: 내용
+    private lazy var contentTextView = UITextView().then {
+        $0.text = "오늘 운동은 어떠셨는지, 이야기를 들려주세요. :)"
+        $0.textColor = .placeholderText
+        $0.font = .boldSystemFont(ofSize: 16)
+        $0.autocapitalizationType = .none
+        $0.autocorrectionType = .no
+        $0.showsHorizontalScrollIndicator = false
+        $0.delegate = self
+        $0.isScrollEnabled = true
+        $0.textContainer.lineFragmentPadding = .zero
+    }
+    
+    // MARK: 만족도
+    private lazy var satisfactionButtonStackView = UIStackView().then {
+        $0.spacing = 12
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.axis = .vertical
+    }
+    
+    private let satisfactionLabel = UILabel().then {
+        $0.text = "운동의 만족도는 어떠셨나요?"
+        $0.textColor = .placeholderText
+    }
+    
+    private let satisfactionButton = UIButton().then {
+        $0.setTitle("최고였어요~", for: .normal)
+    }
+    
+    // MARK: 제출 버튼
+    private let submitButton = BHSubmitButton(title: "업로드").then {
+        $0.isEnabled = false
     }
     
     private lazy var picker = PHPickerViewController(configuration: configuration)
@@ -35,10 +73,46 @@ extension CommunityFormView {
     private func setupViews() {
         view.backgroundColor = .white
         
-        view.addSubview(button)
+        [scrollView, submitButton].forEach {
+            view.addSubview($0)
+        }
         
-        button.snp.makeConstraints {
-            $0.center.equalToSuperview()
+        scrollView.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+        }
+        
+        let contentView = UIView()
+        
+        scrollView.addSubview(contentView)
+        
+        contentView.snp.makeConstraints {
+            $0.width.equalToSuperview()
+            $0.edges.equalTo(scrollView.contentLayoutGuide)
+        }
+        
+        contentView.addSubview(stackView)
+        
+        stackView.snp.makeConstraints {
+            $0.verticalEdges.equalToSuperview()
+            $0.horizontalEdges.equalToSuperview().inset(20)
+        }
+        
+        [contentTextView, satisfactionButtonStackView].forEach {
+            stackView.addArrangedSubview($0)
+        }
+        
+        contentTextView.snp.makeConstraints {
+            $0.height.equalTo(200)
+        }
+        
+        satisfactionButtonStackView.snp.makeConstraints {
+            $0.height.equalTo(200)
+        }
+        
+        submitButton.snp.makeConstraints {
+            $0.top.equalTo(scrollView.snp.bottom).offset(30)
+            $0.horizontalEdges.equalToSuperview().inset(18)
+            $0.bottom.equalToSuperview().inset(30)
         }
     }
     
@@ -68,6 +142,22 @@ extension CommunityFormView: PHPickerViewControllerDelegate {
                     print(image as? UIImage)
                 }
             }
+        }
+    }
+}
+
+// MARK: - UITextViewDelegate
+extension CommunityFormView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        guard textView.textColor == .placeholderText else { return }
+        textView.textColor = .label
+        textView.text = nil
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "내용을 추가해주세요."
+            textView.textColor = .placeholderText
         }
     }
 }

@@ -109,10 +109,10 @@ extension HomeViewController {
             $0.leading.equalToSuperview().inset(20)
         }
         
-        let attributeString = NSMutableAttributedString(string: "0시간 : 0분 : 0초")
+        let attributeString = NSMutableAttributedString(string: "0시간 0분")
         
-        ["시간 : ", "분 : ", "초"].forEach {
-            attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 22.0, weight: .semibold), range: ("0시간 : 0분 : 0초" as NSString).range(of: $0))
+        ["시간", "분"].forEach {
+            attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 22.0, weight: .semibold), range: ("0시간 0분" as NSString).range(of: $0))
         }
         
         let timeLabel = UILabel().then {
