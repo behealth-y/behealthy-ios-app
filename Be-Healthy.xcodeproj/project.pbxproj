@@ -125,6 +125,7 @@
 		B727D58028B8628800773A12 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		B727D58228B88AAE00773A12 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		B727D58628B89CA100773A12 /* BHSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHSubmitButton.swift; sourceTree = "<group>"; };
+		B751B648297FC90D002D0BC3 /* Be-Healthy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Be-Healthy.entitlements"; sourceTree = "<group>"; };
 		B776F434290D1927009DA6B5 /* WorkOutRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutRecord.swift; sourceTree = "<group>"; };
 		B776F439290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutRecordViewModel.swift; sourceTree = "<group>"; };
 		B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkOutViewController.swift; sourceTree = "<group>"; };
@@ -229,6 +230,7 @@
 		B727D53328B70A8500773A12 /* Be-Healthy */ = {
 			isa = PBXGroup;
 			children = (
+				B751B648297FC90D002D0BC3 /* Be-Healthy.entitlements */,
 				B727D56428B7147A00773A12 /* App */,
 				B727D56628B7158E00773A12 /* Helper */,
 				B7D442C428F7009600994AD3 /* VO */,
@@ -876,6 +878,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Be-Healthy/Be-Healthy.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -909,6 +912,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Be-Healthy/Be-Healthy.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

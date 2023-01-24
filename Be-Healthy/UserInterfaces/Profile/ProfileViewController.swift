@@ -96,7 +96,7 @@ extension ProfileViewController {
         let noticeView = generateSettingView(title: "공지사항", tag: 4)
         let versionInfoView = generateSettingView(title: "버전 정보", tag: 5)
         
-        [goalTimeSettingView, contentsSettingView, accountSettingView, appSettingView, noticeView, versionInfoView].forEach {
+        [goalTimeSettingView, accountSettingView, versionInfoView].forEach {
             settingStackView.addArrangedSubview($0)
             generateSettingViewTapGesture($0)
         }

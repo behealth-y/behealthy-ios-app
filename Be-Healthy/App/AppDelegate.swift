@@ -8,6 +8,7 @@
 import UIKit
 import KakaoSDKCommon
 import Firebase
+import AuthenticationServices
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -23,6 +24,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         KakaoSDK.initSDK(appKey: "3bb94cb0bfaa0d054202fe2cb9548187")
         
         return true
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+//        let appleIDProvider = ASAuthorizationAppleIDProvider()
+//        appleIDProvider.getCredentialState(forUserID: userIdentifier) { (credentialState, error) in
+//            switch credentialState {
+//            case .authorized:
+//                //인증성공 상태
+//            case .revoked:
+//                //인증만료 상태
+//            default:
+//                //.notFound 등 이외 상태
+//            }
+//        }
     }
 
     // MARK: UISceneSession Lifecycle

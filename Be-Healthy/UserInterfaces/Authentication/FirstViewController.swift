@@ -8,8 +8,11 @@
 import UIKit
 import SnapKit
 import Then
+import AuthenticationServices
 
 class FirstViewController: UIViewController {
+    private let appleLoginManager = AppleLoginManager()
+    
     private let logoLabel = UILabel().then {
         $0.text = "BE HEALTHY"
         $0.textColor = UIColor(named: "mainColor")
@@ -65,6 +68,8 @@ class FirstViewController: UIViewController {
         $0.setTitleColor(.white, for: .normal)
         $0.titleLabel?.font = .systemFont(ofSize: 16.0)
         $0.layer.cornerRadius = 12.0
+        
+        $0.addTarget(self, action: #selector(didTapAppleLoginButton), for: .touchUpInside)
     }
     
     // 이메일로 시작하기 버튼
@@ -112,6 +117,9 @@ class FirstViewController: UIViewController {
         super.viewDidLoad()
         
         setupLayout()
+        
+        appleLoginManager.setAppleLoginPresentationAnchorView(self)
+        appleLoginManager.delegate = self
     }
 }
 
@@ -186,6 +194,17 @@ extension FirstViewController {
         }
     }
     
+    /// Apple로 로그인
+    @objc private func didTapAppleLoginButton() {
+        let request = ASAuthorizationAppleIDProvider().createRequest()
+        request.requestedScopes = [.fullName, .email]
+        
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        controller.delegate = appleLoginManager
+        controller.presentationContextProvider = appleLoginManager
+        controller.performRequests()
+    }
+    
     /// 회원가입 화면 열기
     @objc private func didTapEmailRegisterButton() {
         navigationController?.pushViewController(RegisterViewController(), animated: true)
@@ -195,5 +214,15 @@ extension FirstViewController {
     @objc private func didTapMoveToLoginLabel(sender: UITapGestureRecognizer){
 //        navigationController?.pushViewController(LoginViewController(), animated: true)
         self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
+    }
+}
+
+extension FirstViewController: AppleLoginManagerDelegate {
+    func appleLoginSuccess() {
+        print("Apple Login Success")
+    }
+    
+    func appleLoginFail() {
+        print("Apple Login Fail")
     }
 }
