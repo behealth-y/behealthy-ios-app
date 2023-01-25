@@ -75,6 +75,7 @@
 		B7D442CB28F7038300994AD3 /* SignUpResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CA28F7038300994AD3 /* SignUpResultData.swift */; };
 		B7D442CE28F7048200994AD3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CD28F7048200994AD3 /* User.swift */; };
 		B7D442D028F7061D00994AD3 /* LoginResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D442CF28F7061D00994AD3 /* LoginResultData.swift */; };
+		B7DB81F229817D510098AFAD /* AppleLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DB81F129817D510098AFAD /* AppleLoginManager.swift */; };
 		B7E19160295CD11A00A20F2F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E1915F295CD11A00A20F2F /* BaseViewController.swift */; };
 		B7E19164295CEC3100A20F2F /* GoalTimeSettingModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E19163295CEC3100A20F2F /* GoalTimeSettingModalView.swift */; };
 		B7E3A90328FAD16C005E6EB0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E3A90228FAD16C005E6EB0 /* Helper.swift */; };
@@ -160,6 +161,7 @@
 		B7D442CA28F7038300994AD3 /* SignUpResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpResultData.swift; sourceTree = "<group>"; };
 		B7D442CD28F7048200994AD3 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B7D442CF28F7061D00994AD3 /* LoginResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResultData.swift; sourceTree = "<group>"; };
+		B7DB81F129817D510098AFAD /* AppleLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleLoginManager.swift; sourceTree = "<group>"; };
 		B7E1915F295CD11A00A20F2F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		B7E19163295CEC3100A20F2F /* GoalTimeSettingModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSettingModalView.swift; sourceTree = "<group>"; };
 		B7E3A90228FAD16C005E6EB0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
@@ -419,6 +421,7 @@
 		B7D442C528F7009E00994AD3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B7DB81F029817D430098AFAD /* SocialLogin */,
 				B7D442C628F700B300994AD3 /* AuthenticationService.swift */,
 			);
 			path = Services;
@@ -440,6 +443,14 @@
 				B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */,
 			);
 			path = Old;
+			sourceTree = "<group>";
+		};
+		B7DB81F029817D430098AFAD /* SocialLogin */ = {
+			isa = PBXGroup;
+			children = (
+				B7DB81F129817D510098AFAD /* AppleLoginManager.swift */,
+			);
+			path = SocialLogin;
 			sourceTree = "<group>";
 		};
 		B7E19161295CEBF400A20F2F /* Old */ = {
@@ -671,6 +682,7 @@
 				B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */,
 				B7E19160295CD11A00A20F2F /* BaseViewController.swift in Sources */,
 				B79547DB295D704B0003B7EE /* String+Validate.swift in Sources */,
+				B7DB81F229817D510098AFAD /* AppleLoginManager.swift in Sources */,
 				B790C4C42979364800876698 /* CommunityDetailBannerCell.swift in Sources */,
 				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
 				B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */,
