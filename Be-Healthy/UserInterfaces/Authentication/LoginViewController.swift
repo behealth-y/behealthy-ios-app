@@ -21,6 +21,12 @@ class LoginViewController: BaseViewController {
     
     private var loginProcess: LoginProcess = .enterEmail
     
+    private lazy var authenticationService: AuthenticationService = {
+        let service = AuthenticationService()
+        service.delegate = self
+        return service
+    }()
+    
     // 입력 확인 여부
     private var enteredEmail = false
     private var enteredPassword = false
@@ -134,6 +140,7 @@ class LoginViewController: BaseViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
         setupViews()
         bind()
     }
@@ -261,9 +268,12 @@ extension LoginViewController {
             
             formStackView.insertArrangedSubview(passwordStackView, at: 0)
         case .enterPassword:
-            let vc = GoalTimeSettingView()
-            vc.openedAuthProcess = true
-            self.view.window?.windowScene?.keyWindow?.rootViewController = vc
+            if let email = emailTextField.text, let password = passwordTextField.text {
+                /* Test용
+                 email: "gusdn5387@naver.com", password: "abcdef!23456"
+                 */
+                authenticationService.login(email: email, password: password)
+            }
         }
         
         if nextLoginProcess != nil {
@@ -279,8 +289,21 @@ extension LoginViewController {
     }
 }
 
+// MARK: - AuthenticationServiceDelegate
+extension LoginViewController: AuthenticationServiceDelegate {
+    func emailLoginSuccess() {
+        let vc = GoalTimeSettingView()
+        vc.openedAuthProcess = true
+        self.view.window?.windowScene?.keyWindow?.rootViewController = vc
+    }
+    
+    func emailLoginFail(reason: String) {
+        let alert = Helper().alert(title: "로그인 실패", msg: reason)
+        self.present(alert, animated: true)
+    }
+}
+
 // MARK: - UITextFieldDelegate
-// 사용하는 textField에 delegate 설정 필요
 extension LoginViewController: UITextFieldDelegate {
     /// return 키 눌렀을 경우 키보드 내리기
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

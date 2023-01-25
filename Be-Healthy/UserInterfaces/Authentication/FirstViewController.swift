@@ -183,7 +183,7 @@ extension FirstViewController {
     // MARK: Actions
     /// 카카오로 로그인
     @objc private func didTapKakaoLoginButton() {
-        AuthenticationService.shared.kakaoLogin { [weak self] in
+        AuthenticationService().kakaoLogin { [weak self] in
 //            self?.navigationController?.pushViewController(GoalTimeSettingView(), animated: true)
             let vc = GoalTimeSettingView()
             vc.openedAuthProcess = true
@@ -212,11 +212,12 @@ extension FirstViewController {
     
     /// 로그인 화면 열기
     @objc private func didTapMoveToLoginLabel(sender: UITapGestureRecognizer){
-//        navigationController?.pushViewController(LoginViewController(), animated: true)
-        self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
+        navigationController?.pushViewController(LoginViewController(), animated: true)
+//        self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
     }
 }
 
+// MARK: - AppleLoginManagerDelegate
 extension FirstViewController: AppleLoginManagerDelegate {
     func appleLoginSuccess() {
         print("Apple Login Success")

@@ -11,8 +11,13 @@ import KakaoSDKUser
 import KakaoSDKAuth
 import KakaoSDKCommon
 
+protocol AuthenticationServiceDelegate: NSObject {
+    func emailLoginSuccess()
+    func emailLoginFail(reason: String)
+}
+
 class AuthenticationService {
-    static let shared = AuthenticationService()
+    weak var delegate: AuthenticationServiceDelegate?
     
     /// 회원가입
     func signup(user: User) {
@@ -56,14 +61,18 @@ class AuthenticationService {
             "Content-Type": "application/json"
         ]
     
-        print("\(#function) url : \(url), params: \(params)")
-        
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseString { response in
+            .responseDecodable(of: LoginResultData.self) { [weak self] response in
                 switch response.result {
                 case .success:
                     guard let data = response.value else { return }
-                    print(data)
+                    
+                    if let token = data.token { // 로그인 성공
+                        UserDefaults.standard.set(token, forKey: "jwt")
+                        self?.delegate?.emailLoginSuccess()
+                    } else if let _ = data.errorCode, let reason = data.reason { // 로그인 실패
+                        self?.delegate?.emailLoginFail(reason: reason)
+                    }
                 case let .failure(error):
                     print(error)
                 }
@@ -107,26 +116,60 @@ class AuthenticationService {
     }
     
     /// 인증번호 요청
-    func requestCertNumber(email: String, completion: @escaping () -> Void) {
-        let url = URL(string: "\(Config().apiUrl)/api/auth/email-verification")!
+    func requestVerififcationCode(email: String, purpose: String) {
+        let url = URL(string: "\(Config().apiUrl)/api/auth/email-verification/request")!
         
         let params = [
             "email": email,
+            "purpose": purpose,
         ]
         
         let headers: HTTPHeaders = [
             "Content-Type": "application/json"
         ]
-    
-        print("\(#function) url : \(url), params: \(params)")
         
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseString { response in
+            .responseDecodable(of: RequestVerificationCodeResultData.self) { response in
                 switch response.result {
                 case .success:
                     guard let data = response.value else { return }
-                    print(data)
-                    completion()
+                    
+                    if let expireAt = data.expireAt { // 인증번호 발송 성공
+                        print("expireAt ::: \(expireAt)")
+                    } else if let _ = data.errorCode, let reason = data.reason { // 인증번호 발송 실패
+                        print(reason)
+                    }
+                case let .failure(error):
+                    print(error)
+                }
+            }
+    }
+    
+    /// 인증번호 검증
+    func verifyCode(email: String, purpose: String, emailVerificationCode: String) {
+        let url = URL(string: "\(Config().apiUrl)/api/auth/email-verification/verify")!
+        
+        let params = [
+            "email": email,
+            "purpose": purpose,
+            "emailVerificationCode": emailVerificationCode
+        ]
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json"
+        ]
+        
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
+            .responseDecodable(of: VerifyCodeResultData.self) { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.value else { return }
+                    
+                    if let _ = data.errorCode, let reason = data.reason { // 인증번호 검증 실패
+                        print(reason)
+                    } else { // 인증번호 검증 성공
+                        
+                    }
                 case let .failure(error):
                     print(error)
                 }

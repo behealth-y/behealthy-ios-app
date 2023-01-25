@@ -279,7 +279,7 @@ extension AccountSettingViewController {
     
     /// 로그아웃 눌렀을 때 처리
     @objc fileprivate func didTapLogoutView() {
-        AuthenticationService.shared.kakaoLogout { }
+        AuthenticationService().kakaoLogout { }
         
         navigationController?.popToRootViewController(animated: false)
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
