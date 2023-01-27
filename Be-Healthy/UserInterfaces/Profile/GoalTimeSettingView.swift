@@ -13,6 +13,8 @@ class GoalTimeSettingView: BaseViewController {
     // 회원가입 / 로그인 프로세스에서 열리는 경우
     var openedAuthProcess: Bool = false
     
+    private let workOutService = WorkOutService()
+    
     // 목표 운동시간
     private var timeInt: Int = 0
     
@@ -121,10 +123,13 @@ extension GoalTimeSettingView {
     
     // MARK: Actions
     @objc private func didTapSubmitButton() {
-        if openedAuthProcess {
-            self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
-        } else {
-            navigationController?.popViewController(animated: true)
+        workOutService.setWorkOutGoal(hour: 2, minute: 0) { [weak self] data in
+            if let _ = data.errorCode, let reason = data.reason { // 목표 운동 시간 설정 실패
+                print(reason)
+                self?.setWorkOutGoalFail()
+            } else { // 목표 운동 시간 설정 성공
+                self?.setWorkOutGoalSuccess()
+            }
         }
     }
     
@@ -133,6 +138,22 @@ extension GoalTimeSettingView {
         let vc = GoalTimeSettingModalView()
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
+    }
+    
+    // MARK: 목표 운동 시간 설정 처리
+    /// 목표 운동 시간 설정 성공
+    private func setWorkOutGoalSuccess() {
+        print(#function)
+        if openedAuthProcess {
+            self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    /// 목표 운동 시간 설정 실패
+    private func setWorkOutGoalFail() {
+        print(#function)
     }
 }
 
