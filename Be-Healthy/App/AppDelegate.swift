@@ -23,11 +23,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // KAKAO
         KakaoSDK.initSDK(appKey: "3bb94cb0bfaa0d054202fe2cb9548187")
         
-        let identifier = Locale.current.identifier
-        if let regionCode = Locale.current.regionCode, let languageCode = Locale.current.languageCode {
-            print("identifier: \(identifier), regionCode: \(regionCode), languageCode: \(languageCode)")
-        }
-        
         return true
     }
     

@@ -81,6 +81,7 @@
 		B7E3A90328FAD16C005E6EB0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E3A90228FAD16C005E6EB0 /* Helper.swift */; };
 		B7EE73452982019E00E2F408 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE73442982019E00E2F408 /* Config.swift */; };
 		B7EE7348298359A400E2F408 /* KakaoLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE7347298359A400E2F408 /* KakaoLoginManager.swift */; };
+		B7EE734A2983614300E2F408 /* CommunityPrepareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE73492983614300E2F408 /* CommunityPrepareView.swift */; };
 		B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */; };
 		B7F67684293B343C008C72DC /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67683293B343C008C72DC /* CommunityView.swift */; };
 		B7F67686293B5C2E008C72DC /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67685293B5C2E008C72DC /* FirstViewController.swift */; };
@@ -169,6 +170,7 @@
 		B7E3A90228FAD16C005E6EB0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		B7EE73442982019E00E2F408 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		B7EE7347298359A400E2F408 /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
+		B7EE73492983614300E2F408 /* CommunityPrepareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPrepareView.swift; sourceTree = "<group>"; };
 		B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		B7F67683293B343C008C72DC /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
 		B7F67685293B5C2E008C72DC /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -491,6 +493,7 @@
 				B7F67683293B343C008C72DC /* CommunityView.swift */,
 				B7A70AE92973E9EE00D5628A /* CommunityFormView.swift */,
 				B7A70AEB2973EA0200D5628A /* CommunityDetailView.swift */,
+				B7EE73492983614300E2F408 /* CommunityPrepareView.swift */,
 			);
 			path = Community;
 			sourceTree = "<group>";
@@ -726,6 +729,7 @@
 				B7C7BAF928EEF82100CC574E /* LeftAxisValueFormatter.swift in Sources */,
 				B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */,
 				B7F67686293B5C2E008C72DC /* FirstViewController.swift in Sources */,
+				B7EE734A2983614300E2F408 /* CommunityPrepareView.swift in Sources */,
 				B7F67684293B343C008C72DC /* CommunityView.swift in Sources */,
 				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
