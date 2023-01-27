@@ -28,7 +28,7 @@ extension String {
     }
     
     /// 인증번호 (6자리인지)
-    func authNumberValidate() -> Bool {
+    func verificationCodeValidate() -> Bool {
         return self.count == 6
     }
 }

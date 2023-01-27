@@ -13,7 +13,7 @@ import Combine
 // MARK: 회원가입 프로세스 순서
 enum RegisterProcess: Int {
     case enterEmail
-    case enterAuthNumber
+    case enterVerificationCode
     case enterPassword
     case enterPasswordConfirm
     case enterNickname
@@ -24,16 +24,14 @@ class RegisterViewController: BaseViewController {
     
     private var registerProcess: RegisterProcess = .enterEmail
     
+    private let authenticationService = AuthenticationService()
+    
     // 입력 확인 여부
     private var enteredEmail = false
-    private var enteredAuthNumber = false
+    private var enteredVerificationCode = false
     private var enteredPassword = false
     private var enteredPasswordConfirm = false
     private var enteredNickname = false
-    
-    // 인증코드 확인 여부
-    private var isConfirmAuthNumber = false
-    private var authNumber: String?
     
     private lazy var formStackView = generateFormStackView()
     
@@ -102,33 +100,33 @@ class RegisterViewController: BaseViewController {
     }
     
     // MARK: - 인증번호
-    private let authNumberStackView = UIStackView().then {
+    private let verificationCodeStackView = UIStackView().then {
         $0.spacing = 3
         $0.alignment = .fill
         $0.distribution = .fill
         $0.axis = .vertical
     }
     
-    private let authNumberLabel = UILabel().then {
+    private let verificationCodeLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .init(hexFromString: "#2E2E2E")
         $0.text = "인증번호"
     }
     
-    private lazy var authNumberTextField = BHTextField().then {
+    private lazy var verificationCodeTextField = BHTextField().then {
         $0.placeholder = "인증번호를 입력해주세요."
         $0.keyboardType = .numberPad
         $0.delegate = self
     }
     
-    private let authNumberFieldStackView = UIStackView().then {
+    private let verificationCodeFieldStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .fill
         $0.alignment = .fill
         $0.spacing = 0
     }
     
-    private let authNumberResendLabel = UILabel().then {
+    private let verificationCodeResendLabel = UILabel().then {
         let attribute = [ NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue ]
         let attributeString = NSMutableAttributedString(string: "재발송", attributes: attribute)
         
@@ -136,14 +134,17 @@ class RegisterViewController: BaseViewController {
         
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         $0.font = .systemFont(ofSize: 14)
-//        $0.text = "재발송"
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapVerificationCodeResendLabel))
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(tapGesture)
     }
     
-    private let authNumberBottomBorder = UIView().then {
+    private let verificationCodeBottomBorder = UIView().then {
         $0.backgroundColor = .border
     }
     
-    private let authNumberErrorLabel = UILabel().then {
+    private let verificationCodeErrorLabel = UILabel().then {
         $0.text = "발송된 인증번호를 다시 확인해주세요!"
         $0.font = .systemFont(ofSize: 13)
         $0.textColor = .systemRed
@@ -298,13 +299,13 @@ extension RegisterViewController {
         }
         
         // 폼 textField StackView 변수 초기화
-        [emailTextField, authNumberTextField, passwordTextField, passwordConfirmTextField, nicknameTextField].forEach {
+        [emailTextField, verificationCodeTextField, passwordTextField, passwordConfirmTextField, nicknameTextField].forEach {
             $0.snp.makeConstraints { make in
                 make.height.equalTo(60)
             }
         }
         
-        [emailBottomBorder, authNumberBottomBorder, passwordBottomBorder, passwordConfirmBottomBorder, nicknameBottomBorder].forEach {
+        [emailBottomBorder, verificationCodeBottomBorder, passwordBottomBorder, passwordConfirmBottomBorder, nicknameBottomBorder].forEach {
             $0.snp.makeConstraints { make in
                 make.height.equalTo(1)
             }
@@ -318,12 +319,12 @@ extension RegisterViewController {
             emailStackView.addArrangedSubview($0)
         }
         
-        [authNumberTextField, authNumberResendLabel].forEach {
-            authNumberFieldStackView.addArrangedSubview($0)
+        [verificationCodeTextField, verificationCodeResendLabel].forEach {
+            verificationCodeFieldStackView.addArrangedSubview($0)
         }
         
-        [authNumberLabel, authNumberFieldStackView, authNumberBottomBorder, authNumberErrorLabel].forEach {
-            authNumberStackView.addArrangedSubview($0)
+        [verificationCodeLabel, verificationCodeFieldStackView, verificationCodeBottomBorder, verificationCodeErrorLabel].forEach {
+            verificationCodeStackView.addArrangedSubview($0)
         }
         
         [passwordLabel, passwordTextField, passwordBottomBorder, passwordErrorLabel].forEach {
@@ -338,10 +339,6 @@ extension RegisterViewController {
             nicknameStackView.addArrangedSubview($0)
         }
         
-        //        [emailStackView, authNumberStackView, passwordStackView, passwordConfirmStackView, nicknameStackView].forEach {
-        //            stackView.addArrangedSubview($0)
-        //        }
-        
         stackView.addArrangedSubview(emailStackView)
         
         return stackView
@@ -349,7 +346,7 @@ extension RegisterViewController {
     
     // MARK: Bind
     private func bind() {
-        [emailTextField, authNumberTextField, passwordTextField, passwordConfirmTextField, nicknameTextField].forEach {
+        [emailTextField, verificationCodeTextField, passwordTextField, passwordConfirmTextField, nicknameTextField].forEach {
             let textField = $0
             
             $0.textPublisher.sink { [weak self] _ in
@@ -375,19 +372,19 @@ extension RegisterViewController {
                 
                 enteredEmail = false
             }
-        case authNumberTextField:
-            if text.authNumberValidate() {
-                authNumberBottomBorder.backgroundColor = .lightGray
-                authNumberErrorLabel.isHidden = true
+        case verificationCodeTextField:
+            if text.verificationCodeValidate() {
+                verificationCodeBottomBorder.backgroundColor = .lightGray
+                verificationCodeErrorLabel.isHidden = true
                 
                 textField.resignFirstResponder()
                 
-                enteredAuthNumber = true
+                enteredVerificationCode = true
             } else {
-                authNumberBottomBorder.backgroundColor = .systemRed
-                authNumberErrorLabel.isHidden = false
+                verificationCodeBottomBorder.backgroundColor = .systemRed
+                verificationCodeErrorLabel.isHidden = false
                 
-                enteredAuthNumber = false
+                enteredVerificationCode = false
             }
         case passwordTextField:
             if text.passwordValidate() {
@@ -422,7 +419,7 @@ extension RegisterViewController {
         }
         
         if (enteredEmail && registerProcess == .enterEmail) ||
-            (enteredAuthNumber && registerProcess == .enterAuthNumber) ||
+            (enteredVerificationCode && registerProcess == .enterVerificationCode) ||
             (enteredPassword && registerProcess == .enterPassword) ||
             (enteredPassword && enteredPasswordConfirm && registerProcess == .enterPasswordConfirm) ||
             (enteredNickname && registerProcess == .enterNickname)
@@ -453,13 +450,13 @@ extension RegisterViewController {
     }
     
     // MARK: Actions
-    /// 회원가입 처리
+    /// 회원가입 버튼 클릭 시
     @objc private func didTapSubmitButton(_ sender: Any) {
         var nextRegisterProcess: RegisterProcess?
         
         switch registerProcess {
         case .enterEmail:
-            nextRegisterProcess = .enterAuthNumber
+            nextRegisterProcess = .enterVerificationCode
             
             emailTextField.isEnabled = false
             emailTextField.textColor = .init(hexFromString: "#868181")
@@ -468,18 +465,23 @@ extension RegisterViewController {
             
             emailDoubleCheckLabel.isHidden = true
             
-            formStackView.insertArrangedSubview(authNumberStackView, at: 0)
-        case .enterAuthNumber:
+            formStackView.insertArrangedSubview(verificationCodeStackView, at: 0)
+            
+            requestVerificationCode()
+        case .enterVerificationCode:
             nextRegisterProcess = .enterPassword
             
-            authNumberTextField.isEnabled = false
-            authNumberTextField.textColor = .init(hexFromString: "#868181")
-            
-            submitButton.setTitle("다음", for: .normal)
-            
-            authNumberStackView.isHidden = true
-            
-            formStackView.insertArrangedSubview(passwordStackView, at: 0)
+            if let email = emailTextField.text, let verificationCode = verificationCodeLabel.text {
+                authenticationService.verifyCode(email: email, purpose: "SIGN_UP", emailVerificationCode: verificationCode) { [weak self] data in
+                    guard let self = self else { return }
+                    if let _ = data.errorCode, let reason = data.reason { // 인증번호 검증 실패
+                        print(reason)
+                        self.verifyCodeFail()
+                    } else { // 인증번호 검증 성공
+                        self.verifyCodeSuccess()
+                    }
+                }
+            }
         case .enterPassword:
             nextRegisterProcess = .enterPasswordConfirm
             
@@ -506,10 +508,58 @@ extension RegisterViewController {
             submitButton.isEnabled = false
         }
     }
+    
+    /// 인증번호 재발송 클릭 시
+    @objc private func didTapVerificationCodeResendLabel(sender: UITapGestureRecognizer) {
+        requestVerificationCode()
+    }
+    
+    // MARK: 인증번호 처리
+    /// 인증번호 요청
+    private func requestVerificationCode() {
+        if let email = emailTextField.text {
+            authenticationService.requestVerififcationCode(email: email, purpose: "SIGN_UP") { [weak self] data in
+                if let expireAt = data.expireAt { // 인증번호 발송 성공
+                    print("expireAt ::: \(expireAt)")
+                    self?.requestVerificationCodeSuccess()
+                } else if let _ = data.errorCode, let reason = data.reason { // 인증번호 발송 실패
+                    print(reason)
+                    self?.requestVerificationCodeFail()
+                }
+            }
+        }
+    }
+    
+    /// 인증번호 요청 성공
+    private func requestVerificationCodeSuccess() {
+        print(#function)
+    }
+    
+    /// 인증번호 요청 실패
+    private func requestVerificationCodeFail() {
+        print(#function)
+    }
+    
+    /// 인증번호 검증 성공
+    private func verifyCodeSuccess() {
+        print(#function)
+        verificationCodeTextField.isEnabled = false
+        verificationCodeTextField.textColor = .init(hexFromString: "#868181")
+        
+        submitButton.setTitle("다음", for: .normal)
+        
+        verificationCodeStackView.isHidden = true
+        
+        formStackView.insertArrangedSubview(passwordStackView, at: 0)
+    }
+    
+    /// 인증번호 검증 실패
+    private func verifyCodeFail() {
+        print(#function)
+    }
 }
 
 // MARK: - UITextFieldDelegate
-// 사용하는 textField에 delegate 설정 필요
 extension RegisterViewController: UITextFieldDelegate {
     /// return 키 눌렀을 경우 키보드 내리기
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -531,7 +581,7 @@ extension RegisterViewController: UITextFieldDelegate {
         }
         
         switch textField {
-        case authNumberTextField:
+        case verificationCodeTextField:
             return text.count < 6
         default:
             return true

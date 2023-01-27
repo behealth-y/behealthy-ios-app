@@ -13,7 +13,7 @@ import Combine
 // MARK: 비밀번호 변경 프로세스 순서
 enum PasswordResetProcess: Int {
     case enterEmail
-    case enterAuthNumber
+    case enterVerificationCode
     case enterPassword
     case enterPasswordConfirm
 }
@@ -23,15 +23,13 @@ class PasswordResetViewController: BaseViewController {
     
     private var passwordResetProcess: PasswordResetProcess = .enterEmail
     
+    private let authenticationService = AuthenticationService()
+    
     // 입력 확인 여부
     private var enteredEmail = false
-    private var enteredAuthNumber = false
+    private var enteredVerificationCode = false
     private var enteredPassword = false
     private var enteredPasswordConfirm = false
-    
-    // 인증코드 확인 여부
-    private var isConfirmAuthNumber = false
-    private var authNumber: String?
     
     private lazy var formStackView = generateFormStackView()
     
@@ -82,33 +80,33 @@ class PasswordResetViewController: BaseViewController {
     }
     
     // MARK: - 인증번호
-    private let authNumberStackView = UIStackView().then {
+    private let verificationCodeStackView = UIStackView().then {
         $0.spacing = 3
         $0.alignment = .fill
         $0.distribution = .fill
         $0.axis = .vertical
     }
     
-    private let authNumberLabel = UILabel().then {
+    private let verificationCodeLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .init(hexFromString: "#2E2E2E")
         $0.text = "인증번호"
     }
     
-    private lazy var authNumberTextField = BHTextField().then {
+    private lazy var verificationCodeTextField = BHTextField().then {
         $0.placeholder = "인증번호를 입력해주세요."
         $0.keyboardType = .numberPad
         $0.delegate = self
     }
     
-    private let authNumberFieldStackView = UIStackView().then {
+    private let verificationCodeFieldStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.distribution = .fill
         $0.alignment = .fill
         $0.spacing = 0
     }
     
-    private let authNumberResendLabel = UILabel().then {
+    private let verificationCodeResendLabel = UILabel().then {
         let attribute = [ NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue ]
         let attributeString = NSMutableAttributedString(string: "재발송", attributes: attribute)
         
@@ -116,13 +114,17 @@ class PasswordResetViewController: BaseViewController {
         
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         $0.font = .systemFont(ofSize: 14)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapVerificationCodeResendLabel))
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(tapGesture)
     }
     
-    private let authNumberBottomBorder = UIView().then {
+    private let verificationCodeBottomBorder = UIView().then {
         $0.backgroundColor = .border
     }
     
-    private let authNumberErrorLabel = UILabel().then {
+    private let verificationCodeErrorLabel = UILabel().then {
         $0.text = "발송된 인증번호를 다시 확인해주세요!"
         $0.font = .systemFont(ofSize: 13)
         $0.textColor = .systemRed
@@ -246,13 +248,13 @@ extension PasswordResetViewController {
         }
         
         // 폼 textField StackView 변수 초기화
-        [emailTextField, authNumberTextField, passwordTextField, passwordConfirmTextField].forEach {
+        [emailTextField, verificationCodeTextField, passwordTextField, passwordConfirmTextField].forEach {
             $0.snp.makeConstraints { make in
                 make.height.equalTo(60)
             }
         }
         
-        [emailBottomBorder, authNumberBottomBorder, passwordBottomBorder, passwordConfirmBottomBorder].forEach {
+        [emailBottomBorder, verificationCodeBottomBorder, passwordBottomBorder, passwordConfirmBottomBorder].forEach {
             $0.snp.makeConstraints { make in
                 make.height.equalTo(1)
             }
@@ -262,12 +264,12 @@ extension PasswordResetViewController {
             emailStackView.addArrangedSubview($0)
         }
         
-        [authNumberTextField, authNumberResendLabel].forEach {
-            authNumberFieldStackView.addArrangedSubview($0)
+        [verificationCodeTextField, verificationCodeResendLabel].forEach {
+            verificationCodeFieldStackView.addArrangedSubview($0)
         }
         
-        [authNumberLabel, authNumberFieldStackView, authNumberBottomBorder, authNumberErrorLabel].forEach {
-            authNumberStackView.addArrangedSubview($0)
+        [verificationCodeLabel, verificationCodeFieldStackView, verificationCodeBottomBorder, verificationCodeErrorLabel].forEach {
+            verificationCodeStackView.addArrangedSubview($0)
         }
         
         [passwordLabel, passwordTextField, passwordBottomBorder, passwordErrorLabel].forEach {
@@ -285,7 +287,7 @@ extension PasswordResetViewController {
     
     // MARK: Bind
     private func bind() {
-        [emailTextField, authNumberTextField, passwordTextField, passwordConfirmTextField].forEach {
+        [emailTextField, verificationCodeTextField, passwordTextField, passwordConfirmTextField].forEach {
             let textField = $0
             
             $0.textPublisher.sink { [weak self] _ in
@@ -311,19 +313,19 @@ extension PasswordResetViewController {
                 
                 enteredEmail = false
             }
-        case authNumberTextField:
-            if text.authNumberValidate() {
-                authNumberBottomBorder.backgroundColor = .lightGray
-                authNumberErrorLabel.isHidden = true
+        case verificationCodeTextField:
+            if text.verificationCodeValidate() {
+                verificationCodeBottomBorder.backgroundColor = .lightGray
+                verificationCodeErrorLabel.isHidden = true
                 
                 textField.resignFirstResponder()
                 
-                enteredAuthNumber = true
+                enteredVerificationCode = true
             } else {
-                authNumberBottomBorder.backgroundColor = .systemRed
-                authNumberErrorLabel.isHidden = false
+                verificationCodeBottomBorder.backgroundColor = .systemRed
+                verificationCodeErrorLabel.isHidden = false
                 
-                enteredAuthNumber = false
+                enteredVerificationCode = false
             }
         case passwordTextField:
             if text.passwordValidate() {
@@ -346,7 +348,7 @@ extension PasswordResetViewController {
         }
         
         if (enteredEmail && passwordResetProcess == .enterEmail) ||
-            (enteredAuthNumber && passwordResetProcess == .enterAuthNumber) ||
+            (enteredVerificationCode && passwordResetProcess == .enterVerificationCode) ||
             (enteredPassword && passwordResetProcess == .enterPassword) ||
             (enteredPassword && enteredPasswordConfirm && passwordResetProcess == .enterPasswordConfirm)
         {
@@ -382,25 +384,28 @@ extension PasswordResetViewController {
         
         switch passwordResetProcess {
         case .enterEmail:
-            nextPasswordResetProcess = .enterAuthNumber
+            nextPasswordResetProcess = .enterVerificationCode
             
             emailTextField.isEnabled = false
             emailTextField.textColor = .init(hexFromString: "#868181")
             
             submitButton.setTitle("인증번호 확인", for: .normal)
             
-            formStackView.insertArrangedSubview(authNumberStackView, at: 0)
-        case .enterAuthNumber:
+            formStackView.insertArrangedSubview(verificationCodeStackView, at: 0)
+        case .enterVerificationCode:
             nextPasswordResetProcess = .enterPassword
             
-            authNumberTextField.isEnabled = false
-            authNumberTextField.textColor = .init(hexFromString: "#868181")
-            
-            submitButton.setTitle("다음", for: .normal)
-            
-            authNumberStackView.isHidden = true
-            
-            formStackView.insertArrangedSubview(passwordStackView, at: 0)
+            if let email = emailTextField.text, let verificationCode = verificationCodeLabel.text {
+                authenticationService.verifyCode(email: email, purpose: "PASSWORD_RESET", emailVerificationCode: verificationCode) { [weak self] data in
+                    guard let self = self else { return }
+                    if let _ = data.errorCode, let reason = data.reason { // 인증번호 검증 실패
+                        print(reason)
+                        self.verifyCodeFail()
+                    } else { // 인증번호 검증 성공
+                        self.verifyCodeSuccess()
+                    }
+                }
+            }
         case .enterPassword:
             nextPasswordResetProcess = .enterPasswordConfirm
             
@@ -417,10 +422,58 @@ extension PasswordResetViewController {
             submitButton.isEnabled = false
         }
     }
+    
+    /// 인증번호 재발송 클릭 시
+    @objc private func didTapVerificationCodeResendLabel(sender: UITapGestureRecognizer) {
+        requestVerificationCode()
+    }
+    
+    // MARK: 인증번호 처리
+    /// 인증번호 요청
+    private func requestVerificationCode() {
+        if let email = emailTextField.text {
+            authenticationService.requestVerififcationCode(email: email, purpose: "PASSWORD_RESET") { [weak self] data in
+                if let expireAt = data.expireAt { // 인증번호 발송 성공
+                    print("expireAt ::: \(expireAt)")
+                    self?.requestVerificationCodeSuccess()
+                } else if let _ = data.errorCode, let reason = data.reason { // 인증번호 발송 실패
+                    print(reason)
+                    self?.requestVerificationCodeFail()
+                }
+            }
+        }
+    }
+    
+    /// 인증번호 요청 성공
+    private func requestVerificationCodeSuccess() {
+        print(#function)
+    }
+    
+    /// 인증번호 요청 실패
+    private func requestVerificationCodeFail() {
+        print(#function)
+    }
+    
+    /// 인증번호 검증 성공
+    private func verifyCodeSuccess() {
+        print(#function)
+        verificationCodeTextField.isEnabled = false
+        verificationCodeTextField.textColor = .init(hexFromString: "#868181")
+        
+        submitButton.setTitle("다음", for: .normal)
+        
+        verificationCodeStackView.isHidden = true
+        
+        formStackView.insertArrangedSubview(passwordStackView, at: 0)
+    }
+    
+    /// 인증번호 검증 실패
+    private func verifyCodeFail() {
+        print(#function)
+    }
 }
 
 // MARK: - UITextFieldDelegate
-// 사용하는 textField에 delegate 설정 필요
 extension PasswordResetViewController: UITextFieldDelegate {
     /// return 키 눌렀을 경우 키보드 내리기
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -442,7 +495,7 @@ extension PasswordResetViewController: UITextFieldDelegate {
         }
         
         switch textField {
-        case authNumberTextField:
+        case verificationCodeTextField:
             return text.count < 6
         default:
             return true
