@@ -413,7 +413,19 @@ extension PasswordResetViewController {
             
             formStackView.insertArrangedSubview(passwordConfirmStackView, at: 0)
         case .enterPasswordConfirm:
-            navigationController?.popViewController(animated: true)
+            let email = emailTextField.text!
+            let toBePassword = passwordConfirmLabel.text!
+            let verificationCode = verificationCodeLabel.text!
+            
+            authenticationService.resetPassword(email: email, toBePassword: toBePassword, verificationCode: verificationCode) { [weak self] data in
+                guard let self = self else { return }
+                if let _ = data.errorCode, let reason = data.reason { //  회원가입 실패
+                    print(reason)
+                    self.passwordResetFail()
+                } else { // 회원가입 성공
+                    self.passwordResetSuccess()
+                }
+            }
         }
         
         if nextPasswordResetProcess != nil {
@@ -469,6 +481,18 @@ extension PasswordResetViewController {
     
     /// 인증번호 검증 실패
     private func verifyCodeFail() {
+        print(#function)
+    }
+    
+    // MARK: 비밀번호 재설정 처리
+    /// 비밀번호 재설정 성공
+    private func passwordResetSuccess() {
+        print(#function)
+        navigationController?.popViewController(animated: true)
+    }
+    
+    /// 비밀번호 재설정 실패
+    private func passwordResetFail() {
         print(#function)
     }
 }

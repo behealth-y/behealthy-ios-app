@@ -77,7 +77,7 @@ class RegisterViewController: BaseViewController {
         $0.spacing = 0
     }
     
-    private let emailDoubleCheckLabel = UILabel().then {
+    private let emailDuplicateCheckLabel = UILabel().then {
         let attribute = [ NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue ]
         let attributeString = NSMutableAttributedString(string: "중복확인", attributes: attribute)
         
@@ -85,6 +85,10 @@ class RegisterViewController: BaseViewController {
         
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         $0.font = .systemFont(ofSize: 14)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapEmailDuplicateCheckLabel))
+        $0.isUserInteractionEnabled = true
+        $0.addGestureRecognizer(tapGesture)
     }
     
     private let emailBottomBorder = UIView().then {
@@ -311,7 +315,7 @@ extension RegisterViewController {
             }
         }
         
-        [emailTextField, emailDoubleCheckLabel].forEach {
+        [emailTextField, emailDuplicateCheckLabel].forEach {
             emailFieldStackView.addArrangedSubview($0)
         }
         
@@ -463,7 +467,7 @@ extension RegisterViewController {
             
             submitButton.setTitle("인증번호 확인", for: .normal)
             
-            emailDoubleCheckLabel.isHidden = true
+            emailDuplicateCheckLabel.isHidden = true
             
             formStackView.insertArrangedSubview(verificationCodeStackView, at: 0)
             
@@ -497,9 +501,22 @@ extension RegisterViewController {
             
             formStackView.insertArrangedSubview(nicknameStackView, at: 0)
         case .enterNickname:
-            let vc = GoalTimeSettingView()
-            vc.openedAuthProcess = true
-            self.view.window?.windowScene?.keyWindow?.rootViewController = vc
+            let email = emailTextField.text!
+            let password = passwordTextField.text!
+            let name = nicknameTextField.text!
+            let verificationCode = verificationCodeLabel.text!
+            
+            let user = User(email: email, password: password, name: name, verificationCode: verificationCode)
+            
+            authenticationService.signUp(user: user) { [weak self] data in
+                guard let self = self else { return }
+                if let _ = data.errorCode, let reason = data.reason { //  회원가입 실패
+                    print(reason)
+                    self.signUpFail()
+                } else { // 회원가입 성공
+                    self.signUpSuccess()
+                }
+            }
         }
         
         if nextRegisterProcess != nil {
@@ -509,9 +526,34 @@ extension RegisterViewController {
         }
     }
     
+    /// 이메일 중복확인 클릭 시
+    @objc private func didTapEmailDuplicateCheckLabel(sender: UITapGestureRecognizer) {
+        if let email = emailTextField.text {
+            authenticationService.checkEmailDuplicate(email: email) { [weak self] data in
+                if let _ = data.errorCode, let reason = data.reason { // 이메일 중복확인 실패
+                    print(reason)
+                    self?.checkEmailDuplicateFail()
+                } else {
+                    self?.checkEmailDuplicateSuccess()
+                }
+            }
+        }
+    }
+    
     /// 인증번호 재발송 클릭 시
     @objc private func didTapVerificationCodeResendLabel(sender: UITapGestureRecognizer) {
         requestVerificationCode()
+    }
+    
+    // MARK: 이메일 중복확인 처리
+    /// 이메일 중복확인 성공
+    private func checkEmailDuplicateSuccess() {
+        print(#function)
+    }
+    
+    /// 이메일 중복확인 실패
+    private func checkEmailDuplicateFail() {
+        print(#function)
     }
     
     // MARK: 인증번호 처리
@@ -555,6 +597,18 @@ extension RegisterViewController {
     
     /// 인증번호 검증 실패
     private func verifyCodeFail() {
+        print(#function)
+    }
+    
+    // MARK: 회원가입 처리
+    private func signUpSuccess() {
+        print(#function)
+        let vc = GoalTimeSettingView()
+        vc.openedAuthProcess = true
+        self.view.window?.windowScene?.keyWindow?.rootViewController = vc
+    }
+    
+    private func signUpFail() {
         print(#function)
     }
 }

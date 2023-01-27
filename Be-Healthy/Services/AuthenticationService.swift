@@ -37,7 +37,7 @@ final class AuthenticationService {
     }
     
     // MARK: 회원가입
-    func signup(user: User, completion: @escaping (SignUpResultData) -> Void) {
+    func signUp(user: User, completion: @escaping (SignUpResultData) -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth/signup")!
         
         let params = [
