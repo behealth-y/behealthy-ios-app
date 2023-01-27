@@ -83,6 +83,7 @@
 		B7EE7348298359A400E2F408 /* KakaoLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE7347298359A400E2F408 /* KakaoLoginManager.swift */; };
 		B7EE734A2983614300E2F408 /* CommunityPrepareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE73492983614300E2F408 /* CommunityPrepareView.swift */; };
 		B7EE735429837DBD00E2F408 /* ErrorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735329837DBD00E2F408 /* ErrorData.swift */; };
+		B7EE735629837FC000E2F408 /* WorkOutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735529837FC000E2F408 /* WorkOutService.swift */; };
 		B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */; };
 		B7F67684293B343C008C72DC /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67683293B343C008C72DC /* CommunityView.swift */; };
 		B7F67686293B5C2E008C72DC /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67685293B5C2E008C72DC /* FirstViewController.swift */; };
@@ -173,6 +174,7 @@
 		B7EE7347298359A400E2F408 /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
 		B7EE73492983614300E2F408 /* CommunityPrepareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPrepareView.swift; sourceTree = "<group>"; };
 		B7EE735329837DBD00E2F408 /* ErrorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorData.swift; sourceTree = "<group>"; };
+		B7EE735529837FC000E2F408 /* WorkOutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutService.swift; sourceTree = "<group>"; };
 		B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		B7F67683293B343C008C72DC /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
 		B7F67685293B5C2E008C72DC /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 			children = (
 				B7DB81F029817D430098AFAD /* SocialLogin */,
 				B7D442C628F700B300994AD3 /* AuthenticationService.swift */,
+				B7EE735529837FC000E2F408 /* WorkOutService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -733,6 +736,7 @@
 				B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */,
 				B7F67686293B5C2E008C72DC /* FirstViewController.swift in Sources */,
 				B7EE734A2983614300E2F408 /* CommunityPrepareView.swift in Sources */,
+				B7EE735629837FC000E2F408 /* WorkOutService.swift in Sources */,
 				B7F67684293B343C008C72DC /* CommunityView.swift in Sources */,
 				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,

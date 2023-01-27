@@ -9,9 +9,7 @@
 import Foundation
 import Alamofire
 
-class AuthenticationService {
-    static let shared = AuthenticationService()
-    
+final class AuthenticationService {    
     // MARK: 로그인
     func login(email: String, password: String, completion: @escaping (LoginResultData) -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth")!
