@@ -12,6 +12,7 @@ import AuthenticationServices
 
 class FirstViewController: UIViewController {
     private let appleLoginManager = AppleLoginManager()
+    private let kakaoLoginManager = KakaoLoginManager()
     
     private let logoLabel = UILabel().then {
         $0.text = "BE HEALTHY"
@@ -120,6 +121,8 @@ class FirstViewController: UIViewController {
         
         appleLoginManager.setAppleLoginPresentationAnchorView(self)
         appleLoginManager.delegate = self
+        
+        kakaoLoginManager.delegate = self
     }
 }
 
@@ -183,15 +186,7 @@ extension FirstViewController {
     // MARK: Actions
     /// 카카오로 로그인
     @objc private func didTapKakaoLoginButton() {
-        AuthenticationService().kakaoLogin { [weak self] in
-//            self?.navigationController?.pushViewController(GoalTimeSettingView(), animated: true)
-            let vc = GoalTimeSettingView()
-            vc.openedAuthProcess = true
-            self?.view.window?.windowScene?.keyWindow?.rootViewController = vc
-            
-//            let numbers = [0]
-//            let _ = numbers[1]
-        }
+        kakaoLoginManager.kakaoLogin()
     }
     
     /// Apple로 로그인
@@ -220,10 +215,32 @@ extension FirstViewController {
 // MARK: - AppleLoginManagerDelegate
 extension FirstViewController: AppleLoginManagerDelegate {
     func appleLoginSuccess() {
-        print("Apple Login Success")
+        print(#function)
     }
     
     func appleLoginFail() {
-        print("Apple Login Fail")
+        print(#function)
+    }
+}
+
+// MARK: - KakaoLoginManagerDelegate
+extension FirstViewController: KakaoLoginManagerDelegate {
+    func kakaoLoginSuccess() {
+        print(#function)
+        let vc = GoalTimeSettingView()
+        vc.openedAuthProcess = true
+        view.window?.windowScene?.keyWindow?.rootViewController = vc
+    }
+    
+    func kakaoLoginFail() {
+        print(#function)
+    }
+    
+    func kakaoLogoutSuccess() {
+        print(#function)
+    }
+    
+    func kakaoLogoutFail() {
+        print(#function)
     }
 }

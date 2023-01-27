@@ -21,11 +21,7 @@ class LoginViewController: BaseViewController {
     
     private var loginProcess: LoginProcess = .enterEmail
     
-    private lazy var authenticationService: AuthenticationService = {
-        let service = AuthenticationService()
-        service.delegate = self
-        return service
-    }()
+    private let authenticationService = AuthenticationService()
     
     // 입력 확인 여부
     private var enteredEmail = false
@@ -253,7 +249,7 @@ extension LoginViewController {
     }
     
     // MARK: Actions
-    /// 로그인 처리
+    /// 로그인 버튼 클릭 시
     @objc private func didTapSubmitButton(_ sender: Any) {
         var nextLoginProcess: LoginProcess?
         
@@ -272,7 +268,14 @@ extension LoginViewController {
                 /* Test용
                  email: "gusdn5387@naver.com", password: "abcdef!23456"
                  */
-                authenticationService.login(email: email, password: password)
+                authenticationService.login(email: email, password: password) { [weak self] data in
+                    if let token = data.token { // 로그인 성공
+                        UserDefaults.standard.set(token, forKey: "jwt")
+                        self?.emailLoginSuccess()
+                    } else if let _ = data.errorCode, let reason = data.reason { // 로그인 실패
+                        self?.emailLoginFail(reason: reason)
+                    }
+                }
             }
         }
         
@@ -287,16 +290,16 @@ extension LoginViewController {
     @objc private func didTapMoveToPasswordResetLabel(sender: UITapGestureRecognizer){
         navigationController?.pushViewController(PasswordResetViewController(), animated: true)
     }
-}
-
-// MARK: - AuthenticationServiceDelegate
-extension LoginViewController: AuthenticationServiceDelegate {
+    
+    // MARK: 로그인 처리
+    /// 로그인 성공
     func emailLoginSuccess() {
         let vc = GoalTimeSettingView()
         vc.openedAuthProcess = true
         self.view.window?.windowScene?.keyWindow?.rootViewController = vc
     }
     
+    /// 로그인 실패
     func emailLoginFail(reason: String) {
         let alert = Helper().alert(title: "로그인 실패", msg: reason)
         self.present(alert, animated: true)

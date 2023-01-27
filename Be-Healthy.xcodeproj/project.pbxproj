@@ -80,6 +80,7 @@
 		B7E19164295CEC3100A20F2F /* GoalTimeSettingModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E19163295CEC3100A20F2F /* GoalTimeSettingModalView.swift */; };
 		B7E3A90328FAD16C005E6EB0 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E3A90228FAD16C005E6EB0 /* Helper.swift */; };
 		B7EE73452982019E00E2F408 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE73442982019E00E2F408 /* Config.swift */; };
+		B7EE7348298359A400E2F408 /* KakaoLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE7347298359A400E2F408 /* KakaoLoginManager.swift */; };
 		B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */; };
 		B7F67684293B343C008C72DC /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67683293B343C008C72DC /* CommunityView.swift */; };
 		B7F67686293B5C2E008C72DC /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67685293B5C2E008C72DC /* FirstViewController.swift */; };
@@ -167,6 +168,7 @@
 		B7E19163295CEC3100A20F2F /* GoalTimeSettingModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSettingModalView.swift; sourceTree = "<group>"; };
 		B7E3A90228FAD16C005E6EB0 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		B7EE73442982019E00E2F408 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		B7EE7347298359A400E2F408 /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
 		B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		B7F67683293B343C008C72DC /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
 		B7F67685293B5C2E008C72DC /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -452,6 +454,7 @@
 			isa = PBXGroup;
 			children = (
 				B7DB81F129817D510098AFAD /* AppleLoginManager.swift */,
+				B7EE7347298359A400E2F408 /* KakaoLoginManager.swift */,
 			);
 			path = SocialLogin;
 			sourceTree = "<group>";
@@ -674,6 +677,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B792954628BC6447007D6045 /* ToastView.swift in Sources */,
+				B7EE7348298359A400E2F408 /* KakaoLoginManager.swift in Sources */,
 				B722FB9528BA19DD004AEEB2 /* BHBaseViewController.swift in Sources */,
 				B7D1E4AF28CB68FB008C5E0C /* BHTextFieldView.swift in Sources */,
 				B7825BF328C1E3ED005DF613 /* IntensityButton.swift in Sources */,
