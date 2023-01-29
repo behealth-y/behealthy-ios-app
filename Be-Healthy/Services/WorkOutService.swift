@@ -28,15 +28,10 @@ final class WorkOutService {
     
         AF.request(url, method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers)
             .responseDecodable(of: ResultData.self) { response in
-                switch response.result {
-                case .success:
-                    if let data = response.value {
-                        completion(Result(statusCode: response.response?.statusCode, errorData: data))
-                    } else {
-                        completion(Result(statusCode: response.response?.statusCode, errorData: nil))
-                    }
-                case let .failure(error):
-                    print(error)
+                if let data = response.value {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                } else {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
