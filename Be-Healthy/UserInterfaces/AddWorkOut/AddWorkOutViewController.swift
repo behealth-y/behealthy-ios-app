@@ -11,7 +11,7 @@ import Then
 
 class AddWorkOutViewController: UIViewController {
     // 폼 > 이모지 선택 버튼 변수 초기화
-    lazy var emojiTextField = EmojiTextField().then {
+    private lazy var emojiTextField = EmojiTextField().then {
         $0.layer.borderColor = UIColor.border.cgColor
         $0.layer.borderWidth = 0.8
         $0.layer.cornerRadius = 40
@@ -22,7 +22,7 @@ class AddWorkOutViewController: UIViewController {
         $0.text = "🔥"
     }
     
-    lazy var typeTextField = UITextField().then {
+    private lazy var typeTextField = UITextField().then {
         $0.font = .boldSystemFont(ofSize: 16)
         $0.placeholder = "어떤 운동을 하셨나요?"
         $0.autocapitalizationType = .none
@@ -30,7 +30,7 @@ class AddWorkOutViewController: UIViewController {
         $0.delegate = self
     }
     
-    lazy var dateTextField = UITextField().then {
+    private lazy var dateTextField = UITextField().then {
         $0.font = .boldSystemFont(ofSize: 16)
         $0.placeholder = "언제 운동을 하셨나요?"
         $0.autocapitalizationType = .none
@@ -39,25 +39,25 @@ class AddWorkOutViewController: UIViewController {
         $0.setDatePicker(target: self, selector: #selector(handleDatePicker))
     }
     
-    lazy var startTimeTextField = UITextField().then {
+    private lazy var startTimeTextField = UITextField().then {
         $0.font = .boldSystemFont(ofSize: 16)
         $0.placeholder = "운동 시작 시간을 알려주세요!"
         $0.autocapitalizationType = .none
         $0.autocorrectionType = .no
         $0.delegate = self
-        $0.setDatePicker(target: self, selector: #selector(handleDatePicker), isTime: true)
+        $0.setDatePicker(target: self, selector: #selector(handleStartTimePicker), isTime: true)
     }
     
-    lazy var endTimeTextField = UITextField().then {
+    private lazy var endTimeTextField = UITextField().then {
         $0.font = .boldSystemFont(ofSize: 16)
         $0.placeholder = "운동 종료 시간을 알려주세요!"
         $0.autocapitalizationType = .none
         $0.autocorrectionType = .no
         $0.delegate = self
-        $0.setDatePicker(target: self, selector: #selector(handleDatePicker), isTime: true)
+        $0.setDatePicker(target: self, selector: #selector(handleEndTimePicker), isTime: true)
     }
     
-    lazy var commentTextField = UITextField().then {
+    private lazy var commentTextField = UITextField().then {
         $0.font = .boldSystemFont(ofSize: 16)
         $0.placeholder = "한줄평을 입력해주세요. :)"
         $0.autocapitalizationType = .none
@@ -66,10 +66,10 @@ class AddWorkOutViewController: UIViewController {
     }
     
     // 선택된 운동 강도 버튼의 tag
-    var intensity: Int = 0
+    private var intensity: Int = 0
     
     // 운동 강도 버튼 변수 초기화
-    lazy var intensityButtons: [IntensityButton] = [
+    private lazy var intensityButtons: [IntensityButton] = [
         IntensityButton(title: "매우 힘듦", tag: 0),
         IntensityButton(title: "힘듦", tag: 1),
         IntensityButton(title: "적당함", tag: 2),
@@ -80,6 +80,7 @@ class AddWorkOutViewController: UIViewController {
         $0.isEnabled = false
     }
     
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -91,7 +92,7 @@ class AddWorkOutViewController: UIViewController {
 
 // MARK: - Extension
 extension AddWorkOutViewController {
-    /// 뷰설정
+    // MARK: View
     private func setupViews() {
         view.addSubview(submitButton)
         
@@ -239,23 +240,56 @@ extension AddWorkOutViewController {
         
         return stackView
     }
-}
-
-// MARK: - Actions
-extension AddWorkOutViewController {
+    
+    // MARK: Actions
     /// 키보드 내리기
-    @objc fileprivate func handleTapGesture(sender: UITapGestureRecognizer) {
+    @objc private func handleTapGesture(sender: UITapGestureRecognizer) {
         self.view.endEditing(true)
     }
     
+    // TODO: datePicker 선택 시 이벤트 처리
     /// datePicker 선택 시 이벤트 처리
-    @objc fileprivate func handleDatePicker() {
+    @objc private func handleDatePicker() {
         self.view.endEditing(true)
+        
+        if let datePickerView = dateTextField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "YYYY년 MM월 dd일"
+            let dateString = dateFormatter.string(from: datePickerView.date)
+
+            dateTextField.text = dateString
+        }	
+    }
+    
+    /// startTimePicker 선택 시 이벤트 처리
+    @objc private func handleStartTimePicker() {
+        self.view.endEditing(true)
+        
+        if let datePickerView = startTimeTextField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH시 mm분"
+            let dateString = dateFormatter.string(from: datePickerView.date)
+
+            startTimeTextField.text = dateString
+        }
+    }
+    
+    /// endTimePicker 선택 시 이벤트 처리
+    @objc private func handleEndTimePicker() {
+        self.view.endEditing(true)
+        
+        if let datePickerView = endTimeTextField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH시 mm분"
+            let dateString = dateFormatter.string(from: datePickerView.date)
+
+            endTimeTextField.text = dateString
+        }
     }
     
     /// 운동 강도 버튼 눌렀을 때 이벤트 처리
     /// - Parameter sender: 운동 강도 버튼
-    @objc fileprivate func didTapIntensityButton(_ sender: IntensityButton) {
+    @objc private func didTapIntensityButton(_ sender: IntensityButton) {
         intensity = sender.tag
         
         intensityButtons.forEach { button in
