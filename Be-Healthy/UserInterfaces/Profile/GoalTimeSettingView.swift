@@ -127,11 +127,13 @@ extension GoalTimeSettingView {
     // MARK: Data
     private func setupData() {
         workOutService.getWorkOutGoal { [weak self] data in
-            guard let data = data.result else { return }
+            guard let data = data.result, let self = self else { return }
             
             if let hour = data.hour, let minute = data.minute {
-                self?.hour = hour
-                self?.minute = minute
+                self.hour = hour
+                self.minute = minute
+                
+                self.timeLabel.attributedText = self.setTimeText(hour: hour, minute: minute)
             }
         }
     }
