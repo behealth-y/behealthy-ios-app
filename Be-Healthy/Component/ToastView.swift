@@ -10,51 +10,74 @@ import SnapKit
 import Then
 
 class ToastView: UIView {
-    lazy var toastLabel = UILabel()
+    private let titleLabel = UILabel().then {
+        $0.font = .boldSystemFont(ofSize: 15)
+        $0.textColor = .black
+        $0.numberOfLines = 0
+        $0.textAlignment = .center
+    }
+    
+    private let msgLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 15)
+        $0.textColor = .black
+        $0.numberOfLines = 0
+        $0.textAlignment = .center
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        
+        setupView()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    convenience init(msg: String) {
+    convenience init(title: String, msg: String) {
         self.init(frame: .zero)
-        toastLabel.text = msg
+        titleLabel.text = title
+        msgLabel.text = msg
     }
     
-    func setupLayout() {
-        self.backgroundColor = UIColor.init(hexFromString: "#ffffff", alpha: 1)
-        self.layer.cornerRadius = 10
+    func setupView() {
         self.alpha = 0
+        self.backgroundColor = UIColor.init(hexFromString: "#ffffff", alpha: 1)
         
-        toastLabel.font = .systemFont(ofSize: 14)
-        toastLabel.textColor = .black
-        toastLabel.numberOfLines = 0
-        toastLabel.textAlignment = .center
+        self.layer.cornerRadius = 10
+        self.layer.masksToBounds = false
+        self.layer.shadowColor = UIColor.black.cgColor
+        self.layer.shadowOffset = CGSize(width: 0, height: 4)
+        self.layer.shadowOpacity = 0.25
+        self.layer.shadowRadius = 2.0
+        self.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         
-        self.addSubview(toastLabel)
+        [titleLabel, msgLabel].forEach {
+            addSubview($0)
+        }
         
-        toastLabel.snp.makeConstraints {
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(33)
             $0.centerX.equalToSuperview()
-            $0.centerY.equalToSuperview()
+        }
+        
+        msgLabel.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(33)
+            $0.centerX.equalToSuperview()
         }
     }
 }
 
 extension UIViewController {
-    func showToast(msg: String) {
-        let toastView = ToastView(msg: msg)
+    func showToast(title: String, msg: String, completion: @escaping () -> Void) {
+        let toastView = ToastView(title: title, msg: msg)
         
         view.addSubview(toastView)
         
         toastView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.height.equalTo(70)
-            $0.horizontalEdges.equalToSuperview().inset(5)
+            $0.height.equalTo(102)
+            $0.horizontalEdges.equalToSuperview()
         }
         
         UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseIn, animations: {
@@ -64,6 +87,7 @@ extension UIViewController {
                 toastView.alpha = 0
             }, completion: { _ in
                 toastView.removeFromSuperview()
+                completion()
             })
         })
     }

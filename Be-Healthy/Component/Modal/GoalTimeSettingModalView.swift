@@ -9,7 +9,13 @@ import UIKit
 import SnapKit
 import Then
 
+protocol GoalTimeSettingModalViewDelegate: NSObject {
+    func setGoalTime(hour: Int, minute: Int)
+}
+
 final class GoalTimeSettingModalView: BaseViewController {
+    weak var delegate: GoalTimeSettingModalViewDelegate?
+    
     // MARK: - 뷰
     // 배경 뷰
     private lazy var dimmedView = UIView().then {
@@ -174,13 +180,16 @@ extension GoalTimeSettingModalView {
     /// 모달 닫기
     @objc private func dismissView() {
         print(#function)
+        
         self.dismiss(animated: false)
     }
     
     /// 목표 운동 시간 설정
     @objc private func didTapSubmitButton() {
-        // TODO: 목표 운동 시간 변경
-        self.dismiss(animated: false)
+        if let hour = hourTextField.text, let minute = minuteTextField.text {
+            delegate?.setGoalTime(hour: Int(hour) ?? 0, minute: Int(minute) ?? 0)
+            self.dismiss(animated: false)
+        }
     }
 }
 

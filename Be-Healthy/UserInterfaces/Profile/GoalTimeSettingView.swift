@@ -16,7 +16,8 @@ class GoalTimeSettingView: BaseViewController {
     private let workOutService = WorkOutService()
     
     // 목표 운동시간
-    private var timeInt: Int = 0
+    private var hour: Int = 1
+    private var minute: Int = 0
     
     private let contentView = UIView()
     
@@ -46,7 +47,7 @@ class GoalTimeSettingView: BaseViewController {
     
     private lazy var timeLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 30, weight: .heavy)
-        $0.attributedText = setTimeText()
+        $0.attributedText = setTimeText(hour: hour, minute: minute)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapTimeLabel))
         $0.isUserInteractionEnabled = true
@@ -67,14 +68,16 @@ class GoalTimeSettingView: BaseViewController {
         
         view.backgroundColor = .white
         
-        setupLayout()
+        setupViews()
+        setupData()
     }
 }
 
-// MARK: - 레이아웃 설정 관련
+// MARK: - Extensions
 extension GoalTimeSettingView {
+    // MARK: View
     /// 레이아웃 설정
-    private func setupLayout() {
+    private func setupViews() {
         view.addSubview(contentView)
         
         contentView.addSubview(titleLabel)
@@ -121,14 +124,30 @@ extension GoalTimeSettingView {
         }
     }
     
+    // MARK: Data
+    private func setupData() {
+        workOutService.getWorkOutGoal { [weak self] data in
+            guard let data = data.result else { return }
+            
+            if let hour = data.hour, let minute = data.minute {
+                self?.hour = hour
+                self?.minute = minute
+            }
+        }
+    }
+    
     // MARK: Actions
     @objc private func didTapSubmitButton() {
-        workOutService.setWorkOutGoal(hour: 2, minute: 0) { [weak self] data in
-            if let _ = data.errorCode, let reason = data.reason { // 목표 운동 시간 설정 실패
-                print(reason)
-                self?.setWorkOutGoalFail()
-            } else { // 목표 운동 시간 설정 성공
-                self?.setWorkOutGoalSuccess()
+        workOutService.setWorkOutGoal(hour: hour, minute: minute) { [weak self] data in
+            if let statusCode = data.statusCode {
+                switch statusCode {
+                case 200:
+                    self?.setWorkOutGoalSuccess()
+                default:
+                    guard let errorData = data.errorData else { return }
+                    
+                    self?.setWorkOutGoalFail(reason: errorData.reason)
+                }
             }
         }
     }
@@ -136,6 +155,7 @@ extension GoalTimeSettingView {
     /// 목표 시간 설정 모달 화면 열기
     @objc private func didTapTimeLabel(sender: UITapGestureRecognizer){
         let vc = GoalTimeSettingModalView()
+        vc.delegate = self
         vc.modalPresentationStyle = .overCurrentContext
         self.present(vc, animated: false)
     }
@@ -152,14 +172,16 @@ extension GoalTimeSettingView {
     }
     
     /// 목표 운동 시간 설정 실패
-    private func setWorkOutGoalFail() {
+    private func setWorkOutGoalFail(reason: String?) {
         print(#function)
+        
+        if let reason = reason {
+            print(reason)
+        }
     }
-}
-
-// MARK: - Helpers
-extension GoalTimeSettingView {
-    private func setTimeText(hour: Int = 1, minute: Int = 0) -> NSMutableAttributedString {
+    
+    // MARK: Helpers
+    private func setTimeText(hour: Int, minute: Int) -> NSMutableAttributedString {
         let timeText = "\(hour) 시간 \(minute) 분"
         let attributeString = NSMutableAttributedString(string: timeText)
         
@@ -168,6 +190,16 @@ extension GoalTimeSettingView {
         }
         
         return attributeString
+    }
+}
+
+// MARK: - GoalTimeSettingModalViewDelegate
+extension GoalTimeSettingView: GoalTimeSettingModalViewDelegate {
+    func setGoalTime(hour: Int, minute: Int) {
+        self.hour = hour
+        self.minute = minute
+        
+        timeLabel.attributedText = setTimeText(hour: hour, minute: minute)
     }
 }
 

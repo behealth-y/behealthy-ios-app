@@ -124,6 +124,18 @@ class FirstViewController: UIViewController {
         
         kakaoLoginManager.delegate = self
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.isNavigationBarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        navigationController?.isNavigationBarHidden = false
+    }
 }
 
 // MARK: - Extension
@@ -207,8 +219,8 @@ extension FirstViewController {
     
     /// 로그인 화면 열기
     @objc private func didTapMoveToLoginLabel(sender: UITapGestureRecognizer){
-//        navigationController?.pushViewController(LoginViewController(), animated: true)
-        self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
+        navigationController?.pushViewController(LoginViewController(), animated: true)
+//        self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
     }
 }
 

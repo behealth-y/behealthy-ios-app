@@ -296,6 +296,7 @@ extension LoginViewController {
     func emailLoginSuccess() {
         let vc = GoalTimeSettingView()
         vc.openedAuthProcess = true
+        print(UserDefaults.standard.string(forKey: "jwt"))
         self.view.window?.windowScene?.keyWindow?.rootViewController = vc
     }
     

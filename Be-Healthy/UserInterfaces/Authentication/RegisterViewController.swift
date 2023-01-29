@@ -26,6 +26,13 @@ class RegisterViewController: BaseViewController {
     
     private let authenticationService = AuthenticationService()
     
+    // 이메일 중복확인 여부
+    private var isConfirmCheckEmailDuplicate = false
+    
+    // TODO: 인증코드 중복 소스 리팩토링
+    // 인증코드 발송 여부
+    private var sendedVerificationCode = false
+    
     // 입력 확인 여부
     private var enteredEmail = false
     private var enteredVerificationCode = false
@@ -77,7 +84,7 @@ class RegisterViewController: BaseViewController {
         $0.spacing = 0
     }
     
-    private let emailDuplicateCheckLabel = UILabel().then {
+    private lazy var emailDuplicateCheckLabel = UILabel().then {
         let attribute = [ NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue ]
         let attributeString = NSMutableAttributedString(string: "중복확인", attributes: attribute)
         
@@ -130,7 +137,7 @@ class RegisterViewController: BaseViewController {
         $0.spacing = 0
     }
     
-    private let verificationCodeResendLabel = UILabel().then {
+    private lazy var verificationCodeResendLabel = UILabel().then {
         let attribute = [ NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue ]
         let attributeString = NSMutableAttributedString(string: "재발송", attributes: attribute)
         
@@ -262,6 +269,7 @@ class RegisterViewController: BaseViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        
         setupViews()
         bind()
     }
@@ -365,9 +373,14 @@ extension RegisterViewController {
         
         switch textField {
         case emailTextField:
+            isConfirmCheckEmailDuplicate = false
+            
             if text.emailValidate() {
                 emailBottomBorder.backgroundColor = .lightGray
                 emailErrorLabel.isHidden = true
+                
+                emailErrorLabel.text = "이메일 주소를 확인해주세요!"
+                emailErrorLabel.textColor = .systemRed
                 
                 enteredEmail = true
             } else {
@@ -460,29 +473,39 @@ extension RegisterViewController {
         
         switch registerProcess {
         case .enterEmail:
-            nextRegisterProcess = .enterVerificationCode
-            
-            emailTextField.isEnabled = false
-            emailTextField.textColor = .init(hexFromString: "#868181")
-            
-            submitButton.setTitle("인증번호 확인", for: .normal)
-            
-            emailDuplicateCheckLabel.isHidden = true
-            
-            formStackView.insertArrangedSubview(verificationCodeStackView, at: 0)
-            
-            requestVerificationCode()
+            if isConfirmCheckEmailDuplicate {
+                nextRegisterProcess = .enterVerificationCode
+                
+                emailTextField.isEnabled = false
+                emailTextField.textColor = .init(hexFromString: "#868181")
+                
+                emailErrorLabel.isHidden = true
+                
+                submitButton.setTitle("인증번호 확인", for: .normal)
+                
+                emailDuplicateCheckLabel.isHidden = true
+                
+                formStackView.insertArrangedSubview(verificationCodeStackView, at: 0)
+                
+                requestVerificationCode()
+            } else {
+                emailErrorLabel.text = "이메일 중복 여부를 확인해주세요!"
+                emailErrorLabel.textColor = .systemRed
+                emailErrorLabel.isHidden = false
+                
+                submitButton.isEnabled = false
+            }
         case .enterVerificationCode:
-            nextRegisterProcess = .enterPassword
-            
-            if let email = emailTextField.text, let verificationCode = verificationCodeLabel.text {
+            if let email = emailTextField.text, let verificationCode = verificationCodeTextField.text {
                 authenticationService.verifyCode(email: email, purpose: "SIGN_UP", emailVerificationCode: verificationCode) { [weak self] data in
-                    guard let self = self else { return }
-                    if let _ = data.errorCode, let reason = data.reason { // 인증번호 검증 실패
-                        print(reason)
-                        self.verifyCodeFail()
-                    } else { // 인증번호 검증 성공
-                        self.verifyCodeSuccess()
+                    if let statusCode = data.statusCode {
+                        switch statusCode {
+                        case 200:
+                            self?.verifyCodeSuccess()
+                        default:
+                            guard let errorData = data.errorData else { return }
+                            self?.verifyCodeFail(reason: errorData.reason)
+                        }
                     }
                 }
             }
@@ -504,17 +527,19 @@ extension RegisterViewController {
             let email = emailTextField.text!
             let password = passwordTextField.text!
             let name = nicknameTextField.text!
-            let verificationCode = verificationCodeLabel.text!
+            let verificationCode = verificationCodeTextField.text!
             
             let user = User(email: email, password: password, name: name, verificationCode: verificationCode)
             
             authenticationService.signUp(user: user) { [weak self] data in
-                guard let self = self else { return }
-                if let _ = data.errorCode, let reason = data.reason { //  회원가입 실패
-                    print(reason)
-                    self.signUpFail()
-                } else { // 회원가입 성공
-                    self.signUpSuccess()
+                if let statusCode = data.statusCode {
+                    switch statusCode {
+                    case 200:
+                        self?.signUpSuccess()
+                    default:
+                        guard let errorData = data.errorData else { return }
+                        self?.signUpFail(reason: errorData.reason)
+                    }
                 }
             }
         }
@@ -528,13 +553,16 @@ extension RegisterViewController {
     
     /// 이메일 중복확인 클릭 시
     @objc private func didTapEmailDuplicateCheckLabel(sender: UITapGestureRecognizer) {
-        if let email = emailTextField.text {
+        print(#function)
+        if let email = emailTextField.text, email.emailValidate() {
             authenticationService.checkEmailDuplicate(email: email) { [weak self] data in
-                if let _ = data.errorCode, let reason = data.reason { // 이메일 중복확인 실패
-                    print(reason)
-                    self?.checkEmailDuplicateFail()
-                } else {
-                    self?.checkEmailDuplicateSuccess()
+                if let statusCode = data.statusCode {
+                    switch statusCode {
+                    case 200:
+                        self?.checkEmailDuplicateFail()
+                    default:
+                        self?.checkEmailDuplicateSuccess()
+                    }
                 }
             }
         }
@@ -549,24 +577,44 @@ extension RegisterViewController {
     /// 이메일 중복확인 성공
     private func checkEmailDuplicateSuccess() {
         print(#function)
+        isConfirmCheckEmailDuplicate = true
+        
+        emailErrorLabel.text = "사용 가능한 이메일 입니다!"
+        emailErrorLabel.textColor = .init(hexFromString: "#007AFF")
+        emailErrorLabel.isHidden = false
+        
+        submitButton.isEnabled = true
     }
     
     /// 이메일 중복확인 실패
     private func checkEmailDuplicateFail() {
         print(#function)
+        isConfirmCheckEmailDuplicate = false
+        
+        emailErrorLabel.text = "이미 가입된 이메일이에요. :("
+        emailErrorLabel.textColor = .systemRed
+        emailErrorLabel.isHidden = false
+        
+        submitButton.isEnabled = false
     }
     
     // MARK: 인증번호 처리
     /// 인증번호 요청
     private func requestVerificationCode() {
+        print(sendedVerificationCode)
+        if sendedVerificationCode { return }
+        
         if let email = emailTextField.text {
+            sendedVerificationCode = true
+            
             authenticationService.requestVerififcationCode(email: email, purpose: "SIGN_UP") { [weak self] data in
-                if let expireAt = data.expireAt { // 인증번호 발송 성공
-                    print("expireAt ::: \(expireAt)")
-                    self?.requestVerificationCodeSuccess()
-                } else if let _ = data.errorCode, let reason = data.reason { // 인증번호 발송 실패
-                    print(reason)
-                    self?.requestVerificationCodeFail()
+                if let statusCode = data.statusCode {
+                    switch statusCode {
+                    case 200:
+                        self?.requestVerificationCodeSuccess()
+                    default:
+                        self?.requestVerificationCodeFail(reason: data.result?.reason)
+                    }
                 }
             }
         }
@@ -575,16 +623,30 @@ extension RegisterViewController {
     /// 인증번호 요청 성공
     private func requestVerificationCodeSuccess() {
         print(#function)
+        
+        showToast(title: "인증번호 발송 완료!", msg: "발송된 인증번호를 확인해주세요!") { [weak self] in
+            self?.sendedVerificationCode = false
+        }
     }
     
     /// 인증번호 요청 실패
-    private func requestVerificationCodeFail() {
+    private func requestVerificationCodeFail(reason: String?) {
         print(#function)
+        if let reason = reason {
+            print(reason)
+        }
+        
+        sendedVerificationCode = false
     }
     
     /// 인증번호 검증 성공
     private func verifyCodeSuccess() {
         print(#function)
+        registerProcess = .enterPassword
+        
+        titleLabel.text = titles[registerProcess.rawValue]
+        submitButton.isEnabled = false
+        
         verificationCodeTextField.isEnabled = false
         verificationCodeTextField.textColor = .init(hexFromString: "#868181")
         
@@ -596,8 +658,15 @@ extension RegisterViewController {
     }
     
     /// 인증번호 검증 실패
-    private func verifyCodeFail() {
+    private func verifyCodeFail(reason: String?) {
         print(#function)
+        if let reason = reason {
+            print(reason)
+            emailBottomBorder.backgroundColor = .systemRed
+            emailErrorLabel.isHidden = false
+            
+            enteredEmail = false
+        }
     }
     
     // MARK: 회원가입 처리
@@ -608,8 +677,11 @@ extension RegisterViewController {
         self.view.window?.windowScene?.keyWindow?.rootViewController = vc
     }
     
-    private func signUpFail() {
+    private func signUpFail(reason: String?) {
         print(#function)
+        if let reason = reason {
+            print(reason)
+        }
     }
 }
 

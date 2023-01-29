@@ -37,7 +37,7 @@ final class AuthenticationService {
     }
     
     // MARK: 회원가입
-    func signUp(user: User, completion: @escaping (SignUpResultData) -> Void) {
+    func signUp(user: User, completion: @escaping (Result) -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth/signup")!
         
         let params = [
@@ -52,20 +52,17 @@ final class AuthenticationService {
         ]
         
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: SignUpResultData.self) { response in
-                switch response.result {
-                case .success:
-                    guard let data = response.value else { return }
-                    
-                    completion(data)
-                case let .failure(error):
-                    print(error)
+            .responseDecodable(of: ResultData.self) { response in
+                if let data = response.value {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                } else {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
     
     /// 이메일 중복확인
-    func checkEmailDuplicate(email: String, completion: @escaping (ErrorData) -> Void) {
+    func checkEmailDuplicate(email: String, completion: @escaping (Result) -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth/email-password-user/\(email)")!
         
         let headers: HTTPHeaders = [
@@ -73,28 +70,24 @@ final class AuthenticationService {
         ]
     
         AF.request(url, method: .head, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ErrorData.self) { response in
-                switch response.result {
-                case .success:
-                    guard let data = response.value else { return }
-                    
-                    print(response.response?.headers)
-                    print(data)
-                    
-                    print(data)
-                    completion(data)
-                case let .failure(error):
-                    print(error)
+            .responseDecodable(of: ResultData.self) { response in
+                if let data = response.value {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                } else {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
     
     // MARK: 비밀번호 재설정
-    func resetPassword(email: String, toBePassword: String, verificationCode: String, completion: @escaping (ErrorData) -> Void) {
+    func resetPassword(email: String, toBePassword: String, verificationCode: String, completion: @escaping (Result) -> Void) {
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
+        
         let url = URL(string: "\(Config().apiUrl)/api/auth/email-password-user/password")!
         
         let headers: HTTPHeaders = [
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(jwt)"
         ]
         
         let params = [
@@ -104,16 +97,11 @@ final class AuthenticationService {
         ]
     
         AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ErrorData.self) { response in
-                switch response.result {
-                case .success:
-                    
-                    guard let data = response.value else { return }
-                    
-                    print(data)
-                    completion(data)
-                case let .failure(error):
-                    print(error)
+            .responseDecodable(of: ResultData.self) { response in
+                if let data = response.value {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                } else {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
@@ -133,10 +121,14 @@ final class AuthenticationService {
         ]
         
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: RequestVerificationCodeResultData.self) { response in
+            .responseDecodable(of: RequestVerificationCodeResult.self) { response in
                 switch response.result {
                 case .success:
-                    guard let data = response.value else { return }
+                    guard let result = response.value else { return }
+                    
+                    let data = RequestVerificationCodeResultData(
+                        statusCode: response.response?.statusCode,
+                        result: result)
                     
                     completion(data)
                 case let .failure(error):
@@ -146,7 +138,7 @@ final class AuthenticationService {
     }
     
     /// 인증번호 검증
-    func verifyCode(email: String, purpose: String, emailVerificationCode: String, completion: @escaping (VerifyCodeResultData) -> Void) {
+    func verifyCode(email: String, purpose: String, emailVerificationCode: String, completion: @escaping (Result) -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth/email-verification/verify")!
         
         let params = [
@@ -160,14 +152,11 @@ final class AuthenticationService {
         ]
         
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: VerifyCodeResultData.self) { response in
-                switch response.result {
-                case .success:
-                    guard let data = response.value else { return }
-                    
-                    completion(data)
-                case let .failure(error):
-                    print(error)
+            .responseDecodable(of: ResultData.self) { response in
+                if let data = response.value {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                } else {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }

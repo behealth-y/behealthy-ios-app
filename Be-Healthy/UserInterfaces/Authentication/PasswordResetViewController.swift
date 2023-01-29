@@ -25,6 +25,9 @@ class PasswordResetViewController: BaseViewController {
     
     private let authenticationService = AuthenticationService()
     
+    // 인증코드 발송 여부
+    private var sendedVerificationCode = false
+    
     // 입력 확인 여부
     private var enteredEmail = false
     private var enteredVerificationCode = false
@@ -106,7 +109,7 @@ class PasswordResetViewController: BaseViewController {
         $0.spacing = 0
     }
     
-    private let verificationCodeResendLabel = UILabel().then {
+    private lazy var verificationCodeResendLabel = UILabel().then {
         let attribute = [ NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue ]
         let attributeString = NSMutableAttributedString(string: "재발송", attributes: attribute)
         
@@ -395,14 +398,16 @@ extension PasswordResetViewController {
         case .enterVerificationCode:
             nextPasswordResetProcess = .enterPassword
             
-            if let email = emailTextField.text, let verificationCode = verificationCodeLabel.text {
-                authenticationService.verifyCode(email: email, purpose: "PASSWORD_RESET", emailVerificationCode: verificationCode) { [weak self] data in
-                    guard let self = self else { return }
-                    if let _ = data.errorCode, let reason = data.reason { // 인증번호 검증 실패
-                        print(reason)
-                        self.verifyCodeFail()
-                    } else { // 인증번호 검증 성공
-                        self.verifyCodeSuccess()
+            if let email = emailTextField.text, let verificationCode = verificationCodeTextField.text {
+                authenticationService.verifyCode(email: email, purpose: "CHANGE_PASSWORD", emailVerificationCode: verificationCode) { [weak self] data in
+                    if let statusCode = data.statusCode {
+                        switch statusCode {
+                        case 200:
+                            self?.verifyCodeSuccess()
+                        default:
+                            guard let errorData = data.errorData else { return }
+                            self?.verifyCodeFail(reason: errorData.reason)
+                        }
                     }
                 }
             }
@@ -418,12 +423,14 @@ extension PasswordResetViewController {
             let verificationCode = verificationCodeLabel.text!
             
             authenticationService.resetPassword(email: email, toBePassword: toBePassword, verificationCode: verificationCode) { [weak self] data in
-                guard let self = self else { return }
-                if let _ = data.errorCode, let reason = data.reason { //  회원가입 실패
-                    print(reason)
-                    self.passwordResetFail()
-                } else { // 회원가입 성공
-                    self.passwordResetSuccess()
+                if let statusCode = data.statusCode {
+                    switch statusCode {
+                    case 200:
+                        self?.passwordResetSuccess()
+                    default:
+                        guard let errorData = data.errorData else { return }
+                        self?.passwordResetFail(reason: errorData.reason)
+                    }
                 }
             }
         }
@@ -443,14 +450,17 @@ extension PasswordResetViewController {
     // MARK: 인증번호 처리
     /// 인증번호 요청
     private func requestVerificationCode() {
+        if sendedVerificationCode { return }
+        
         if let email = emailTextField.text {
-            authenticationService.requestVerififcationCode(email: email, purpose: "PASSWORD_RESET") { [weak self] data in
-                if let expireAt = data.expireAt { // 인증번호 발송 성공
-                    print("expireAt ::: \(expireAt)")
-                    self?.requestVerificationCodeSuccess()
-                } else if let _ = data.errorCode, let reason = data.reason { // 인증번호 발송 실패
-                    print(reason)
-                    self?.requestVerificationCodeFail()
+            authenticationService.requestVerififcationCode(email: email, purpose: "CHANGE_PASSWORD") { [weak self] data in
+                if let statusCode = data.statusCode {
+                    switch statusCode {
+                    case 200:
+                        self?.requestVerificationCodeSuccess()
+                    default:
+                        self?.requestVerificationCodeFail(reason: data.result?.reason)
+                    }
                 }
             }
         }
@@ -459,16 +469,30 @@ extension PasswordResetViewController {
     /// 인증번호 요청 성공
     private func requestVerificationCodeSuccess() {
         print(#function)
+        
+        sendedVerificationCode = true
+        showToast(title: "인증번호 발송 완료!", msg: "발송된 인증번호를 확인해주세요!") { [weak self] in
+            self?.sendedVerificationCode = false
+        }
     }
     
     /// 인증번호 요청 실패
-    private func requestVerificationCodeFail() {
+    private func requestVerificationCodeFail(reason: String?) {
         print(#function)
+        
+        if let reason = reason {
+            print(reason)
+        }
     }
     
     /// 인증번호 검증 성공
     private func verifyCodeSuccess() {
         print(#function)
+        passwordResetProcess = .enterPassword
+        
+        titleLabel.text = titles[passwordResetProcess.rawValue]
+        submitButton.isEnabled = false
+        
         verificationCodeTextField.isEnabled = false
         verificationCodeTextField.textColor = .init(hexFromString: "#868181")
         
@@ -480,8 +504,15 @@ extension PasswordResetViewController {
     }
     
     /// 인증번호 검증 실패
-    private func verifyCodeFail() {
+    private func verifyCodeFail(reason: String?) {
         print(#function)
+        if let reason = reason {
+            print(reason)
+            emailBottomBorder.backgroundColor = .systemRed
+            emailErrorLabel.isHidden = false
+            
+            enteredEmail = false
+        }
     }
     
     // MARK: 비밀번호 재설정 처리
@@ -492,11 +523,16 @@ extension PasswordResetViewController {
     }
     
     /// 비밀번호 재설정 실패
-    private func passwordResetFail() {
+    private func passwordResetFail(reason: String?) {
         print(#function)
+        
+        if let reason = reason {
+            print(reason)
+        }
     }
 }
 
+// TODO: 중복 소스 리팩토링
 // MARK: - UITextFieldDelegate
 extension PasswordResetViewController: UITextFieldDelegate {
     /// return 키 눌렀을 경우 키보드 내리기
@@ -544,7 +580,7 @@ struct PasswordResetViewControllerPresentable: UIViewControllerRepresentable {
 
 struct PasswordResetViewControllerPresentable_PreviewProvider: PreviewProvider {
     static var previews: some View {
-        RegisterViewControllerPresentable()
+        PasswordResetViewControllerPresentable()
             .ignoresSafeArea()
     }
 }
