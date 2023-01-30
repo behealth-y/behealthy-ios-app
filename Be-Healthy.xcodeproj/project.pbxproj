@@ -85,6 +85,9 @@
 		B7EE734A2983614300E2F408 /* CommunityPrepareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE73492983614300E2F408 /* CommunityPrepareView.swift */; };
 		B7EE735429837DBD00E2F408 /* ResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735329837DBD00E2F408 /* ResultData.swift */; };
 		B7EE735629837FC000E2F408 /* WorkOutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735529837FC000E2F408 /* WorkOutService.swift */; };
+		B7EE735829878ED800E2F408 /* JSONWebToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735729878ED800E2F408 /* JSONWebToken.swift */; };
+		B7EE735B298792C300E2F408 /* JSONWebTokenHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735A298792C300E2F408 /* JSONWebTokenHeader.swift */; };
+		B7EE735D298792DD00E2F408 /* JSONWebTokenPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735C298792DD00E2F408 /* JSONWebTokenPayload.swift */; };
 		B7EFCFB4298585BF005B8ED3 /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EFCFB3298585BF005B8ED3 /* APIResponse.swift */; };
 		B7F2BC2E28CF4AF500413836 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */; };
 		B7F67684293B343C008C72DC /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F67683293B343C008C72DC /* CommunityView.swift */; };
@@ -178,6 +181,9 @@
 		B7EE73492983614300E2F408 /* CommunityPrepareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPrepareView.swift; sourceTree = "<group>"; };
 		B7EE735329837DBD00E2F408 /* ResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultData.swift; sourceTree = "<group>"; };
 		B7EE735529837FC000E2F408 /* WorkOutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutService.swift; sourceTree = "<group>"; };
+		B7EE735729878ED800E2F408 /* JSONWebToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebToken.swift; sourceTree = "<group>"; };
+		B7EE735A298792C300E2F408 /* JSONWebTokenHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebTokenHeader.swift; sourceTree = "<group>"; };
+		B7EE735C298792DD00E2F408 /* JSONWebTokenPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebTokenPayload.swift; sourceTree = "<group>"; };
 		B7EFCFB3298585BF005B8ED3 /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
 		B7F2BC2D28CF4AF500413836 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		B7F67683293B343C008C72DC /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
@@ -294,6 +300,7 @@
 			isa = PBXGroup;
 			children = (
 				B79547D9295D702B0003B7EE /* Extension */,
+				B7EE7359298792B200E2F408 /* JWT */,
 				B7E3A90228FAD16C005E6EB0 /* Helper.swift */,
 				B7C7BAF828EEF82100CC574E /* LeftAxisValueFormatter.swift */,
 				B79547DE295D731D0003B7EE /* CustomPulbisher.swift */,
@@ -495,6 +502,16 @@
 				B7E19163295CEC3100A20F2F /* GoalTimeSettingModalView.swift */,
 			);
 			path = Modal;
+			sourceTree = "<group>";
+		};
+		B7EE7359298792B200E2F408 /* JWT */ = {
+			isa = PBXGroup;
+			children = (
+				B7EE735729878ED800E2F408 /* JSONWebToken.swift */,
+				B7EE735A298792C300E2F408 /* JSONWebTokenHeader.swift */,
+				B7EE735C298792DD00E2F408 /* JSONWebTokenPayload.swift */,
+			);
+			path = JWT;
 			sourceTree = "<group>";
 		};
 		B7F2BC2C28CF4AE300413836 /* Calendar */ = {
@@ -742,6 +759,7 @@
 				B7EE73452982019E00E2F408 /* Config.swift in Sources */,
 				B7D442CE28F7048200994AD3 /* User.swift in Sources */,
 				B7A70AEE2973EBFB00D5628A /* CommunityCell.swift in Sources */,
+				B7EE735829878ED800E2F408 /* JSONWebToken.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
 				B7D442C728F700B300994AD3 /* AuthenticationService.swift in Sources */,
 				B7D442CB28F7038300994AD3 /* SignUpResultData.swift in Sources */,
@@ -757,7 +775,9 @@
 				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
 				B7EE735429837DBD00E2F408 /* ResultData.swift in Sources */,
+				B7EE735D298792DD00E2F408 /* JSONWebTokenPayload.swift in Sources */,
 				B79547DD295D70530003B7EE /* UIControl+EventPublisher.swift in Sources */,
+				B7EE735B298792C300E2F408 /* JSONWebTokenHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

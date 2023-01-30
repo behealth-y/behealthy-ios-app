@@ -162,7 +162,11 @@ final class AuthenticationService {
     }
     
     // MARK: 회원 탈퇴
-    func delete(userId: Int, completion: @escaping (Result) -> Void) {
+    func delete(completion: @escaping (Result) -> Void) {
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
+        
+        let userId = jwtDecode.payload.userId
+
         let url = URL(string: "\(Config().apiUrl)/api/users/\(userId)")!
         
         let params = [
@@ -170,7 +174,8 @@ final class AuthenticationService {
         ]
         
         let headers: HTTPHeaders = [
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(jwt)"
         ]
         
         AF.request(url, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers)

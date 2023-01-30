@@ -8,6 +8,8 @@
 import UIKit
 
 class DeleteIdViewController: BaseViewController {
+    private let authenticationService = AuthenticationService()
+    
     private let titleLabel = UILabel().then {
         $0.text = "안녕하세요, LAURA LEE님!\n그동안 헬시를 이용해주셔서 감사합니다."
         $0.font = .systemFont(ofSize: 18, weight: .semibold)
@@ -133,17 +135,40 @@ extension DeleteIdViewController {
         
         return label
     }
-}
-
-// MARK: - Actions
-extension DeleteIdViewController {
+    
+    // MARK: - Actions
     /// 탈퇴하기 눌렀을 때 처리
     @objc fileprivate func didTapDeleteIdButton() {
+        authenticationService.delete { [weak self] data in
+            if let statusCode = data.statusCode {
+                switch statusCode {
+                case 200:
+                    self?.deleteSuccess()
+                default:
+                    guard let errorData = data.errorData else { return }
+                    self?.deleteFail(reason: errorData.reason)
+                }
+            }
+        }
+    }
+    
+    // MARK: - 탈퇴 처리
+    private func deleteSuccess() {
+        print(#function)
+        
         navigationController?.popToRootViewController(animated: false)
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
         let nav = UINavigationController(rootViewController: FirstViewController())
         
         sceneDelegate.window?.rootViewController = nav
+    }
+    
+    private func deleteFail(reason: String?) {
+        print(#function)
+        
+        if let reason = reason {
+            print(reason)
+        }
     }
 }
 

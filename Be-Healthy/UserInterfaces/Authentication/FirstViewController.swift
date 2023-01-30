@@ -219,8 +219,8 @@ extension FirstViewController {
     
     /// 로그인 화면 열기
     @objc private func didTapMoveToLoginLabel(sender: UITapGestureRecognizer){
-//        navigationController?.pushViewController(LoginViewController(), animated: true)
-        self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
+        navigationController?.pushViewController(LoginViewController(), animated: true)
+//        self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
     }
 }
 
