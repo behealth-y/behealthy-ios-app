@@ -8,8 +8,11 @@
 import UIKit
 import SnapKit
 import Then
+import Combine
 
 class AddWorkOutViewController: UIViewController {
+    private var cancellables: Set<AnyCancellable> = .init()
+    
     // 폼 > 이모지 선택 버튼 변수 초기화
     private lazy var emojiTextField = EmojiTextField().then {
         $0.layer.borderColor = UIColor.border.cgColor
@@ -87,6 +90,7 @@ class AddWorkOutViewController: UIViewController {
         view.backgroundColor = .white
         
         setupViews()
+        bind()
     }
 }
 
@@ -241,6 +245,32 @@ extension AddWorkOutViewController {
         return stackView
     }
     
+    // MARK: Bind
+    private func bind() {
+        [typeTextField, dateTextField, startTimeTextField, endTimeTextField, commentTextField].forEach {
+            let textField = $0
+            
+            $0.textPublisher.sink { [weak self] _ in
+                self?.checkSubmitButtonEnable()
+            }.store(in: &cancellables)
+        }
+    }
+    
+    /// "운동 추가하기" 버튼 활성화 / 비활설화 처리
+    private func checkSubmitButtonEnable() {
+        let type = typeTextField.text ?? ""
+        let date = dateTextField.text ?? ""
+        let startTime = startTimeTextField.text ?? ""
+        let endTime = endTimeTextField.text ?? ""
+        let comment = commentTextField.text ?? ""
+        
+        if type.count > 0 && date.count > 0 && startTime.count > 0 && endTime.count > 0, comment.count > 0 {
+            submitButton.isEnabled = true
+        } else {
+            submitButton.isEnabled = false
+        }
+    }
+    
     // MARK: Actions
     /// 키보드 내리기
     @objc private func handleTapGesture(sender: UITapGestureRecognizer) {
@@ -258,6 +288,8 @@ extension AddWorkOutViewController {
             let dateString = dateFormatter.string(from: datePickerView.date)
 
             dateTextField.text = dateString
+            
+            checkSubmitButtonEnable()
         }	
     }
     
@@ -271,6 +303,8 @@ extension AddWorkOutViewController {
             let dateString = dateFormatter.string(from: datePickerView.date)
 
             startTimeTextField.text = dateString
+            
+            checkSubmitButtonEnable()
         }
     }
     
@@ -284,6 +318,8 @@ extension AddWorkOutViewController {
             let dateString = dateFormatter.string(from: datePickerView.date)
 
             endTimeTextField.text = dateString
+            
+            checkSubmitButtonEnable()
         }
     }
     
