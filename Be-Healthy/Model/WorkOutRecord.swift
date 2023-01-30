@@ -11,5 +11,14 @@ struct WorkOutRecord {
     let idx: Int
     let emoji: String
     let workOutName: String
-    let workOutTime: Int
+    let date: String
+    let startTime: WorkOutTime
+    let endTime: WorkOutTime
+    let intensity: String
+    let comment: String
+}
+
+struct WorkOutTime {
+    let hour: Int
+    let minute: Int
 }

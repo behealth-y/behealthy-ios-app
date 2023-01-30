@@ -239,11 +239,11 @@ extension CalendarViewController {
     // MARK: Data Set
     private func setupData() {
         for _ in 1...2 {
-            viewModel.insert(WorkOutRecord(idx: 0, emoji: "🏃‍♂️", workOutName: "러닝", workOutTime: 60))
-            viewModel.insert(WorkOutRecord(idx: 1, emoji: "🏋️‍♀️", workOutName: "웨이트", workOutTime: 50))
-            viewModel.insert(WorkOutRecord(idx: 2, emoji: "🧘‍♂️", workOutName: "요가", workOutTime: 40))
-            viewModel.insert(WorkOutRecord(idx: 3, emoji: "🏊‍♀️", workOutName: "수영", workOutTime: 50))
-            viewModel.insert(WorkOutRecord(idx: 4, emoji: "🤸‍♂️", workOutName: "스트레칭", workOutTime: 20))
+//            viewModel.insert(WorkOutRecord(idx: 0, emoji: "🏃‍♂️", workOutName: "러닝", workOutTime: 60))
+//            viewModel.insert(WorkOutRecord(idx: 1, emoji: "🏋️‍♀️", workOutName: "웨이트", workOutTime: 50))
+//            viewModel.insert(WorkOutRecord(idx: 2, emoji: "🧘‍♂️", workOutName: "요가", workOutTime: 40))
+//            viewModel.insert(WorkOutRecord(idx: 3, emoji: "🏊‍♀️", workOutName: "수영", workOutTime: 50))
+//            viewModel.insert(WorkOutRecord(idx: 4, emoji: "🤸‍♂️", workOutName: "스트레칭", workOutTime: 20))
         }
         
         collectionView.isHidden = false

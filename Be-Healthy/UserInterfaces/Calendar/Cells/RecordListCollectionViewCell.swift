@@ -53,7 +53,7 @@ extension RecordListCollectionViewCell {
         
         emojiLabel.text = data.emoji
         workOutNameLabel.text = data.workOutName
-        workOutTimeLabel.text = "\(data.workOutTime)분"
+        workOutTimeLabel.text = "60분"
     }
     
     // MARK: Actions

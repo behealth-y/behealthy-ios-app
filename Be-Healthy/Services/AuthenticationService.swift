@@ -160,4 +160,26 @@ final class AuthenticationService {
                 }
             }
     }
+    
+    // MARK: 회원 탈퇴
+    func delete(userId: Int, completion: @escaping (Result) -> Void) {
+        let url = URL(string: "\(Config().apiUrl)/api/users/\(userId)")!
+        
+        let params = [
+            "userId": userId,
+        ]
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json"
+        ]
+        
+        AF.request(url, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers)
+            .responseDecodable(of: ResultData.self) { response in
+                if let data = response.value {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                } else {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                }
+            }
+    }
 }
