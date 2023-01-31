@@ -12,13 +12,16 @@ struct WorkOutRecord {
     let emoji: String
     let workOutName: String
     let date: String
-    let startTime: WorkOutTime
-    let endTime: WorkOutTime
+    let startTime: String
+    let endTime: String
     let intensity: String
     let comment: String
-}
-
-struct WorkOutTime {
-    let hour: Int
-    let minute: Int
+    
+    func getStartTime() -> String {
+        return startTime + ":00"
+    }
+    
+    func getEndTime() -> String {
+        return endTime + ":00"
+    }
 }

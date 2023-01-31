@@ -70,18 +70,8 @@ final class WorkOutService {
        "name": "string",
        "emoji": "string",
        "date": "2023-01-30",
-       "startTime": {
-         "hour": 0,
-         "minute": 0,
-         "second": 0,
-         "nano": 0
-       },
-       "endTime": {
-         "hour": 0,
-         "minute": 0,
-         "second": 0,
-         "nano": 0
-       },
+       "startTime": "00:00:00",
+       "endTime": : "00:00:00",
        "intensity": "EASY",
        "comment": "string"
      }
@@ -92,22 +82,12 @@ final class WorkOutService {
         
         let url = URL(string: "\(Config().apiUrl)/api/workout-logs")!
         
-        let params: [String: Any] = [
+        let params = [
             "name": workOut.workOutName,
             "emoji": workOut.emoji,
             "date": workOut.date,
-            "startTime": [
-                "hour": workOut.startTime.hour,
-                "minute": workOut.startTime.minute,
-                "second": 0,
-                "nano": 0
-            ],
-            "endTime": [
-                "hour": workOut.endTime.hour,
-                "minute": workOut.endTime.minute,
-                "second": 0,
-                "nano": 0
-            ],
+            "startTime": workOut.startTime,
+            "endTime": workOut.endTime,
             "intensity": workOut.intensity,
             "comment": workOut.comment
         ]
