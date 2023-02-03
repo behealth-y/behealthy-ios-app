@@ -261,8 +261,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     }
 
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
-        let timeLabel = UILabel(frame: CGRect(x: 0, y: 35, width: cell.bounds.width, height: 10))
+        let timeLabel = UILabel(frame: CGRect(x: 0, y: cell.frame.height - 5, width: cell.bounds.width, height: 10))
         timeLabel.font = .systemFont(ofSize: 7)
         timeLabel.text = "02:15"
         timeLabel.textAlignment = .center
