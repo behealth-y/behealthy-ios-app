@@ -1,5 +1,5 @@
 //
-//  AddWorkOutViewController.swift
+//  AddWorkoutViewController.swift
 //  Be-Healthy
 //
 //  Created by 박현우 on 2022/09/02.
@@ -10,8 +10,13 @@ import SnapKit
 import Then
 import Combine
 
-class AddWorkOutViewController: UIViewController {
+class AddWorkoutViewController: UIViewController {
+    private let viewModel = WorkoutRecordViewModel(records: [])
+    
     private var cancellables: Set<AnyCancellable> = .init()
+    
+    // 선택된 운동 강도 버튼의 tag
+    private var intensity: Int = 0
     
     // 폼 > 이모지 선택 버튼 변수 초기화
     private lazy var emojiTextField = EmojiTextField().then {
@@ -68,9 +73,6 @@ class AddWorkOutViewController: UIViewController {
         $0.delegate = self
     }
     
-    // 선택된 운동 강도 버튼의 tag
-    private var intensity: Int = 0
-    
     // 운동 강도 버튼 변수 초기화
     private lazy var intensityButtons: [IntensityButton] = [
         IntensityButton(title: "매우 힘듦", tag: 0),
@@ -79,8 +81,9 @@ class AddWorkOutViewController: UIViewController {
         IntensityButton(title: "쉬웠음", tag: 3)
     ]
     
-    private let submitButton = BHSubmitButton(title: "운동 추가하기").then {
+    private lazy var submitButton = BHSubmitButton(title: "운동 추가하기").then {
         $0.isEnabled = false
+        $0.addTarget(self, action: #selector(didTapSubmitButton), for: .touchUpInside)
     }
     
     // MARK: - LifeCycle
@@ -95,7 +98,7 @@ class AddWorkOutViewController: UIViewController {
 }
 
 // MARK: - Extension
-extension AddWorkOutViewController {
+extension AddWorkoutViewController {
     // MARK: View
     private func setupViews() {
         view.addSubview(submitButton)
@@ -338,10 +341,45 @@ extension AddWorkOutViewController {
             }
         }
     }
+    
+    /// 운동 추가하기 버튼 클릭 시
+    @objc private func didTapSubmitButton() {
+        let emoji = emojiTextField.text ?? "💪"
+        let workoutName = typeTextField.text ?? ""
+        let date = dateTextField.text ?? "0000-00-00"
+        let startTime = startTimeTextField.text ?? "00:00"
+        let endTime = endTimeTextField.text ?? "00:00"
+        let comment = commentTextField.text ?? ""
+        
+        
+        
+        let record = WorkoutRecordForDate(emoji: emoji,
+                                          workoutName: workoutName,
+                                          startTime: "\(startTime):00",
+                                          endTime: "\(endTime):00",
+                                          intensity: getIntensityText(),
+                                          comment: comment)
+        
+        print(record)
+    }
+    
+    // MARK: Helpers
+    func getIntensityText() -> String {
+        switch intensity {
+        case 1:
+            return "NORMAL"
+        case 2:
+            return "HARD"
+        case 3:
+            return "EXTREMELY_HARD"
+        default:
+            return "EASY"
+        }
+    }
 }
 
 // MARK: - UITextFieldDelegate
-extension AddWorkOutViewController: UITextFieldDelegate {
+extension AddWorkoutViewController: UITextFieldDelegate {
     // return 키 눌렀을 경우 키보드 내리기
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -355,18 +393,18 @@ extension AddWorkOutViewController: UITextFieldDelegate {
 import SwiftUI
 
 // OPTION + CMD + ENTER: 미리보기 화면 띄우기, OPTION + CMD + P: 미리보기 resume
-struct AddWorkOutViewControllerPresentable: UIViewControllerRepresentable {
+struct AddWorkoutViewControllerPresentable: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
     }
     
     func makeUIViewController(context: Context) -> some UIViewController {
-        AddWorkOutViewController()
+        AddWorkoutViewController()
     }
 }
 
-struct AddWorkOutViewControllerPresentable_PreviewProvider: PreviewProvider {
+struct AddWorkoutViewControllerPresentable_PreviewProvider: PreviewProvider {
     static var previews: some View {
-        AddWorkOutViewControllerPresentable()
+        AddWorkoutViewControllerPresentable()
             .ignoresSafeArea()
     }
 }

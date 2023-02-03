@@ -13,7 +13,7 @@ class GoalTimeSettingView: BaseViewController {
     // 회원가입 / 로그인 프로세스에서 열리는 경우
     var openedAuthProcess: Bool = false
     
-    private let workOutService = WorkOutService()
+    private let workoutService = WorkoutService()
     
     // 목표 운동시간
     private var hour: Int = 1
@@ -126,7 +126,7 @@ extension GoalTimeSettingView {
     
     // MARK: Data
     private func setupData() {
-        workOutService.getWorkOutGoal { [weak self] data in
+        workoutService.getWorkoutGoal { [weak self] data in
             guard let data = data.result, let self = self else { return }
             
             if let hour = data.hour, let minute = data.minute {
@@ -140,15 +140,15 @@ extension GoalTimeSettingView {
     
     // MARK: Actions
     @objc private func didTapSubmitButton() {
-        workOutService.setWorkOutGoal(hour: hour, minute: minute) { [weak self] data in
+        workoutService.setWorkoutGoal(hour: hour, minute: minute) { [weak self] data in
             if let statusCode = data.statusCode {
                 switch statusCode {
                 case 200:
-                    self?.setWorkOutGoalSuccess()
+                    self?.setWorkoutGoalSuccess()
                 default:
                     guard let errorData = data.errorData else { return }
                     
-                    self?.setWorkOutGoalFail(reason: errorData.reason)
+                    self?.setWorkoutGoalFail(reason: errorData.reason)
                 }
             }
         }
@@ -164,7 +164,7 @@ extension GoalTimeSettingView {
     
     // MARK: 목표 운동 시간 설정 처리
     /// 목표 운동 시간 설정 성공
-    private func setWorkOutGoalSuccess() {
+    private func setWorkoutGoalSuccess() {
         print(#function)
         if openedAuthProcess {
             self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
@@ -174,7 +174,7 @@ extension GoalTimeSettingView {
     }
     
     /// 목표 운동 시간 설정 실패
-    private func setWorkOutGoalFail(reason: String?) {
+    private func setWorkoutGoalFail(reason: String?) {
         print(#function)
         
         if let reason = reason {

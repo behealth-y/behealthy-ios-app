@@ -18,8 +18,8 @@ class RecordListCollectionViewCell: UICollectionViewCell {
     weak var delegate: RecordListCollectionViewCellDelegate?
      
     @IBOutlet weak var emojiLabel: UILabel!
-    @IBOutlet weak var workOutNameLabel: UILabel!
-    @IBOutlet weak var workOutTimeLabel: UILabel!
+    @IBOutlet weak var WorkoutNameLabel: UILabel!
+    @IBOutlet weak var WorkoutTimeLabel: UILabel!
     @IBOutlet weak var bottomBorder: UIView!
     @IBOutlet weak var moreButton: UIButton!
     
@@ -42,18 +42,18 @@ extension RecordListCollectionViewCell {
 //        emojiLabel.layer.cornerRadius = emojiLabel.frame.width / 2
         
         emojiLabel.text = ""
-        workOutTimeLabel.text = ""
-        workOutTimeLabel.text = ""
+        WorkoutTimeLabel.text = ""
+        WorkoutTimeLabel.text = ""
         
         bottomBorder.backgroundColor = .border
     }
     
-    func updateUI(data: WorkOutRecord?) {
+    func updateUI(data: WorkoutRecordForDate?) {
         guard let data = data else { return }
         
         emojiLabel.text = data.emoji
-        workOutNameLabel.text = data.workOutName
-        workOutTimeLabel.text = "60분"
+        WorkoutNameLabel.text = data.workoutName
+        WorkoutTimeLabel.text = "60분"
     }
     
     // MARK: Actions

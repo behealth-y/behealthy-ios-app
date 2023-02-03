@@ -29,9 +29,9 @@
 		B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58028B8628800773A12 /* UIColor+Extension.swift */; };
 		B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58228B88AAE00773A12 /* UIImage+Extension.swift */; };
 		B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58628B89CA100773A12 /* BHSubmitButton.swift */; };
-		B776F435290D1927009DA6B5 /* WorkOutRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776F434290D1927009DA6B5 /* WorkOutRecord.swift */; };
-		B776F43A290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776F439290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift */; };
-		B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */; };
+		B776F435290D1927009DA6B5 /* WorkoutRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776F434290D1927009DA6B5 /* WorkoutRecord.swift */; };
+		B776F43A290D1EBD009DA6B5 /* WorkoutRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776F439290D1EBD009DA6B5 /* WorkoutRecordViewModel.swift */; };
+		B7825BF128C19ACB005DF613 /* AddWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF028C19ACB005DF613 /* AddWorkoutViewController.swift */; };
 		B7825BF328C1E3ED005DF613 /* IntensityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF228C1E3ED005DF613 /* IntensityButton.swift */; };
 		B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */; };
 		B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */; };
@@ -47,7 +47,7 @@
 		B7A70AEA2973E9EE00D5628A /* CommunityFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A70AE92973E9EE00D5628A /* CommunityFormView.swift */; };
 		B7A70AEC2973EA0200D5628A /* CommunityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A70AEB2973EA0200D5628A /* CommunityDetailView.swift */; };
 		B7A70AEE2973EBFB00D5628A /* CommunityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A70AED2973EBFB00D5628A /* CommunityCell.swift */; };
-		B7AC995229840C810067A465 /* WorkOutGoalResusltData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AC995129840C810067A465 /* WorkOutGoalResusltData.swift */; };
+		B7AC995229840C810067A465 /* WorkoutGoalResusltData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AC995129840C810067A465 /* WorkoutGoalResusltData.swift */; };
 		B7B0206729432FE6007C04AB /* KakaoSDK in Frameworks */ = {isa = PBXBuildFile; productRef = B7B0206629432FE6007C04AB /* KakaoSDK */; };
 		B7B0206929432FE6007C04AB /* KakaoSDKAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B7B0206829432FE6007C04AB /* KakaoSDKAuth */; };
 		B7B0206B29432FE6007C04AB /* KakaoSDKCommon in Frameworks */ = {isa = PBXBuildFile; productRef = B7B0206A29432FE6007C04AB /* KakaoSDKCommon */; };
@@ -84,7 +84,7 @@
 		B7EE7348298359A400E2F408 /* KakaoLoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE7347298359A400E2F408 /* KakaoLoginManager.swift */; };
 		B7EE734A2983614300E2F408 /* CommunityPrepareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE73492983614300E2F408 /* CommunityPrepareView.swift */; };
 		B7EE735429837DBD00E2F408 /* ResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735329837DBD00E2F408 /* ResultData.swift */; };
-		B7EE735629837FC000E2F408 /* WorkOutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735529837FC000E2F408 /* WorkOutService.swift */; };
+		B7EE735629837FC000E2F408 /* WorkoutService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735529837FC000E2F408 /* WorkoutService.swift */; };
 		B7EE735829878ED800E2F408 /* JSONWebToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735729878ED800E2F408 /* JSONWebToken.swift */; };
 		B7EE735B298792C300E2F408 /* JSONWebTokenHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735A298792C300E2F408 /* JSONWebTokenHeader.swift */; };
 		B7EE735D298792DD00E2F408 /* JSONWebTokenPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EE735C298792DD00E2F408 /* JSONWebTokenPayload.swift */; };
@@ -137,9 +137,9 @@
 		B727D58228B88AAE00773A12 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
 		B727D58628B89CA100773A12 /* BHSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHSubmitButton.swift; sourceTree = "<group>"; };
 		B751B648297FC90D002D0BC3 /* Be-Healthy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Be-Healthy.entitlements"; sourceTree = "<group>"; };
-		B776F434290D1927009DA6B5 /* WorkOutRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutRecord.swift; sourceTree = "<group>"; };
-		B776F439290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutRecordViewModel.swift; sourceTree = "<group>"; };
-		B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkOutViewController.swift; sourceTree = "<group>"; };
+		B776F434290D1927009DA6B5 /* WorkoutRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecord.swift; sourceTree = "<group>"; };
+		B776F439290D1EBD009DA6B5 /* WorkoutRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecordViewModel.swift; sourceTree = "<group>"; };
+		B7825BF028C19ACB005DF613 /* AddWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutViewController.swift; sourceTree = "<group>"; };
 		B7825BF228C1E3ED005DF613 /* IntensityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButton.swift; sourceTree = "<group>"; };
 		B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
@@ -154,7 +154,7 @@
 		B7A70AE92973E9EE00D5628A /* CommunityFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityFormView.swift; sourceTree = "<group>"; };
 		B7A70AEB2973EA0200D5628A /* CommunityDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailView.swift; sourceTree = "<group>"; };
 		B7A70AED2973EBFB00D5628A /* CommunityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityCell.swift; sourceTree = "<group>"; };
-		B7AC995129840C810067A465 /* WorkOutGoalResusltData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutGoalResusltData.swift; sourceTree = "<group>"; };
+		B7AC995129840C810067A465 /* WorkoutGoalResusltData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutGoalResusltData.swift; sourceTree = "<group>"; };
 		B7B0207929433AA6007C04AB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7BDD7F528D59AEC000E644A /* TopThreeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopThreeCollectionViewCell.swift; sourceTree = "<group>"; };
 		B7BDD7F628D59AEC000E644A /* TopThreeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopThreeCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 		B7EE7347298359A400E2F408 /* KakaoLoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoLoginManager.swift; sourceTree = "<group>"; };
 		B7EE73492983614300E2F408 /* CommunityPrepareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityPrepareView.swift; sourceTree = "<group>"; };
 		B7EE735329837DBD00E2F408 /* ResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultData.swift; sourceTree = "<group>"; };
-		B7EE735529837FC000E2F408 /* WorkOutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutService.swift; sourceTree = "<group>"; };
+		B7EE735529837FC000E2F408 /* WorkoutService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutService.swift; sourceTree = "<group>"; };
 		B7EE735729878ED800E2F408 /* JSONWebToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebToken.swift; sourceTree = "<group>"; };
 		B7EE735A298792C300E2F408 /* JSONWebTokenHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebTokenHeader.swift; sourceTree = "<group>"; };
 		B7EE735C298792DD00E2F408 /* JSONWebTokenPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONWebTokenPayload.swift; sourceTree = "<group>"; };
@@ -331,7 +331,7 @@
 			children = (
 				B792954928BCA344007D6045 /* Layout */,
 				B727D56C28B716CD00773A12 /* Authentication */,
-				B7825BF428C596FC005DF613 /* AddWorkOut */,
+				B7825BF428C596FC005DF613 /* AddWorkout */,
 				B7F67682293B3427008C72DC /* Community */,
 				B7825BF528C5ACBC005DF613 /* Profile */,
 				B7F2BC2C28CF4AE300413836 /* Calendar */,
@@ -365,17 +365,17 @@
 		B776F430290D17BE009DA6B5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B776F439290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift */,
+				B776F439290D1EBD009DA6B5 /* WorkoutRecordViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		B7825BF428C596FC005DF613 /* AddWorkOut */ = {
+		B7825BF428C596FC005DF613 /* AddWorkout */ = {
 			isa = PBXGroup;
 			children = (
-				B7825BF028C19ACB005DF613 /* AddWorkOutViewController.swift */,
+				B7825BF028C19ACB005DF613 /* AddWorkoutViewController.swift */,
 			);
-			path = AddWorkOut;
+			path = AddWorkout;
 			sourceTree = "<group>";
 		};
 		B7825BF528C5ACBC005DF613 /* Profile */ = {
@@ -419,12 +419,12 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		B7AC995029840C6C0067A465 /* WorkOut */ = {
+		B7AC995029840C6C0067A465 /* Workout */ = {
 			isa = PBXGroup;
 			children = (
-				B7AC995129840C810067A465 /* WorkOutGoalResusltData.swift */,
+				B7AC995129840C810067A465 /* WorkoutGoalResusltData.swift */,
 			);
-			path = WorkOut;
+			path = Workout;
 			sourceTree = "<group>";
 		};
 		B7BDD7F428D59A86000E644A /* Cells */ = {
@@ -444,7 +444,7 @@
 			isa = PBXGroup;
 			children = (
 				B776F42F290D1624009DA6B5 /* Authentication */,
-				B7AC995029840C6C0067A465 /* WorkOut */,
+				B7AC995029840C6C0067A465 /* Workout */,
 				B7EE735329837DBD00E2F408 /* ResultData.swift */,
 				B7EFCFB3298585BF005B8ED3 /* APIResponse.swift */,
 			);
@@ -456,7 +456,7 @@
 			children = (
 				B7DB81F029817D430098AFAD /* SocialLogin */,
 				B7D442C628F700B300994AD3 /* AuthenticationService.swift */,
-				B7EE735529837FC000E2F408 /* WorkOutService.swift */,
+				B7EE735529837FC000E2F408 /* WorkoutService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -465,7 +465,7 @@
 			isa = PBXGroup;
 			children = (
 				B7D442CD28F7048200994AD3 /* User.swift */,
-				B776F434290D1927009DA6B5 /* WorkOutRecord.swift */,
+				B776F434290D1927009DA6B5 /* WorkoutRecord.swift */,
 				B790C4C129791CF700876698 /* Community.swift */,
 			);
 			path = Model;
@@ -735,7 +735,7 @@
 				B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */,
 				B7BDD7F728D59AEC000E644A /* TopThreeCollectionViewCell.swift in Sources */,
 				B790C4C229791CF700876698 /* Community.swift in Sources */,
-				B7AC995229840C810067A465 /* WorkOutGoalResusltData.swift in Sources */,
+				B7AC995229840C810067A465 /* WorkoutGoalResusltData.swift in Sources */,
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,
 				B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */,
 				B7E19164295CEC3100A20F2F /* GoalTimeSettingModalView.swift in Sources */,
@@ -746,7 +746,7 @@
 				B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */,
 				B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */,
 				B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */,
-				B776F435290D1927009DA6B5 /* WorkOutRecord.swift in Sources */,
+				B776F435290D1927009DA6B5 /* WorkoutRecord.swift in Sources */,
 				B727D57F28B8568300773A12 /* UIButton+Extension.swift in Sources */,
 				B7A70AEC2973EA0200D5628A /* CommunityDetailView.swift in Sources */,
 				B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */,
@@ -755,7 +755,7 @@
 				B790C4C029791C3600876698 /* PinterestLayout.swift in Sources */,
 				B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */,
 				B7CFA25F28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift in Sources */,
-				B776F43A290D1EBD009DA6B5 /* WorkOutRecordViewModel.swift in Sources */,
+				B776F43A290D1EBD009DA6B5 /* WorkoutRecordViewModel.swift in Sources */,
 				B7EE73452982019E00E2F408 /* Config.swift in Sources */,
 				B7D442CE28F7048200994AD3 /* User.swift in Sources */,
 				B7A70AEE2973EBFB00D5628A /* CommunityCell.swift in Sources */,
@@ -770,9 +770,9 @@
 				B7F67686293B5C2E008C72DC /* FirstViewController.swift in Sources */,
 				B7EFCFB4298585BF005B8ED3 /* APIResponse.swift in Sources */,
 				B7EE734A2983614300E2F408 /* CommunityPrepareView.swift in Sources */,
-				B7EE735629837FC000E2F408 /* WorkOutService.swift in Sources */,
+				B7EE735629837FC000E2F408 /* WorkoutService.swift in Sources */,
 				B7F67684293B343C008C72DC /* CommunityView.swift in Sources */,
-				B7825BF128C19ACB005DF613 /* AddWorkOutViewController.swift in Sources */,
+				B7825BF128C19ACB005DF613 /* AddWorkoutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
 				B7EE735429837DBD00E2F408 /* ResultData.swift in Sources */,
 				B7EE735D298792DD00E2F408 /* JSONWebTokenPayload.swift in Sources */,

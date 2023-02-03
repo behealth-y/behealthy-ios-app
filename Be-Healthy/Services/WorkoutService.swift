@@ -1,5 +1,5 @@
 //
-//  WorkOutService.swift
+//  WorkoutService.swift
 //  Be-Healthy
 //
 //  Created by 박현우 on 2023/01/27.
@@ -8,13 +8,13 @@
 import Foundation
 import Alamofire
 
-final class WorkOutService {
+final class WorkoutService {
     // MARK: 목표 운동 시간
     /// 목표 운동 시간 설정
-    func setWorkOutGoal(hour: Int, minute: Int, completion: @escaping (Result) -> Void) {
+    func setWorkoutGoal(hour: Int, minute: Int, completion: @escaping (Result) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
-        let url = URL(string: "\(Config().apiUrl)/api/workout-goal")!
+        let url = URL(string: "\(Config().apiUrl)/api/Workout-goal")!
         
         let params = [
             "hour": hour,
@@ -37,10 +37,10 @@ final class WorkOutService {
     }
     
     /// 목표 운동 시간 조회
-    func getWorkOutGoal(completion: @escaping (WorkOutGoalResultData) -> Void) {
+    func getWorkoutGoal(completion: @escaping (WorkoutGoalResultData) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
-        let url = URL(string: "\(Config().apiUrl)/api/workout-goal")!
+        let url = URL(string: "\(Config().apiUrl)/api/Workout-goal")!
 
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -48,12 +48,12 @@ final class WorkOutService {
         ]
     
         AF.request(url, method: .get, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: WorkOutGoalResult.self) { response in
+            .responseDecodable(of: WorkoutGoalResult.self) { response in
                 switch response.result {
                 case .success:
                     guard let result = response.value else { return }
                     
-                    let data = WorkOutGoalResultData(
+                    let data = WorkoutGoalResultData(
                         statusCode: response.response?.statusCode,
                         result: result)
                     
@@ -65,31 +65,20 @@ final class WorkOutService {
             }
     }
     
-    /*
-     {
-       "name": "string",
-       "emoji": "string",
-       "date": "2023-01-30",
-       "startTime": "00:00:00",
-       "endTime": : "00:00:00",
-       "intensity": "EASY",
-       "comment": "string"
-     }
-     */
     // MARK: 운동 기록
-    func addWorkOutLog(workOut: WorkOutRecord, completion: @escaping (Result) -> Void) {
+    func addWorkoutRecord(date: String, workout: WorkoutRecordForDate, completion: @escaping (Result) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
-        let url = URL(string: "\(Config().apiUrl)/api/workout-logs")!
+        let url = URL(string: "\(Config().apiUrl)/api/Workout-logs")!
         
         let params = [
-            "name": workOut.workOutName,
-            "emoji": workOut.emoji,
-            "date": workOut.date,
-            "startTime": workOut.startTime,
-            "endTime": workOut.endTime,
-            "intensity": workOut.intensity,
-            "comment": workOut.comment
+            "name": workout.workoutName,
+            "emoji": workout.emoji,
+            "date": date,
+            "startTime": workout.startTime,
+            "endTime": workout.endTime,
+            "intensity": workout.intensity,
+            "comment": workout.comment
         ]
         
         let headers: HTTPHeaders = [

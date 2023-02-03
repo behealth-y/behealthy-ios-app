@@ -11,9 +11,7 @@ import SnapKit
 import FSCalendar
 
 class CalendarViewController: BaseViewController {
-    private let viewModel = WorkOutRecordViewModel.shared
-
-    private var workOutRecordList: [WorkOutRecord]?
+//    private let viewModel = WorkOutRecordViewModel.shared
     
     private let stackView = UIStackView().then {
         $0.axis = .vertical
@@ -123,14 +121,14 @@ class CalendarViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.bindWorkOutRecordViewModelToController = { [weak self] in
-            guard let self = self else { return }
-            
-            DispatchQueue.main.async {
-                self.workOutRecordList = self.viewModel.getAll()
-                self.collectionView.reloadData()
-            }
-        }
+//        viewModel.bindWorkOutRecordViewModelToController = { [weak self] in
+//            guard let self = self else { return }
+//            
+//            DispatchQueue.main.async {
+//                self.workOutRecordList = self.viewModel.getAll()
+//                self.collectionView.reloadData()
+//            }
+//        }
         
         setupViews()
         setupData()
@@ -238,14 +236,6 @@ extension CalendarViewController {
     
     // MARK: Data Set
     private func setupData() {
-        for _ in 1...2 {
-//            viewModel.insert(WorkOutRecord(idx: 0, emoji: "🏃‍♂️", workOutName: "러닝", workOutTime: 60))
-//            viewModel.insert(WorkOutRecord(idx: 1, emoji: "🏋️‍♀️", workOutName: "웨이트", workOutTime: 50))
-//            viewModel.insert(WorkOutRecord(idx: 2, emoji: "🧘‍♂️", workOutName: "요가", workOutTime: 40))
-//            viewModel.insert(WorkOutRecord(idx: 3, emoji: "🏊‍♀️", workOutName: "수영", workOutTime: 50))
-//            viewModel.insert(WorkOutRecord(idx: 4, emoji: "🤸‍♂️", workOutName: "스트레칭", workOutTime: 20))
-        }
-        
         collectionView.isHidden = false
     }
     
@@ -285,17 +275,17 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
 extension CalendarViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return workOutRecordList?.count ?? 0
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordListCollectionViewCell.identifier, for: indexPath) as! RecordListCollectionViewCell
         cell.delegate = self
 
-        if let workOutRecordList = workOutRecordList {
-            let data = workOutRecordList[indexPath.item]
-            cell.updateUI(data: data)
-        }
+//        if let workOutRecordList = workOutRecordList {
+//            let data = workOutRecordList[indexPath.item]
+//            cell.updateUI(data: data)
+//        }
         
         return cell
     }
