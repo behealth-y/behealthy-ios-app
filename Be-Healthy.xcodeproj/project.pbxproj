@@ -30,7 +30,7 @@
 		B727D58328B88AAE00773A12 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58228B88AAE00773A12 /* UIImage+Extension.swift */; };
 		B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B727D58628B89CA100773A12 /* BHSubmitButton.swift */; };
 		B776F435290D1927009DA6B5 /* WorkoutRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776F434290D1927009DA6B5 /* WorkoutRecord.swift */; };
-		B776F43A290D1EBD009DA6B5 /* WorkoutRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776F439290D1EBD009DA6B5 /* WorkoutRecordViewModel.swift */; };
+		B776F43A290D1EBD009DA6B5 /* AddWorkoutRecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B776F439290D1EBD009DA6B5 /* AddWorkoutRecordViewModel.swift */; };
 		B7825BF128C19ACB005DF613 /* AddWorkoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF028C19ACB005DF613 /* AddWorkoutViewController.swift */; };
 		B7825BF328C1E3ED005DF613 /* IntensityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF228C1E3ED005DF613 /* IntensityButton.swift */; };
 		B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */; };
@@ -67,6 +67,7 @@
 		B7CFA26328D5C79000E9DC12 /* RecordListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CFA26128D5C79000E9DC12 /* RecordListCollectionViewHeader.swift */; };
 		B7CFA26428D5C79000E9DC12 /* RecordListCollectionViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CFA26228D5C79000E9DC12 /* RecordListCollectionViewHeader.xib */; };
 		B7D01BE4298FD4CB000897AF /* RecordsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D01BE3298FD4CB000897AF /* RecordsRepository.swift */; };
+		B7D01BE6298FD89C000897AF /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D01BE5298FD89C000897AF /* CalendarViewModel.swift */; };
 		B7D1E4AF28CB68FB008C5E0C /* BHTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */; };
 		B7D1E4B128CB7075008C5E0C /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */; };
 		B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */; };
@@ -139,7 +140,7 @@
 		B727D58628B89CA100773A12 /* BHSubmitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHSubmitButton.swift; sourceTree = "<group>"; };
 		B751B648297FC90D002D0BC3 /* Be-Healthy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Be-Healthy.entitlements"; sourceTree = "<group>"; };
 		B776F434290D1927009DA6B5 /* WorkoutRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecord.swift; sourceTree = "<group>"; };
-		B776F439290D1EBD009DA6B5 /* WorkoutRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecordViewModel.swift; sourceTree = "<group>"; };
+		B776F439290D1EBD009DA6B5 /* AddWorkoutRecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutRecordViewModel.swift; sourceTree = "<group>"; };
 		B7825BF028C19ACB005DF613 /* AddWorkoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddWorkoutViewController.swift; sourceTree = "<group>"; };
 		B7825BF228C1E3ED005DF613 /* IntensityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButton.swift; sourceTree = "<group>"; };
 		B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -165,6 +166,7 @@
 		B7CFA26128D5C79000E9DC12 /* RecordListCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListCollectionViewHeader.swift; sourceTree = "<group>"; };
 		B7CFA26228D5C79000E9DC12 /* RecordListCollectionViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordListCollectionViewHeader.xib; sourceTree = "<group>"; };
 		B7D01BE3298FD4CB000897AF /* RecordsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsRepository.swift; sourceTree = "<group>"; };
+		B7D01BE5298FD89C000897AF /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHTextFieldView.swift; sourceTree = "<group>"; };
 		B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSettingView.swift; sourceTree = "<group>"; };
@@ -368,7 +370,8 @@
 		B776F430290D17BE009DA6B5 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B776F439290D1EBD009DA6B5 /* WorkoutRecordViewModel.swift */,
+				B776F439290D1EBD009DA6B5 /* AddWorkoutRecordViewModel.swift */,
+				B7D01BE5298FD89C000897AF /* CalendarViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 				B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */,
 				B7E19164295CEC3100A20F2F /* GoalTimeSettingModalView.swift in Sources */,
 				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
+				B7D01BE6298FD89C000897AF /* CalendarViewModel.swift in Sources */,
 				B7D1E4B528CBA0B5008C5E0C /* DeleteIdViewController.swift in Sources */,
 				B7D442D028F7061D00994AD3 /* LoginResultData.swift in Sources */,
 				B79547DF295D731D0003B7EE /* CustomPulbisher.swift in Sources */,
@@ -766,7 +770,7 @@
 				B790C4C029791C3600876698 /* PinterestLayout.swift in Sources */,
 				B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */,
 				B7CFA25F28D5B0F200E9DC12 /* RecordListCollectionViewCell.swift in Sources */,
-				B776F43A290D1EBD009DA6B5 /* WorkoutRecordViewModel.swift in Sources */,
+				B776F43A290D1EBD009DA6B5 /* AddWorkoutRecordViewModel.swift in Sources */,
 				B7EE73452982019E00E2F408 /* Config.swift in Sources */,
 				B7D442CE28F7048200994AD3 /* User.swift in Sources */,
 				B7D01BE4298FD4CB000897AF /* RecordsRepository.swift in Sources */,

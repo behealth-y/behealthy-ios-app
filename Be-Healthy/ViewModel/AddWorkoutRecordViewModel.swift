@@ -1,5 +1,5 @@
 //
-//  WorkoutRecordViewModel.swift
+//  AddWorkoutRecordViewModel.swift
 //  Be-Healthy
 //
 //  Created by 박현우 on 2022/10/29.
@@ -17,22 +17,20 @@
 import Foundation
 import Combine
 
-protocol WorkoutRecordViewModelDelegate: NSObject {
+protocol AddWorkoutRecordViewModelDelegate: NSObject {
     func addWorkoutRecordSuccess()
     func addWorkoutRecordFail()
 }
 
 // MARK: - 운동 기록 내역 (전체)
-class WorkoutRecordViewModel {
-    weak var delegate: WorkoutRecordViewModelDelegate?
+class AddWorkoutRecordViewModel {
+    weak var delegate: AddWorkoutRecordViewModelDelegate?
     
     private let service = WorkoutService()
     
     private let repository = RecordsRepository.shared
     
-    init() {
-        
-    }
+    init() { }
     
     /// 운동 기록 추가
     func insert(for date: String, record: WorkoutRecordForDate) {
@@ -57,11 +55,6 @@ class WorkoutRecordViewModel {
     }
     
     func update(_ idx: Int, record: WorkoutService) {
-        
-    }
-    
-    /// 운동 기록 삭제
-    func delete(_ idx: Int) {
         
     }
 }

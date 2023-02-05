@@ -11,7 +11,7 @@ import Then
 import Combine
 
 class AddWorkoutViewController: UIViewController {
-    private let viewModel = WorkoutRecordViewModel()
+    private let viewModel = AddWorkoutRecordViewModel()
     
     private var cancellables: Set<AnyCancellable> = .init()
     
@@ -414,8 +414,8 @@ extension AddWorkoutViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - WorkoutRecordViewModelDelegate
-extension AddWorkoutViewController: WorkoutRecordViewModelDelegate {
+// MARK: - AddWorkoutRecordViewModelDelegate
+extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
     func addWorkoutRecordSuccess() {
         print(#function)
     }

@@ -14,7 +14,7 @@ import Combine
 
 class CalendarViewController: BaseViewController {
     private let repository = RecordsRepository.shared
-//    private let viewModel = WorkoutRecordViewModel()
+
     private var cancellables: Set<AnyCancellable> = .init()
     
     private var currentDate: String = {
@@ -132,15 +132,6 @@ class CalendarViewController: BaseViewController {
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        viewModel.bindWorkOutRecordViewModelToController = { [weak self] in
-//            guard let self = self else { return }
-//            
-//            DispatchQueue.main.async {
-//                self.workOutRecordList = self.viewModel.getAll()
-//                self.collectionView.reloadData()
-//            }
-//        }
         
         setupViews()
         setupData()
