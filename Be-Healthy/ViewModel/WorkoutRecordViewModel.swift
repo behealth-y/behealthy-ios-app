@@ -17,35 +17,46 @@
 import Foundation
 import Combine
 
+protocol WorkoutRecordViewModelDelegate: NSObject {
+    func addWorkoutRecordSuccess()
+    func addWorkoutRecordFail()
+}
+
 // MARK: - 운동 기록 내역 (전체)
 class WorkoutRecordViewModel {
+    weak var delegate: WorkoutRecordViewModelDelegate?
+    
     private let service = WorkoutService()
     
-    private var records: [WorkoutRecord]
+    private let repository = RecordsRepository.shared
     
-    init(records: [WorkoutRecord]) {
-        self.records = records
-    }
-    
-    /// 운동 기록 조회 (특정 날짜)
-    func get(for date: String) -> [WorkoutRecord] {
-        // TODO: 운동 기록 없을 때 API로 조회 및 값 저장
-        return records.filter({ $0.date == date })
-    }
-    
-    /// 운동 기록 조회 (특정 날짜의 특정 행)
-    func get(for date: String, at: Int) -> [WorkoutRecordForDate] {
-        return records.filter({ $0.date == date }).map({ $0.workOutRecords[at] })
+    init() {
+        
     }
     
     /// 운동 기록 추가
-    func insert(for date: String, workout: WorkoutRecordForDate) {
-        service.addWorkoutRecord(date: date, workout: workout) { data in
-            print(data)
+    func insert(for date: String, record: WorkoutRecordForDate) {
+        service.addWorkoutRecord(date: date, record: record) { [weak self] data in
+            if let statusCode = data.statusCode {
+                switch statusCode {
+                case 200:
+                    if self?.repository.records[date] != nil {
+                        self?.repository.addWorkoutRecord(date: date, record: record)
+                    } else {
+                        self?.repository.records[date] = WorkoutRecord(workOutRecords: [record], callAPI: true)
+                    }
+                    
+                    self?.delegate?.addWorkoutRecordSuccess()
+                default:
+                    guard let errorData = data.errorData else { return }
+                    print(errorData)
+                    self?.delegate?.addWorkoutRecordFail()
+                }
+            }
         }
     }
     
-    func update(_ idx: Int, workout: WorkoutService) {
+    func update(_ idx: Int, record: WorkoutService) {
         
     }
     

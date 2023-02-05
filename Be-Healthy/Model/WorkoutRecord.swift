@@ -8,9 +8,12 @@
 import UIKit
 
 struct WorkoutRecord {
-    let date: String
-    let workOutRecords: [WorkoutRecordForDate]
+    var workOutRecords: [WorkoutRecordForDate]
     var callAPI: Bool
+    
+    mutating func add(record: WorkoutRecordForDate) {
+        workOutRecords.append(record)
+    }
 }
 
 struct WorkoutRecordForDate {

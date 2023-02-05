@@ -66,6 +66,7 @@
 		B7CFA26028D5B0F200E9DC12 /* RecordListCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CFA25E28D5B0F200E9DC12 /* RecordListCollectionViewCell.xib */; };
 		B7CFA26328D5C79000E9DC12 /* RecordListCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CFA26128D5C79000E9DC12 /* RecordListCollectionViewHeader.swift */; };
 		B7CFA26428D5C79000E9DC12 /* RecordListCollectionViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = B7CFA26228D5C79000E9DC12 /* RecordListCollectionViewHeader.xib */; };
+		B7D01BE4298FD4CB000897AF /* RecordsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D01BE3298FD4CB000897AF /* RecordsRepository.swift */; };
 		B7D1E4AF28CB68FB008C5E0C /* BHTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */; };
 		B7D1E4B128CB7075008C5E0C /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */; };
 		B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */; };
@@ -163,6 +164,7 @@
 		B7CFA25E28D5B0F200E9DC12 /* RecordListCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordListCollectionViewCell.xib; sourceTree = "<group>"; };
 		B7CFA26128D5C79000E9DC12 /* RecordListCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordListCollectionViewHeader.swift; sourceTree = "<group>"; };
 		B7CFA26228D5C79000E9DC12 /* RecordListCollectionViewHeader.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecordListCollectionViewHeader.xib; sourceTree = "<group>"; };
+		B7D01BE3298FD4CB000897AF /* RecordsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordsRepository.swift; sourceTree = "<group>"; };
 		B7D1E4AE28CB68FB008C5E0C /* BHTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BHTextFieldView.swift; sourceTree = "<group>"; };
 		B7D1E4B028CB7075008C5E0C /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		B7D1E4B228CB8AA5008C5E0C /* GoalTimeSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSettingView.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				B727D56628B7158E00773A12 /* Helper */,
 				B7D442C428F7009600994AD3 /* VO */,
 				B776F430290D17BE009DA6B5 /* ViewModel */,
+				B7D01BE2298FD4B2000897AF /* Repository */,
 				B7D442CC28F7047300994AD3 /* Model */,
 				B7D442C528F7009E00994AD3 /* Services */,
 				B727D56828B7166E00773A12 /* Component */,
@@ -438,6 +441,14 @@
 				B7CFA26228D5C79000E9DC12 /* RecordListCollectionViewHeader.xib */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		B7D01BE2298FD4B2000897AF /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				B7D01BE3298FD4CB000897AF /* RecordsRepository.swift */,
+			);
+			path = Repository;
 			sourceTree = "<group>";
 		};
 		B7D442C428F7009600994AD3 /* VO */ = {
@@ -758,6 +769,7 @@
 				B776F43A290D1EBD009DA6B5 /* WorkoutRecordViewModel.swift in Sources */,
 				B7EE73452982019E00E2F408 /* Config.swift in Sources */,
 				B7D442CE28F7048200994AD3 /* User.swift in Sources */,
+				B7D01BE4298FD4CB000897AF /* RecordsRepository.swift in Sources */,
 				B7A70AEE2973EBFB00D5628A /* CommunityCell.swift in Sources */,
 				B7EE735829878ED800E2F408 /* JSONWebToken.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,

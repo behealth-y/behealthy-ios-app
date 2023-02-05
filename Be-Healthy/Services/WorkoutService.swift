@@ -14,7 +14,7 @@ final class WorkoutService {
     func setWorkoutGoal(hour: Int, minute: Int, completion: @escaping (Result) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
-        let url = URL(string: "\(Config().apiUrl)/api/Workout-goal")!
+        let url = URL(string: "\(Config().apiUrl)/api/workout-goal")!
         
         let params = [
             "hour": hour,
@@ -40,7 +40,7 @@ final class WorkoutService {
     func getWorkoutGoal(completion: @escaping (WorkoutGoalResultData) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
-        let url = URL(string: "\(Config().apiUrl)/api/Workout-goal")!
+        let url = URL(string: "\(Config().apiUrl)/api/workout-goal")!
 
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -66,19 +66,19 @@ final class WorkoutService {
     }
     
     // MARK: 운동 기록
-    func addWorkoutRecord(date: String, workout: WorkoutRecordForDate, completion: @escaping (Result) -> Void) {
+    func addWorkoutRecord(date: String, record: WorkoutRecordForDate, completion: @escaping (Result) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
-        let url = URL(string: "\(Config().apiUrl)/api/Workout-logs")!
+        let url = URL(string: "\(Config().apiUrl)/api/workout-logs")!
         
         let params = [
-            "name": workout.workoutName,
-            "emoji": workout.emoji,
+            "name": record.workoutName,
+            "emoji": record.emoji,
             "date": date,
-            "startTime": workout.startTime,
-            "endTime": workout.endTime,
-            "intensity": workout.intensity,
-            "comment": workout.comment
+            "startTime": record.startTime,
+            "endTime": record.endTime,
+            "intensity": record.intensity,
+            "comment": record.comment
         ]
         
         let headers: HTTPHeaders = [

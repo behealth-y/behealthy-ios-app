@@ -11,7 +11,7 @@ import Then
 import Combine
 
 class AddWorkoutViewController: UIViewController {
-    private let viewModel = WorkoutRecordViewModel(records: [])
+    private let viewModel = WorkoutRecordViewModel()
     
     private var cancellables: Set<AnyCancellable> = .init()
     
@@ -94,6 +94,8 @@ class AddWorkoutViewController: UIViewController {
         
         setupViews()
         bind()
+        
+        viewModel.delegate = self
     }
 }
 
@@ -346,12 +348,10 @@ extension AddWorkoutViewController {
     @objc private func didTapSubmitButton() {
         let emoji = emojiTextField.text ?? "💪"
         let workoutName = typeTextField.text ?? ""
-        let date = dateTextField.text ?? "0000-00-00"
-        let startTime = startTimeTextField.text ?? "00:00"
-        let endTime = endTimeTextField.text ?? "00:00"
+        let date = getDateText(dateTextField.text)
+        let startTime = getTimeText(startTimeTextField.text)
+        let endTime = getTimeText(endTimeTextField.text)
         let comment = commentTextField.text ?? ""
-        
-        
         
         let record = WorkoutRecordForDate(emoji: emoji,
                                           workoutName: workoutName,
@@ -360,21 +360,47 @@ extension AddWorkoutViewController {
                                           intensity: getIntensityText(),
                                           comment: comment)
         
-        print(record)
+        viewModel.insert(for: date, record: record)
     }
     
     // MARK: Helpers
     func getIntensityText() -> String {
         switch intensity {
         case 1:
-            return "NORMAL"
-        case 2:
             return "HARD"
+        case 2:
+            return "NORMAL"
         case 3:
-            return "EXTREMELY_HARD"
-        default:
             return "EASY"
+        default:
+            return "EXTREMELY_HARD"
         }
+    }
+    
+    func getDateText(_ string: String?) -> String {
+        guard let string = string else { return "0000-00-00" }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY년 MM월 dd일"
+        let date = dateFormatter.date(from: string)
+        
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let dateString = dateFormatter.string(from: date!)
+        
+        return dateString
+    }
+    
+    func getTimeText(_ string: String?) -> String {
+        guard let string = string else { return "00:00" }
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH시 mm분"
+        let date = dateFormatter.date(from: string)
+        
+        dateFormatter.dateFormat = "HH:mm"
+        let dateString = dateFormatter.string(from: date!)
+        
+        return dateString
     }
 }
 
@@ -385,6 +411,17 @@ extension AddWorkoutViewController: UITextFieldDelegate {
         textField.resignFirstResponder()
         
         return true
+    }
+}
+
+// MARK: - WorkoutRecordViewModelDelegate
+extension AddWorkoutViewController: WorkoutRecordViewModelDelegate {
+    func addWorkoutRecordSuccess() {
+        print(#function)
+    }
+    
+    func addWorkoutRecordFail() {
+        print(#function)
     }
 }
 

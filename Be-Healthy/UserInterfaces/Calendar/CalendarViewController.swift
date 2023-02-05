@@ -6,12 +6,24 @@
 //
 
 import UIKit
+import Foundation
 import Then
 import SnapKit
 import FSCalendar
+import Combine
 
 class CalendarViewController: BaseViewController {
-//    private let viewModel = WorkOutRecordViewModel.shared
+    private let repository = RecordsRepository.shared
+//    private let viewModel = WorkoutRecordViewModel()
+    private var cancellables: Set<AnyCancellable> = .init()
+    
+    private var currentDate: String = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let dateString = dateFormatter.string(from: Date())
+        
+        return dateString
+    }()
     
     private let stackView = UIStackView().then {
         $0.axis = .vertical
@@ -237,6 +249,14 @@ extension CalendarViewController {
     // MARK: Data Set
     private func setupData() {
         collectionView.isHidden = false
+        
+        repository.$records
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] data in
+                self?.collectionView.reloadData()
+                print(data)
+            })
+            .store(in: &self.cancellables)
     }
     
     // MARK: Actions
