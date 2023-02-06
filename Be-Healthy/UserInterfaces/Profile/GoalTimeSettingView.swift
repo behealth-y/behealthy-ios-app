@@ -9,9 +9,15 @@ import UIKit
 import SnapKit
 import Then
 
+enum OpenGoalTimeSetting {
+    case auth
+    case home
+    case setting
+}
+
 class GoalTimeSettingView: BaseViewController {
-    // 회원가입 / 로그인 프로세스에서 열리는 경우
-    var openedAuthProcess: Bool = false
+    // 어느 경로를 통해서 유입되었는지
+    private var openProcess: OpenGoalTimeSetting
     
     private let workoutService = WorkoutService()
     
@@ -70,6 +76,15 @@ class GoalTimeSettingView: BaseViewController {
         
         setupViews()
         setupData()
+    }
+    
+    init(openProcess: OpenGoalTimeSetting) {
+        self.openProcess = openProcess
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -166,9 +181,13 @@ extension GoalTimeSettingView {
     /// 목표 운동 시간 설정 성공
     private func setWorkoutGoalSuccess() {
         print(#function)
-        if openedAuthProcess {
+        
+        switch openProcess {
+        case .auth:
             self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
-        } else {
+        case .home:
+            self.dismiss(animated: true)
+        case .setting:
             navigationController?.popViewController(animated: true)
         }
     }
@@ -215,7 +234,7 @@ struct GoalTimeSettingViewPresentable: UIViewControllerRepresentable {
     }
     
     func makeUIViewController(context: Context) -> some UIViewController {
-        GoalTimeSettingView()
+        GoalTimeSettingView(openProcess: .auth)
     }
 }
 

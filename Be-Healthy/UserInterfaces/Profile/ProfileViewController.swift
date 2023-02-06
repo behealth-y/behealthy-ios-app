@@ -239,7 +239,7 @@ extension ProfileViewController {
     
     /// 목표 운동 시간 설정 화면 이동
     @objc fileprivate func didTapGoalTimeSettingView(_ sender: UITapGestureRecognizer) {
-        let vc = GoalTimeSettingView()
+        let vc = GoalTimeSettingView(openProcess: .setting)
         vc.hidesBottomBarWhenPushed = true
         
         navigationController?.pushViewController(vc, animated: true)

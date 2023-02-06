@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RecordListCollectionViewCellDelegate: NSObject {
-    func showMoreMenu()
+    func showMoreMenu(_ idx: Int)
     func updateConstraints()
 }
 
@@ -16,7 +16,9 @@ class RecordListCollectionViewCell: UICollectionViewCell {
     static let identifier = "RecordListCollectionViewCell"
     
     weak var delegate: RecordListCollectionViewCellDelegate?
-     
+    
+    private var idx: Int?
+    
     @IBOutlet weak var emojiLabel: UILabel!
     @IBOutlet weak var WorkoutNameLabel: UILabel!
     @IBOutlet weak var WorkoutTimeLabel: UILabel!
@@ -51,6 +53,7 @@ extension RecordListCollectionViewCell {
     func updateUI(data: WorkoutRecordForDate?) {
         guard let data = data else { return }
         
+        idx = data.idx
         emojiLabel.text = data.emoji
         WorkoutNameLabel.text = data.workoutName
         WorkoutTimeLabel.text = "60분"
@@ -59,6 +62,7 @@ extension RecordListCollectionViewCell {
     // MARK: Actions
     /// 더 보기 버튼 클릭 시 편집 / 삭제 선택 메뉴 노출
     @IBAction func didTapMoreButton(_ sender: UIButton) {
-        delegate?.showMoreMenu()
+        guard let idx = idx else { return }
+        delegate?.showMoreMenu(idx)
     }
 }

@@ -262,6 +262,20 @@ extension CalendarViewController {
         let nextDay = calendar.date(byAdding: components, to: currentDay)!
         calendarView.setCurrentPage(nextDay, animated: true)
     }
+    
+    /// 운동 기록 내역 > 셀 > 더보기 > 편집 버튼 누를 시
+    private func presentWorkoutForm(_ idx: Int) {
+        print(#function)
+        
+        let vc = AddWorkoutViewController()
+        vc.sheetPresentationController?.prefersGrabberVisible = true
+        self.present(vc, animated: true)
+    }
+    
+    /// 운동 기록 내역 > 셀 > 더보기 > 삭제 버튼 누를 시
+    private func deleteWorkoutRecord(_ idx: Int) {
+        print(#function)
+    }
 }
 
 // MARK: - FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance
@@ -313,8 +327,15 @@ extension CalendarViewController: UICollectionViewDelegate, UICollectionViewData
 
 // MARK: - RecordListCollectionViewCellDelegate
 extension CalendarViewController: RecordListCollectionViewCellDelegate {
-    func showMoreMenu() {
-        let actionSheet = Helper().actionSheet(delete: true)
+    func showMoreMenu(_ idx: Int) {
+        let actionSheet = Helper().actionSheet(delete: true) { [weak self] action in
+            switch action {
+            case .edit:
+                self?.presentWorkoutForm(idx)
+            case .delete:
+                self?.deleteWorkoutRecord(idx)
+            }
+        }
         self.present(actionSheet, animated: true)
     }
     

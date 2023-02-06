@@ -7,6 +7,12 @@
 
 import UIKit
 
+/// ActionSheet 액션
+enum ActionSheet {
+    case edit
+    case delete
+}
+
 class Helper {
     /// Alert 생성
     func alert(title: String, msg: String, action: (() -> Void)? = nil) -> UIAlertController {
@@ -21,16 +27,14 @@ class Helper {
     }
     
     /// Action Sheet 생성
-    func actionSheet(delete: Bool = false) -> UIAlertController {
+    func actionSheet(delete: Bool = false, completion: @escaping (ActionSheet) -> Void) -> UIAlertController {
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let editAction = UIAlertAction(title: "편집", style: .default) { _ in
-            print("편집")
+            completion(.edit)
         }
         
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
-            print("취소")
-        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         
         [editAction, cancelAction].forEach {
             actionSheet.addAction($0)
@@ -38,7 +42,7 @@ class Helper {
         
         if delete == true {
             let deleteAction = UIAlertAction(title: "삭제", style: .destructive) { _ in
-                print("삭제")
+                completion(.delete)
             }
             
             actionSheet.addAction(deleteAction)

@@ -219,8 +219,8 @@ extension FirstViewController {
     
     /// 로그인 화면 열기
     @objc private func didTapMoveToLoginLabel(sender: UITapGestureRecognizer){
-        navigationController?.pushViewController(LoginViewController(), animated: true)
-//        self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
+//        navigationController?.pushViewController(LoginViewController(), animated: true)
+        self.view.window?.windowScene?.keyWindow?.rootViewController = TabBarViewController()
     }
 }
 
@@ -239,8 +239,7 @@ extension FirstViewController: AppleLoginManagerDelegate {
 extension FirstViewController: KakaoLoginManagerDelegate {
     func kakaoLoginSuccess() {
         print(#function)
-        let vc = GoalTimeSettingView()
-        vc.openedAuthProcess = true
+        let vc = GoalTimeSettingView(openProcess: .auth)
         view.window?.windowScene?.keyWindow?.rootViewController = vc
     }
     

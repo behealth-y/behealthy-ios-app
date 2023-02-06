@@ -328,14 +328,23 @@ extension HomeViewController {
         // 범례
         barChartView.legend.enabled = false
     }
-}
-
-// MARK: - Actions
-extension HomeViewController {
+    
+    // MARK: Actions
     /// 목표 달성률 편집 버튼 클릭 시
-    @objc func didTapEditButton(sender: UIButton) {
-        let actionSheet = Helper().actionSheet()
+    @objc private func didTapEditButton(sender: UIButton) {
+        let actionSheet = Helper().actionSheet() { [weak self] _ in
+            self?.moveGoalTimeSettingView()
+        }
+        
         present(actionSheet, animated: true)
+    }
+    
+    /// 목표 운동 시간 설정 화면 이동
+    private func moveGoalTimeSettingView() {
+        let vc = GoalTimeSettingView(openProcess: .home)
+        vc.hidesBottomBarWhenPushed = true
+        
+        self.present(vc, animated: true)
     }
 }
 

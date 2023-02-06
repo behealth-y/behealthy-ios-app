@@ -672,8 +672,8 @@ extension RegisterViewController {
     // MARK: 회원가입 처리
     private func signUpSuccess() {
         print(#function)
-        let vc = GoalTimeSettingView()
-        vc.openedAuthProcess = true
+        let vc = GoalTimeSettingView(openProcess: .auth)
+        
         self.view.window?.windowScene?.keyWindow?.rootViewController = vc
     }
     

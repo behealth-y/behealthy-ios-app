@@ -294,8 +294,7 @@ extension LoginViewController {
     // MARK: 로그인 처리
     /// 로그인 성공
     func emailLoginSuccess() {
-        let vc = GoalTimeSettingView()
-        vc.openedAuthProcess = true
+        let vc = GoalTimeSettingView(openProcess: .auth)
         
         if let jwt = UserDefaults.standard.string(forKey: "jwt"), let jwtDecode = JSONWebToken(jsonWebToken: jwt) {
             print("jwt ::: \(jwt)")
