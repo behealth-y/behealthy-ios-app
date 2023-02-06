@@ -66,6 +66,7 @@ final class WorkoutService {
     }
     
     // MARK: 운동 기록
+    /// 운동 기록 추가
     func addWorkoutRecord(date: String, record: WorkoutRecordForDate, completion: @escaping (Result) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
@@ -87,6 +88,58 @@ final class WorkoutService {
         ]
     
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
+            .responseDecodable(of: ResultData.self) { response in
+                if let data = response.value {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                } else {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                }
+            }
+    }
+    
+    /// 운동 기록 수정
+    func updateWorkoutRecord(date: String, record: WorkoutRecordForDate, completion: @escaping (Result) -> Void) {
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let idx = record.idx else { return }
+        
+        let url = URL(string: "\(Config().apiUrl)/api/workout-logs/\(idx)")!
+        
+        let params = [
+            "name": record.workoutName,
+            "emoji": record.emoji,
+            "date": date,
+            "startTime": record.startTime,
+            "endTime": record.endTime,
+            "intensity": record.intensity,
+            "comment": record.comment
+        ]
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(jwt)"
+        ]
+    
+        AF.request(url, method: .patch, parameters: params, encoding: JSONEncoding.default, headers: headers)
+            .responseDecodable(of: ResultData.self) { response in
+                if let data = response.value {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                } else {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                }
+            }
+    }
+    
+    /// 운동 기록 삭제
+    func deleteWorkoutRecord(_ idx: Int, completion: @escaping (Result) -> Void) {
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
+        
+        let url = URL(string: "\(Config().apiUrl)/api/workout-logs/\(idx)")!
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(jwt)"
+        ]
+    
+        AF.request(url, method: .delete, encoding: JSONEncoding.default, headers: headers)
             .responseDecodable(of: ResultData.self) { response in
                 if let data = response.value {
                     completion(Result(statusCode: response.response?.statusCode, errorData: data))
