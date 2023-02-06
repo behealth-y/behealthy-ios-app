@@ -17,7 +17,14 @@
 import Foundation
 import Combine
 
+protocol CalendarViewModelDelegate: NSObject {
+    func deleteWorkoutRecordSuccess()
+    func deleteWorkoutRecordFail()
+}
+
 class CalendarViewModel {
+    weak var delegate: CalendarViewModelDelegate?
+    
     private let service = WorkoutService()
     
     private let repository = RecordsRepository.shared
@@ -25,7 +32,19 @@ class CalendarViewModel {
     init() { }
     
     /// 운동 기록 삭제
-    func delete(_ idx: Int) {
-        
+    func delete(for date: String, idx: Int) {
+        service.deleteWorkoutRecord(idx) { [weak self] data in
+            if let statusCode = data.statusCode {
+                switch statusCode {
+                case 200:
+                    // TODO: repository > 운동 기록 삭제
+                    self?.delegate?.deleteWorkoutRecordSuccess()
+                default:
+                    guard let errorData = data.errorData else { return }
+                    print(errorData)
+                    self?.delegate?.deleteWorkoutRecordFail()
+                }
+            }
+        }
     }
 }

@@ -13,6 +13,7 @@ import FSCalendar
 import Combine
 
 class CalendarViewController: BaseViewController {
+    private let viewModel = CalendarViewModel()
     private let repository = RecordsRepository.shared
 
     private var cancellables: Set<AnyCancellable> = .init()
@@ -135,6 +136,8 @@ class CalendarViewController: BaseViewController {
         
         setupViews()
         setupData()
+        
+        viewModel.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
@@ -267,7 +270,7 @@ extension CalendarViewController {
     private func presentWorkoutForm(_ idx: Int) {
         print(#function)
         
-        let vc = AddWorkoutViewController()
+        let vc = AddWorkoutViewController(idx: idx)
         vc.sheetPresentationController?.prefersGrabberVisible = true
         self.present(vc, animated: true)
     }
@@ -275,6 +278,7 @@ extension CalendarViewController {
     /// 운동 기록 내역 > 셀 > 더보기 > 삭제 버튼 누를 시
     private func deleteWorkoutRecord(_ idx: Int) {
         print(#function)
+        viewModel.delete(for: currentDate, idx: idx)
     }
 }
 
@@ -345,6 +349,17 @@ extension CalendarViewController: RecordListCollectionViewCellDelegate {
         }
         
         view.layoutIfNeeded()
+    }
+}
+
+// MARK: - CalendarViewModelDelegate
+extension CalendarViewController: CalendarViewModelDelegate {
+    func deleteWorkoutRecordSuccess() {
+        print(#function)
+    }
+    
+    func deleteWorkoutRecordFail() {
+        print(#function)
     }
 }
 

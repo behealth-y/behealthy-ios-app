@@ -11,6 +11,8 @@ import Then
 import Combine
 
 class AddWorkoutViewController: UIViewController {
+    private var idx: Int?
+    
     private let viewModel = AddWorkoutRecordViewModel()
     
     private var cancellables: Set<AnyCancellable> = .init()
@@ -93,9 +95,19 @@ class AddWorkoutViewController: UIViewController {
         view.backgroundColor = .white
         
         setupViews()
+        setupData()
         bind()
         
         viewModel.delegate = self
+    }
+    
+    init(idx: Int?) {
+        self.idx = idx
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -276,6 +288,12 @@ extension AddWorkoutViewController {
         }
     }
     
+    // MARK: Data
+    private func setupData() {
+        guard let idx = idx else { return }
+        // TODO: 운동 기록 조회 (수정 폼)
+    }
+    
     // MARK: Actions
     /// 키보드 내리기
     @objc private func handleTapGesture(sender: UITapGestureRecognizer) {
@@ -423,6 +441,14 @@ extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
     func addWorkoutRecordFail() {
         print(#function)
     }
+    
+    func updateWorkoutRecordSuccess() {
+        print(#function)
+    }
+    
+    func updateWorkoutRecordFail() {
+        print(#function)
+    }
 }
 
 #if DEBUG
@@ -435,7 +461,7 @@ struct AddWorkoutViewControllerPresentable: UIViewControllerRepresentable {
     }
     
     func makeUIViewController(context: Context) -> some UIViewController {
-        AddWorkoutViewController()
+        AddWorkoutViewController(idx: nil)
     }
 }
 

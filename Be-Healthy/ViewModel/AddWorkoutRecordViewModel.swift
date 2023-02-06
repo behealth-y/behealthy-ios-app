@@ -20,6 +20,8 @@ import Combine
 protocol AddWorkoutRecordViewModelDelegate: NSObject {
     func addWorkoutRecordSuccess()
     func addWorkoutRecordFail()
+    func updateWorkoutRecordSuccess()
+    func updateWorkoutRecordFail()
 }
 
 // MARK: - 운동 기록 내역 (전체)
@@ -54,7 +56,19 @@ class AddWorkoutRecordViewModel {
         }
     }
     
-    func update(_ idx: Int, record: WorkoutService) {
-        
+    func update(for date: String, idx: Int, record: WorkoutRecordForDate) {
+        service.updateWorkoutRecord(date: date, record: record) { [weak self] data in
+            if let statusCode = data.statusCode {
+                switch statusCode {
+                case 200:
+                    // TODO: repository > 운동 기록 수정
+                    self?.delegate?.updateWorkoutRecordSuccess()
+                default:
+                    guard let errorData = data.errorData else { return }
+                    print(errorData)
+                    self?.delegate?.updateWorkoutRecordFail()
+                }
+            }
+        }
     }
 }
