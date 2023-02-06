@@ -378,7 +378,11 @@ extension AddWorkoutViewController {
                                           intensity: getIntensityText(),
                                           comment: comment)
         
-        viewModel.insert(for: date, record: record)
+        if let idx = idx { // 운동 기록 수정
+            viewModel.update(for: date, idx: idx, record: record)
+        } else { // 운동 기록 추가
+            viewModel.insert(for: date, record: record)
+        }
     }
     
     // MARK: Helpers
