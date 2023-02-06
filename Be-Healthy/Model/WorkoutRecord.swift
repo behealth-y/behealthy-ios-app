@@ -14,15 +14,27 @@ struct WorkoutRecord {
     mutating func add(record: WorkoutRecordForDate) {
         workOutRecords.append(record)
     }
+    
+    mutating func update(record: WorkoutRecordForDate) {
+        let idx = workOutRecords.enumerated().filter({ $0.element.idx == record.idx }).map({ $0.offset })[0]
+        
+        workOutRecords[idx] = record
+    }
+    
+    mutating func delete(idx: Int) {
+        let idx = workOutRecords.enumerated().filter({ $0.element.idx == idx }).map({ $0.offset })[0]
+        
+        workOutRecords.remove(at: idx)
+    }
 }
 
 struct WorkoutRecordForDate {
     let idx: Int?
-    let emoji: String
-    let workoutName: String
-    let intensity: String
-    let comment: String
-    let startTime: String
+    var emoji: String
+    var workoutName: String
+    var intensity: String
+    var comment: String
+    var startTime: String
     var endTime: String
     
     init(emoji: String, workoutName: String, startTime: String, endTime: String, intensity: String, comment: String) {

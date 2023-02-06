@@ -61,7 +61,8 @@ class AddWorkoutRecordViewModel {
             if let statusCode = data.statusCode {
                 switch statusCode {
                 case 200:
-                    // TODO: repository > 운동 기록 수정
+                    self?.repository.updateWorkoutRecord(date: date, record: record)
+                    
                     self?.delegate?.updateWorkoutRecordSuccess()
                 default:
                     guard let errorData = data.errorData else { return }

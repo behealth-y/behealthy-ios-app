@@ -37,7 +37,8 @@ class CalendarViewModel {
             if let statusCode = data.statusCode {
                 switch statusCode {
                 case 200:
-                    // TODO: repository > 운동 기록 삭제
+                    self?.repository.deleteWorkoutRecord(date: date, idx: idx)
+                    
                     self?.delegate?.deleteWorkoutRecordSuccess()
                 default:
                     guard let errorData = data.errorData else { return }

@@ -32,4 +32,12 @@ final class RecordsRepository {
     func addWorkoutRecord(date: String, record: WorkoutRecordForDate) {
         self.records[date]?.add(record: record)
     }
+    
+    func updateWorkoutRecord(date: String, record: WorkoutRecordForDate) {
+        self.records[date]?.update(record: record)
+    }
+    
+    func deleteWorkoutRecord(date: String, idx: Int) {
+        self.records[date]?.delete(idx: idx)
+    }
 }
