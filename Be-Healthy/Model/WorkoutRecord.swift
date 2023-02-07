@@ -13,6 +13,7 @@ struct WorkoutRecord {
     var callAPI: Bool
     
     mutating func add(record: WorkoutRecordForDate) {
+        print(#function)
         workOutRecords.append(record)
     }
     

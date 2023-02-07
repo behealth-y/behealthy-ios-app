@@ -46,7 +46,11 @@ final class RecordsRepository {
     }
     
     func addWorkoutRecord(date: String, record: WorkoutRecordForDate) {
-        self.records[date]?.add(record: record)
+        if let _ = records[date] {
+            records[date]?.add(record: record)
+        } else {
+            records[date] = WorkoutRecord(workOutRecords: [record], totalWorkoutTime: record.workoutTime ?? 0, callAPI: false)
+        }
     }
     
     func updateWorkoutRecord(date: String, record: WorkoutRecordForDate) {

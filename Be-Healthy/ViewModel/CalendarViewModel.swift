@@ -59,9 +59,9 @@ class CalendarViewModel {
             if let statusCode = data.statusCode {
                 switch statusCode {
                 case 200:
-                    guard let times = data.result.workoutLogs else { return }
+                    guard let records = data.result.workoutLogs else { return }
                     
-                    times.forEach {
+                    records.forEach {
                         self?.repository.setWorkoutTime(date: $0.date, time: $0.totalWorkoutTime)
                     }
                     
@@ -88,6 +88,7 @@ class CalendarViewModel {
                     case 200:
                         guard let records = data.result.workoutLogs else { return }
                         
+                        print(records)
                         records.forEach {
                             let record = WorkoutRecordForDate(
                                 workoutLogId: $0.workoutLogId,
@@ -95,6 +96,7 @@ class CalendarViewModel {
                                 workoutName: $0.name,
                                 workoutTime: $0.workoutTime)
                             
+                            print(record)
                             self?.repository.addWorkoutRecord(date: date, record: record)
                         }
                         

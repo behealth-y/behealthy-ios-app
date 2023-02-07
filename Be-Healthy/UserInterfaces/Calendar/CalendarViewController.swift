@@ -251,7 +251,7 @@ extension CalendarViewController {
             .sink(receiveValue: { [weak self] data in
                 self?.calendarView.reloadData()
                 self?.collectionView.reloadData()
-                print(data)
+//                print(data)
             })
             .store(in: &self.cancellables)
         
@@ -343,6 +343,14 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         
         currentDate = dateString
         viewModel.get(date: dateString)
+    }
+    
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        let currentPageDate = calendar.currentPage
+        let year = Calendar.current.component(.year, from: currentPageDate)
+        let month = Calendar.current.component(.month, from: currentPageDate)
+        
+        viewModel.get(year: year, month: month)
     }
 }
 
