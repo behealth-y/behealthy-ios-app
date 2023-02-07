@@ -7,13 +7,12 @@
 
 import Foundation
 
-struct WorkoutGoalResultData {
+struct WorkoutGoalResult {
     let statusCode: Int?
-    let result: WorkoutGoalResult?
+    let result: WorkoutGoalResultData?
 }
 
-// MARK: - WorkoutGoalResult
-struct WorkoutGoalResult: Codable {
+struct WorkoutGoalResultData: Codable {
     let hour, minute: Int?
     let errorCode, reason: String?
 }

@@ -108,7 +108,7 @@ final class AuthenticationService {
     
     // MARK: 인증번호
     /// 인증번호 요청
-    func requestVerififcationCode(email: String, purpose: String, completion: @escaping (RequestVerificationCodeResultData) -> Void) {
+    func requestVerififcationCode(email: String, purpose: String, completion: @escaping (RequestVerificationCodeResult) -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth/email-verification/request")!
         
         let params = [
@@ -121,12 +121,12 @@ final class AuthenticationService {
         ]
         
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: RequestVerificationCodeResult.self) { response in
+            .responseDecodable(of: RequestVerificationCodeResultData.self) { response in
                 switch response.result {
                 case .success:
                     guard let result = response.value else { return }
                     
-                    let data = RequestVerificationCodeResultData(
+                    let data = RequestVerificationCodeResult(
                         statusCode: response.response?.statusCode,
                         result: result)
                     

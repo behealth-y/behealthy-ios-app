@@ -251,6 +251,9 @@ extension CalendarViewController {
                 print(data)
             })
             .store(in: &self.cancellables)
+        
+        viewModel.get(year: 2023, month: 02)
+        viewModel.get(date: "2023-02-07")
     }
     
     // MARK: Actions

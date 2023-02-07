@@ -7,12 +7,12 @@
 
 import Foundation
 
-// MARK: - ResultData
-struct ResultData: Codable {
-    let errorCode, reason: String?
-}
-
 struct Result {
     let statusCode: Int?
     let errorData: ResultData?
+}
+
+
+struct ResultData: Codable {
+    let errorCode, reason: String?
 }

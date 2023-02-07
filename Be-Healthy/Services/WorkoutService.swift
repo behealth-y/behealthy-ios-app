@@ -37,7 +37,7 @@ final class WorkoutService {
     }
     
     /// 목표 운동 시간 조회
-    func getWorkoutGoal(completion: @escaping (WorkoutGoalResultData) -> Void) {
+    func getWorkoutGoal(completion: @escaping (WorkoutGoalResult) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
         let url = URL(string: "\(Config().apiUrl)/api/workout-goal")!
@@ -48,12 +48,12 @@ final class WorkoutService {
         ]
     
         AF.request(url, method: .get, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: WorkoutGoalResult.self) { response in
+            .responseDecodable(of: WorkoutGoalResultData.self) { response in
                 switch response.result {
                 case .success:
                     guard let result = response.value else { return }
                     
-                    let data = WorkoutGoalResultData(
+                    let data = WorkoutGoalResult(
                         statusCode: response.response?.statusCode,
                         result: result)
                     
@@ -146,6 +146,61 @@ final class WorkoutService {
                 } else {
                     completion(Result(statusCode: response.response?.statusCode, errorData: nil))
                 }
+            }
+    }
+    
+    /// 특정 년/월 기준 날짜별 운동 시간 조회
+    func getWorkoutRecords(year: Int, month: Int, completion: @escaping (WorkoutTimesResult) -> Void) {
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
+        
+        let url = URL(string: "\(Config().apiUrl)/api/workout-logs/workout-time")!
+        
+        let params = [
+            "year": year,
+            "month": month
+        ]
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(jwt)"
+        ]
+    
+        AF.request(url, method: .get, parameters: params, headers: headers)
+            .responseDecodable(of: WorkoutTimesResultData.self) { response in
+                guard let result = response.value else { return }
+                
+                let data = WorkoutTimesResult(
+                    statusCode: response.response?.statusCode,
+                    result: result)
+                
+                completion(data)
+            }
+    }
+    
+    /// 특정 날짜 기준 운동 기록 조회
+    func getWorkoutRecords(date: String, completion: @escaping (WorkoutRecordsResult) -> Void) {
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
+        
+        let url = URL(string: "\(Config().apiUrl)/api/workout-logs")!
+        
+        let params = [
+            "date": date,
+        ]
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(jwt)"
+        ]
+    
+        AF.request(url, method: .get, parameters: params, headers: headers)
+            .responseDecodable(of: WorkoutRecordsResultData.self) { response in
+                guard let result = response.value else { return }
+                
+                let data = WorkoutRecordsResult(
+                    statusCode: response.response?.statusCode,
+                    result: result)
+                
+                completion(data)
             }
     }
 }

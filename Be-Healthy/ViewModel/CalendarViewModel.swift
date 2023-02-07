@@ -48,4 +48,18 @@ class CalendarViewModel {
             }
         }
     }
+    
+    /// 특정 년/월 기준 날짜별 운동 시간 조회
+    func get(year: Int, month: Int) {
+        service.getWorkoutRecords(year: year, month: month) { data in
+            print(data)
+        }
+    }
+    
+    /// 특정 날짜 기준 운동 기록 조회
+    func get(date: String) {
+        service.getWorkoutRecords(date: date) { data in
+            print(data)
+        }
+    }
 }

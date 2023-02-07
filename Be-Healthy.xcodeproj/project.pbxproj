@@ -35,6 +35,7 @@
 		B7825BF328C1E3ED005DF613 /* IntensityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF228C1E3ED005DF613 /* IntensityButton.swift */; };
 		B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */; };
 		B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */; };
+		B78DFFF52991E58B00FF79F2 /* WorkoutRecordsResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78DFFF42991E58B00FF79F2 /* WorkoutRecordsResultData.swift */; };
 		B790C4C029791C3600876698 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4BF29791C3600876698 /* PinterestLayout.swift */; };
 		B790C4C229791CF700876698 /* Community.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4C129791CF700876698 /* Community.swift */; };
 		B790C4C42979364800876698 /* CommunityDetailBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4C32979364800876698 /* CommunityDetailBannerCell.swift */; };
@@ -145,6 +146,7 @@
 		B7825BF228C1E3ED005DF613 /* IntensityButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntensityButton.swift; sourceTree = "<group>"; };
 		B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
+		B78DFFF42991E58B00FF79F2 /* WorkoutRecordsResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecordsResultData.swift; sourceTree = "<group>"; };
 		B790C4BF29791C3600876698 /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 		B790C4C129791CF700876698 /* Community.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Community.swift; sourceTree = "<group>"; };
 		B790C4C32979364800876698 /* CommunityDetailBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailBannerCell.swift; sourceTree = "<group>"; };
@@ -429,6 +431,7 @@
 			isa = PBXGroup;
 			children = (
 				B7AC995129840C810067A465 /* WorkoutGoalResusltData.swift */,
+				B78DFFF42991E58B00FF79F2 /* WorkoutRecordsResultData.swift */,
 			);
 			path = Workout;
 			sourceTree = "<group>";
@@ -761,6 +764,7 @@
 				B792954828BCA33D007D6045 /* TabBarViewController.swift in Sources */,
 				B727D57B28B7701800773A12 /* UITextField+Extension.swift in Sources */,
 				B7D1E4B328CB8AA5008C5E0C /* GoalTimeSettingView.swift in Sources */,
+				B78DFFF52991E58B00FF79F2 /* WorkoutRecordsResultData.swift in Sources */,
 				B776F435290D1927009DA6B5 /* WorkoutRecord.swift in Sources */,
 				B727D57F28B8568300773A12 /* UIButton+Extension.swift in Sources */,
 				B7A70AEC2973EA0200D5628A /* CommunityDetailView.swift in Sources */,

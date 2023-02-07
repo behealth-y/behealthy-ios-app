@@ -7,13 +7,12 @@
 
 import Foundation
 
-struct RequestVerificationCodeResultData {
+struct RequestVerificationCodeResult {
     let statusCode: Int?
-    let result: RequestVerificationCodeResult?
+    let result: RequestVerificationCodeResultData?
 }
 
-// MARK: - RequestVerificationCodeResult
-struct RequestVerificationCodeResult: Codable {
+struct RequestVerificationCodeResultData: Codable {
     let expireAt: String?
     let errorCode, reason: String?
 }
