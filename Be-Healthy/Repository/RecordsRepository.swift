@@ -29,6 +29,14 @@ final class RecordsRepository {
         self.records = [:]
     }
     
+    func setCallAPI(date: String, yn: Bool) {
+        if let _ = records[date] {
+            records[date]?.callAPI = yn
+        } else {
+            records[date] = WorkoutRecord(workOutRecords: [], totalWorkoutTime: 0, callAPI: true)
+        }
+    }
+    
     func setWorkoutTime(date: String, time: Int) {
         if let _ = records[date] {
             records[date]?.totalWorkoutTime = time

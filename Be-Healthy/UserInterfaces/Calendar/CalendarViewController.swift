@@ -335,6 +335,15 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         
         return 0
     }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        
+        currentDate = dateString
+        viewModel.get(date: dateString)
+    }
 }
 
 // MARK: - UICollectionViewDelegate, UICollectionViewDataSource

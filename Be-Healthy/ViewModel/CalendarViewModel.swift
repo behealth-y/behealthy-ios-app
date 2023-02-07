@@ -78,30 +78,41 @@ class CalendarViewModel {
     
     /// 특정 날짜 기준 운동 기록 조회
     func get(date: String) {
-        service.getWorkoutRecords(date: date) { [weak self] data in
-            if let statusCode = data.statusCode {
-                switch statusCode {
-                case 200:
-                    guard let records = data.result.workoutLogs else { return }
-                    
-                    records.forEach {
-                        let record = WorkoutRecordForDate(
-                            workoutLogId: $0.workoutLogId,
-                            emoji: $0.emoji,
-                            workoutName: $0.name,
-                            workoutTime: $0.workoutTime)
-
-                        self?.repository.addWorkoutRecord(date: date, record: record)
+        let record = repository.records[date]
+        
+        if record == nil || (record != nil && record!.workOutRecords.isEmpty && !record!.callAPI) {
+            print("API 호출")
+            service.getWorkoutRecords(date: date) { [weak self] data in
+                if let statusCode = data.statusCode {
+                    switch statusCode {
+                    case 200:
+                        guard let records = data.result.workoutLogs else { return }
+                        
+                        records.forEach {
+                            let record = WorkoutRecordForDate(
+                                workoutLogId: $0.workoutLogId,
+                                emoji: $0.emoji,
+                                workoutName: $0.name,
+                                workoutTime: $0.workoutTime)
+                            
+                            self?.repository.addWorkoutRecord(date: date, record: record)
+                        }
+                        
+                        self?.repository.setCallAPI(date: date, yn: true)
+                        
+                        self?.delegate?.getForDateSuccess(date: date, time: data.result.totalWorkoutTime)
+                    default:
+                        guard let errorCode = data.result.errorCode, let reason = data.result.reason else { return }
+                        print(errorCode)
+                        print(reason)
+                        self?.delegate?.getForDateFail()
                     }
-                    
-                    self?.delegate?.getForDateSuccess(date: date, time: data.result.totalWorkoutTime)
-                default:
-                    guard let errorCode = data.result.errorCode, let reason = data.result.reason else { return }
-                    print(errorCode)
-                    print(reason)
-                    self?.delegate?.getForDateFail()
                 }
             }
+        } else {
+            print("API 호출 안함")
+            guard let record = repository.records[date] else { return }
+            self.delegate?.getForDateSuccess(date: date, time: record.totalWorkoutTime)
         }
     }
 }
