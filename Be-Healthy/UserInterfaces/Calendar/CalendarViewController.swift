@@ -26,6 +26,8 @@ class CalendarViewController: BaseViewController {
         return dateString
     }()
     
+    private var currentDateTotalTime: Int = 0
+    
     private let stackView = UIStackView().then {
         $0.axis = .vertical
         $0.spacing = 0
@@ -247,13 +249,18 @@ extension CalendarViewController {
         repository.$records
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] data in
+                self?.calendarView.reloadData()
                 self?.collectionView.reloadData()
                 print(data)
             })
             .store(in: &self.cancellables)
         
-        viewModel.get(year: 2023, month: 02)
-        viewModel.get(date: "2023-02-07")
+        let currentPageDate = calendarView.currentPage
+        let year = Calendar.current.component(.year, from: currentPageDate)
+        let month = Calendar.current.component(.month, from: currentPageDate)
+        
+        viewModel.get(year: year, month: month)
+        viewModel.get(date: currentDate)
     }
     
     // MARK: Actions
@@ -292,13 +299,41 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         return UIColor.init(named: "mainColor")
     }
 
-    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-        let timeLabel = UILabel(frame: CGRect(x: 0, y: cell.frame.height - 5, width: cell.bounds.width, height: 10))
-        timeLabel.font = .systemFont(ofSize: 7)
-        timeLabel.text = "02:15"
-        timeLabel.textAlignment = .center
-        timeLabel.textColor = UIColor.init(named: "mainColor")
-        cell.addSubview(timeLabel)
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventDefaultColorsFor date: Date) -> [UIColor]? {
+        return [UIColor.init(named: "mainColor")!]
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, eventSelectionColorsFor date: Date) -> [UIColor]? {
+        return [UIColor.init(named: "mainColor")!]
+    }
+    
+    // TODO: 커스텀 Cell 구현
+//    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "YYYY-MM-dd"
+//        let currentDate = dateFormatter.string(from: date)
+//
+//        let timeLabel = UILabel(frame: CGRect(x: 0, y: cell.frame.height - 5, width: cell.bounds.width, height: 10))
+//
+//        if let record = repository.get(for: currentDate) {
+//            timeLabel.font = .systemFont(ofSize: 7)
+//            timeLabel.text = "\(record.totalWorkoutTime)분"
+//            timeLabel.textAlignment = .center
+//            timeLabel.textColor = UIColor.init(named: "mainColor")
+//            cell.addSubview(timeLabel)
+//        }
+//    }
+    
+    func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        
+        if let record = repository.get(for: dateString), record.totalWorkoutTime > 0 {
+            return 1
+        }
+        
+        return 0
     }
 }
 
@@ -306,17 +341,15 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
 extension CalendarViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return repository.get(for: currentDate)?.workOutRecords.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecordListCollectionViewCell.identifier, for: indexPath) as! RecordListCollectionViewCell
         cell.delegate = self
 
-//        if let workOutRecordList = workOutRecordList {
-//            let data = workOutRecordList[indexPath.item]
-//            cell.updateUI(data: data)
-//        }
+        let data = repository.get(for: currentDate, at: indexPath.item)
+        cell.updateUI(data: data)
         
         return cell
     }
@@ -324,7 +357,10 @@ extension CalendarViewController: UICollectionViewDelegate, UICollectionViewData
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecordListCollectionViewHeader.identifier, for: indexPath)
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: RecordListCollectionViewHeader.identifier, for: indexPath) as! RecordListCollectionViewHeader
+            
+            headerView.updateUI(date: currentDate, time: currentDateTotalTime)
+            
             return headerView
         default:
             return UICollectionReusableView()
@@ -362,6 +398,28 @@ extension CalendarViewController: CalendarViewModelDelegate {
     }
     
     func deleteWorkoutRecordFail() {
+        print(#function)
+    }
+    
+    func getForYearAndMonthSuccess() {
+        print(#function)
+    }
+    
+    func getForYearAndMonthFail() {
+        print(#function)
+    }
+    
+    func getForDateSuccess(date: String, time: Int?) {
+        print(#function)
+        
+        if let time = time {
+            currentDateTotalTime = time
+        }
+        
+        collectionView.reloadData()
+    }
+    
+    func getForDateFail() {
         print(#function)
     }
 }

@@ -36,6 +36,7 @@
 		B7825BF728C5ACCD005DF613 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */; };
 		B7870A0C28C3330D00B07FC2 /* EmojiTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */; };
 		B78DFFF52991E58B00FF79F2 /* WorkoutRecordsResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78DFFF42991E58B00FF79F2 /* WorkoutRecordsResultData.swift */; };
+		B78DFFF72992172900FF79F2 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78DFFF62992172900FF79F2 /* CalendarCell.swift */; };
 		B790C4C029791C3600876698 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4BF29791C3600876698 /* PinterestLayout.swift */; };
 		B790C4C229791CF700876698 /* Community.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4C129791CF700876698 /* Community.swift */; };
 		B790C4C42979364800876698 /* CommunityDetailBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4C32979364800876698 /* CommunityDetailBannerCell.swift */; };
@@ -147,6 +148,7 @@
 		B7825BF628C5ACCD005DF613 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B7870A0B28C3330D00B07FC2 /* EmojiTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiTextField.swift; sourceTree = "<group>"; };
 		B78DFFF42991E58B00FF79F2 /* WorkoutRecordsResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecordsResultData.swift; sourceTree = "<group>"; };
+		B78DFFF62992172900FF79F2 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		B790C4BF29791C3600876698 /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 		B790C4C129791CF700876698 /* Community.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Community.swift; sourceTree = "<group>"; };
 		B790C4C32979364800876698 /* CommunityDetailBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailBannerCell.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				B7CFA25E28D5B0F200E9DC12 /* RecordListCollectionViewCell.xib */,
 				B7CFA26128D5C79000E9DC12 /* RecordListCollectionViewHeader.swift */,
 				B7CFA26228D5C79000E9DC12 /* RecordListCollectionViewHeader.xib */,
+				B78DFFF62992172900FF79F2 /* CalendarCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -794,6 +797,7 @@
 				B7F67684293B343C008C72DC /* CommunityView.swift in Sources */,
 				B7825BF128C19ACB005DF613 /* AddWorkoutViewController.swift in Sources */,
 				B727D57728B75EF900773A12 /* TitleView.swift in Sources */,
+				B78DFFF72992172900FF79F2 /* CalendarCell.swift in Sources */,
 				B7EE735429837DBD00E2F408 /* ResultData.swift in Sources */,
 				B7EE735D298792DD00E2F408 /* JSONWebTokenPayload.swift in Sources */,
 				B79547DD295D70530003B7EE /* UIControl+EventPublisher.swift in Sources */,

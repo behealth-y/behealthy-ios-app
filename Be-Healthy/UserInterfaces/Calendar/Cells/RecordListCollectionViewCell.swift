@@ -20,8 +20,8 @@ class RecordListCollectionViewCell: UICollectionViewCell {
     private var idx: Int?
     
     @IBOutlet weak var emojiLabel: UILabel!
-    @IBOutlet weak var WorkoutNameLabel: UILabel!
-    @IBOutlet weak var WorkoutTimeLabel: UILabel!
+    @IBOutlet weak var workoutNameLabel: UILabel!
+    @IBOutlet weak var workoutTimeLabel: UILabel!
     @IBOutlet weak var bottomBorder: UIView!
     @IBOutlet weak var moreButton: UIButton!
     
@@ -44,8 +44,8 @@ extension RecordListCollectionViewCell {
 //        emojiLabel.layer.cornerRadius = emojiLabel.frame.width / 2
         
         emojiLabel.text = ""
-        WorkoutTimeLabel.text = ""
-        WorkoutTimeLabel.text = ""
+        workoutTimeLabel.text = ""
+        workoutTimeLabel.text = ""
         
         bottomBorder.backgroundColor = .border
     }
@@ -53,10 +53,12 @@ extension RecordListCollectionViewCell {
     func updateUI(data: WorkoutRecordForDate?) {
         guard let data = data else { return }
         
+        let workoutTime = data.workoutTime ?? 0
+        
         idx = data.idx
         emojiLabel.text = data.emoji
-        WorkoutNameLabel.text = data.workoutName
-        WorkoutTimeLabel.text = "60분"
+        workoutNameLabel.text = data.workoutName
+        workoutTimeLabel.text = "\(workoutTime)분"
     }
     
     // MARK: Actions

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -80,8 +80,8 @@
                 <outlet property="bottomBorder" destination="uNc-WL-Jwn" id="qe1-CQ-d0v"/>
                 <outlet property="emojiLabel" destination="H83-9P-Sgn" id="zyL-B7-FBy"/>
                 <outlet property="moreButton" destination="rnP-Os-rLc" id="QeV-b8-GWK"/>
-                <outlet property="workOutNameLabel" destination="GA1-z0-cwV" id="1Rf-RY-f9q"/>
-                <outlet property="workOutTimeLabel" destination="XRO-5L-6ZT" id="9qg-SD-Hhg"/>
+                <outlet property="workoutNameLabel" destination="GA1-z0-cwV" id="uC1-Zo-WZo"/>
+                <outlet property="workoutTimeLabel" destination="XRO-5L-6ZT" id="tz0-Hr-M7v"/>
             </connections>
             <point key="canvasLocation" x="137.68115942028987" y="106.47321428571428"/>
         </collectionViewCell>

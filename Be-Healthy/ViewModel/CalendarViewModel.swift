@@ -20,6 +20,10 @@ import Combine
 protocol CalendarViewModelDelegate: NSObject {
     func deleteWorkoutRecordSuccess()
     func deleteWorkoutRecordFail()
+    func getForYearAndMonthSuccess()
+    func getForYearAndMonthFail()
+    func getForDateSuccess(date: String, time: Int?)
+    func getForDateFail()
 }
 
 class CalendarViewModel {
@@ -51,15 +55,53 @@ class CalendarViewModel {
     
     /// 특정 년/월 기준 날짜별 운동 시간 조회
     func get(year: Int, month: Int) {
-        service.getWorkoutRecords(year: year, month: month) { data in
-            print(data)
+        service.getWorkoutRecords(year: year, month: month) { [weak self] data in
+            if let statusCode = data.statusCode {
+                switch statusCode {
+                case 200:
+                    guard let times = data.result.workoutLogs else { return }
+                    
+                    times.forEach {
+                        self?.repository.setWorkoutTime(date: $0.date, time: $0.totalWorkoutTime)
+                    }
+                    
+                    self?.delegate?.getForYearAndMonthSuccess()
+                default:
+                    guard let errorCode = data.result.errorCode, let reason = data.result.reason else { return }
+                    print(errorCode)
+                    print(reason)
+                    self?.delegate?.getForYearAndMonthFail()
+                }
+            }
         }
     }
     
     /// 특정 날짜 기준 운동 기록 조회
     func get(date: String) {
-        service.getWorkoutRecords(date: date) { data in
-            print(data)
+        service.getWorkoutRecords(date: date) { [weak self] data in
+            if let statusCode = data.statusCode {
+                switch statusCode {
+                case 200:
+                    guard let records = data.result.workoutLogs else { return }
+                    
+                    records.forEach {
+                        let record = WorkoutRecordForDate(
+                            workoutLogId: $0.workoutLogId,
+                            emoji: $0.emoji,
+                            workoutName: $0.name,
+                            workoutTime: $0.workoutTime)
+
+                        self?.repository.addWorkoutRecord(date: date, record: record)
+                    }
+                    
+                    self?.delegate?.getForDateSuccess(date: date, time: data.result.totalWorkoutTime)
+                default:
+                    guard let errorCode = data.result.errorCode, let reason = data.result.reason else { return }
+                    print(errorCode)
+                    print(reason)
+                    self?.delegate?.getForDateFail()
+                }
+            }
         }
     }
 }

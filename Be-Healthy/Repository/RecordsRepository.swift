@@ -21,12 +21,20 @@ final class RecordsRepository {
     }
     
     /// 운동 기록 조회 (특정 날짜의 특정 행)
-    func get(for date: String, at: Int) -> [WorkoutRecordForDate]? {
-        return records[date]?.workOutRecords
+    func get(for date: String, at: Int) -> WorkoutRecordForDate? {
+        return records[date]?.workOutRecords[at]
     }
     
     init() {
         self.records = [:]
+    }
+    
+    func setWorkoutTime(date: String, time: Int) {
+        if let _ = records[date] {
+            records[date]?.totalWorkoutTime = time
+        } else {
+            records[date] = WorkoutRecord(workOutRecords: [], totalWorkoutTime: time, callAPI: false)
+        }
     }
     
     func addWorkoutRecord(date: String, record: WorkoutRecordForDate) {

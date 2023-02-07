@@ -9,6 +9,7 @@ import UIKit
 
 struct WorkoutRecord {
     var workOutRecords: [WorkoutRecordForDate]
+    var totalWorkoutTime: Int
     var callAPI: Bool
     
     mutating func add(record: WorkoutRecordForDate) {
@@ -32,12 +33,13 @@ struct WorkoutRecordForDate {
     let idx: Int?
     var emoji: String
     var workoutName: String
-    var intensity: String
-    var comment: String
-    var startTime: String
-    var endTime: String
+    var intensity: String?
+    var comment: String?
+    var startTime: String?
+    var endTime: String?
+    var workoutTime: Int?
     
-    init(emoji: String, workoutName: String, startTime: String, endTime: String, intensity: String, comment: String) {
+    init(emoji: String, workoutName: String, startTime: String, endTime: String, intensity: String, comment: String, workoutTime: Int) {
         self.idx = nil
         self.emoji = emoji
         self.workoutName = workoutName
@@ -45,5 +47,13 @@ struct WorkoutRecordForDate {
         self.endTime = endTime
         self.intensity = intensity
         self.comment = comment
+        self.workoutTime = workoutTime
+    }
+    
+    init(workoutLogId: Int, emoji: String, workoutName: String, workoutTime: Int) {
+        self.idx = workoutLogId
+        self.emoji = emoji
+        self.workoutName = workoutName
+        self.workoutTime = workoutTime
     }
 }

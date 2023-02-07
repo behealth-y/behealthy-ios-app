@@ -265,8 +265,6 @@ extension AddWorkoutViewController {
     // MARK: Bind
     private func bind() {
         [typeTextField, dateTextField, startTimeTextField, endTimeTextField, commentTextField].forEach {
-            let textField = $0
-            
             $0.textPublisher.sink { [weak self] _ in
                 self?.checkSubmitButtonEnable()
             }.store(in: &cancellables)
@@ -281,7 +279,7 @@ extension AddWorkoutViewController {
         let endTime = endTimeTextField.text ?? ""
         let comment = commentTextField.text ?? ""
         
-        if type.count > 0 && date.count > 0 && startTime.count > 0 && endTime.count > 0, comment.count > 0 {
+        if type.count > 0 && date.count > 0 && startTime.count > 0 && endTime.count > 0 && startTime <= endTime {
             submitButton.isEnabled = true
         } else {
             submitButton.isEnabled = false
@@ -370,13 +368,15 @@ extension AddWorkoutViewController {
         let startTime = getTimeText(startTimeTextField.text)
         let endTime = getTimeText(endTimeTextField.text)
         let comment = commentTextField.text ?? ""
+        let workoutTime = getWorkoutTime(start: startTime, end: endTime)
         
         let record = WorkoutRecordForDate(emoji: emoji,
                                           workoutName: workoutName,
                                           startTime: "\(startTime):00",
                                           endTime: "\(endTime):00",
                                           intensity: getIntensityText(),
-                                          comment: comment)
+                                          comment: comment,
+                                          workoutTime: workoutTime)
         
         if let idx = idx { // 운동 기록 수정
             viewModel.update(for: date, idx: idx, record: record)
@@ -424,6 +424,17 @@ extension AddWorkoutViewController {
         
         return dateString
     }
+    
+    func getWorkoutTime(start: String, end: String) -> Int {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        let startTime = dateFormatter.date(from: start)!.timeIntervalSince1970
+        let endTime = dateFormatter.date(from: end)!.timeIntervalSince1970
+        
+        let betweenTime = (endTime - startTime) / 60
+        
+        return Int(betweenTime)
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -440,6 +451,7 @@ extension AddWorkoutViewController: UITextFieldDelegate {
 extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
     func addWorkoutRecordSuccess() {
         print(#function)
+        self.dismiss(animated: true)
     }
     
     func addWorkoutRecordFail() {
