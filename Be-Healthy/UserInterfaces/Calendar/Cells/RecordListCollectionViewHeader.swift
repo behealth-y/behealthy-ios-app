@@ -29,6 +29,6 @@ class RecordListCollectionViewHeader: UICollectionReusableView {
         let dateString = dateFormatter.string(from: currentDate!)
         
         titleLabel.text = "\(dateString) 운동 기록"
-        timeLabel.text = "총 \(time)분"
+        timeLabel.text = "총 \(time.minuteToTime())"
     }
 }

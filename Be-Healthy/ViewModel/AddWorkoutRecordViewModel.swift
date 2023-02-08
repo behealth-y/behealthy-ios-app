@@ -40,11 +40,13 @@ class AddWorkoutRecordViewModel {
             if let statusCode = data.statusCode {
                 switch statusCode {
                 case 200:
-//                    if self?.repository.records[date] != nil {
                     self?.repository.addWorkoutRecord(date: date, record: record)
-//                    } else {
-//                        self?.repository.records[date] = WorkoutRecord(workOutRecords: [record], totalWorkoutTime: 0, callAPI: true)
-//                    }
+                    
+                    if let recordForDate = self?.repository.records[date] {
+                        let workoutTime = record.workoutTime ?? 0
+                        
+                        self?.repository.setWorkoutTime(date: date, time: recordForDate.totalWorkoutTime + workoutTime)
+                    }
                     
                     self?.delegate?.addWorkoutRecordSuccess()
                 default:

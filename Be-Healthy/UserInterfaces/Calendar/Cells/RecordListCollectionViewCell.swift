@@ -55,6 +55,7 @@ extension RecordListCollectionViewCell {
         
         let workoutTime = data.workoutTime ?? 0
         
+        // TODO: 작성 후 idx 값 못 가져와서 셀 > 더보기 버튼 안눌리는 문제 해결
         idx = data.idx
         emojiLabel.text = data.emoji
         workoutNameLabel.text = data.workoutName
@@ -64,6 +65,7 @@ extension RecordListCollectionViewCell {
     // MARK: Actions
     /// 더 보기 버튼 클릭 시 편집 / 삭제 선택 메뉴 노출
     @IBAction func didTapMoreButton(_ sender: UIButton) {
+        print("\(#function) ::: \(idx)")
         guard let idx = idx else { return }
         delegate?.showMoreMenu(idx)
     }

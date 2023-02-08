@@ -277,7 +277,6 @@ extension AddWorkoutViewController {
         let date = dateTextField.text ?? ""
         let startTime = startTimeTextField.text ?? ""
         let endTime = endTimeTextField.text ?? ""
-        let comment = commentTextField.text ?? ""
         
         if type.count > 0 && date.count > 0 && startTime.count > 0 && endTime.count > 0 && startTime <= endTime {
             submitButton.isEnabled = true

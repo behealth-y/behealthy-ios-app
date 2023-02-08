@@ -249,8 +249,18 @@ extension CalendarViewController {
         repository.$records
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] data in
-                self?.calendarView.reloadData()
-                self?.collectionView.reloadData()
+                guard let self = self else { return }
+                
+                // 현재 선택된 날짜의 운동 시간과 저장된 운동 시간이 다를 경우 처리
+                let _ = data.filter({ $0.key == self.currentDate }).map({
+                    if self.currentDateTotalTime != $0.value.totalWorkoutTime {
+                        self.currentDateTotalTime = $0.value.totalWorkoutTime
+                    }
+                })
+                
+                self.calendarView.reloadData()
+                self.collectionView.reloadData()
+                
 //                print(data)
             })
             .store(in: &self.cancellables)
@@ -383,11 +393,16 @@ extension CalendarViewController: UICollectionViewDelegate, UICollectionViewData
             return UICollectionReusableView()
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("\(#function) :: \(indexPath.item)")
+    }
 }
 
 // MARK: - RecordListCollectionViewCellDelegate
 extension CalendarViewController: RecordListCollectionViewCellDelegate {
     func showMoreMenu(_ idx: Int) {
+        print("\(#function) ::: \(idx)")
         let actionSheet = Helper().actionSheet(delete: true) { [weak self] action in
             switch action {
             case .edit:

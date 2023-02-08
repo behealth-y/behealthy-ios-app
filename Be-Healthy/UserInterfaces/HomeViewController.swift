@@ -9,30 +9,74 @@ import UIKit
 import Then
 import SnapKit
 import Charts
+import Combine
 
 class HomeViewController: UIViewController {
-    /// scrollView 변수 초기화
-    lazy var scrollView = UIScrollView()
+    private let repository = RecordsRepository.shared
+    
+    private var cancellables: Set<AnyCancellable> = .init()
+    
+    private var currentDate: String = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let dateString = dateFormatter.string(from: Date())
+        
+        return dateString
+    }()
+    
+    private let scrollView = UIScrollView()
+    
+    private let stackView = UIStackView().then {
+        $0.axis = .vertical
+        $0.alignment = .fill
+        $0.distribution = .fill
+        $0.spacing = 26
+    }
+    
+    // MARK: - 오늘의 운동 뷰
+    private lazy var todayWorkOutView = generateTodayWorkOutView()
+
+    // 타이틀
+    private let todayWorkOutTitleLabel = UILabel().then {
+        $0.text = "오늘의 운동🏃‍♂️"
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
+        $0.textColor = UIColor.init(named: "mainColor")
+    }
+    
+    // 운동 시간
+    private lazy var todayWorkOutTimeLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 38.0, weight: .bold)
+        $0.attributedText = getTodayWorkoutTime(0)
+    }
+    
+    // MARK: - 하루 운동 목표 달성률 뷰
+    private lazy var goalAchieveRateView = generateGoalAchieveRateView()
+    
+    // MARK: - 이번 주 평균 운동 시간 뷰
+    private lazy var averageWorkOutTimeView = generateAverageWorkOutTimeView()
     
     // 이번 주 평균 운동 시간 차트
-    lazy var barChartView = BarChartView()
+    private let barChartView = BarChartView()
     
     // 이번 주 운동 시간 변수
     var weekDays: [String] = ["월", "화", "수", "목", "금", "토", "일"]
     var time: [Double] = [30, 60, 90, 120, 180, 240, 300]
     
+    // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
 //        setupNavigationBar()
         setupLayout()
+        setupData()
         setupChart(dataPoints: weekDays, values: time)
     }
 }
 
-// MARK: - 레이아웃 설정 관련
+// MARK: - Extensions
 extension HomeViewController {
+    // MARK: View
     /// 네비게이션 바 설정
-    fileprivate func setupNavigationBar() {
+    private func setupNavigationBar() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.shadowColor = .clear
@@ -48,15 +92,8 @@ extension HomeViewController {
     }
     
     /// 레이아웃 설정
-    fileprivate func setupLayout() {
+    private func setupLayout() {
         view.backgroundColor = .white
-        
-        let stackView = UIStackView().then {
-            $0.axis = .vertical
-            $0.alignment = .fill
-            $0.distribution = .fill
-            $0.spacing = 26
-        }
         
         view.addSubview(stackView)
         
@@ -66,21 +103,13 @@ extension HomeViewController {
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
         
-        /// 오늘의 운동 뷰
-        let todayWorkOutView = generateTodayWorkOutView()
-
-        /// 하루 운동 목표 달성률 뷰
-        let goalAchieveRateView = generateGoalAchieveRateView()
-        
-        /// 이번 주 평균 운동 시간 뷰
-        let averageWorkOutTimeView = generateAverageWorkOutTimeView()
-        
-        stackView.addArrangedSubview(todayWorkOutView)
-        stackView.addArrangedSubview(goalAchieveRateView)
-        stackView.addArrangedSubview(averageWorkOutTimeView)
+        [todayWorkOutView, goalAchieveRateView, averageWorkOutTimeView].forEach {
+            stackView.addArrangedSubview($0)
+        }
     }
     
-    fileprivate func generateTodayWorkOutView() -> UIView {
+    /// 오늘의 운동 뷰
+    private func generateTodayWorkOutView() -> UIView {
         let view = UIView().then {
             $0.backgroundColor = .white
             $0.layer.masksToBounds = false
@@ -95,35 +124,17 @@ extension HomeViewController {
             $0.height.equalTo(139)
         }
         
-        /// 타이틀
-        let titleLabel = UILabel().then {
-            $0.text = "오늘의 운동🏃‍♂️"
-            $0.font = .systemFont(ofSize: 16, weight: .semibold)
-            $0.textColor = UIColor.init(named: "mainColor")
+        [todayWorkOutTitleLabel, todayWorkOutTimeLabel].forEach {
+            view.addSubview($0)
         }
         
-        view.addSubview(titleLabel)
-        
-        titleLabel.snp.makeConstraints {
+        todayWorkOutTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(20)
         }
         
-        let attributeString = NSMutableAttributedString(string: "0시간 0분")
-        
-        ["시간", "분"].forEach {
-            attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 22.0, weight: .semibold), range: ("0시간 0분" as NSString).range(of: $0))
-        }
-        
-        let timeLabel = UILabel().then {
-            $0.font = .systemFont(ofSize: 38.0, weight: .bold)
-            $0.attributedText = attributeString
-        }
-        
-        view.addSubview(timeLabel)
-        
-        timeLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+        todayWorkOutTimeLabel.snp.makeConstraints {
+            $0.top.equalTo(todayWorkOutTitleLabel.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
             $0.bottom.lessThanOrEqualToSuperview().inset(20)
         }
@@ -131,7 +142,8 @@ extension HomeViewController {
         return view
     }
     
-    fileprivate func generateGoalAchieveRateView() -> UIView {
+    /// 목표 달성률
+    private func generateGoalAchieveRateView() -> UIView {
         let view = UIView().then {
             $0.backgroundColor = .white
             $0.layer.masksToBounds = false
@@ -223,7 +235,8 @@ extension HomeViewController {
         return view
     }
     
-    fileprivate func generateAverageWorkOutTimeView() -> UIView {
+    /// 주간 운동 시간 통계
+    private func generateAverageWorkOutTimeView() -> UIView {
         let view = UIView().then {
             $0.backgroundColor = UIColor.init(named: "mainColor")
             $0.layer.masksToBounds = false
@@ -272,11 +285,52 @@ extension HomeViewController {
         
         return view
     }
-}
-
-// MARK: 이번 주 평균 운동 시간 차트 설정
-extension HomeViewController {
-    func setupChart(dataPoints: [String], values: [Double]) {
+    
+    // MARK: Data
+    private func setupData() {
+        repository.$records
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] data in
+                guard let self = self else { return }
+                if let totalWorkoutTime = data[self.currentDate]?.totalWorkoutTime {
+                    self.todayWorkOutTimeLabel.attributedText = self.getTodayWorkoutTime(totalWorkoutTime)
+                }
+            })
+            .store(in: &self.cancellables)
+    }
+    
+    // MARK: Actions
+    /// 목표 달성률 편집 버튼 클릭 시
+    @objc private func didTapEditButton(sender: UIButton) {
+        let actionSheet = Helper().actionSheet() { [weak self] _ in
+            self?.moveGoalTimeSettingView()
+        }
+        
+        present(actionSheet, animated: true)
+    }
+    
+    /// 목표 운동 시간 설정 화면 이동
+    private func moveGoalTimeSettingView() {
+        let vc = GoalTimeSettingView(openProcess: .home)
+        vc.hidesBottomBarWhenPushed = true
+        
+        self.present(vc, animated: true)
+    }
+    
+    // MARK: Helpers
+    private func getTodayWorkoutTime(_ time: Int) -> NSMutableAttributedString {
+        let timeString = time.minuteToTime()
+        let attributeString = NSMutableAttributedString(string: timeString)
+        
+        ["시간", "분"].forEach {
+            attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 22.0, weight: .semibold), range: (timeString as NSString).range(of: $0))
+        }
+        
+        return attributeString
+    }
+    
+    /// 이번 주 평균 운동 시간 차트 설정
+    private func setupChart(dataPoints: [String], values: [Double]) {
         var dataEntries: [BarChartDataEntry] = []
         for i in 0 ..< dataPoints.count {
             let dataEntry = BarChartDataEntry(x: Double(i), y: values[i])
@@ -327,24 +381,6 @@ extension HomeViewController {
         
         // 범례
         barChartView.legend.enabled = false
-    }
-    
-    // MARK: Actions
-    /// 목표 달성률 편집 버튼 클릭 시
-    @objc private func didTapEditButton(sender: UIButton) {
-        let actionSheet = Helper().actionSheet() { [weak self] _ in
-            self?.moveGoalTimeSettingView()
-        }
-        
-        present(actionSheet, animated: true)
-    }
-    
-    /// 목표 운동 시간 설정 화면 이동
-    private func moveGoalTimeSettingView() {
-        let vc = GoalTimeSettingView(openProcess: .home)
-        vc.hidesBottomBarWhenPushed = true
-        
-        self.present(vc, animated: true)
     }
 }
 
