@@ -22,6 +22,8 @@ protocol AddWorkoutRecordViewModelDelegate: NSObject {
     func addWorkoutRecordFail()
     func updateWorkoutRecordSuccess()
     func updateWorkoutRecordFail()
+    func getWorkoutRecordSuccess(workoutLogId: Int, name: String, date: String?, emoji: String, startTime: String?, endTime: String?, intensity: String?, comment: String?)
+    func getWorkoutRecordFail()
 }
 
 // MARK: - 운동 기록 내역 (전체)
@@ -65,18 +67,42 @@ class AddWorkoutRecordViewModel {
         }
     }
     
-    func update(for date: String, idx: Int, record: WorkoutRecordForDate) {
+    /// 운동 기록 수정
+    func update(for date: String, logDate: String, idx: Int, record: WorkoutRecordForDate) {
         service.updateWorkoutRecord(date: date, record: record) { [weak self] data in
             if let statusCode = data.statusCode {
                 switch statusCode {
                 case 200:
-                    self?.repository.updateWorkoutRecord(date: date, record: record)
+                    self?.repository.updateWorkoutRecord(date: date, logDate: logDate, record: record)
                     
                     self?.delegate?.updateWorkoutRecordSuccess()
                 default:
                     guard let errorData = data.errorData else { return }
                     print(errorData)
                     self?.delegate?.updateWorkoutRecordFail()
+                }
+            }
+        }
+    }
+    
+    func get(idx: Int) {
+        service.getWorkoutRecord(idx) { [weak self] data in
+            if let statusCode = data.statusCode {
+                switch statusCode {
+                case 200:
+                    self?.delegate?.getWorkoutRecordSuccess(workoutLogId: data.result.workoutLogId,
+                                                            name: data.result.name,
+                                                            date: data.result.date,
+                                                            emoji: data.result.emoji,
+                                                            startTime: data.result.startTime,
+                                                            endTime: data.result.endTime,
+                                                            intensity: data.result.intensity,
+                                                            comment: data.result.comment)
+                default:
+                    guard let errorCode = data.result.errorCode, let reason = data.result.reason else { return }
+                    print(errorCode)
+                    print(reason)
+                    self?.delegate?.getWorkoutRecordFail()
                 }
             }
         }

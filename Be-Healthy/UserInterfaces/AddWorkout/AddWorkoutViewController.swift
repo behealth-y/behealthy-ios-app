@@ -20,6 +20,9 @@ class AddWorkoutViewController: UIViewController {
     // 선택된 운동 강도 버튼의 tag
     private var intensity: Int = 0
     
+    // 수정인 경우 API 통해 얻어온 날짜값 저장
+    private var logDate: String?
+    
     // 폼 > 이모지 선택 버튼 변수 초기화
     private lazy var emojiTextField = EmojiTextField().then {
         $0.layer.borderColor = UIColor.border.cgColor
@@ -288,7 +291,8 @@ extension AddWorkoutViewController {
     // MARK: Data
     private func setupData() {
         guard let idx = idx else { return }
-        // TODO: 운동 기록 조회 (수정 폼)
+        
+        viewModel.get(idx: idx)
     }
     
     // MARK: Actions
@@ -378,7 +382,8 @@ extension AddWorkoutViewController {
                                           workoutTime: workoutTime)
         
         if let idx = idx { // 운동 기록 수정
-            viewModel.update(for: date, idx: idx, record: record)
+            guard let logDate = logDate else { return }
+            viewModel.update(for: date, logDate: logDate, idx: idx, record: record)
         } else { // 운동 기록 추가
             viewModel.insert(for: date, record: record)
         }
@@ -395,6 +400,19 @@ extension AddWorkoutViewController {
             return "EASY"
         default:
             return "EXTREMELY_HARD"
+        }
+    }
+    
+    func getIntensity(_ string: String) -> Int {
+        switch string {
+        case "HARD":
+            return 1
+        case "NORMAL":
+            return 2
+        case "EASY":
+            return 3
+        default:
+            return 0
         }
     }
     
@@ -462,6 +480,34 @@ extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
     }
     
     func updateWorkoutRecordFail() {
+        print(#function)
+    }
+    
+    func getWorkoutRecordSuccess(workoutLogId: Int, name: String, date: String?, emoji: String, startTime: String?, endTime: String?, intensity: String?, comment: String?) {
+        print(#function)
+        
+        emojiTextField.text = emoji
+        typeTextField.text = name
+        dateTextField.text = date
+        startTimeTextField.text = startTime
+        endTimeTextField.text = endTime
+        commentTextField.text = comment
+        
+        logDate = date
+        
+        self.intensity = getIntensity(intensity ?? "EXTREMELY_HARD")
+        intensityButtons.enumerated().forEach {
+            if $1.tag == self.intensity {
+                $1.isSelected = true
+                $1.backgroundColor = UIColor(hexFromString: "#2E2E2E")
+            } else {
+                $1.isSelected = false
+                $1.backgroundColor = .clear
+            }
+        }
+    }
+    
+    func getWorkoutRecordFail() {
         print(#function)
     }
 }

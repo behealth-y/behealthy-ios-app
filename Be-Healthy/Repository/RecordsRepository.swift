@@ -53,8 +53,13 @@ final class RecordsRepository {
         }
     }
     
-    func updateWorkoutRecord(date: String, record: WorkoutRecordForDate) {
-        self.records[date]?.update(record: record)
+    func updateWorkoutRecord(date: String, logDate: String?, record: WorkoutRecordForDate) {
+        if let logDate = logDate, let idx = record.idx, date != logDate {
+            self.records[logDate]?.delete(idx: idx)
+            self.addWorkoutRecord(date: date, record: record)
+        } else {
+            self.records[date]?.update(record: record)
+        }
     }
     
     func deleteWorkoutRecord(date: String, idx: Int) {

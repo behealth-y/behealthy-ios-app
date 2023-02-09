@@ -55,3 +55,21 @@ struct WorkoutLog: Codable {
     let emoji: String
     let workoutTime: Int
 }
+
+// MARK: - 특정 idx 기준 운동 기록
+struct WorkoutRecordResult: Codable {
+    let statusCode: Int?
+    let result: WorkoutRecordResultData
+}
+
+struct WorkoutRecordResultData: Codable {
+    let workoutLogId: Int
+    let name: String
+    let date: String?
+    let emoji: String
+    let startTime: String?
+    let endTime: String?
+    let intensity: String?
+    let comment: String?
+    let errorCode, reason: String?
+}

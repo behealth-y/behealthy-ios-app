@@ -205,4 +205,32 @@ final class WorkoutService {
                 completion(data)
             }
     }
+    
+    /// 특정 idx 기준 운동 기록
+    func getWorkoutRecord(_ idx: Int, completion: @escaping (WorkoutRecordResult) -> Void) {
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
+        
+        let url = URL(string: "\(Config().apiUrl)/api/workout-logs/\(idx)")!
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(jwt)"
+        ]
+    
+        print(url)
+        print(headers)
+        AF.request(url, method: .get, headers: headers)
+            .responseDecodable(of: WorkoutRecordResultData.self) { response in
+                guard let result = response.value else { return }
+                
+                print(result)
+                
+                let data = WorkoutRecordResult(
+                    statusCode: response.response?.statusCode,
+                    result: result)
+                
+                print(data)
+                completion(data)
+            }
+    }
 }
