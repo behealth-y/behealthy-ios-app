@@ -67,7 +67,7 @@ final class WorkoutService {
     
     // MARK: 운동 기록
     /// 운동 기록 추가
-    func addWorkoutRecord(date: String, record: WorkoutRecordForDate, completion: @escaping (Result) -> Void) {
+    func addWorkoutRecord(date: String, record: WorkoutRecordForDate, completion: @escaping (AddWorkoutRecordResult) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
         let url = URL(string: "\(Config().apiUrl)/api/workout-logs")!
@@ -88,12 +88,14 @@ final class WorkoutService {
         ]
     
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ResultData.self) { response in
-                if let data = response.value {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
-                } else {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
-                }
+            .responseDecodable(of: AddWorkoutRecordResultData.self) { response in
+                guard let result = response.value else { return }
+                
+                let data = AddWorkoutRecordResult(
+                    statusCode: response.response?.statusCode,
+                    result: result)
+                
+                completion(data)
             }
     }
     

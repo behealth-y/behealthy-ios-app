@@ -41,6 +41,16 @@ class CalendarViewModel {
             if let statusCode = data.statusCode {
                 switch statusCode {
                 case 200:
+                    // TODO: 해당 소스 개선 필요
+                    if let recordForDate = self?.repository.records[date] {
+                        let records = recordForDate.workOutRecords
+                        
+                        let times = records.filter({ $0.idx == idx }).map({ $0.workoutTime })
+                        let time = times[0] ?? 0
+                        
+                        self?.repository.setWorkoutTime(date: date, time: recordForDate.totalWorkoutTime - time)
+                    }
+                    
                     self?.repository.deleteWorkoutRecord(date: date, idx: idx)
                     
                     self?.delegate?.deleteWorkoutRecordSuccess()

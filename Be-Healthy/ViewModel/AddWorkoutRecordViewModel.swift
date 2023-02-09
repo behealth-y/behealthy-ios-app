@@ -40,6 +40,12 @@ class AddWorkoutRecordViewModel {
             if let statusCode = data.statusCode {
                 switch statusCode {
                 case 200:
+                    guard let idx = data.result.id else { return }
+                    
+                    // TODO: 운동 기록 추가 시 받아온 idx값을 저장하는 더 좋은 방법 고민 필요
+                    var record = record
+                    record.idx = idx
+                    
                     self?.repository.addWorkoutRecord(date: date, record: record)
                     
                     if let recordForDate = self?.repository.records[date] {
@@ -50,8 +56,9 @@ class AddWorkoutRecordViewModel {
                     
                     self?.delegate?.addWorkoutRecordSuccess()
                 default:
-                    guard let errorData = data.errorData else { return }
-                    print(errorData)
+                    guard let errorCode = data.result.errorCode, let reason = data.result.reason else { return }
+                    print(errorCode)
+                    print(reason)
                     self?.delegate?.addWorkoutRecordFail()
                 }
             }

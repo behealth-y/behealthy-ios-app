@@ -7,7 +7,18 @@
 
 import Foundation
 
-// MARK: 특정 년/월 기준 운동 시간 기록
+// MARK: - 운동 시간 기록 추가
+struct AddWorkoutRecordResult: Codable {
+    let statusCode: Int?
+    let result: AddWorkoutRecordResultData
+}
+
+struct AddWorkoutRecordResultData: Codable {
+    let id: Int?
+    let errorCode, reason: String?
+}
+
+// MARK: - 특정 년/월 기준 운동 시간 기록
 struct WorkoutTimesResult: Codable {
     let statusCode: Int?
     let result: WorkoutTimesResultData
@@ -25,7 +36,7 @@ struct WorkoutTimeLog: Codable {
     let totalWorkoutTime: Int
 }
 
-// MARK: 특정 날짜 기준 운동 기록
+// MARK: - 특정 날짜 기준 운동 기록
 struct WorkoutRecordsResult: Codable {
     let statusCode: Int?
     let result: WorkoutRecordsResultData

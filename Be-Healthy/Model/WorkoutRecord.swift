@@ -31,7 +31,7 @@ struct WorkoutRecord {
 }
 
 struct WorkoutRecordForDate {
-    let idx: Int?
+    var idx: Int?
     var emoji: String
     var workoutName: String
     var intensity: String?
