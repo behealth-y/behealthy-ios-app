@@ -23,6 +23,11 @@ class AddWorkoutViewController: UIViewController {
     // 수정인 경우 API 통해 얻어온 날짜값 저장
     private var logDate: String?
     
+    // datepicker default 값
+    private var datePickerDefaultValue: String?
+    private var startTimePickerDefaultValue: String?
+    private var endTimePickerDefaultValue: String?
+    
     // 폼 > 이모지 선택 버튼 변수 초기화
     private lazy var emojiTextField = EmojiTextField().then {
         $0.layer.borderColor = UIColor.border.cgColor
@@ -493,8 +498,6 @@ extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
         endTimeTextField.text = endTime
         commentTextField.text = comment
         
-        logDate = date
-        
         self.intensity = getIntensity(intensity ?? "EXTREMELY_HARD")
         intensityButtons.enumerated().forEach {
             if $1.tag == self.intensity {
@@ -503,6 +506,54 @@ extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
             } else {
                 $1.isSelected = false
                 $1.backgroundColor = .clear
+            }
+        }
+        
+        logDate = date
+        datePickerDefaultValue = date
+        startTimePickerDefaultValue = startTime
+        endTimePickerDefaultValue = endTime
+        
+        // TODO: 수정 필요
+        if let datePickerDefaultValue = datePickerDefaultValue, let datePicker = self.dateTextField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "YYYY-MM-dd"
+
+            let date = dateFormatter.date(from: datePickerDefaultValue)
+
+            datePicker.date = date!
+        }
+        
+        if let startTimePickerDefaultValue = startTimePickerDefaultValue, let datePicker = self.dateTextField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm:ss"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            
+            if let date = dateFormatter.date(from: startTimePickerDefaultValue) {
+                print(date)
+                datePicker.date = date
+            }
+        }
+        
+        if let endTimePickerDefaultValue = endTimePickerDefaultValue, let datePicker = self.dateTextField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm:ss"
+            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+            
+            if let date = dateFormatter.date(from: endTimePickerDefaultValue) {
+//                dateFormatter.dateFormat = "YYYY-mm-dd 00:00:00"
+//
+//                let startDateString = dateFormatter.string(from: Date())
+//                let startDate = dateFormatter.date(from: startDateString)
+//
+//                dateFormatter.dateFormat = "YYYY-mm-dd 23:59:59"
+//
+//                let endDateString = dateFormatter.string(from: Date())
+//                let endDate = dateFormatter.date(from: endDateString)
+                
+//                datePicker.minimumDate = startDate
+//                datePicker.maximumDate = endDate
+                datePicker.date = date
             }
         }
     }
