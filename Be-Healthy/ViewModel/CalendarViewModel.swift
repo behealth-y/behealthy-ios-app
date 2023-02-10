@@ -86,6 +86,7 @@ class CalendarViewModel {
         }
     }
     
+    // TODO: 시간순 정렬
     /// 특정 날짜 기준 운동 기록 조회
     func get(date: String) {
         let record = repository.records[date]
