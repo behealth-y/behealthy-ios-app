@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
         $0.axis = .vertical
         $0.alignment = .fill
         $0.distribution = .fill
-        $0.spacing = 26
+        $0.spacing = 30
     }
     
     // MARK: - 오늘의 운동 뷰
@@ -255,9 +255,9 @@ extension HomeViewController {
             $0.layer.shadowRadius = 5.0
         }
         
-        view.snp.makeConstraints {
-            $0.height.equalTo(286)
-        }
+//        view.snp.makeConstraints {
+//            $0.height.equalTo(286)
+//        }
         
         [averageWorkOutTimeTitleLabel, barChartView].forEach {
             view.addSubview($0)
@@ -367,7 +367,7 @@ extension HomeViewController {
         barChartView.leftAxis.drawGridLinesEnabled = false
         barChartView.leftAxis.labelTextColor = .white
 //        barChartView.leftAxis.axisMaximum = 300
-//        barChartView.leftAxis.axisMinimum = 0
+        barChartView.leftAxis.axisMinimum = 0
         barChartView.leftAxis.axisLineColor = .white
         
         barChartView.leftAxis.valueFormatter = LeftAxisValueFormatter()
