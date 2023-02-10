@@ -37,8 +37,9 @@ final class RecordsRepository {
         }
     }
     
-    func setWorkoutTime(date: String, time: Int) {
-        if let _ = records[date] {
+    func setWorkoutTime(date: String, time: Int = 0) {
+        if let record = records[date] {
+            let time = record.workOutRecords.flatMap({ $0.workoutTime }).reduce(0) { $0 + $1 }
             records[date]?.totalWorkoutTime = time
         } else {
             records[date] = WorkoutRecord(workOutRecords: [], totalWorkoutTime: time, callAPI: false)
@@ -54,11 +55,13 @@ final class RecordsRepository {
     }
     
     func updateWorkoutRecord(date: String, logDate: String?, record: WorkoutRecordForDate) {
-        if let logDate = logDate, let idx = record.idx, date != logDate {
+        guard let logDate = logDate, let idx = record.idx else { return }
+        
+        if date != logDate {
             self.records[logDate]?.delete(idx: idx)
             self.addWorkoutRecord(date: date, record: record)
         } else {
-            self.records[date]?.update(record: record)
+            self.records[date]?.update(idx: idx, record: record)
         }
     }
     

@@ -50,11 +50,7 @@ class AddWorkoutRecordViewModel {
                     
                     self?.repository.addWorkoutRecord(date: date, record: record)
                     
-                    if let recordForDate = self?.repository.records[date] {
-                        let workoutTime = record.workoutTime ?? 0
-                        
-                        self?.repository.setWorkoutTime(date: date, time: recordForDate.totalWorkoutTime + workoutTime)
-                    }
+                    self?.repository.setWorkoutTime(date: date)
                     
                     self?.delegate?.addWorkoutRecordSuccess()
                 default:
@@ -68,13 +64,29 @@ class AddWorkoutRecordViewModel {
     }
     
     /// 운동 기록 수정
-    func update(for date: String, logDate: String, idx: Int, record: WorkoutRecordForDate) {
+    func update(for date: String, logDate: String, record: WorkoutRecordForDate) {
         service.updateWorkoutRecord(date: date, record: record) { [weak self] data in
             if let statusCode = data.statusCode {
                 switch statusCode {
                 case 200:
                     self?.repository.updateWorkoutRecord(date: date, logDate: logDate, record: record)
                     
+                    if let recordForDate = self?.repository.records[date] {
+                        print(recordForDate)
+                        
+                        let time = record.workoutTime ?? 0
+
+                        if date != logDate {
+                            print("다른 날 ::: \(date), \(logDate)")
+                            
+                            self?.repository.setWorkoutTime(date: logDate)
+                            self?.repository.setWorkoutTime(date: date)
+                        } else {
+                            print("같은 날 ::: \(date), \(logDate)")
+                            self?.repository.setWorkoutTime(date: date)
+                        }
+                    }
+
                     self?.delegate?.updateWorkoutRecordSuccess()
                 default:
                     guard let errorData = data.errorData else { return }

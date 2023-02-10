@@ -14,11 +14,14 @@ struct WorkoutRecord {
     
     mutating func add(record: WorkoutRecordForDate) {
         print(#function)
-        workOutRecords.append(record)
+        
+        if workOutRecords.filter({ $0.idx == record.idx }).isEmpty {
+            workOutRecords.append(record)
+        }
     }
     
-    mutating func update(record: WorkoutRecordForDate) {
-        let idx = workOutRecords.enumerated().filter({ $0.element.idx == record.idx }).map({ $0.offset })[0]
+    mutating func update(idx: Int, record: WorkoutRecordForDate) {
+        let idx = workOutRecords.enumerated().filter({ $0.element.idx == idx }).map({ $0.offset })[0]
         
         workOutRecords[idx] = record
     }
@@ -42,6 +45,17 @@ struct WorkoutRecordForDate {
     
     init(emoji: String, workoutName: String, startTime: String, endTime: String, intensity: String, comment: String, workoutTime: Int) {
         self.idx = nil
+        self.emoji = emoji
+        self.workoutName = workoutName
+        self.startTime = startTime
+        self.endTime = endTime
+        self.intensity = intensity
+        self.comment = comment
+        self.workoutTime = workoutTime
+    }
+    
+    init(workoutId: Int, emoji: String, workoutName: String, startTime: String, endTime: String, intensity: String, comment: String, workoutTime: Int) {
+        self.idx = workoutId
         self.emoji = emoji
         self.workoutName = workoutName
         self.startTime = startTime

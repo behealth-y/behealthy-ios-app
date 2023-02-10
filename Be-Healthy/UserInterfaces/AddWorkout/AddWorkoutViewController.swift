@@ -378,7 +378,7 @@ extension AddWorkoutViewController {
         let comment = commentTextField.text ?? ""
         let workoutTime = getWorkoutTime(start: startTime, end: endTime)
         
-        let record = WorkoutRecordForDate(emoji: emoji,
+        var record = WorkoutRecordForDate(emoji: emoji,
                                           workoutName: workoutName,
                                           startTime: "\(startTime):00",
                                           endTime: "\(endTime):00",
@@ -387,8 +387,11 @@ extension AddWorkoutViewController {
                                           workoutTime: workoutTime)
         
         if let idx = idx { // 운동 기록 수정
+            record.idx = idx
+            
             guard let logDate = logDate else { return }
-            viewModel.update(for: date, logDate: logDate, idx: idx, record: record)
+            
+            viewModel.update(for: date, logDate: logDate, record: record)
         } else { // 운동 기록 추가
             viewModel.insert(for: date, record: record)
         }
@@ -482,6 +485,7 @@ extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
     
     func updateWorkoutRecordSuccess() {
         print(#function)
+        self.dismiss(animated: true)
     }
     
     func updateWorkoutRecordFail() {
@@ -490,12 +494,30 @@ extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
     
     func getWorkoutRecordSuccess(workoutLogId: Int, name: String, date: String?, emoji: String, startTime: String?, endTime: String?, intensity: String?, comment: String?) {
         print(#function)
+        let dateFormatter = DateFormatter()
+        
+        logDate = date
+        datePickerDefaultValue = date
+        startTimePickerDefaultValue = startTime
+        endTimePickerDefaultValue = endTime
         
         emojiTextField.text = emoji
         typeTextField.text = name
-        dateTextField.text = date
-        startTimeTextField.text = startTime
-        endTimeTextField.text = endTime
+        
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let date = dateFormatter.date(from: date!)
+        
+        dateFormatter.dateFormat = "HH:mm:ss"
+        let startTimeDate = dateFormatter.date(from: startTime!)
+        let endTimeDate = dateFormatter.date(from: endTime!)
+        
+        dateFormatter.dateFormat = "YYYY년 MM월 dd일"
+        dateTextField.text = dateFormatter.string(from: date!)
+        
+        dateFormatter.dateFormat = "HH시 mm분"
+        startTimeTextField.text = dateFormatter.string(from: startTimeDate!)
+        endTimeTextField.text = dateFormatter.string(from: endTimeDate!)
+        
         commentTextField.text = comment
         
         self.intensity = getIntensity(intensity ?? "EXTREMELY_HARD")
@@ -509,11 +531,6 @@ extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
             }
         }
         
-        logDate = date
-        datePickerDefaultValue = date
-        startTimePickerDefaultValue = startTime
-        endTimePickerDefaultValue = endTime
-        
         // TODO: 수정 필요
         if let datePickerDefaultValue = datePickerDefaultValue, let datePicker = self.dateTextField.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
@@ -523,37 +540,24 @@ extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
 
             datePicker.date = date!
         }
-        
-        if let startTimePickerDefaultValue = startTimePickerDefaultValue, let datePicker = self.dateTextField.inputView as? UIDatePicker {
+
+        if let startTimePickerDefaultValue = startTimePickerDefaultValue, let datePicker = self.startTimeTextField.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "HH:mm:ss"
-            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-            
+
             if let date = dateFormatter.date(from: startTimePickerDefaultValue) {
-                print(date)
                 datePicker.date = date
+                
             }
         }
         
-        if let endTimePickerDefaultValue = endTimePickerDefaultValue, let datePicker = self.dateTextField.inputView as? UIDatePicker {
+        if let endTimePickerDefaultValue = endTimePickerDefaultValue, let datePicker = self.endTimeTextField.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "HH:mm:ss"
-            dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-            
+
             if let date = dateFormatter.date(from: endTimePickerDefaultValue) {
-//                dateFormatter.dateFormat = "YYYY-mm-dd 00:00:00"
-//
-//                let startDateString = dateFormatter.string(from: Date())
-//                let startDate = dateFormatter.date(from: startDateString)
-//
-//                dateFormatter.dateFormat = "YYYY-mm-dd 23:59:59"
-//
-//                let endDateString = dateFormatter.string(from: Date())
-//                let endDate = dateFormatter.date(from: endDateString)
-                
-//                datePicker.minimumDate = startDate
-//                datePicker.maximumDate = endDate
                 datePicker.date = date
+                
             }
         }
     }

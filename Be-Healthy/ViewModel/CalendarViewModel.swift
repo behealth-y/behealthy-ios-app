@@ -22,7 +22,7 @@ protocol CalendarViewModelDelegate: NSObject {
     func deleteWorkoutRecordFail()
     func getForYearAndMonthSuccess()
     func getForYearAndMonthFail()
-    func getForDateSuccess(date: String, time: Int?)
+    func getForDateSuccess(date: String)
     func getForDateFail()
 }
 
@@ -41,18 +41,8 @@ class CalendarViewModel {
             if let statusCode = data.statusCode {
                 switch statusCode {
                 case 200:
-                    // TODO: 해당 소스 개선 필요
-                    if let recordForDate = self?.repository.records[date] {
-                        let records = recordForDate.workOutRecords
-                        
-                        let times = records.filter({ $0.idx == idx }).map({ $0.workoutTime })
-                        let time = times[0] ?? 0
-                        
-                        self?.repository.setWorkoutTime(date: date, time: recordForDate.totalWorkoutTime - time)
-                    }
-                    
                     self?.repository.deleteWorkoutRecord(date: date, idx: idx)
-                    
+                    self?.repository.setWorkoutTime(date: date)
                     self?.delegate?.deleteWorkoutRecordSuccess()
                 default:
                     guard let errorData = data.errorData else { return }
@@ -91,7 +81,7 @@ class CalendarViewModel {
     func get(date: String) {
         let record = repository.records[date]
         
-        if record == nil || (record != nil && record!.workOutRecords.isEmpty && !record!.callAPI) {
+        if record == nil || (record != nil && !record!.callAPI) {
             print("API 호출")
             service.getWorkoutRecords(date: date) { [weak self] data in
                 if let statusCode = data.statusCode {
@@ -108,12 +98,13 @@ class CalendarViewModel {
                                 workoutTime: $0.workoutTime)
                             
                             print(record)
+                            
                             self?.repository.addWorkoutRecord(date: date, record: record)
                         }
                         
                         self?.repository.setCallAPI(date: date, yn: true)
-                        
-                        self?.delegate?.getForDateSuccess(date: date, time: data.result.totalWorkoutTime)
+                        self?.repository.setWorkoutTime(date: date)
+                        self?.delegate?.getForDateSuccess(date: date)
                     default:
                         guard let errorCode = data.result.errorCode, let reason = data.result.reason else { return }
                         print(errorCode)
@@ -125,7 +116,8 @@ class CalendarViewModel {
         } else {
             print("API 호출 안함")
             guard let record = repository.records[date] else { return }
-            self.delegate?.getForDateSuccess(date: date, time: record.totalWorkoutTime)
+            self.repository.setWorkoutTime(date: date)
+            self.delegate?.getForDateSuccess(date: date)
         }
     }
 }

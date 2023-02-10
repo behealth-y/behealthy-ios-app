@@ -253,15 +253,12 @@ extension CalendarViewController {
                 
                 // 현재 선택된 날짜의 운동 시간과 저장된 운동 시간이 다를 경우 처리
                 let _ = data.filter({ $0.key == self.currentDate }).map({
-                    if self.currentDateTotalTime != $0.value.totalWorkoutTime {
-                        self.currentDateTotalTime = $0.value.totalWorkoutTime
-                    }
+                    self.currentDateTotalTime = $0.value.totalWorkoutTime
                 })
                 
-                self.calendarView.reloadData()
+                // TODO: 개선 필요
+                self.calendarView.collectionView.reloadData()
                 self.collectionView.reloadData()
-                
-//                print(data)
             })
             .store(in: &self.cancellables)
         
@@ -441,14 +438,8 @@ extension CalendarViewController: CalendarViewModelDelegate {
         print(#function)
     }
     
-    func getForDateSuccess(date: String, time: Int?) {
+    func getForDateSuccess(date: String) {
         print(#function)
-        
-        if let time = time {
-            currentDateTotalTime = time
-        }
-        
-        collectionView.reloadData()
     }
     
     func getForDateFail() {

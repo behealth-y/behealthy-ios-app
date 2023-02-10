@@ -217,8 +217,6 @@ final class WorkoutService {
             "Authorization": "Bearer \(jwt)"
         ]
     
-        print(url)
-        print(headers)
         AF.request(url, method: .get, headers: headers)
             .responseDecodable(of: WorkoutRecordResultData.self) { response in
                 guard let result = response.value else { return }
