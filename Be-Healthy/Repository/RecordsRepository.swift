@@ -16,7 +16,6 @@ final class RecordsRepository {
     
     /// 운동 기록 조회 (특정 날짜)
     func get(for date: String) -> WorkoutRecord? {
-        // TODO: 운동 기록 없을 때 API로 조회 및 값 저장
         return records[date]
     }
     

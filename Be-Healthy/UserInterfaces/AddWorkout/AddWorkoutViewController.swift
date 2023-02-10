@@ -306,7 +306,7 @@ extension AddWorkoutViewController {
         self.view.endEditing(true)
     }
     
-    // TODO: datePicker 선택 시 이벤트 처리
+    // TODO: datePicker 선택 시 이벤트 처리 개선
     /// datePicker 선택 시 이벤트 처리
     @objc private func handleDatePicker() {
         self.view.endEditing(true)
