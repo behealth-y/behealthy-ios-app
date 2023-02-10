@@ -461,6 +461,31 @@ extension AddWorkoutViewController {
         
         return Int(betweenTime)
     }
+    
+    // 수정 폼 > datePicker default 값 처리
+    private func updateDatePicker(textField: UITextField, defaultValue: String?, dateFormat: String) {
+        if let defaultValue = defaultValue, let datePicker = textField.inputView as? UIDatePicker {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = dateFormat
+
+            if let date = dateFormatter.date(from: defaultValue) {
+                datePicker.date = date
+            }
+        }
+    }
+    
+    // 수정 폼 > 운동 강도 버튼 default 값 처리
+    private func updateIntensityButtons(selectedIntensity: Int) {
+        intensityButtons.enumerated().forEach {
+            if $1.tag == selectedIntensity {
+                $1.isSelected = true
+                $1.backgroundColor = UIColor(hexFromString: "#2E2E2E")
+            } else {
+                $1.isSelected = false
+                $1.backgroundColor = .clear
+            }
+        }
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -522,45 +547,11 @@ extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
         commentTextField.text = comment
         
         self.intensity = getIntensity(intensity ?? "EXTREMELY_HARD")
-        intensityButtons.enumerated().forEach {
-            if $1.tag == self.intensity {
-                $1.isSelected = true
-                $1.backgroundColor = UIColor(hexFromString: "#2E2E2E")
-            } else {
-                $1.isSelected = false
-                $1.backgroundColor = .clear
-            }
-        }
+        updateIntensityButtons(selectedIntensity: self.intensity)
         
-        // TODO: 수정 필요
-        if let datePickerDefaultValue = datePickerDefaultValue, let datePicker = self.dateTextField.inputView as? UIDatePicker {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "YYYY-MM-dd"
-
-            let date = dateFormatter.date(from: datePickerDefaultValue)
-
-            datePicker.date = date!
-        }
-
-        if let startTimePickerDefaultValue = startTimePickerDefaultValue, let datePicker = self.startTimeTextField.inputView as? UIDatePicker {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "HH:mm:ss"
-
-            if let date = dateFormatter.date(from: startTimePickerDefaultValue) {
-                datePicker.date = date
-                
-            }
-        }
-        
-        if let endTimePickerDefaultValue = endTimePickerDefaultValue, let datePicker = self.endTimeTextField.inputView as? UIDatePicker {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "HH:mm:ss"
-
-            if let date = dateFormatter.date(from: endTimePickerDefaultValue) {
-                datePicker.date = date
-                
-            }
-        }
+        updateDatePicker(textField: self.dateTextField, defaultValue: datePickerDefaultValue, dateFormat: "YYYY-MM-dd")
+        updateDatePicker(textField: self.startTimeTextField, defaultValue: startTimePickerDefaultValue, dateFormat: "HH:mm:ss")
+        updateDatePicker(textField: self.endTimeTextField, defaultValue: endTimePickerDefaultValue, dateFormat: "HH:mm:ss")
     }
     
     func getWorkoutRecordFail() {
