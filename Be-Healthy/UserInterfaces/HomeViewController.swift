@@ -167,7 +167,7 @@ extension HomeViewController {
             $0.layer.shadowColor = UIColor.black.cgColor
             $0.layer.shadowOffset = CGSize(width: 4, height: 4)
             $0.layer.shadowOpacity = 0.25
-            $0.layer.shadowRadius = 5.0
+            $0.layer.shadowRadius = 4.0
         }
         
         view.snp.makeConstraints {
@@ -201,7 +201,7 @@ extension HomeViewController {
             $0.layer.shadowColor = UIColor.black.cgColor
             $0.layer.shadowOffset = CGSize(width: 4, height: 4)
             $0.layer.shadowOpacity = 0.25
-            $0.layer.shadowRadius = 5.0
+            $0.layer.shadowRadius = 4.0
         }
         
         view.snp.makeConstraints {
@@ -252,7 +252,7 @@ extension HomeViewController {
             $0.layer.shadowColor = UIColor.black.cgColor
             $0.layer.shadowOffset = CGSize(width: 4, height: 4)
             $0.layer.shadowOpacity = 0.25
-            $0.layer.shadowRadius = 5.0
+            $0.layer.shadowRadius = 4.0
         }
         
 //        view.snp.makeConstraints {
