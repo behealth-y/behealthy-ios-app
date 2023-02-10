@@ -297,6 +297,7 @@ extension AddWorkoutViewController {
     private func setupData() {
         guard let idx = idx else { return }
         
+        submitButton.setTitle("운동 수정하기", for: .normal)
         viewModel.get(idx: idx)
     }
     
