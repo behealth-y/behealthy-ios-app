@@ -52,6 +52,44 @@ class HomeViewController: UIViewController {
     // MARK: - 하루 운동 목표 달성률 뷰
     private lazy var goalAchieveRateView = generateGoalAchieveRateView()
     
+    /// 타이틀
+    private let goalAchieveRateTitleLabel = UILabel().then {
+        $0.text = "LAURA LEE님의 목표 달성률📈"
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
+        $0.textColor = .black
+    }
+    
+            
+    private let goalAchieveRateDescriptionLabel = UILabel().then {
+        $0.text = "LAURA LEE님!\n목표 운동시간까지 2시간 남았습니다. :)"
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
+        $0.textColor = UIColor.init(named: "mainColor")
+        $0.numberOfLines = 0
+        $0.textAlignment = .center
+    }
+
+    /// 편집 버튼
+    private lazy var goalAchieveRateEditButton = UIButton().then {
+        $0.setTitle(":", for: .normal)
+        $0.setTitleColor(.black, for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
+        $0.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
+    }
+
+    private let goalAchieveRateProgressView = UIProgressView().then {
+        $0.progress = 0.7
+        $0.trackTintColor = .init(hexFromString: "D9D9D9")
+        $0.progressTintColor = UIColor.init(named: "mainColor")
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 5.0
+    }
+    
+    
+    private let goalAchieveRateProgressLabel = UILabel().then {
+        $0.text = "0%"
+        $0.font = .systemFont(ofSize: 12, weight: .semibold)
+    }
+    
     // MARK: - 이번 주 평균 운동 시간 뷰
     private lazy var averageWorkOutTimeView = generateAverageWorkOutTimeView()
     
@@ -158,76 +196,34 @@ extension HomeViewController {
             $0.height.equalTo(169)
         }
         
-        /// 타이틀
-        let titleLabel = UILabel().then {
-            $0.text = "LAURA LEE님의 목표 달성률"
-            $0.font = .systemFont(ofSize: 16, weight: .semibold)
-            $0.textColor = .black
+        [goalAchieveRateTitleLabel, goalAchieveRateEditButton, goalAchieveRateDescriptionLabel, goalAchieveRateProgressView, goalAchieveRateProgressLabel].forEach {
+            view.addSubview($0)
         }
         
-        view.addSubview(titleLabel)
-        
-        titleLabel.snp.makeConstraints {
+        goalAchieveRateTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(20)
         }
-        
-        /// 편집 버튼
-        let editButton = UIButton().then {
-            $0.setTitle(":", for: .normal)
-            $0.setTitleColor(.black, for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 17, weight: .semibold)
-            $0.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
-        }
-        
-        view.addSubview(editButton)
-        
-        editButton.snp.makeConstraints {
-            $0.centerY.equalTo(titleLabel)
-            $0.leading.greaterThanOrEqualTo(titleLabel).offset(10)
+
+        goalAchieveRateEditButton.snp.makeConstraints {
+            $0.centerY.equalTo(goalAchieveRateTitleLabel)
+            $0.leading.greaterThanOrEqualTo(goalAchieveRateTitleLabel).offset(10)
             $0.trailing.equalToSuperview().inset(5)
         }
         
-        let descriptionLabel = UILabel().then {
-            $0.text = "LAURA LEE님!\n목표 운동시간까지 2시간 남았습니다. :)"
-            $0.font = .systemFont(ofSize: 16, weight: .semibold)
-            $0.textColor = UIColor.init(named: "mainColor")
-            $0.numberOfLines = 0
-            $0.textAlignment = .center
-        }
-        
-        view.addSubview(descriptionLabel)
-        
-        descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+        goalAchieveRateDescriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(goalAchieveRateTitleLabel.snp.bottom).offset(20)
             $0.centerX.equalToSuperview()
         }
         
-        let progressView = UIProgressView().then {
-            $0.progress = 0.7
-            $0.trackTintColor = .init(hexFromString: "D9D9D9")
-            $0.progressTintColor = UIColor.init(named: "mainColor")
-            $0.clipsToBounds = true
-            $0.layer.cornerRadius = 5.0
-        }
-        
-        view.addSubview(progressView)
-        
-        progressView.snp.makeConstraints {
-            $0.top.equalTo(descriptionLabel.snp.bottom).offset(20)
+        goalAchieveRateProgressView.snp.makeConstraints {
+            $0.top.equalTo(goalAchieveRateDescriptionLabel.snp.bottom).offset(20)
             $0.horizontalEdges.equalToSuperview().inset(20)
             $0.height.equalTo(15)
         }
         
-        let progressLabel = UILabel().then {
-            $0.text = "0%"
-            $0.font = .systemFont(ofSize: 12, weight: .semibold)
-        }
-        
-        view.addSubview(progressLabel)
-        
-        progressLabel.snp.makeConstraints {
-            $0.top.equalTo(progressView.snp.bottom).offset(5)
+        goalAchieveRateProgressLabel.snp.makeConstraints {
+            $0.top.equalTo(goalAchieveRateProgressView.snp.bottom).offset(5)
             $0.leading.equalToSuperview().inset(20)
             $0.bottom.lessThanOrEqualToSuperview().inset(10)
         }
