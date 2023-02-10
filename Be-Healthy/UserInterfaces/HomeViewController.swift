@@ -36,7 +36,6 @@ class HomeViewController: UIViewController {
     // MARK: - 오늘의 운동 뷰
     private lazy var todayWorkOutView = generateTodayWorkOutView()
 
-    // 타이틀
     private let todayWorkOutTitleLabel = UILabel().then {
         $0.text = "오늘의 운동🏃‍♂️"
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
@@ -52,7 +51,6 @@ class HomeViewController: UIViewController {
     // MARK: - 하루 운동 목표 달성률 뷰
     private lazy var goalAchieveRateView = generateGoalAchieveRateView()
     
-    /// 타이틀
     private let goalAchieveRateTitleLabel = UILabel().then {
         $0.text = "LAURA LEE님의 목표 달성률📈"
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
@@ -68,7 +66,6 @@ class HomeViewController: UIViewController {
         $0.textAlignment = .center
     }
 
-    /// 편집 버튼
     private lazy var goalAchieveRateEditButton = UIButton().then {
         $0.setTitle(":", for: .normal)
         $0.setTitleColor(.black, for: .normal)
@@ -92,19 +89,34 @@ class HomeViewController: UIViewController {
     
     // MARK: - 이번 주 평균 운동 시간 뷰
     private lazy var averageWorkOutTimeView = generateAverageWorkOutTimeView()
+            
+    let averageWorkOutTimeTitleLabel = UILabel().then {
+        let attributeString = NSMutableAttributedString(string: "이번 한 주의 운동 시간은\n평균 4.5시간 입니다.")
+                
+        ["평균", "시간 입니다."].forEach {
+            attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0, weight: .semibold), range: ("이번 한 주의 운동 시간은\n평균 4.5시간 입니다." as NSString).range(of: $0))
+        }
+        
+        attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 20.0, weight: .bold), range: ("이번 한 주의 운동 시간은\n평균 4.5시간 입니다." as NSString).range(of: "4.5"))
+        
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
+        $0.attributedText = attributeString
+        $0.textColor = .white
+        $0.numberOfLines = 2
+    }
     
     // 이번 주 평균 운동 시간 차트
     private let barChartView = BarChartView()
     
     // 이번 주 운동 시간 변수
     var weekDays: [String] = ["월", "화", "수", "목", "금", "토", "일"]
-    var time: [Double] = [30, 60, 90, 120, 180, 240, 300]
+    var time: [Double] = [11, 23, 45, 78, 0, 235, 102]
     
     // MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
 //        setupNavigationBar()
-        setupLayout()
+        setupViews()
         setupData()
         setupChart(dataPoints: weekDays, values: time)
     }
@@ -130,7 +142,7 @@ extension HomeViewController {
     }
     
     /// 레이아웃 설정
-    private func setupLayout() {
+    private func setupViews() {
         view.backgroundColor = .white
         
         view.addSubview(stackView)
@@ -247,34 +259,18 @@ extension HomeViewController {
             $0.height.equalTo(286)
         }
         
-        let attributeString = NSMutableAttributedString(string: "이번 한 주의 운동 시간은\n평균 4.5시간 입니다.")
-        
-        ["평균", "시간 입니다."].forEach {
-            attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0, weight: .semibold), range: ("이번 한 주의 운동 시간은\n평균 4.5시간 입니다." as NSString).range(of: $0))
+        [averageWorkOutTimeTitleLabel, barChartView].forEach {
+            view.addSubview($0)
         }
         
-        attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 20.0, weight: .bold), range: ("이번 한 주의 운동 시간은\n평균 4.5시간 입니다." as NSString).range(of: "4.5"))
-        
-        /// 타이틀
-        let titleLabel = UILabel().then {
-            $0.font = .systemFont(ofSize: 16, weight: .semibold)
-            $0.attributedText = attributeString
-            $0.textColor = .white
-            $0.numberOfLines = 2
-        }
-        
-        view.addSubview(titleLabel)
-        
-        titleLabel.snp.makeConstraints {
+        averageWorkOutTimeTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(20)
             $0.trailing.lessThanOrEqualToSuperview().inset(20)
         }
         
-        view.addSubview(barChartView)
-        
         barChartView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(averageWorkOutTimeTitleLabel.snp.bottom).offset(10)
             $0.bottom.equalToSuperview().inset(10)
             $0.horizontalEdges.equalToSuperview().inset(20)
         }
@@ -337,7 +333,8 @@ extension HomeViewController {
         
         chartDataSet.colors = [.white]
         chartDataSet.highlightEnabled = false
-        chartDataSet.valueTextColor = .clear
+        chartDataSet.valueTextColor = .white
+        chartDataSet.valueFormatter = MinuteValueFormatter()
         
         let chartData = BarChartData(dataSet: chartDataSet)
         
@@ -363,9 +360,13 @@ extension HomeViewController {
         barChartView.xAxis.axisLineColor = .white
         
         // left축
+//        let ll = ChartLimitLine(limit: 60.0, label: "목표")
+//        barChartView.leftAxis.addLimitLine(ll)
+//        barChartView.leftAxis.limitLines.map({ $0.lineColor = .white })
+        
         barChartView.leftAxis.drawGridLinesEnabled = false
         barChartView.leftAxis.labelTextColor = .white
-        barChartView.leftAxis.axisMaximum = 300
+//        barChartView.leftAxis.axisMaximum = 300
 //        barChartView.leftAxis.axisMinimum = 0
         barChartView.leftAxis.axisLineColor = .white
         
