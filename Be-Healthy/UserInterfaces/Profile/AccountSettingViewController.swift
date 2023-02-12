@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 class AccountSettingViewController: BaseViewController {
+    private var cancellables: Set<AnyCancellable> = .init()
+    
+    private let authenticationService = AuthenticationService()
+    
     // MARK: 닉네임
     private lazy var nicknameTextField = BHTextField().then {
         $0.placeholder = "변경하실 닉네임을 입력해주세요! (국/영문 최대 2~8자)"
@@ -25,6 +30,11 @@ class AccountSettingViewController: BaseViewController {
         $0.addTarget(self, action: #selector(didTapDeleteIdButton), for: .touchUpInside)
     }
     
+    private lazy var submitButton = BHSubmitButton(title: "수정 완료").then {
+        $0.isEnabled = false
+        $0.addTarget(self, action: #selector(didTapSubmitButton), for: .touchUpInside)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,6 +42,7 @@ class AccountSettingViewController: BaseViewController {
         
         setupNavigationBar()
         setupViews()
+        bind()
     }
 }
 
@@ -81,8 +92,6 @@ extension AccountSettingViewController {
                 }
             }
         }
-        
-        let submitButton = BHSubmitButton(title: "수정 완료")
         
         view.addSubview(submitButton)
         
@@ -271,6 +280,21 @@ extension AccountSettingViewController {
         return view
     }
     
+    // MARK: Bind
+    private func bind() {
+        [nicknameTextField].forEach {
+            $0.textPublisher.sink { [weak self] _ in
+                guard let self = self, let text = self.nicknameTextField.text else { return }
+                
+                if text.nicknameValiate() {
+                    self.submitButton.isEnabled = true
+                } else {
+                    self.submitButton.isEnabled = false
+                }
+            }.store(in: &cancellables)
+        }
+    }
+    
     // MARK: Actions
     /// 비밀번호 변경 눌렀을 때 처리
     @objc fileprivate func didTapPasswordResetView() {
@@ -293,6 +317,34 @@ extension AccountSettingViewController {
     /// 회원탈퇴 눌렀을 때 처리
     @objc fileprivate func didTapDeleteIdButton() {
         navigationController?.pushViewController(DeleteIdViewController(), animated: true)
+    }
+    
+    /// 수정 완료 버튼 클릭 시
+    @objc private func didTapSubmitButton(_ sender: Any) {
+        guard let nickname = nicknameTextField.text else { return }
+        
+        authenticationService.changeNickname(nickname) { [weak self] data in
+            if let statusCode = data.statusCode {
+                switch statusCode {
+                case 200:
+                    self?.changeNicknameSuccess()
+                default:
+                    guard let errorData = data.errorData else { return }
+                    print(errorData)
+                    self?.changeNicknameFail()
+                }
+            }
+        }
+    }
+    
+    /// 닉네임 변경 성공
+    private func changeNicknameSuccess() {
+        print(#function)
+    }
+     
+    /// 닉네임 변경 실패
+    private func changeNicknameFail() {
+        print(#function)
     }
 }
 
