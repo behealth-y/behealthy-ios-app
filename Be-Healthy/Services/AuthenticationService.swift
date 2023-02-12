@@ -106,6 +106,32 @@ final class AuthenticationService {
             }
     }
     
+    // MARK: 닉네임 변경
+    // TODO: API 연동 필요
+    func changeNickname(_ nickname: String, completion: @escaping (Result) -> Void) {
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
+        
+        let url = URL(string: "\(Config().apiUrl)/api/auth/")!
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(jwt)"
+        ]
+        
+        let params = [
+            "nickname": nickname
+        ]
+    
+        AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers)
+            .responseDecodable(of: ResultData.self) { response in
+                if let data = response.value {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                } else {
+                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                }
+            }
+    }
+    
     // MARK: 인증번호
     /// 인증번호 요청
     func requestVerififcationCode(email: String, purpose: String, completion: @escaping (RequestVerificationCodeResult) -> Void) {

@@ -18,6 +18,8 @@ enum SettingView: Int {
 }
 
 class ProfileViewController: BaseViewController {
+    private let userName = UserDefaults.standard.string(forKey: "userName") ?? "비헬시"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -90,10 +92,10 @@ extension ProfileViewController {
         }
         
         let goalTimeSettingView = generateSettingView(title: "목표 운동시간 설정", tag: 0)
-        let contentsSettingView = generateSettingView(title: "게시글 관리", tag: 1)
+//        let contentsSettingView = generateSettingView(title: "게시글 관리", tag: 1)
         let accountSettingView = generateSettingView(title: "계정 설정", tag: 2)
-        let appSettingView = generateSettingView(title: "알림 설정", tag: 3)
-        let noticeView = generateSettingView(title: "공지사항", tag: 4)
+//        let appSettingView = generateSettingView(title: "알림 설정", tag: 3)
+//        let noticeView = generateSettingView(title: "공지사항", tag: 4)
         let versionInfoView = generateSettingView(title: "버전 정보", tag: 5)
         
         [goalTimeSettingView, accountSettingView, versionInfoView].forEach {
@@ -131,7 +133,7 @@ extension ProfileViewController {
         let welcomeLabel = UILabel().then {
             $0.font = .boldSystemFont(ofSize: 20.0)
             $0.textAlignment = .center
-            $0.text = "반갑습니다!\n 비헬시님"
+            $0.text = "반갑습니다!\n \(userName)님"
             $0.numberOfLines = 0
         }
         

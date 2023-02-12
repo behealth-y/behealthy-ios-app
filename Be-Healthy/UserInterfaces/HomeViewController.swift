@@ -14,6 +14,7 @@ import Combine
 class HomeViewController: UIViewController {
     private let repository = RecordsRepository.shared
     private let goalTimeSubject = GoalTimeSubject.shared
+    private let userName = UserDefaults.standard.string(forKey: "userName") ?? "비헬시"
     
     private var cancellables: Set<AnyCancellable> = .init()
     
@@ -52,14 +53,14 @@ class HomeViewController: UIViewController {
     // MARK: - 하루 운동 목표 달성률 뷰
     private lazy var goalAchieveRateView = generateGoalAchieveRateView()
     
-    private let goalAchieveRateTitleLabel = UILabel().then {
-        $0.text = "비헬씨님의 목표 달성률📈"
+    private lazy var goalAchieveRateTitleLabel = UILabel().then {
+        $0.text = "\(userName)님의 목표 달성률📈"
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .black
     }
             
     private lazy var goalAchieveRateDescriptionLabel = UILabel().then {
-        $0.text = "비헬씨님!\n목표 운동시간까지 \(self.goalTimeSubject.goalTime.minuteToTime()) 남았습니다. :)"
+        $0.text = "\(userName)님!\n목표 운동시간까지 \(self.goalTimeSubject.goalTime.minuteToTime()) 남았습니다. :)"
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = UIColor.init(named: "mainColor")
         $0.numberOfLines = 0
@@ -317,7 +318,6 @@ extension HomeViewController {
         return attributeString
     }
     
-    // TODO: 비헬씨님 -> "이름"님 변경
     private func getGoalAchieveRate(_ time: Int) {
         let goalTime = goalTimeSubject.goalTime
         
@@ -327,7 +327,7 @@ extension HomeViewController {
             let goalAchieveRate = Double(time) / Double(goalTime)
             let goalAcieveRatePercent = Int(goalAchieveRate * 100)
             
-            goalAchieveRateDescriptionLabel.text = "비헬씨님!\n목표 운동시간까지 \(betweenTime.minuteToTime()) 남았습니다. :)"
+            goalAchieveRateDescriptionLabel.text = "\(userName)님!\n목표 운동시간까지 \(betweenTime.minuteToTime()) 남았습니다. :)"
             goalAchieveRateProgressView.progress = Float(goalAchieveRate)
             goalAchieveRateProgressLabel.text = "\(goalAcieveRatePercent)%"
         } else {

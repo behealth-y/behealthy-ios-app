@@ -300,6 +300,8 @@ extension LoginViewController {
             print("jwt ::: \(jwt)")
             print("jwt header ::: \(jwtDecode.header)")
             print("jwt payload ::: \(jwtDecode.payload)")
+            
+            UserDefaults.standard.set(jwtDecode.payload.name, forKey: "userName")
         }
         self.view.window?.windowScene?.keyWindow?.rootViewController = vc
     }
