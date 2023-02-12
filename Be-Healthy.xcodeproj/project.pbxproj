@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B70920462997D42E00568607 /* GoalTimeSubject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70920452997D42E00568607 /* GoalTimeSubject.swift */; };
 		B722FB8F28BA169C004AEEB2 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB8E28BA169C004AEEB2 /* RegisterViewController.swift */; };
 		B722FB9128BA16B9004AEEB2 /* PasswordResetAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */; };
 		B722FB9328BA16C2004AEEB2 /* PasswordResetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B722FB9228BA16C2004AEEB2 /* PasswordResetViewController.swift */; };
@@ -117,6 +118,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B70920452997D42E00568607 /* GoalTimeSubject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTimeSubject.swift; sourceTree = "<group>"; };
 		B722FB8E28BA169C004AEEB2 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		B722FB9028BA16B9004AEEB2 /* PasswordResetAuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetAuthViewController.swift; sourceTree = "<group>"; };
 		B722FB9228BA16C2004AEEB2 /* PasswordResetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordResetViewController.swift; sourceTree = "<group>"; };
@@ -267,7 +269,7 @@
 				B727D56628B7158E00773A12 /* Helper */,
 				B7D442C428F7009600994AD3 /* VO */,
 				B776F430290D17BE009DA6B5 /* ViewModel */,
-				B7D01BE2298FD4B2000897AF /* Repository */,
+				B7D01BE2298FD4B2000897AF /* Data */,
 				B7D442CC28F7047300994AD3 /* Model */,
 				B7D442C528F7009E00994AD3 /* Services */,
 				B727D56828B7166E00773A12 /* Component */,
@@ -455,12 +457,13 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		B7D01BE2298FD4B2000897AF /* Repository */ = {
+		B7D01BE2298FD4B2000897AF /* Data */ = {
 			isa = PBXGroup;
 			children = (
 				B7D01BE3298FD4CB000897AF /* RecordsRepository.swift */,
+				B70920452997D42E00568607 /* GoalTimeSubject.swift */,
 			);
-			path = Repository;
+			path = Data;
 			sourceTree = "<group>";
 		};
 		B7D442C428F7009600994AD3 /* VO */ = {
@@ -753,6 +756,7 @@
 				B7E19160295CD11A00A20F2F /* BaseViewController.swift in Sources */,
 				B79547DB295D704B0003B7EE /* String+Validate.swift in Sources */,
 				B7DB81F229817D510098AFAD /* AppleLoginManager.swift in Sources */,
+				B70920462997D42E00568607 /* GoalTimeSubject.swift in Sources */,
 				B790C4C42979364800876698 /* CommunityDetailBannerCell.swift in Sources */,
 				B727D58728B89CA100773A12 /* BHSubmitButton.swift in Sources */,
 				B727D53928B70A8500773A12 /* HomeViewController.swift in Sources */,

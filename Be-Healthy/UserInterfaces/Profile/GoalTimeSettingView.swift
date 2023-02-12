@@ -16,6 +16,8 @@ enum OpenGoalTimeSetting {
 }
 
 class GoalTimeSettingView: BaseViewController {
+    private let goalTimeSubject = GoalTimeSubject.shared
+    
     // 어느 경로를 통해서 유입되었는지
     private var openProcess: OpenGoalTimeSetting
     
@@ -181,6 +183,12 @@ extension GoalTimeSettingView {
     /// 목표 운동 시간 설정 성공
     private func setWorkoutGoalSuccess() {
         print(#function)
+        
+        let goalTime = (hour * 60) + minute
+        self.goalTimeSubject.setGoalTime(goalTime)
+        print(hour)
+        print(minute)
+        print(self.goalTimeSubject.goalTime)
         
         switch openProcess {
         case .auth:

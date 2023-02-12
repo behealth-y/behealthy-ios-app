@@ -13,6 +13,7 @@ import Combine
 
 class HomeViewController: UIViewController {
     private let repository = RecordsRepository.shared
+    private let goalTimeSubject = GoalTimeSubject.shared
     
     private var cancellables: Set<AnyCancellable> = .init()
     
@@ -52,14 +53,13 @@ class HomeViewController: UIViewController {
     private lazy var goalAchieveRateView = generateGoalAchieveRateView()
     
     private let goalAchieveRateTitleLabel = UILabel().then {
-        $0.text = "LAURA LEE님의 목표 달성률📈"
+        $0.text = "비헬씨님의 목표 달성률📈"
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .black
     }
-    
             
-    private let goalAchieveRateDescriptionLabel = UILabel().then {
-        $0.text = "LAURA LEE님!\n목표 운동시간까지 2시간 남았습니다. :)"
+    private lazy var goalAchieveRateDescriptionLabel = UILabel().then {
+        $0.text = "비헬씨님!\n목표 운동시간까지 \(self.goalTimeSubject.goalTime.minuteToTime()) 남았습니다. :)"
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = UIColor.init(named: "mainColor")
         $0.numberOfLines = 0
@@ -74,13 +74,12 @@ class HomeViewController: UIViewController {
     }
 
     private let goalAchieveRateProgressView = UIProgressView().then {
-        $0.progress = 0.7
+        $0.progress = 0.0
         $0.trackTintColor = .init(hexFromString: "D9D9D9")
         $0.progressTintColor = UIColor.init(named: "mainColor")
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 5.0
     }
-    
     
     private let goalAchieveRateProgressLabel = UILabel().then {
         $0.text = "0%"
@@ -236,7 +235,7 @@ extension HomeViewController {
         
         goalAchieveRateProgressLabel.snp.makeConstraints {
             $0.top.equalTo(goalAchieveRateProgressView.snp.bottom).offset(5)
-            $0.leading.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(20)
             $0.bottom.lessThanOrEqualToSuperview().inset(10)
         }
         
@@ -286,6 +285,8 @@ extension HomeViewController {
                 guard let self = self else { return }
                 if let totalWorkoutTime = data[self.currentDate]?.totalWorkoutTime {
                     self.todayWorkOutTimeLabel.attributedText = self.getTodayWorkoutTime(totalWorkoutTime)
+                    
+                    self.getGoalAchieveRate(totalWorkoutTime)
                 }
             })
             .store(in: &self.cancellables)
@@ -319,6 +320,25 @@ extension HomeViewController {
         }
         
         return attributeString
+    }
+    
+    private func getGoalAchieveRate(_ time: Int) {
+        let goalTime = goalTimeSubject.goalTime
+        
+        let betweenTime = goalTime - time
+        
+        if betweenTime > 0 {
+            let goalAchieveRate = Double(time) / Double(goalTime)
+            let goalAcieveRatePercent = Int(goalAchieveRate * 100)
+            
+            goalAchieveRateDescriptionLabel.text = "비헬씨님!\n목표 운동시간까지 \(betweenTime.minuteToTime()) 남았습니다. :)"
+            goalAchieveRateProgressView.progress = Float(goalAchieveRate)
+            goalAchieveRateProgressLabel.text = "\(goalAcieveRatePercent)%"
+        } else {
+            goalAchieveRateDescriptionLabel.text = "축하드려요! 일일 목표 시간을 달성하셨군요. :)"
+            goalAchieveRateProgressView.progress = 1.0
+            goalAchieveRateProgressLabel.text = "100%"
+        }
     }
     
     /// 이번 주 평균 운동 시간 차트 설정
