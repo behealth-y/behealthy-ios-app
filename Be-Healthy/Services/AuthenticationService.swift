@@ -107,7 +107,7 @@ final class AuthenticationService {
     }
     
     // MARK: 닉네임 변경
-    // TODO: API 연동 필요
+    // TODO: ⭐️ API 연동 필요
     func changeNickname(_ nickname: String, completion: @escaping (Result) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
