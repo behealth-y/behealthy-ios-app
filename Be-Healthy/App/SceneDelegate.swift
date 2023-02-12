@@ -20,9 +20,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         
-        print(UserDefaults.standard.string(forKey: "jwt") ?? "null")
-        let nav = UINavigationController(rootViewController: FirstViewController())
-        window?.rootViewController = nav
+        let vc: UIViewController
+        
+        if let _ = UserDefaults.standard.string(forKey: "jwt") {
+            vc = TabBarViewController()
+        } else {
+            vc = UINavigationController(rootViewController: FirstViewController())
+        }
+        
+        window?.rootViewController = vc
         window?.makeKeyAndVisible()
     }
 
