@@ -273,7 +273,7 @@ extension HomeViewController {
     }
     
     // MARK: Data
-    // TODO: ⭐️ 00시가 지나 날짜가 변경될 경우 어떻게 해야할지
+    // TODO: ⭐️ 00시가 지나 날짜가 변경될 경우 어떻게 해야할지, 로그인 상태에서 켜졌을 때 데이터 처리
     private func setupData() {
         repository.$records
             .receive(on: DispatchQueue.main)
@@ -282,6 +282,7 @@ extension HomeViewController {
                 if let totalWorkoutTime = data[self.currentDate]?.totalWorkoutTime {
                     self.todayWorkOutTimeLabel.attributedText = self.getTodayWorkoutTime(totalWorkoutTime)
                     
+                    // TODO: ⭐️ 목표 시간 변경 시에도 적용되게
                     self.getGoalAchieveRate(totalWorkoutTime)
                 }
             })
