@@ -8,7 +8,11 @@
 import UIKit
 
 struct WorkoutRecord {
-    var workOutRecords: [WorkoutRecordForDate]
+    var workOutRecords: [WorkoutRecordForDate] {
+        didSet {
+            workOutRecords.sort { $0.idx ?? 0 < $1.idx ?? 0 }
+        }
+    }
     var totalWorkoutTime: Int
     var callAPI: Bool
     
