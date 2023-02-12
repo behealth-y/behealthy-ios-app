@@ -26,6 +26,12 @@ class HomeViewController: UIViewController {
         return dateString
     }()
     
+    private var totalWorkoutTime: Int? {
+        didSet {
+            getGoalAchieveRate(totalWorkoutTime ?? 0)
+        }
+    }
+    
     private let scrollView = UIScrollView()
     
     private let stackView = UIStackView().then {
@@ -282,9 +288,16 @@ extension HomeViewController {
                 if let totalWorkoutTime = data[self.currentDate]?.totalWorkoutTime {
                     self.todayWorkOutTimeLabel.attributedText = self.getTodayWorkoutTime(totalWorkoutTime)
                     
-                    // TODO: ⭐️ 목표 시간 변경 시에도 적용되게
-                    self.getGoalAchieveRate(totalWorkoutTime)
+                    self.totalWorkoutTime = totalWorkoutTime
                 }
+            })
+            .store(in: &self.cancellables)
+        
+        goalTimeSubject.$goalTime
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] data in
+                guard let self = self else { return }
+                self.getGoalAchieveRate(self.totalWorkoutTime ?? 0)
             })
             .store(in: &self.cancellables)
     }
