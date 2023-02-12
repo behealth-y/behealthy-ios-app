@@ -89,14 +89,8 @@ class HomeViewController: UIViewController {
     // MARK: - 이번 주 평균 운동 시간 뷰
     private lazy var averageWorkOutTimeView = generateAverageWorkOutTimeView()
             
-    let averageWorkOutTimeTitleLabel = UILabel().then {
-        let attributeString = NSMutableAttributedString(string: "이번 한 주의 운동 시간은\n평균 4.5시간 입니다.")
-                
-        ["평균", "시간 입니다."].forEach {
-            attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0, weight: .semibold), range: ("이번 한 주의 운동 시간은\n평균 4.5시간 입니다." as NSString).range(of: $0))
-        }
-        
-        attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 20.0, weight: .bold), range: ("이번 한 주의 운동 시간은\n평균 4.5시간 입니다." as NSString).range(of: "4.5"))
+    private lazy var averageWorkOutTimeTitleLabel = UILabel().then {
+        let attributeString = getAverageWorkoutTimeTitle(0)
         
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.attributedText = attributeString
@@ -278,6 +272,7 @@ extension HomeViewController {
     }
     
     // MARK: Data
+    // TODO: 00시가 지나 날짜가 변경될 경우 어떻게 해야할지
     private func setupData() {
         repository.$records
             .receive(on: DispatchQueue.main)
@@ -322,6 +317,7 @@ extension HomeViewController {
         return attributeString
     }
     
+    // TODO: 비헬씨님 -> "이름"님 변경
     private func getGoalAchieveRate(_ time: Int) {
         let goalTime = goalTimeSubject.goalTime
         
@@ -339,6 +335,24 @@ extension HomeViewController {
             goalAchieveRateProgressView.progress = 1.0
             goalAchieveRateProgressLabel.text = "100%"
         }
+    }
+    
+    private func getAverageWorkoutTime() {
+        averageWorkOutTimeTitleLabel.attributedText = getAverageWorkoutTimeTitle(4.5)
+        
+        setupChart(dataPoints: [], values: [])
+    }
+    
+    private func getAverageWorkoutTimeTitle(_ time: Float) -> NSMutableAttributedString{
+        let attributeString = NSMutableAttributedString(string: "이번 한 주의 운동 시간은\n평균 \(time)시간 입니다.")
+                
+        ["평균", "시간 입니다."].forEach {
+            attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0, weight: .semibold), range: ("이번 한 주의 운동 시간은\n평균 \(time)시간 입니다." as NSString).range(of: $0))
+        }
+        
+        attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 20.0, weight: .bold), range: ("이번 한 주의 운동 시간은\n평균 \(time)시간 입니다." as NSString).range(of: "\(time)"))
+        
+        return attributeString
     }
     
     /// 이번 주 평균 운동 시간 차트 설정

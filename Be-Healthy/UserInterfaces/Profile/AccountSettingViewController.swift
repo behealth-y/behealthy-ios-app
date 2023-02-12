@@ -279,7 +279,11 @@ extension AccountSettingViewController {
     
     /// 로그아웃 눌렀을 때 처리
     @objc fileprivate func didTapLogoutView() {
+        UserDefaults.standard.removeObject(forKey: "jwt")
+        UserDefaults.standard.removeObject(forKey: "goalTime")
+        
         navigationController?.popToRootViewController(animated: false)
+        
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
         let nav = UINavigationController(rootViewController: FirstViewController())
         
