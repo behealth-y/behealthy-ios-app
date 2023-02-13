@@ -18,19 +18,20 @@ class HomeViewController: UIViewController {
     
     private var cancellables: Set<AnyCancellable> = .init()
     
+    // 오늘 날짜
     private var currentDate: String = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd"
-        let dateString = dateFormatter.string(from: Date())
-        
-        return dateString
+        Helper().getToday()
     }()
     
+    // 오늘 총 운동 시간
     private var totalWorkoutTime: Int? {
         didSet {
             getGoalAchieveRate(totalWorkoutTime ?? 0)
         }
     }
+    
+    // 00시 지나면 날짜 초기화 용
+    private var timer: Timer?
     
     private let scrollView = UIScrollView()
     
@@ -118,6 +119,7 @@ class HomeViewController: UIViewController {
 //        setupNavigationBar()
         setupViews()
         setupData()
+        setupTimer()
         setupChart(dataPoints: weekDays, values: time)
     }
 }
@@ -281,6 +283,7 @@ extension HomeViewController {
     // MARK: Data
     // TODO: ⭐️ 00시가 지나 날짜가 변경될 경우 어떻게 해야할지, 로그인 상태에서 켜졌을 때 데이터 처리
     private func setupData() {
+        // 운동 기록
         repository.$records
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] data in
@@ -293,6 +296,7 @@ extension HomeViewController {
             })
             .store(in: &self.cancellables)
         
+        // 목표 운동 시간
         goalTimeSubject.$goalTime
             .receive(on: DispatchQueue.main)
             .sink(receiveValue: { [weak self] data in
@@ -300,6 +304,37 @@ extension HomeViewController {
                 self.getGoalAchieveRate(self.totalWorkoutTime ?? 0)
             })
             .store(in: &self.cancellables)
+    }
+    
+    /// 캘린더 reload
+    @objc private func runCode() {
+        timer?.invalidate()
+        print("현재 날짜는 \(self.currentDate)입니다")
+        
+        let currentDate = Helper().getToday()
+        
+        if self.currentDate != currentDate {
+            self.currentDate = currentDate
+            print("현재 날짜는 \(self.currentDate)입니다 222")
+            
+            self.repository.setWorkoutTime(date: self.currentDate)
+            
+            setupTimer()
+        }
+    }
+    
+    private func setupTimer() {
+        print(#function)
+        let calendar = Calendar.current
+        
+        let now = Date()
+        
+        let nextDate = calendar.date(byAdding: .day, value: 1, to: now)!
+        let date = calendar.date(bySettingHour: 00, minute: 00, second: 0, of: nextDate)!
+        
+        self.timer = Timer(fireAt: date, interval: 0, target: self, selector: #selector(runCode), userInfo: nil, repeats: false)
+        
+        RunLoop.main.add(self.timer!, forMode: RunLoop.Mode.common)
     }
     
     // MARK: Actions

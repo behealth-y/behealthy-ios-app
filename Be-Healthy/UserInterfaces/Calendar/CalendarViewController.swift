@@ -19,11 +19,7 @@ class CalendarViewController: BaseViewController {
     private var cancellables: Set<AnyCancellable> = .init()
     
     private var currentDate: String = {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY-MM-dd"
-        let dateString = dateFormatter.string(from: Date())
-        
-        return dateString
+        Helper().getToday()
     }()
     
     private var currentDateTotalTime: Int = 0

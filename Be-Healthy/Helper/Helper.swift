@@ -50,4 +50,13 @@ class Helper {
         
         return actionSheet
     }
+    
+    /// 오늘 날짜 구하기
+    func getToday() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let dateString = dateFormatter.string(from: Date())
+        
+        return dateString
+    }
 }
