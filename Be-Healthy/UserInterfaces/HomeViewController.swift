@@ -120,7 +120,7 @@ class HomeViewController: UIViewController {
         setupViews()
         setupData()
         setupTimer()
-        setupChart(dataPoints: weekDays, values: time)
+        setupChart(dataPoints: [], values: [])
     }
 }
 
@@ -422,13 +422,19 @@ extension HomeViewController {
         let chartData = BarChartData(dataSet: chartDataSet)
         
         chartData.barWidth = Double(0.5)
-        // 데이터 없을 때 처리
-//        barChartView.noDataText = "데이터가 없습니다."
-//        barChartView.noDataFont = .systemFont(ofSize: 20)
-//        barChartView.noDataTextColor = .white
         
         // 차트 데이터
-        barChartView.data = chartData
+        if !dataEntries.isEmpty {
+            barChartView.data = chartData
+        } else {
+            print("No Data !!!")
+        }
+        
+        // 데이터 없을 때 처리
+        barChartView.noDataText = "운동 기록 데이터가 없습니다.\n지금 바로 추가하러 가볼까요?"
+        barChartView.noDataFont = .systemFont(ofSize: 16)
+        barChartView.noDataTextColor = .white
+        barChartView.noDataTextAlignment = .center
         
         // 차트 확대 방지
         barChartView.doubleTapToZoomEnabled = false
