@@ -431,7 +431,7 @@ extension HomeViewController {
         }
         
         // 데이터 없을 때 처리
-        barChartView.noDataText = "운동 기록 데이터가 없습니다.\n지금 바로 추가하러 가볼까요?"
+        barChartView.noDataText = "운동 기록 데이터가 없습니다.\n지금 추가하러 가볼까요?"
         barChartView.noDataFont = .systemFont(ofSize: 16)
         barChartView.noDataTextColor = .white
         barChartView.noDataTextAlignment = .center
