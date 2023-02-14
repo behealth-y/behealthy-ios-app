@@ -145,6 +145,11 @@ class CalendarViewController: BaseViewController {
             $0.top.equalTo(calendarView.calendarWeekdayView.frame.maxY)
         }
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        print(#function)
+        self.calendarView.collectionView.reloadData()
+    }
 }
 
 // MARK: - Extension
@@ -252,8 +257,21 @@ extension CalendarViewController {
                     self.currentDateTotalTime = $0.value.totalWorkoutTime
                 })
                 
-                // TODO: 개선 필요
-                self.calendarView.collectionView.reloadData()
+                data.forEach {
+                    let dateFormatter = DateFormatter()
+                    dateFormatter.dateFormat = "YYYY-MM-dd"
+                      
+                    if let date = dateFormatter.date(from: $0.key), let cell = self.calendarView.cell(for: date, at: .current) {
+                        if $0.value.totalWorkoutTime > 0 {
+                            cell.eventIndicator.numberOfEvents = 1
+                            cell.eventIndicator.isHidden = false
+                        } else {
+                            cell.eventIndicator.numberOfEvents = 0
+                            cell.eventIndicator.isHidden = true
+                        }
+                    }
+                }
+                
                 self.collectionView.reloadData()
             })
             .store(in: &self.cancellables)
@@ -428,6 +446,8 @@ extension CalendarViewController: CalendarViewModelDelegate {
     
     func getForYearAndMonthSuccess() {
         print(#function)
+        
+        self.calendarView.collectionView.reloadData()
     }
     
     func getForYearAndMonthFail() {

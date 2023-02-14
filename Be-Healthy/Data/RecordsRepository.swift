@@ -38,8 +38,12 @@ final class RecordsRepository {
     
     func setWorkoutTime(date: String, time: Int = 0) {
         if let record = records[date] {
-            let time = record.workOutRecords.flatMap({ $0.workoutTime }).reduce(0) { $0 + $1 }
-            records[date]?.totalWorkoutTime = time
+            if time > 0 {
+                records[date]?.totalWorkoutTime = time
+            } else {
+                let time = record.workOutRecords.flatMap({ $0.workoutTime }).reduce(0) { $0 + $1 }
+                records[date]?.totalWorkoutTime = time
+            }
         } else {
             records[date] = WorkoutRecord(workOutRecords: [], totalWorkoutTime: time, callAPI: false)
         }
