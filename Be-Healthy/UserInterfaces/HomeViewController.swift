@@ -152,7 +152,7 @@ extension HomeViewController {
         stackView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(26)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.horizontalEdges.equalToSuperview().inset(18)
         }
         
         [todayWorkOutView, goalAchieveRateView, averageWorkOutTimeView].forEach {
@@ -232,7 +232,7 @@ extension HomeViewController {
         
         goalAchieveRateProgressView.snp.makeConstraints {
             $0.top.equalTo(goalAchieveRateDescriptionLabel.snp.bottom).offset(20)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.horizontalEdges.equalToSuperview().inset(18)
             $0.height.equalTo(15)
         }
         
@@ -274,14 +274,14 @@ extension HomeViewController {
         barChartView.snp.makeConstraints {
             $0.top.equalTo(averageWorkOutTimeTitleLabel.snp.bottom).offset(10)
             $0.bottom.equalToSuperview().inset(10)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.horizontalEdges.equalToSuperview().inset(18)
         }
         
         return view
     }
     
     // MARK: Data
-    // TODO: ⭐️ 00시가 지나 날짜가 변경될 경우 어떻게 해야할지, 로그인 상태에서 켜졌을 때 데이터 처리
+    // TODO: ⭐️ 로그인 상태에서 켜졌을 때 데이터 처리
     private func setupData() {
         // 운동 기록
         repository.$records

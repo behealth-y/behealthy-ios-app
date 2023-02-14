@@ -87,7 +87,7 @@ extension ProfileViewController {
         // 설정 stackView 위치 잡기
         settingStackView.snp.makeConstraints {
             $0.top.equalTo(profileStackView.snp.bottom).offset(25)
-            $0.horizontalEdges.equalToSuperview().inset(28)
+            $0.horizontalEdges.equalToSuperview().inset(18)
             $0.bottom.equalToSuperview().inset(tabBarController?.tabBar.frame.height ?? 0.0)
         }
         

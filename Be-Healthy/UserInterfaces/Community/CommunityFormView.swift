@@ -94,7 +94,7 @@ extension CommunityFormView {
         
         stackView.snp.makeConstraints {
             $0.verticalEdges.equalToSuperview()
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.horizontalEdges.equalToSuperview().inset(18)
         }
         
         [contentTextView, satisfactionButtonStackView].forEach {

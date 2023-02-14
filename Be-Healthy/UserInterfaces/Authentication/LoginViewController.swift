@@ -152,16 +152,16 @@ extension LoginViewController {
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            $0.horizontalEdges.equalToSuperview().inset(30)
+            $0.horizontalEdges.equalToSuperview().inset(18)
         }
         
         formStackView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(25)
-            $0.horizontalEdges.equalToSuperview().inset(30)
+            $0.horizontalEdges.equalToSuperview().inset(18)
         }
         
         submitButton.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(30)
+            $0.horizontalEdges.equalToSuperview().inset(18)
             $0.top.greaterThanOrEqualTo(formStackView.snp.bottom).offset(10)
             $0.bottom.equalToSuperview().inset(25)
         }

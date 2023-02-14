@@ -154,7 +154,7 @@ extension FirstViewController {
         
         snsLoginStackView.snp.makeConstraints {
             $0.top.greaterThanOrEqualTo(logoLabel.snp.bottom)
-            $0.horizontalEdges.equalToSuperview().inset(20)
+            $0.horizontalEdges.equalToSuperview().inset(18)
             $0.bottom.equalTo(moveToLoginLabel.snp.top).offset(-13)
         }
         

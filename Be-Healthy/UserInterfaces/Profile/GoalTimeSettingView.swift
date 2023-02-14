@@ -101,7 +101,7 @@ extension GoalTimeSettingView {
         
         contentView.snp.makeConstraints {
             $0.centerY.equalToSuperview().offset(-20)
-            $0.horizontalEdges.equalToSuperview().inset(30)
+            $0.horizontalEdges.equalToSuperview().inset(18)
         }
         
         titleLabel.snp.makeConstraints {
@@ -136,7 +136,7 @@ extension GoalTimeSettingView {
         view.addSubview(submitButton)
 
         submitButton.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(30)
+            $0.horizontalEdges.equalToSuperview().inset(18)
             $0.bottom.equalToSuperview().inset(25)
         }
     }
