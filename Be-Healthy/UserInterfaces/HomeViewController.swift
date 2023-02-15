@@ -281,7 +281,7 @@ extension HomeViewController {
     }
     
     // MARK: Data
-    // TODO: ⭐️ 로그인 상태에서 켜졌을 때 데이터 처리
+    // TODO: ⭐️ 로그인 상태에서 켜졌을 때 데이터 처리 (viewDidLoad)
     private func setupData() {
         // 운동 기록
         repository.$records

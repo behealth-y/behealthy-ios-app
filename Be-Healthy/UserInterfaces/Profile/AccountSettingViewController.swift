@@ -92,7 +92,6 @@ extension AccountSettingViewController {
                 }
             }
         }
-        
         view.addSubview(submitButton)
         
         submitButton.snp.makeConstraints {

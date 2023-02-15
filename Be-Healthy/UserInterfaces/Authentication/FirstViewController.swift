@@ -158,7 +158,9 @@ extension FirstViewController {
             $0.bottom.equalTo(moveToLoginLabel.snp.top).offset(-13)
         }
         
-        [kakaoLoginButton, appleLoginButton, orTextView, emailRegisterButton].forEach {
+        // TODO: 임시 주석
+//        [kakaoLoginButton, appleLoginButton, orTextView, emailRegisterButton].forEach {
+        [emailRegisterButton].forEach {
             snsLoginStackView.addArrangedSubview($0)
             
             let height = $0 == orTextView ? 20 : 50
