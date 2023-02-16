@@ -39,6 +39,8 @@
 		B78DFFF52991E58B00FF79F2 /* WorkoutRecordsResultData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78DFFF42991E58B00FF79F2 /* WorkoutRecordsResultData.swift */; };
 		B78DFFF72992172900FF79F2 /* CalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78DFFF62992172900FF79F2 /* CalendarCell.swift */; };
 		B78DFFF92993473700FF79F2 /* Int+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78DFFF82993473700FF79F2 /* Int+Extension.swift */; };
+		B78DFFFC299DC9F100FF79F2 /* MyAuthenticationCredential.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78DFFFB299DC9F100FF79F2 /* MyAuthenticationCredential.swift */; };
+		B78DFFFE299DCA9200FF79F2 /* MyAuthenticator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B78DFFFD299DCA9200FF79F2 /* MyAuthenticator.swift */; };
 		B790C4C029791C3600876698 /* PinterestLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4BF29791C3600876698 /* PinterestLayout.swift */; };
 		B790C4C229791CF700876698 /* Community.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4C129791CF700876698 /* Community.swift */; };
 		B790C4C42979364800876698 /* CommunityDetailBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B790C4C32979364800876698 /* CommunityDetailBannerCell.swift */; };
@@ -153,6 +155,8 @@
 		B78DFFF42991E58B00FF79F2 /* WorkoutRecordsResultData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutRecordsResultData.swift; sourceTree = "<group>"; };
 		B78DFFF62992172900FF79F2 /* CalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarCell.swift; sourceTree = "<group>"; };
 		B78DFFF82993473700FF79F2 /* Int+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extension.swift"; sourceTree = "<group>"; };
+		B78DFFFB299DC9F100FF79F2 /* MyAuthenticationCredential.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAuthenticationCredential.swift; sourceTree = "<group>"; };
+		B78DFFFD299DCA9200FF79F2 /* MyAuthenticator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAuthenticator.swift; sourceTree = "<group>"; };
 		B790C4BF29791C3600876698 /* PinterestLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinterestLayout.swift; sourceTree = "<group>"; };
 		B790C4C129791CF700876698 /* Community.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Community.swift; sourceTree = "<group>"; };
 		B790C4C32979364800876698 /* CommunityDetailBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityDetailBannerCell.swift; sourceTree = "<group>"; };
@@ -403,6 +407,15 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		B78DFFFA299DBADD00FF79F2 /* JWT */ = {
+			isa = PBXGroup;
+			children = (
+				B78DFFFB299DC9F100FF79F2 /* MyAuthenticationCredential.swift */,
+				B78DFFFD299DCA9200FF79F2 /* MyAuthenticator.swift */,
+			);
+			path = JWT;
+			sourceTree = "<group>";
+		};
 		B792954928BCA344007D6045 /* Layout */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,6 +493,7 @@
 		B7D442C528F7009E00994AD3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				B78DFFFA299DBADD00FF79F2 /* JWT */,
 				B7DB81F029817D430098AFAD /* SocialLogin */,
 				B7D442C628F700B300994AD3 /* AuthenticationService.swift */,
 				B7EE735529837FC000E2F408 /* WorkoutService.swift */,
@@ -766,6 +780,7 @@
 				B727D53528B70A8500773A12 /* AppDelegate.swift in Sources */,
 				B727D58128B8628800773A12 /* UIColor+Extension.swift in Sources */,
 				B7E19164295CEC3100A20F2F /* GoalTimeSettingModalView.swift in Sources */,
+				B78DFFFC299DC9F100FF79F2 /* MyAuthenticationCredential.swift in Sources */,
 				B727D57D28B7744200773A12 /* BHTextField.swift in Sources */,
 				B7D01BE6298FD89C000897AF /* CalendarViewModel.swift in Sources */,
 				B7D1E4B528CBA0B5008C5E0C /* DeleteIdViewController.swift in Sources */,
@@ -792,6 +807,7 @@
 				B7A70AEE2973EBFB00D5628A /* CommunityCell.swift in Sources */,
 				B7EE735829878ED800E2F408 /* JSONWebToken.swift in Sources */,
 				B727D53728B70A8500773A12 /* SceneDelegate.swift in Sources */,
+				B78DFFFE299DCA9200FF79F2 /* MyAuthenticator.swift in Sources */,
 				B7D442C728F700B300994AD3 /* AuthenticationService.swift in Sources */,
 				B7D442CB28F7038300994AD3 /* SignUpResultData.swift in Sources */,
 				B7CFA26328D5C79000E9DC12 /* RecordListCollectionViewHeader.swift in Sources */,

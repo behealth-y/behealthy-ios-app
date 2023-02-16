@@ -37,7 +37,7 @@ final class AuthenticationService {
     }
     
     // MARK: 회원가입
-    func signUp(user: User, completion: @escaping (Result) -> Void) {
+    func signUp(user: User, completion: @escaping (APIResult) -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth/signup")!
         
         let params = [
@@ -52,17 +52,17 @@ final class AuthenticationService {
         ]
         
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ResultData.self) { response in
+            .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
                 } else {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
     
     /// 이메일 중복확인
-    func checkEmailDuplicate(email: String, completion: @escaping (Result) -> Void) {
+    func checkEmailDuplicate(email: String, completion: @escaping (APIResult) -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth/email-password-user/\(email)")!
         
         let headers: HTTPHeaders = [
@@ -70,17 +70,17 @@ final class AuthenticationService {
         ]
     
         AF.request(url, method: .head, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ResultData.self) { response in
+            .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
                 } else {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
     
     // MARK: 비밀번호 재설정
-    func resetPassword(email: String, toBePassword: String, verificationCode: String, completion: @escaping (Result) -> Void) {
+    func resetPassword(email: String, toBePassword: String, verificationCode: String, completion: @escaping (APIResult) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
         let url = URL(string: "\(Config().apiUrl)/api/auth/email-password-user/password")!
@@ -97,18 +97,18 @@ final class AuthenticationService {
         ]
     
         AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ResultData.self) { response in
+            .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
                 } else {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
     
     // MARK: 닉네임 변경
     // TODO: ⭐️ API 연동 필요
-    func changeNickname(_ nickname: String, completion: @escaping (Result) -> Void) {
+    func changeNickname(_ nickname: String, completion: @escaping (APIResult) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
         let url = URL(string: "\(Config().apiUrl)/api/auth/")!
@@ -123,11 +123,11 @@ final class AuthenticationService {
         ]
     
         AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ResultData.self) { response in
+            .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
                 } else {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
@@ -164,7 +164,7 @@ final class AuthenticationService {
     }
     
     /// 인증번호 검증
-    func verifyCode(email: String, purpose: String, emailVerificationCode: String, completion: @escaping (Result) -> Void) {
+    func verifyCode(email: String, purpose: String, emailVerificationCode: String, completion: @escaping (APIResult) -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth/email-verification/verify")!
         
         let params = [
@@ -178,17 +178,17 @@ final class AuthenticationService {
         ]
         
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ResultData.self) { response in
+            .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
                 } else {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
     
     // MARK: 회원 탈퇴
-    func delete(completion: @escaping (Result) -> Void) {
+    func delete(completion: @escaping (APIResult) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
         
         let userId = jwtDecode.payload.userId
@@ -205,11 +205,11 @@ final class AuthenticationService {
         ]
         
         AF.request(url, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ResultData.self) { response in
+            .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
                 } else {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }

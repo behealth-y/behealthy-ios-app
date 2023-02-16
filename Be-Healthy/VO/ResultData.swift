@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct Result {
+struct APIResult {
     let statusCode: Int?
-    let errorData: ResultData?
+    let errorData: APIResultData?
 }
 
 
-struct ResultData: Codable {
+struct APIResultData: Codable {
     let errorCode, reason: String?
 }

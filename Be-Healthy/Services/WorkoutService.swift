@@ -11,7 +11,7 @@ import Alamofire
 final class WorkoutService {
     // MARK: 목표 운동 시간
     /// 목표 운동 시간 설정
-    func setWorkoutGoal(hour: Int, minute: Int, completion: @escaping (Result) -> Void) {
+    func setWorkoutGoal(hour: Int, minute: Int, completion: @escaping (APIResult) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
         let url = URL(string: "\(Config().apiUrl)/api/workout-goal")!
@@ -27,11 +27,11 @@ final class WorkoutService {
         ]
     
         AF.request(url, method: .put, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ResultData.self) { response in
+            .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
                 } else {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
@@ -100,7 +100,7 @@ final class WorkoutService {
     }
     
     /// 운동 기록 수정
-    func updateWorkoutRecord(date: String, record: WorkoutRecordForDate, completion: @escaping (Result) -> Void) {
+    func updateWorkoutRecord(date: String, record: WorkoutRecordForDate, completion: @escaping (APIResult) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let idx = record.idx else { return }
         
         let url = URL(string: "\(Config().apiUrl)/api/workout-logs/\(idx)")!
@@ -121,17 +121,17 @@ final class WorkoutService {
         ]
     
         AF.request(url, method: .patch, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ResultData.self) { response in
+            .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
                 } else {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
     
     /// 운동 기록 삭제
-    func deleteWorkoutRecord(_ idx: Int, completion: @escaping (Result) -> Void) {
+    func deleteWorkoutRecord(_ idx: Int, completion: @escaping (APIResult) -> Void) {
         guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
         
         let url = URL(string: "\(Config().apiUrl)/api/workout-logs/\(idx)")!
@@ -142,11 +142,11 @@ final class WorkoutService {
         ]
     
         AF.request(url, method: .delete, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: ResultData.self) { response in
+            .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: data))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
                 } else {
-                    completion(Result(statusCode: response.response?.statusCode, errorData: nil))
+                    completion(APIResult(statusCode: response.response?.statusCode, errorData: nil))
                 }
             }
     }
