@@ -7,7 +7,7 @@
 
 import UIKit
 import KakaoSDKCommon
-import Firebase
+import FirebaseCore
 import AuthenticationServices
 
 @main
