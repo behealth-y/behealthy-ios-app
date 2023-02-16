@@ -271,6 +271,7 @@ extension LoginViewController {
                 authenticationService.login(email: email, password: password) { [weak self] data in
                     if let token = data.token { // 로그인 성공
                         UserDefaults.standard.set(token, forKey: "jwt")
+                        // TODO: ⭐️ refreshToken 발급
                         self?.emailLoginSuccess()
                     } else if let _ = data.errorCode, let reason = data.reason { // 로그인 실패
                         self?.emailLoginFail(reason: reason)

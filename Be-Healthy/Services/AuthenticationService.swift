@@ -81,7 +81,15 @@ final class AuthenticationService {
     
     // MARK: 비밀번호 재설정
     func resetPassword(email: String, toBePassword: String, verificationCode: String, completion: @escaping (APIResult) -> Void) {
-        guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"),  let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
+        
+        let authenticator = MyAuthenticator()
+        let expireAt = Double(jwtDecode.payload.exp)
+        let credential = MyAuthenticationCredential(accessToken: jwt,
+                                                    refreshToken: refreshToken,
+                                                    expiredAt: Date(timeIntervalSince1970: expireAt))
+        
+        let myAuthencitationInterceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
         
         let url = URL(string: "\(Config().apiUrl)/api/auth/email-password-user/password")!
         
@@ -96,7 +104,7 @@ final class AuthenticationService {
             "emailVerificationCode": verificationCode
         ]
     
-        AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers)
+        AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers, interceptor: myAuthencitationInterceptor)
             .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
                     completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
@@ -109,7 +117,15 @@ final class AuthenticationService {
     // MARK: 닉네임 변경
     // TODO: ⭐️ API 연동 필요
     func changeNickname(_ nickname: String, completion: @escaping (APIResult) -> Void) {
-        guard let jwt = UserDefaults.standard.string(forKey: "jwt") else { return }
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"),  let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
+        
+        let authenticator = MyAuthenticator()
+        let expireAt = Double(jwtDecode.payload.exp)
+        let credential = MyAuthenticationCredential(accessToken: jwt,
+                                                    refreshToken: refreshToken,
+                                                    expiredAt: Date(timeIntervalSince1970: expireAt))
+        
+        let myAuthencitationInterceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
         
         let url = URL(string: "\(Config().apiUrl)/api/auth/")!
         
@@ -122,7 +138,7 @@ final class AuthenticationService {
             "nickname": nickname
         ]
     
-        AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers)
+        AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers, interceptor: myAuthencitationInterceptor)
             .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
                     completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
@@ -189,7 +205,15 @@ final class AuthenticationService {
     
     // MARK: 회원 탈퇴
     func delete(completion: @escaping (APIResult) -> Void) {
-        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"),  let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
+                
+        let authenticator = MyAuthenticator()
+        let expireAt = Double(jwtDecode.payload.exp)
+        let credential = MyAuthenticationCredential(accessToken: jwt,
+                                                    refreshToken: refreshToken,
+                                                    expiredAt: Date(timeIntervalSince1970: expireAt))
+        
+        let myAuthencitationInterceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
         
         let userId = jwtDecode.payload.userId
 
@@ -204,7 +228,7 @@ final class AuthenticationService {
             "Authorization": "Bearer \(jwt)"
         ]
         
-        AF.request(url, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers)
+        AF.request(url, method: .delete, parameters: params, encoding: JSONEncoding.default, headers: headers, interceptor: myAuthencitationInterceptor)
             .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
                     completion(APIResult(statusCode: response.response?.statusCode, errorData: data))

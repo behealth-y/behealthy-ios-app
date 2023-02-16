@@ -21,14 +21,14 @@ class MyAuthenticator: Authenticator {
     }
 
     func isRequest(_ urlRequest: URLRequest, authenticatedWith credential: Credential) -> Bool {
-        // bearerToken의 urlRequest대해서만 refresh를 시도 (true)
+        // bearerToken의 urlRequest 대해서만 refresh를 시도 (true)
         let bearerToken = HTTPHeader.authorization(bearerToken: credential.accessToken).value
         return urlRequest.headers["Authorization"] == bearerToken
     }
 
     func refresh(_ credential: Credential, for session: Session, completion: @escaping (Result<Credential, Error>) -> Void) {
         print(#function)
-        // TODO: refresh API 콜
+        // TODO: ⭐️ refresh API 콜
 //         switch result {
 //         case .success(let response):
 //            completion(.success(credential))
