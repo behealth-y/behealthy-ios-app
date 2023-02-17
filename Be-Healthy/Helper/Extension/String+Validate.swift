@@ -18,7 +18,7 @@ extension String {
     
     /// 비밀번호 형식 (영문, 숫자, 특수문자 조합 최소 8자)
     func passwordValidate() -> Bool {
-        let regex = "^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+=-]).{8,50}"
+        let regex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,50}$"
         return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: self)
     }
     
