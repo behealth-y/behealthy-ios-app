@@ -21,10 +21,6 @@ final class GoalTimeSettingModalView: BaseViewController {
     private lazy var dimmedView = UIView().then {
         $0.backgroundColor = .black
         $0.alpha = 0.5
-        
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissView))
-//        $0.isUserInteractionEnabled = true
-//        $0.addGestureRecognizer(tapGesture)
     }
     
     // 모달 뷰
@@ -36,7 +32,12 @@ final class GoalTimeSettingModalView: BaseViewController {
 
     }
     
-    // TODO: - 모달 > 닫기
+    // MARK: - 모달 > 닫기
+    private lazy var closeButton = UIButton().then {
+        $0.setImage(UIImage(systemName: "xmark"), for: .normal)
+        $0.tintColor = UIColor.init(hexFromString: "#3C3C43")
+        $0.addTarget(self, action: #selector(didTapCloseButton), for: .touchUpInside)
+    }
     
     // MARK: - 모달 > 타이틀
     private let titleLabel = UILabel().then {
@@ -128,7 +129,7 @@ extension GoalTimeSettingModalView {
             $0.height.equalTo(300)
         }
 
-        [titleLabel, hourTextField, minuteTextField, hourBottomBorder, minuteBottomBorder, colonLabel, submitButton].forEach {
+        [closeButton, titleLabel, hourTextField, minuteTextField, hourBottomBorder, minuteBottomBorder, colonLabel, submitButton].forEach {
             containerView.addSubview($0)
         }
 
@@ -165,31 +166,35 @@ extension GoalTimeSettingModalView {
             $0.top.equalTo(minuteTextField.snp.bottom)
         }
 
+        closeButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(9)
+            $0.trailing.equalToSuperview().inset(17)
+            $0.size.equalTo(30)
+        }
+        
         titleLabel.snp.makeConstraints {
             $0.centerX.equalTo(colonLabel)
             $0.bottom.equalTo(hourTextField.snp.top).offset(-20)
         }
 
         submitButton.snp.makeConstraints {
-            $0.horizontalEdges.equalToSuperview().inset(30)
+            $0.horizontalEdges.equalToSuperview().inset(18)
             $0.bottom.equalToSuperview().inset(25)
         }
     }
     
     // MARK: Actions
-    /// 모달 닫기
-    @objc private func dismissView() {
-        print(#function)
-        
-        self.dismiss(animated: false)
-    }
-    
     /// 목표 운동 시간 설정
     @objc private func didTapSubmitButton() {
         if let hour = hourTextField.text, let minute = minuteTextField.text {
             delegate?.setGoalTime(hour: Int(hour) ?? 0, minute: Int(minute) ?? 0)
             self.dismiss(animated: false)
         }
+    }
+    
+    /// 닫기 버튼 클릭 시
+    @objc private func didTapCloseButton() {
+        self.dismiss(animated: false)
     }
 }
 
