@@ -28,12 +28,30 @@ class MyAuthenticator: Authenticator {
 
     func refresh(_ credential: Credential, for session: Session, completion: @escaping (Result<Credential, Error>) -> Void) {
         print(#function)
-        // TODO: ⭐️ refresh API 콜
-//         switch result {
-//         case .success(let response):
-//            completion(.success(credential))
-//         case .failure(let error):
-//            completion(.failure(error))
-//         }
+        guard let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") else { return }
+        
+        let url = URL(string: "\(Config().apiUrl)/api/auth/refresh")!
+        
+        let params = [
+            "refreshToken": refreshToken
+        ]
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json"
+        ]
+    
+        AF.request(url, method: .get, parameters: params, encoding: JSONEncoding.default, headers: headers)
+            .responseDecodable(of: LoginResultData.self) { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.value, let jwt = data.accessToken else { return }
+                    
+                    UserDefaults.standard.set(jwt, forKey: "jwt")
+                    completion(.success(credential))
+                case let .failure(error):
+                    print(error)
+                    completion(.failure(error))
+                }
+            }
     }
 }

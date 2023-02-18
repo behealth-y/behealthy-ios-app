@@ -183,6 +183,12 @@ class RegisterViewController: BaseViewController {
         $0.delegate = self
     }
     
+    private lazy var passwordEyeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 16, height: 16)).then {
+        $0.tintColor = .black
+        $0.setImage(UIImage(named: "eye_show"), for: .normal)
+        $0.addTarget(self, action: #selector(didTapPasswordEyeButton), for: .touchUpInside)
+    }
+    
     private let passwordBottomBorder = UIView().then {
         $0.backgroundColor = .border
     }
@@ -512,9 +518,19 @@ extension RegisterViewController {
         case .enterPassword:
             nextRegisterProcess = .enterPasswordConfirm
             
+            passwordTextField.rightView = nil
+            passwordTextField.isSecureTextEntry = true
+            
+            passwordEyeButton.setImage(UIImage(named: "eye_show"), for: .normal)
+            passwordConfirmTextField.rightView = passwordEyeButton
+            passwordConfirmTextField.rightViewMode = .always
+            
             formStackView.insertArrangedSubview(passwordConfirmStackView, at: 0)
         case .enterPasswordConfirm:
             nextRegisterProcess = .enterNickname
+            
+            passwordConfirmTextField.rightView = nil
+            passwordConfirmTextField.isSecureTextEntry = true
             
             passwordTextField.isEnabled = false
             passwordConfirmTextField.isEnabled = false
@@ -573,6 +589,17 @@ extension RegisterViewController {
         requestVerificationCode()
     }
     
+    /// 비밀번호 보기 / 숨기기 클릭 시
+    @objc private func didTapPasswordEyeButton(sender: UIButton) {
+        if registerProcess == .enterPassword {
+            passwordTextField.isSecureTextEntry.toggle()
+            passwordEyeButton.setImage(passwordTextField.isSecureTextEntry ? UIImage(named: "eye_show") : UIImage(named: "eye_hide"), for: .normal)
+        } else {
+            passwordConfirmTextField.isSecureTextEntry.toggle()
+            passwordEyeButton.setImage(passwordConfirmTextField.isSecureTextEntry ? UIImage(named: "eye_show") : UIImage(named: "eye_hide"), for: .normal)
+        }
+    }
+    
     // MARK: 이메일 중복확인 처리
     /// 이메일 중복확인 성공
     private func checkEmailDuplicateSuccess() {
@@ -601,7 +628,6 @@ extension RegisterViewController {
     // MARK: 인증번호 처리
     /// 인증번호 요청
     private func requestVerificationCode() {
-        print(sendedVerificationCode)
         if sendedVerificationCode { return }
         
         if let email = emailTextField.text {
@@ -643,6 +669,9 @@ extension RegisterViewController {
     private func verifyCodeSuccess() {
         print(#function)
         registerProcess = .enterPassword
+        
+        passwordTextField.rightView = passwordEyeButton
+        passwordTextField.rightViewMode = .always
         
         titleLabel.text = titles[registerProcess.rawValue]
         submitButton.isEnabled = false

@@ -113,6 +113,12 @@ class LoginViewController: BaseViewController {
         $0.delegate = self
     }
     
+    private lazy var passwordEyeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 16, height: 16)).then {
+        $0.tintColor = .black
+        $0.setImage(UIImage(named: "eye_show"), for: .normal)
+        $0.addTarget(self, action: #selector(didTapPasswordEyeButton), for: .touchUpInside)
+    }
+    
     private let passwordBottomBorder = UIView().then {
         $0.backgroundColor = .border
     }
@@ -260,6 +266,9 @@ extension LoginViewController {
 //            emailTextField.isEnabled = false
 //            emailTextField.textColor = .init(hexFromString: "#868181")
             
+            passwordTextField.rightView = passwordEyeButton
+            passwordTextField.rightViewMode = .always
+            
             submitButton.setTitle("로그인", for: .normal)
             
             formStackView.insertArrangedSubview(passwordStackView, at: 0)
@@ -269,9 +278,9 @@ extension LoginViewController {
                  email: "gusdn5387@naver.com", password: "abcdef!23456"
                  */
                 authenticationService.login(email: email, password: password) { [weak self] data in
-                    if let token = data.token { // 로그인 성공
-                        UserDefaults.standard.set(token, forKey: "jwt")
-                        // TODO: ⭐️ refreshToken 발급
+                    if let accessToken = data.accessToken, let refreshToken = data.refreshToken { // 로그인 성공
+                        UserDefaults.standard.set(accessToken, forKey: "jwt")
+                        UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
                         self?.emailLoginSuccess()
                     } else if let _ = data.errorCode, let reason = data.reason { // 로그인 실패
                         self?.emailLoginFail(reason: reason)
@@ -290,6 +299,12 @@ extension LoginViewController {
     /// 비밀번호 재설정 화면 열기
     @objc private func didTapMoveToPasswordResetLabel(sender: UITapGestureRecognizer){
         navigationController?.pushViewController(PasswordResetViewController(), animated: true)
+    }
+    
+    /// 비밀번호 보기 / 숨기기 클릭 시
+    @objc private func didTapPasswordEyeButton(sender: UIButton) {
+        passwordTextField.isSecureTextEntry.toggle()
+        passwordEyeButton.setImage(passwordTextField.isSecureTextEntry ? UIImage(named: "eye_show") : UIImage(named: "eye_hide"), for: .normal)
     }
     
     // MARK: 로그인 처리

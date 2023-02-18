@@ -155,6 +155,12 @@ class PasswordResetViewController: BaseViewController {
         $0.delegate = self
     }
     
+    private lazy var passwordEyeButton = UIButton(frame: CGRect(x: 0, y: 0, width: 16, height: 16)).then {
+        $0.tintColor = .black
+        $0.setImage(UIImage(named: "eye_show"), for: .normal)
+        $0.addTarget(self, action: #selector(didTapPasswordEyeButton), for: .touchUpInside)
+    }
+    
     private let passwordBottomBorder = UIView().then {
         $0.backgroundColor = .border
     }
@@ -395,6 +401,8 @@ extension PasswordResetViewController {
             submitButton.setTitle("인증번호 확인", for: .normal)
             
             formStackView.insertArrangedSubview(verificationCodeStackView, at: 0)
+            
+            requestVerificationCode()
         case .enterVerificationCode:
             nextPasswordResetProcess = .enterPassword
             
@@ -413,6 +421,13 @@ extension PasswordResetViewController {
             }
         case .enterPassword:
             nextPasswordResetProcess = .enterPasswordConfirm
+            
+            passwordTextField.rightView = nil
+            passwordTextField.isSecureTextEntry = true
+            
+            passwordEyeButton.setImage(UIImage(named: "eye_show"), for: .normal)
+            passwordConfirmTextField.rightView = passwordEyeButton
+            passwordConfirmTextField.rightViewMode = .always
             
             submitButton.setTitle("변경하기", for: .normal)
             
@@ -447,12 +462,25 @@ extension PasswordResetViewController {
         requestVerificationCode()
     }
     
+    /// 비밀번호 보기 / 숨기기 클릭 시
+    @objc private func didTapPasswordEyeButton(sender: UIButton) {
+        if passwordResetProcess == .enterPassword {
+            passwordTextField.isSecureTextEntry.toggle()
+            passwordEyeButton.setImage(passwordTextField.isSecureTextEntry ? UIImage(named: "eye_show") : UIImage(named: "eye_hide"), for: .normal)
+        } else {
+            passwordConfirmTextField.isSecureTextEntry.toggle()
+            passwordEyeButton.setImage(passwordConfirmTextField.isSecureTextEntry ? UIImage(named: "eye_show") : UIImage(named: "eye_hide"), for: .normal)
+        }
+    }
+    
     // MARK: 인증번호 처리
     /// 인증번호 요청
     private func requestVerificationCode() {
         if sendedVerificationCode { return }
         
         if let email = emailTextField.text {
+            sendedVerificationCode = true
+            
             authenticationService.requestVerififcationCode(email: email, purpose: "CHANGE_PASSWORD") { [weak self] data in
                 if let statusCode = data.statusCode {
                     switch statusCode {
@@ -470,7 +498,6 @@ extension PasswordResetViewController {
     private func requestVerificationCodeSuccess() {
         print(#function)
         
-        sendedVerificationCode = true
         showToast(title: "인증번호 발송 완료!", msg: "발송된 인증번호를 확인해주세요!") { [weak self] in
             self?.sendedVerificationCode = false
         }
@@ -483,12 +510,17 @@ extension PasswordResetViewController {
         if let reason = reason {
             print(reason)
         }
+        
+        sendedVerificationCode = false
     }
     
     /// 인증번호 검증 성공
     private func verifyCodeSuccess() {
         print(#function)
         passwordResetProcess = .enterPassword
+        
+        passwordTextField.rightView = passwordEyeButton
+        passwordTextField.rightViewMode = .always
         
         titleLabel.text = titles[passwordResetProcess.rawValue]
         submitButton.isEnabled = false

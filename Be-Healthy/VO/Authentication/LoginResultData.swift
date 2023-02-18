@@ -14,6 +14,6 @@ import Foundation
 
 // MARK: - LoginResultData
 struct LoginResultData: Codable {
-    let token: String?
+    let accessToken, refreshToken: String?
     let errorCode, reason: String?
 }

@@ -20,6 +20,13 @@ enum SettingView: Int {
 class ProfileViewController: BaseViewController {
     private let userName = UserDefaults.standard.string(forKey: "userName") ?? "비헬시"
     
+    private lazy var welcomeLabel = UILabel().then {
+        $0.font = .boldSystemFont(ofSize: 20.0)
+        $0.textAlignment = .center
+        $0.text = "반갑습니다!\n \(userName)님"
+        $0.numberOfLines = 0
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +40,10 @@ class ProfileViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         navigationController?.isNavigationBarHidden = true
+        
+        if userName != UserDefaults.standard.string(forKey: "userName") {
+            welcomeLabel.text = "반갑습니다!\n \(userName)님"
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -128,13 +139,6 @@ extension ProfileViewController {
         let profileImgView = UIImageView().then {
             $0.image = UIImage(systemName: "person.fill")
             $0.tintColor = .black
-        }
-        
-        let welcomeLabel = UILabel().then {
-            $0.font = .boldSystemFont(ofSize: 20.0)
-            $0.textAlignment = .center
-            $0.text = "반갑습니다!\n \(userName)님"
-            $0.numberOfLines = 0
         }
         
         profileView.addSubview(profileImgView)
