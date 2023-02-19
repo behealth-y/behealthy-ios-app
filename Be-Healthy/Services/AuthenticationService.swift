@@ -115,9 +115,8 @@ final class AuthenticationService {
     }
     
     // MARK: 닉네임 변경
-    // TODO: ⭐️ API 연동 필요
-    func changeNickname(_ nickname: String, completion: @escaping (APIResult) -> Void) {
-        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"),  let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
+    func changeNickname(_ name: String, completion: @escaping (APIResult) -> Void) {
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"), let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
         
         let authenticator = MyAuthenticator()
         let expireAt = Double(jwtDecode.payload.exp)
@@ -127,7 +126,9 @@ final class AuthenticationService {
         
         let myAuthencitationInterceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
         
-        let url = URL(string: "\(Config().apiUrl)/api/auth/")!
+        let userId = jwtDecode.payload.userId
+        
+        let url = URL(string: "\(Config().apiUrl)/api/users/\(userId)/name")!
         
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
@@ -135,9 +136,13 @@ final class AuthenticationService {
         ]
         
         let params = [
-            "nickname": nickname
+            "name": name
         ]
     
+        print("ASDASFASDFASDF ::: \(url)")
+        print("ASDASFASDFASDF ::: \(headers)")
+        print("ASDASFASDFASDF ::: \(params)")
+        
         AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers, interceptor: myAuthencitationInterceptor)
             .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {

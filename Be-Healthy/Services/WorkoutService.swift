@@ -53,7 +53,7 @@ final class WorkoutService {
         let credential = MyAuthenticationCredential(accessToken: jwt,
                                                     refreshToken: refreshToken,
                                                     expiredAt: Date(timeIntervalSince1970: expireAt))
-        
+
         let myAuthencitationInterceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
         
         let url = URL(string: "\(Config().apiUrl)/api/workout-goal")!
@@ -229,8 +229,8 @@ final class WorkoutService {
     
     /// 특정 날짜 기준 운동 기록 조회
     func getWorkoutRecords(date: String, completion: @escaping (WorkoutRecordsResult) -> Void) {
-        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"),  let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
-                
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"), let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
+        
         let authenticator = MyAuthenticator()
         let expireAt = Double(jwtDecode.payload.exp)
         let credential = MyAuthenticationCredential(accessToken: jwt,
@@ -249,7 +249,7 @@ final class WorkoutService {
             "Content-Type": "application/json",
             "Authorization": "Bearer \(jwt)"
         ]
-    
+        
         AF.request(url, method: .get, parameters: params, headers: headers, interceptor: myAuthencitationInterceptor)
             .responseDecodable(of: WorkoutRecordsResultData.self) { response in
                 guard let result = response.value else { return }

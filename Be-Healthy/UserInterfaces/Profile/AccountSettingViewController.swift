@@ -13,6 +13,8 @@ class AccountSettingViewController: BaseViewController {
     
     private let authenticationService = AuthenticationService()
     
+    private let email = UserDefaults.standard.string(forKey: "email") ?? ""
+    
     // MARK: 닉네임
     private lazy var nicknameTextField = BHTextField().then {
         $0.placeholder = "변경하실 닉네임을 입력해주세요! (국/영문 최대 2~8자)"
@@ -111,7 +113,7 @@ extension AccountSettingViewController {
         }
         
         let emailLabel = UILabel().then {
-            $0.text = "laura.lee.x316@gmail.com"
+            $0.text = "\(email)"
             $0.font = .systemFont(ofSize: 14)
             $0.textColor = UIColor.init(hexFromString: "868181")
         }
@@ -303,7 +305,9 @@ extension AccountSettingViewController {
     /// 로그아웃 눌렀을 때 처리
     @objc fileprivate func didTapLogoutView() {
         UserDefaults.standard.removeObject(forKey: "jwt")
+        UserDefaults.standard.removeObject(forKey: "refreshToken")
         UserDefaults.standard.removeObject(forKey: "goalTime")
+        UserDefaults.standard.removeObject(forKey: "email")
         
         navigationController?.popToRootViewController(animated: false)
         
@@ -326,7 +330,7 @@ extension AccountSettingViewController {
             if let statusCode = data.statusCode {
                 switch statusCode {
                 case 200:
-                    self?.changeNicknameSuccess()
+                    self?.changeNicknameSuccess(nickname)
                 default:
                     guard let errorData = data.errorData else { return }
                     print(errorData)
@@ -337,8 +341,11 @@ extension AccountSettingViewController {
     }
     
     /// 닉네임 변경 성공
-    private func changeNicknameSuccess() {
+    private func changeNicknameSuccess(_ nickname: String) {
         print(#function)
+        
+        UserDefaults.standard.set(nickname, forKey: "userName")
+        navigationController?.popViewController(animated: true)
     }
      
     /// 닉네임 변경 실패

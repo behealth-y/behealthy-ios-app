@@ -125,17 +125,17 @@ class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-                
-        if userName != UserDefaults.standard.string(forKey: "userName") {
-            todayWorkOutTitleLabel.text = "\(userName)님의 목표 달성률📈"
             
-            let goalTime = self.goalTimeSubject.goalTime
-            let time = self.totalWorkoutTime ?? 0
-            let betweenTime = goalTime - time
-            
-            if betweenTime > 0 {
-                goalAchieveRateDescriptionLabel.text = "\(userName)님!\n목표 운동시간까지 \(betweenTime.minuteToTime()) 남았습니다. :)"
-            }
+        let userName = UserDefaults.standard.string(forKey: "userName") ?? "비헬시"
+        
+        goalAchieveRateTitleLabel.text = "\(userName)님의 목표 달성률📈"
+        
+        let goalTime = self.goalTimeSubject.goalTime
+        let time = self.totalWorkoutTime ?? 0
+        let betweenTime = goalTime - time
+        
+        if betweenTime > 0 {
+            goalAchieveRateDescriptionLabel.text = "\(userName)님!\n목표 운동시간까지 \(betweenTime.minuteToTime()) 남았습니다. :)"
         }
     }
 }

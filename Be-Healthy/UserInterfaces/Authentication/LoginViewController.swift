@@ -281,6 +281,7 @@ extension LoginViewController {
                     if let accessToken = data.accessToken, let refreshToken = data.refreshToken { // 로그인 성공
                         UserDefaults.standard.set(accessToken, forKey: "jwt")
                         UserDefaults.standard.set(refreshToken, forKey: "refreshToken")
+                        UserDefaults.standard.set(email, forKey: "email")
                         self?.emailLoginSuccess()
                     } else if let _ = data.errorCode, let reason = data.reason { // 로그인 실패
                         self?.emailLoginFail(reason: reason)

@@ -27,7 +27,6 @@ class MyAuthenticator: Authenticator {
     }
 
     func refresh(_ credential: Credential, for session: Session, completion: @escaping (Result<Credential, Error>) -> Void) {
-        print(#function)
         guard let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") else { return }
         
         let url = URL(string: "\(Config().apiUrl)/api/auth/refresh")!
@@ -40,7 +39,7 @@ class MyAuthenticator: Authenticator {
             "Content-Type": "application/json"
         ]
     
-        AF.request(url, method: .get, parameters: params, encoding: JSONEncoding.default, headers: headers)
+        AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
             .responseDecodable(of: LoginResultData.self) { response in
                 switch response.result {
                 case .success:

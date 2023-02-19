@@ -41,9 +41,9 @@ class ProfileViewController: BaseViewController {
         
         navigationController?.isNavigationBarHidden = true
         
-        if userName != UserDefaults.standard.string(forKey: "userName") {
-            welcomeLabel.text = "반갑습니다!\n \(userName)님"
-        }
+        let userName = UserDefaults.standard.string(forKey: "userName") ?? "비헬시"
+        
+        welcomeLabel.text = "반갑습니다!\n \(userName)님"
     }
     
     override func viewWillDisappear(_ animated: Bool) {

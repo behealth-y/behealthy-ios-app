@@ -88,6 +88,7 @@ class CalendarViewModel {
                     switch statusCode {
                     case 200:
                         guard let records = data.result.workoutLogs else { return }
+                        print("ASDSDFASDFSADFSADFADSF asdasdasd ::: \(records)")
                         
                         print(records)
                         records.forEach {
