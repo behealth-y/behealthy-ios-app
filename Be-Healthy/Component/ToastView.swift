@@ -42,7 +42,7 @@ class ToastView: UIView {
     
     func setupView() {
         self.alpha = 0
-        self.backgroundColor = UIColor.init(hexFromString: "#ffffff", alpha: 1)
+        self.backgroundColor = UIColor.init(hexFromString: "#ffffff")
         
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = false
@@ -72,10 +72,15 @@ extension UIViewController {
     func showToast(title: String, msg: String, completion: @escaping () -> Void) {
         let toastView = ToastView(title: title, msg: msg)
         
-        view.addSubview(toastView)
+        if let navigationController = navigationController, !navigationController.isNavigationBarHidden {
+            navigationController.view.addSubview(toastView)
+        } else {
+            view.addSubview(toastView)
+        }
+        
         
         toastView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.top.equalTo(navigationController?.navigationBar.snp.top ?? view.safeAreaLayoutGuide)
             $0.height.equalTo(102)
             $0.horizontalEdges.equalToSuperview()
         }

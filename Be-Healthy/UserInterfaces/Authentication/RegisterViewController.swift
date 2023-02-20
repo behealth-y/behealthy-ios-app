@@ -691,10 +691,10 @@ extension RegisterViewController {
         print(#function)
         if let reason = reason {
             print(reason)
-            emailBottomBorder.backgroundColor = .systemRed
-            emailErrorLabel.isHidden = false
+            verificationCodeBottomBorder.backgroundColor = .systemRed
+            verificationCodeErrorLabel.isHidden = false
             
-            enteredEmail = false
+            enteredVerificationCode = false
         }
     }
     
