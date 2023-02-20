@@ -262,6 +262,7 @@ extension CalendarViewController {
                     dateFormatter.dateFormat = "YYYY-MM-dd"
                       
                     if let date = dateFormatter.date(from: $0.key), let cell = self.calendarView.cell(for: date, at: .current) {
+                        cell.eventIndicator.tintColor = UIColor.init(named: "mainColor")!
                         if $0.value.totalWorkoutTime > 0 {
                             cell.eventIndicator.numberOfEvents = 1
                             cell.eventIndicator.isHidden = false

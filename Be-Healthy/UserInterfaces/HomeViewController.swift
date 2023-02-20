@@ -321,6 +321,8 @@ extension HomeViewController {
                     
                     self.totalWorkoutTime = totalWorkoutTime
                 }
+                
+                self.getAverageWorkoutTime(workoutTimes: nil)
             })
             .store(in: &self.cancellables)
         
@@ -414,22 +416,79 @@ extension HomeViewController {
         }
     }
     
-    private func getAverageWorkoutTime() {
-        averageWorkOutTimeTitleLabel.attributedText = getAverageWorkoutTimeTitle(4.5)
-        
-        setupChart(dataPoints: [], values: [])
-    }
+    private func getAverageWorkoutTime(workoutTimes: [WorkoutTimesIntCurrentWeek]?) {
+        let dates = getThisWeekDates()
+        let weekdays = ["월", "화", "수", "목", "금", "토", "일"]
+        var times: [Double] = [0, 0, 0, 0, 0, 0, 0]
     
-    private func getAverageWorkoutTimeTitle(_ time: Float) -> NSMutableAttributedString{
-        let attributeString = NSMutableAttributedString(string: "이번 한 주의 운동 시간은\n평균 \(time)시간 입니다.")
-                
-        ["평균", "시간 입니다."].forEach {
-            attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0, weight: .semibold), range: ("이번 한 주의 운동 시간은\n평균 \(time)시간 입니다." as NSString).range(of: $0))
+        var workoutTimesDict: [String: Double] = [:]
+        
+        if let workoutTimes = workoutTimes {
+            for workoutTime in workoutTimes {
+                workoutTimesDict[workoutTime.date] = Double(workoutTime.workoutTime)
+            }
+        } else {
+            dates.forEach { date in
+                if let record = repository.records[date] {
+                    workoutTimesDict[date] = Double(record.totalWorkoutTime)
+                }
+            }
+        }
+
+        for i in 0..<7 {
+            let date = dates[i]
+            
+            // 해당 날짜에 대한 workoutTime 값을 가져옴
+            let workoutTime = workoutTimesDict[date] ?? 0
+            
+            // times 배열에 추가
+            times[i] = workoutTime
         }
         
-        attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 20.0, weight: .bold), range: ("이번 한 주의 운동 시간은\n평균 \(time)시간 입니다." as NSString).range(of: "\(time)"))
+        let averageWorkoutTimeCount = Double(times.filter({ $0 > 0 }).count)
+        let averageWorkoutTime = averageWorkoutTimeCount > 0 ? times.reduce(0) { $0 + $1 } / averageWorkoutTimeCount : 0
+        let averageWorkoutTimeTitle = getAverageWorkoutTimeTitle(Int(averageWorkoutTime))
+        
+        averageWorkOutTimeTitleLabel.attributedText = averageWorkoutTimeTitle
+        
+        setupChart(dataPoints: weekdays, values: times)
+    }
+    
+    private func getAverageWorkoutTimeTitle(_ time: Int) -> NSMutableAttributedString{
+        let attributeString = NSMutableAttributedString(string: "이번 한 주의 운동 시간은\n평균 \(time.minuteToTime()) 입니다.")
+         
+        attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 20.0, weight: .bold), range: ("이번 한 주의 운동 시간은\n평균 \(time.minuteToTime()) 입니다." as NSString).range(of: "\(time.minuteToTime())"))
+        
+        ["평균", "시간 ", "분", "입니다."].forEach {
+            attributeString.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0, weight: .semibold), range: ("이번 한 주의 운동 시간은\n평균 \(time.minuteToTime()) 입니다." as NSString).range(of: $0))
+        }
         
         return attributeString
+    }
+    
+    /// 이번주 날짜 구하기
+    func getThisWeekDates() -> [String] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd"
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul") // 한국 시간대
+        
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = formatter.timeZone
+        calendar.locale = Locale(identifier: "ko_KR")
+        
+        let today = Date()
+        let weekday = calendar.component(.weekday, from: today)
+        let daysOffset = (weekday == 1 ? 6 : weekday - 2)
+        let startOfWeek = calendar.date(byAdding: .day, value: -daysOffset, to: today)!
+        
+        var weekdays: [String] = []
+        for i in 0..<7 {
+            let date = calendar.date(byAdding: .day, value: i, to: startOfWeek)!
+            let dateString = formatter.string(from: date)
+            weekdays.append(dateString)
+        }
+        
+        return weekdays
     }
     
     /// 이번 주 평균 운동 시간 차트 설정
@@ -508,9 +567,8 @@ extension HomeViewController {
         
         self.todayWorkOutTimeLabel.attributedText = self.getTodayWorkoutTime(totalWorkoutTime!)
         
-        averageWorkOutTimeTitleLabel.attributedText = getAverageWorkoutTimeTitle(stat.avgWorkoutTimeInCurrentWeek)
-        
-        // TODO: ⭐️ 주간 통계
+        print(stat)
+        getAverageWorkoutTime(workoutTimes: stat.workoutTimesInCurrentWeek)
     }
     
     private func getWorkoutStatsFail() {
