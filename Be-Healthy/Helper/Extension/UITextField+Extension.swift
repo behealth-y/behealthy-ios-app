@@ -28,6 +28,9 @@ extension UITextField {
         datePicker.datePickerMode = isTime ? .time : .date // isCount .countDownTimer
         datePicker.preferredDatePickerStyle = .wheels
         datePicker.locale = Locale(identifier: "ko_KR")
+        if !isTime {
+            datePicker.maximumDate = Date()
+        }
         self.inputView = datePicker
         
         let toolBar = UIToolbar(frame: CGRect(x: 0, y: 0, width: width, height: 44))

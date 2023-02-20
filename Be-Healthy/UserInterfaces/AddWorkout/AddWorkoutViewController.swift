@@ -467,7 +467,7 @@ extension AddWorkoutViewController {
         if let defaultValue = defaultValue, let datePicker = textField.inputView as? UIDatePicker {
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = dateFormat
-
+            
             if let date = dateFormatter.date(from: defaultValue) {
                 datePicker.date = date
             }
