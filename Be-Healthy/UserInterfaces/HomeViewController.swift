@@ -558,8 +558,6 @@ extension HomeViewController {
     
     // MARK: 운동 통계
     private func getWorkoutStatsSuccess(_ stat: WorkoutStatsResultData) {
-        print(#function)
-        
         let goalTime = (stat.workoutGoal.hour * 60) + stat.workoutGoal.minute
         goalTimeSubject.setGoalTime(goalTime)
         
@@ -567,7 +565,6 @@ extension HomeViewController {
         
         self.todayWorkOutTimeLabel.attributedText = self.getTodayWorkoutTime(totalWorkoutTime!)
         
-        print(stat)
         getAverageWorkoutTime(workoutTimes: stat.workoutTimesInCurrentWeek)
     }
     
