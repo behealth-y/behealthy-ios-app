@@ -12,7 +12,7 @@ import Foundation
 extension String {
     /// 이메일 형식
     func emailValidate() -> Bool {
-        let regex = "[0-9a-zA-Z]+@[0-9a-zA-Z.-]+\\.[a-zA-Z]{2,64}"
+        let regex = "[a-zA-Z0-9+-\\_.]+@[0-9a-zA-Z.-]+\\.[a-zA-Z]{2,64}"
         return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: self)
     }
     
