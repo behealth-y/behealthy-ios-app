@@ -27,6 +27,7 @@ class MyAuthenticator: Authenticator {
     }
 
     func refresh(_ credential: Credential, for session: Session, completion: @escaping (Result<Credential, Error>) -> Void) {
+        // TODO: ⭐️ refreshToken 만료 시 로그아웃 처리
         guard let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") else { return }
         
         let url = URL(string: "\(Config().apiUrl)/api/auth/refresh")!

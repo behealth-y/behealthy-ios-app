@@ -297,8 +297,20 @@ extension HomeViewController {
     }
     
     // MARK: Data
-    // TODO: ⭐️ 로그인 상태에서 켜졌을 때 데이터 처리 (viewDidLoad)
     private func setupData() {
+        WorkoutService().getWorkoutStats { [weak self] data in
+            if let statusCode = data.statusCode {
+                switch statusCode {
+                case 200:
+                    if let stat = data.result {
+                        self?.getWorkoutStatsSuccess(stat)
+                    }
+                default:
+                    self?.getWorkoutStatsFail()
+                }
+            }
+        }
+        
         // 운동 기록
         repository.$records
             .receive(on: DispatchQueue.main)
@@ -483,6 +495,26 @@ extension HomeViewController {
         
         // 범례
         barChartView.legend.enabled = false
+    }
+    
+    // MARK: 운동 통계
+    private func getWorkoutStatsSuccess(_ stat: WorkoutStatsResultData) {
+        print(#function)
+        
+        let goalTime = (stat.workoutGoal.hour * 60) + stat.workoutGoal.minute
+        goalTimeSubject.setGoalTime(goalTime)
+        
+        self.totalWorkoutTime = stat.todayWorkoutTime
+        
+        self.todayWorkOutTimeLabel.attributedText = self.getTodayWorkoutTime(totalWorkoutTime!)
+        
+        averageWorkOutTimeTitleLabel.attributedText = getAverageWorkoutTimeTitle(stat.avgWorkoutTimeInCurrentWeek)
+        
+        // TODO: ⭐️ 주간 통계
+    }
+    
+    private func getWorkoutStatsFail() {
+        print(#function)
     }
 }
 

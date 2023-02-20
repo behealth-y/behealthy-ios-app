@@ -295,4 +295,36 @@ final class WorkoutService {
                 completion(data)
             }
     }
+    
+    // MARK: 운동 통계
+    func getWorkoutStats(_ completion: @escaping (WorkoutStatsResult) -> Void) {
+        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"),  let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
+
+        let authenticator = MyAuthenticator()
+        let expireAt = Double(jwtDecode.payload.exp)
+        let credential = MyAuthenticationCredential(accessToken: jwt,
+                                                    refreshToken: refreshToken,
+                                                    expiredAt: Date(timeIntervalSince1970: expireAt))
+        
+        let myAuthencitationInterceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
+        
+        let url = URL(string: "\(Config().apiUrl)/api/workout-logs/stat")!
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer \(jwt)"
+        ]
+    
+        AF.request(url, method: .get, headers: headers, interceptor: myAuthencitationInterceptor)
+            .responseDecodable(of: WorkoutStatsResultData.self) { response in
+                guard let result = response.value else { return }
+                
+                let data = WorkoutStatsResult(
+                    statusCode: response.response?.statusCode,
+                    result: result)
+                
+                print(data)
+                completion(data)
+            }
+    }
 }

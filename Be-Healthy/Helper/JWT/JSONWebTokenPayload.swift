@@ -16,7 +16,7 @@ import Foundation
  */
 struct JSONWebTokenPayload {
     let userId: Int
-    let name: String
+    let name: String?
     let sub: String
     let iat: Int
     let exp: Int

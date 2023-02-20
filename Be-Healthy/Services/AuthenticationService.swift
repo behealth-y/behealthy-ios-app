@@ -138,10 +138,6 @@ final class AuthenticationService {
         let params = [
             "name": name
         ]
-    
-        print("ASDASFASDFASDF ::: \(url)")
-        print("ASDASFASDFASDF ::: \(headers)")
-        print("ASDASFASDFASDF ::: \(params)")
         
         AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers, interceptor: myAuthencitationInterceptor)
             .responseDecodable(of: APIResultData.self) { response in
