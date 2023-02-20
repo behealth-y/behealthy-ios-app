@@ -81,21 +81,10 @@ final class AuthenticationService {
     
     // MARK: 비밀번호 재설정
     func resetPassword(email: String, toBePassword: String, verificationCode: String, completion: @escaping (APIResult) -> Void) {
-        guard let jwt = UserDefaults.standard.string(forKey: "jwt"), let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"),  let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
-        
-        let authenticator = MyAuthenticator()
-        let expireAt = Double(jwtDecode.payload.exp)
-        let credential = MyAuthenticationCredential(accessToken: jwt,
-                                                    refreshToken: refreshToken,
-                                                    expiredAt: Date(timeIntervalSince1970: expireAt))
-        
-        let myAuthencitationInterceptor = AuthenticationInterceptor(authenticator: authenticator, credential: credential)
-        
         let url = URL(string: "\(Config().apiUrl)/api/auth/email-password-user/password")!
         
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer \(jwt)"
         ]
         
         let params = [
@@ -104,7 +93,7 @@ final class AuthenticationService {
             "emailVerificationCode": verificationCode
         ]
     
-        AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers, interceptor: myAuthencitationInterceptor)
+        AF.request(url, method: .patch, parameters: params ,encoding: JSONEncoding.default, headers: headers)
             .responseDecodable(of: APIResultData.self) { response in
                 if let data = response.value {
                     completion(APIResult(statusCode: response.response?.statusCode, errorData: data))

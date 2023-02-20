@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 class MyAuthenticator: Authenticator {
     typealias Credential = MyAuthenticationCredential
@@ -27,8 +28,27 @@ class MyAuthenticator: Authenticator {
     }
 
     func refresh(_ credential: Credential, for session: Session, completion: @escaping (Result<Credential, Error>) -> Void) {
-        // TODO: ⭐️ refreshToken 만료 시 로그아웃 처리
         guard let refreshToken = UserDefaults.standard.string(forKey: "refreshToken") else { return }
+        
+        // MARK: refreshToken 만료 시 로그아웃 처리
+        if let refreshTokenDecode = RefreshToken(jsonWebToken: refreshToken) {
+            let expireAt = Double(refreshTokenDecode.payload.exp)
+
+            if Date() >= Date(timeIntervalSince1970: expireAt) {
+                UserDefaults.standard.removeObject(forKey: "jwt")
+                UserDefaults.standard.removeObject(forKey: "refreshToken")
+                UserDefaults.standard.removeObject(forKey: "goalTime")
+                UserDefaults.standard.removeObject(forKey: "email")
+                
+                DispatchQueue.main.async {
+                    let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+                    let nav = UINavigationController(rootViewController: FirstViewController())
+                    
+                    sceneDelegate.window?.rootViewController = nav
+                }
+                return
+            }
+        }
         
         let url = URL(string: "\(Config().apiUrl)/api/auth/refresh")!
         
@@ -44,9 +64,15 @@ class MyAuthenticator: Authenticator {
             .responseDecodable(of: LoginResultData.self) { response in
                 switch response.result {
                 case .success:
-                    guard let data = response.value, let jwt = data.accessToken else { return }
+                    print(#function)
+                    guard let data = response.value, let jwt = data.accessToken, let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"), let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
                     
                     UserDefaults.standard.set(jwt, forKey: "jwt")
+
+                    let expireAt = Double(jwtDecode.payload.exp)
+                    let credential = MyAuthenticationCredential(accessToken: jwt,
+                                                                refreshToken: refreshToken,
+                                                                expiredAt: Date(timeIntervalSince1970: expireAt))
                     completion(.success(credential))
                 case let .failure(error):
                     print(error)

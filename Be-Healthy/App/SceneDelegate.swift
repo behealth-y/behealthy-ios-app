@@ -22,8 +22,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let vc: UIViewController
         
-        if let _ = UserDefaults.standard.string(forKey: "jwt") {
-            vc = TabBarViewController()
+        if let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"), let refreshTokenDecode = RefreshToken(jsonWebToken: refreshToken) {
+            let expireAt = Double(refreshTokenDecode.payload.exp)
+
+            if Date() >= Date(timeIntervalSince1970: expireAt) {
+                UserDefaults.standard.removeObject(forKey: "jwt")
+                UserDefaults.standard.removeObject(forKey: "refreshToken")
+                UserDefaults.standard.removeObject(forKey: "goalTime")
+                UserDefaults.standard.removeObject(forKey: "email")
+                
+                vc = UINavigationController(rootViewController: FirstViewController())
+            } else {
+                vc = TabBarViewController()
+            }
         } else {
             vc = UINavigationController(rootViewController: FirstViewController())
         }
