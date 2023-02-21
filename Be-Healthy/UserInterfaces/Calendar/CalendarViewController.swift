@@ -126,6 +126,7 @@ class CalendarViewController: BaseViewController {
     
     private let noRecordImgView = UIImageView().then {
         $0.image = UIImage(named: "arrow_down")
+        $0.contentMode = .scaleAspectFit
     }
     
     // MARK: - LifeCycle
@@ -229,12 +230,13 @@ extension CalendarViewController {
         
         noRecordLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(noRecordImgView.snp.top).offset(-20)
+            $0.centerY.equalToSuperview()
         }
         
         noRecordImgView.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
+            $0.top.equalTo(noRecordLabel.snp.bottom).offset(20)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-30)
+            $0.centerX.equalToSuperview()
         }
         
         // MARK: 운동 기록 내역 > AutoLayout
@@ -255,6 +257,14 @@ extension CalendarViewController {
                 // 현재 선택된 날짜의 운동 시간과 저장된 운동 시간이 다를 경우 처리
                 let _ = data.filter({ $0.key == self.currentDate }).map({
                     self.currentDateTotalTime = $0.value.totalWorkoutTime
+                    
+                    if self.currentDateTotalTime > 0 {
+                        self.noRecordView.isHidden = true
+                        self.collectionView.isHidden = false
+                    } else {
+                        self.collectionView.isHidden = true
+                        self.noRecordView.isHidden = false
+                    }
                 })
                 
                 data.forEach {
@@ -262,8 +272,8 @@ extension CalendarViewController {
                     dateFormatter.dateFormat = "YYYY-MM-dd"
                       
                     if let date = dateFormatter.date(from: $0.key), let cell = self.calendarView.cell(for: date, at: .current) {
-                        cell.eventIndicator.tintColor = UIColor.init(named: "mainColor")!
                         if $0.value.totalWorkoutTime > 0 {
+                            cell.eventIndicator.tintColor = UIColor.init(named: "mainColor")!
                             cell.eventIndicator.numberOfEvents = 1
                             cell.eventIndicator.isHidden = false
                         } else {
@@ -464,7 +474,14 @@ extension CalendarViewController: CalendarViewModelDelegate {
     }
     
     func getForDateSuccess(date: String) {
-        print(#function)
+        
+        if let record = repository.get(for: date), record.workOutRecords.count > 0 {
+            collectionView.isHidden = false
+            noRecordView.isHidden = true
+        } else {
+            collectionView.isHidden = true
+            noRecordView.isHidden = false
+        }
     }
     
     func getForDateFail() {
