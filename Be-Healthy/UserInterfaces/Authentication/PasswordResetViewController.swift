@@ -404,8 +404,6 @@ extension PasswordResetViewController {
             
             requestVerificationCode(resend: false)
         case .enterVerificationCode:
-            nextPasswordResetProcess = .enterPassword
-            
             if let email = emailTextField.text, let verificationCode = verificationCodeTextField.text {
                 authenticationService.verifyCode(email: email, purpose: "CHANGE_PASSWORD", emailVerificationCode: verificationCode) { [weak self] data in
                     if let statusCode = data.statusCode {
