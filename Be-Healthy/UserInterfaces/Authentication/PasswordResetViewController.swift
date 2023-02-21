@@ -434,8 +434,8 @@ extension PasswordResetViewController {
             formStackView.insertArrangedSubview(passwordConfirmStackView, at: 0)
         case .enterPasswordConfirm:
             let email = emailTextField.text!
-            let toBePassword = passwordConfirmLabel.text!
-            let verificationCode = verificationCodeLabel.text!
+            let toBePassword = passwordConfirmTextField.text!
+            let verificationCode = verificationCodeTextField.text!
             
             authenticationService.resetPassword(email: email, toBePassword: toBePassword, verificationCode: verificationCode) { [weak self] data in
                 if let statusCode = data.statusCode {
