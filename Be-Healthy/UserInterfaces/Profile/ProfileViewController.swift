@@ -18,7 +18,7 @@ enum SettingView: Int {
 }
 
 class ProfileViewController: BaseViewController {
-    private let userName = UserDefaults.standard.string(forKey: "userName") ?? "비헬시"
+    private let userName = UserDefaults.standard.string(forKey: "userName") ?? "회원"
     
     private lazy var welcomeLabel = UILabel().then {
         $0.font = .boldSystemFont(ofSize: 20.0)
@@ -41,7 +41,7 @@ class ProfileViewController: BaseViewController {
         
         navigationController?.isNavigationBarHidden = true
         
-        let userName = UserDefaults.standard.string(forKey: "userName") ?? "비헬시"
+        let userName = UserDefaults.standard.string(forKey: "userName") ?? "회원"
         
         welcomeLabel.text = "반갑습니다!\n \(userName)님"
     }

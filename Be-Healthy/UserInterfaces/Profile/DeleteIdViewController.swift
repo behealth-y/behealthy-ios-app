@@ -8,10 +8,12 @@
 import UIKit
 
 class DeleteIdViewController: BaseViewController {
+    private var userName = UserDefaults.standard.string(forKey: "userName") ?? "회원"
+    
     private let authenticationService = AuthenticationService()
     
-    private let titleLabel = UILabel().then {
-        $0.text = "안녕하세요, LAURA LEE님!\n그동안 헬시를 이용해주셔서 감사합니다."
+    private lazy var titleLabel = UILabel().then {
+        $0.text = "안녕하세요, \(userName)님!\n그동안 헬시를 이용해주셔서 감사합니다."
         $0.font = .systemFont(ofSize: 18, weight: .semibold)
         $0.textColor = UIColor.init(named: "mainColor")
         $0.numberOfLines = 0
@@ -157,6 +159,7 @@ extension DeleteIdViewController {
         print(#function)
         
         navigationController?.popToRootViewController(animated: false)
+        
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
         let nav = UINavigationController(rootViewController: FirstViewController())
         

@@ -28,7 +28,7 @@ final class CommunityDetailView: BaseViewController {
     
     // 닉네임
     private let nicknameLabel = UILabel().then {
-        $0.text = "비헬시"
+        $0.text = "회원"
         $0.font = .systemFont(ofSize: 16)
     }
     

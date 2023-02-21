@@ -14,7 +14,7 @@ import Combine
 class HomeViewController: UIViewController {
     private let repository = RecordsRepository.shared
     private let goalTimeSubject = GoalTimeSubject.shared
-    private var userName = UserDefaults.standard.string(forKey: "userName") ?? "비헬시"
+    private var userName = UserDefaults.standard.string(forKey: "userName") ?? "회원"
     
     private var cancellables: Set<AnyCancellable> = .init()
     
@@ -126,7 +126,7 @@ class HomeViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
             
-        let userName = UserDefaults.standard.string(forKey: "userName") ?? "비헬시"
+        let userName = UserDefaults.standard.string(forKey: "userName") ?? "회원"
         
         goalAchieveRateTitleLabel.text = "\(userName)님의 목표 달성률📈"
         
