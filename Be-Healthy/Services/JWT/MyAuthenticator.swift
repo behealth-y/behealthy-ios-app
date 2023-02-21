@@ -35,10 +35,7 @@ class MyAuthenticator: Authenticator {
             let expireAt = Double(refreshTokenDecode.payload.exp)
 
             if Date() >= Date(timeIntervalSince1970: expireAt) {
-                UserDefaults.standard.removeObject(forKey: "jwt")
-                UserDefaults.standard.removeObject(forKey: "refreshToken")
-                UserDefaults.standard.removeObject(forKey: "goalTime")
-                UserDefaults.standard.removeObject(forKey: "email")
+                AuthenticationService().logout()
                 
                 DispatchQueue.main.async {
                     let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate

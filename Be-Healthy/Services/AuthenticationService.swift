@@ -36,6 +36,17 @@ final class AuthenticationService {
             }
     }
     
+    // MARK: 로그아웃
+    func logout() {
+        UserDefaults.standard.removeObject(forKey: "jwt")
+        UserDefaults.standard.removeObject(forKey: "refreshToken")
+        UserDefaults.standard.removeObject(forKey: "goalTime")
+        UserDefaults.standard.removeObject(forKey: "email")
+        
+        RecordsRepository.shared.reset()
+        GoalTimeSubject.shared.setGoalTime(0)
+    }
+    
     // MARK: 회원가입
     func signUp(user: User, completion: @escaping (APIResult) -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth/signup")!

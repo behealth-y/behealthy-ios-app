@@ -158,6 +158,8 @@ extension DeleteIdViewController {
     private func deleteSuccess() {
         print(#function)
         
+        authenticationService.logout()
+        
         navigationController?.popToRootViewController(animated: false)
         
         let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate

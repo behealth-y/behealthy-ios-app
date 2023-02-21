@@ -14,6 +14,10 @@ final class RecordsRepository {
     @Published var records: [String: WorkoutRecord]
     private var cancellables: Set<AnyCancellable> = .init()
     
+    init() {
+        self.records = [:]
+    }
+    
     /// 운동 기록 조회 (특정 날짜)
     func get(for date: String) -> WorkoutRecord? {
         return records[date]
@@ -22,10 +26,6 @@ final class RecordsRepository {
     /// 운동 기록 조회 (특정 날짜의 특정 행)
     func get(for date: String, at: Int) -> WorkoutRecordForDate? {
         return records[date]?.workOutRecords[at]
-    }
-    
-    init() {
-        self.records = [:]
     }
     
     func setCallAPI(date: String, yn: Bool) {
@@ -70,5 +70,9 @@ final class RecordsRepository {
     
     func deleteWorkoutRecord(date: String, idx: Int) {
         self.records[date]?.delete(idx: idx)
+    }
+    
+    func reset() {
+        self.records = [:]
     }
 }

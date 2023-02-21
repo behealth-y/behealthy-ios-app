@@ -26,10 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let expireAt = Double(refreshTokenDecode.payload.exp)
 
             if Date() >= Date(timeIntervalSince1970: expireAt) {
-                UserDefaults.standard.removeObject(forKey: "jwt")
-                UserDefaults.standard.removeObject(forKey: "refreshToken")
-                UserDefaults.standard.removeObject(forKey: "goalTime")
-                UserDefaults.standard.removeObject(forKey: "email")
+                AuthenticationService().logout()
                 
                 vc = UINavigationController(rootViewController: FirstViewController())
             } else {
