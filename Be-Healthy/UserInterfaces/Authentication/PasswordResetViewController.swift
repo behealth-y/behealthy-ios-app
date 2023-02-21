@@ -402,7 +402,7 @@ extension PasswordResetViewController {
             
             formStackView.insertArrangedSubview(verificationCodeStackView, at: 0)
             
-            requestVerificationCode()
+            requestVerificationCode(resend: false)
         case .enterVerificationCode:
             nextPasswordResetProcess = .enterPassword
             
@@ -459,7 +459,7 @@ extension PasswordResetViewController {
     
     /// 인증번호 재발송 클릭 시
     @objc private func didTapVerificationCodeResendLabel(sender: UITapGestureRecognizer) {
-        requestVerificationCode()
+        requestVerificationCode(resend: true)
     }
     
     /// 비밀번호 보기 / 숨기기 클릭 시
@@ -475,7 +475,7 @@ extension PasswordResetViewController {
     
     // MARK: 인증번호 처리
     /// 인증번호 요청
-    private func requestVerificationCode() {
+    private func requestVerificationCode(resend: Bool) {
         if sendedVerificationCode { return }
         
         if let email = emailTextField.text {
@@ -485,7 +485,7 @@ extension PasswordResetViewController {
                 if let statusCode = data.statusCode {
                     switch statusCode {
                     case 200:
-                        self?.requestVerificationCodeSuccess()
+                        self?.requestVerificationCodeSuccess(resend: resend)
                     default:
                         self?.requestVerificationCodeFail(reason: data.result?.reason)
                     }
@@ -495,11 +495,15 @@ extension PasswordResetViewController {
     }
     
     /// 인증번호 요청 성공
-    private func requestVerificationCodeSuccess() {
+    private func requestVerificationCodeSuccess(resend: Bool) {
         print(#function)
         
-        showToast(title: "인증번호 발송 완료!", msg: "발송된 인증번호를 확인해주세요!") { [weak self] in
-            self?.sendedVerificationCode = false
+        if resend {
+            showToast(title: "인증번호 발송 완료!", msg: "발송된 인증번호를 확인해주세요!") { [weak self] in
+                self?.sendedVerificationCode = false
+            }
+        } else {
+            self.sendedVerificationCode = false
         }
     }
     

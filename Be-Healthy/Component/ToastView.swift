@@ -57,12 +57,12 @@ class ToastView: UIView {
         }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(33)
+            $0.top.equalToSuperview().inset(22)
             $0.centerX.equalToSuperview()
         }
         
         msgLabel.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(33)
+            $0.bottom.equalToSuperview().inset(21)
             $0.centerX.equalToSuperview()
         }
     }
@@ -78,10 +78,9 @@ extension UIViewController {
             view.addSubview(toastView)
         }
         
-        
         toastView.snp.makeConstraints {
             $0.top.equalTo(navigationController?.navigationBar.snp.top ?? view.safeAreaLayoutGuide)
-            $0.height.equalTo(102)
+            $0.height.equalTo(79)
             $0.horizontalEdges.equalToSuperview()
         }
         
