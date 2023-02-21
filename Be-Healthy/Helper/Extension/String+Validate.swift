@@ -22,6 +22,13 @@ extension String {
         return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: self)
     }
     
+    /// 비밀번호 입력 시 영문, 숫자, 특수문자만 입력 가능 되도록 함
+    func passwordInputValidate() -> Bool {
+        let allowedCharacterSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?")
+        let inputCharacterSet = CharacterSet(charactersIn: self)
+        return allowedCharacterSet.isSuperset(of: inputCharacterSet)
+    }
+    
     /// 닉네임 (2 ~ 8자리)
     func nicknameValiate() -> Bool {
         return self.count >= 2 && self.count <= 8

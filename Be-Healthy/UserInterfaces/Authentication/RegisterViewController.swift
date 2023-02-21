@@ -740,6 +740,8 @@ extension RegisterViewController: UITextFieldDelegate {
         }
         
         switch textField {
+        case passwordTextField, passwordConfirmTextField:
+            return string.passwordInputValidate()
         case verificationCodeTextField:
             return text.count < 6
         default:

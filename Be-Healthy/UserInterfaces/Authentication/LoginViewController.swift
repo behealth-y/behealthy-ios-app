@@ -338,6 +338,25 @@ extension LoginViewController: UITextFieldDelegate {
         
         return true
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else { return false }
+        
+        // 백 스페이스 감지
+        if let char = string.cString(using: String.Encoding.utf8) {
+            let isBackSpace = strcmp(char, "\\b")
+            if isBackSpace == -92 {
+                return true
+            }
+        }
+        
+        switch textField {
+        case passwordTextField:
+            return string.passwordInputValidate()
+        default:
+            return true
+        }
+    }
 }
 
 #if DEBUG
