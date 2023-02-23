@@ -56,7 +56,7 @@ class CalendarViewController: BaseViewController {
         $0.appearance.titleFont = .systemFont(ofSize: 12)
         
         $0.appearance.todaySelectionColor = .white
-        $0.appearance.todayColor = UIColor.init(named: "mainColor")
+        $0.appearance.todayColor = UIColor.init(hexFromString: "#2E2E2E")
         $0.appearance.titleTodayColor = .white
     }
     

@@ -406,6 +406,8 @@ extension HomeViewController {
             let goalAchieveRate = Double(time) / Double(goalTime)
             let goalAcieveRatePercent = Int(goalAchieveRate * 100)
             
+            let userName = UserDefaults.standard.string(forKey: "userName") ?? "회원"
+            
             goalAchieveRateDescriptionLabel.text = "\(userName)님!\n목표 운동시간까지 \(betweenTime.minuteToTime()) 남았습니다. :)"
             goalAchieveRateProgressView.progress = Float(goalAchieveRate)
             goalAchieveRateProgressLabel.text = "\(goalAcieveRatePercent)%"
