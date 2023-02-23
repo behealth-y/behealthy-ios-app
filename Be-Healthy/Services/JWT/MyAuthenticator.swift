@@ -61,18 +61,30 @@ class MyAuthenticator: Authenticator {
             .responseDecodable(of: LoginResultData.self) { response in
                 switch response.result {
                 case .success:
-                    print(#function)
-                    guard let data = response.value, let jwt = data.accessToken, let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"), let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
-                    
-                    UserDefaults.standard.set(jwt, forKey: "jwt")
+                    if let statusCode = response.response?.statusCode, statusCode == 200 {
+                        guard let data = response.value, let jwt = data.accessToken, let refreshToken = UserDefaults.standard.string(forKey: "refreshToken"), let jwtDecode = JSONWebToken(jsonWebToken: jwt) else { return }
+                        
+                        UserDefaults.standard.set(jwt, forKey: "jwt")
 
-                    let expireAt = Double(jwtDecode.payload.exp)
-                    let credential = MyAuthenticationCredential(accessToken: jwt,
-                                                                refreshToken: refreshToken,
-                                                                expiredAt: Date(timeIntervalSince1970: expireAt))
-                    completion(.success(credential))
+                        let expireAt = Double(jwtDecode.payload.exp)
+                        let credential = MyAuthenticationCredential(accessToken: jwt,
+                                                                    refreshToken: refreshToken,
+                                                                    expiredAt: Date(timeIntervalSince1970: expireAt))
+                        completion(.success(credential))
+                    } else {
+                        AuthenticationService().logout()
+                        
+                        DispatchQueue.main.async {
+                            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as! SceneDelegate
+                            let nav = UINavigationController(rootViewController: FirstViewController())
+                            
+                            sceneDelegate.window?.rootViewController = nav
+                        }
+                        
+                        return
+                    }
                 case let .failure(error):
-                    print(error)
+                    print("\(#function) ::: \(error)")
                     completion(.failure(error))
                 }
             }
