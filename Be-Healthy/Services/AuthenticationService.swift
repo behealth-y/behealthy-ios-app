@@ -48,7 +48,7 @@ final class AuthenticationService {
     }
     
     // MARK: 회원가입
-    func signUp(user: User, completion: @escaping (APIResult) -> Void) {
+    func signUp(user: User, completion: @escaping (LoginResultData) -> Void) {
         let url = URL(string: "\(Config().apiUrl)/api/auth/signup")!
         
         let params = [
@@ -63,11 +63,14 @@ final class AuthenticationService {
         ]
         
         AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: headers)
-            .responseDecodable(of: APIResultData.self) { response in
-                if let data = response.value {
-                    completion(APIResult(statusCode: response.response?.statusCode, errorData: data))
-                } else {
-                    completion(APIResult(statusCode: response.response?.statusCode, errorData: nil))
+            .responseDecodable(of: LoginResultData.self) { response in
+                switch response.result {
+                case .success:
+                    guard let data = response.value else { return }
+                    
+                    completion(data)
+                case let .failure(error):
+                    print(error)
                 }
             }
     }
