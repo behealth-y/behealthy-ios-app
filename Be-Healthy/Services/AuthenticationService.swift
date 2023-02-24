@@ -42,6 +42,7 @@ final class AuthenticationService {
         UserDefaults.standard.removeObject(forKey: "refreshToken")
         UserDefaults.standard.removeObject(forKey: "goalTime")
         UserDefaults.standard.removeObject(forKey: "email")
+        UserDefaults.standard.removeObject(forKey: "userName")
         
         RecordsRepository.shared.reset()
         GoalTimeSubject.shared.setGoalTime(0)
