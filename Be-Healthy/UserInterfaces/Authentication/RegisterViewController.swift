@@ -143,6 +143,7 @@ class RegisterViewController: BaseViewController {
         
         $0.attributedText = attributeString
         
+        $0.highlightedTextColor = .gray
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         $0.font = .systemFont(ofSize: 14)
         
@@ -585,7 +586,7 @@ extension RegisterViewController {
     
     /// 인증번호 재발송 클릭 시
     @objc private func didTapVerificationCodeResendLabel(sender: UITapGestureRecognizer) {
-        verificationCodeResendLabel.isEnabled = false
+        verificationCodeResendLabel.isHighlighted = true
         
         requestVerificationCode(resend: true)
     }
@@ -635,7 +636,8 @@ extension RegisterViewController {
             sendedVerificationCode = true
             
             authenticationService.requestVerififcationCode(email: email, purpose: "SIGN_UP") { [weak self] data in
-                self?.verificationCodeResendLabel.isEnabled = true
+                self?.verificationCodeResendLabel.isHighlighted = false
+                self?.sendedVerificationCode = false
                 
                 if let statusCode = data.statusCode {
                     switch statusCode {
@@ -654,11 +656,7 @@ extension RegisterViewController {
         print(#function)
         
         if resend {
-            showToast(title: "인증번호 발송 완료!", msg: "발송된 인증번호를 확인해주세요!") { [weak self] in
-                self?.sendedVerificationCode = false
-            }
-        } else {
-            self.sendedVerificationCode = false
+            showToast(title: "인증번호 재발송 완료!", msg: "발송된 인증번호를 확인해주세요!") { }
         }
     }
     
@@ -668,8 +666,6 @@ extension RegisterViewController {
         if let reason = reason {
             print(reason)
         }
-        
-        sendedVerificationCode = false
     }
     
     /// 인증번호 검증 성공
