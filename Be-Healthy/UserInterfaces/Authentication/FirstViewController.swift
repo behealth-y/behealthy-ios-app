@@ -106,7 +106,7 @@ class FirstViewController: UIViewController {
         attributeString.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: (text as NSString).range(of: "로그인"))
         
         $0.attributedText = attributeString
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .systemFont(ofSize: 14)
         $0.textColor = .init(hexFromString: "2E2E2E")
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapMoveToLoginLabel))
@@ -155,7 +155,7 @@ extension FirstViewController {
         snsLoginStackView.snp.makeConstraints {
             $0.top.greaterThanOrEqualTo(logoLabel.snp.bottom)
             $0.horizontalEdges.equalToSuperview().inset(18)
-            $0.bottom.equalTo(moveToLoginLabel.snp.top).offset(-13)
+            $0.bottom.equalTo(moveToLoginLabel.snp.top).offset(-15)
         }
         
         // TODO: 임시 주석
@@ -192,7 +192,7 @@ extension FirstViewController {
         }
         
         moveToLoginLabel.snp.makeConstraints {
-            $0.bottom.equalToSuperview().inset(45)
+            $0.bottom.equalToSuperview().inset(55) //45
             $0.centerX.equalToSuperview()
         }
     }

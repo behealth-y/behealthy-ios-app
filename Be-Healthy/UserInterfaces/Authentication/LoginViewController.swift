@@ -43,7 +43,7 @@ class LoginViewController: BaseViewController {
     
     // MARK: - 이메일 주소
     private let emailStackView = UIStackView().then {
-        $0.spacing = 3
+        $0.spacing = 10
         $0.alignment = .fill
         $0.distribution = .fill
         $0.axis = .vertical
@@ -86,7 +86,7 @@ class LoginViewController: BaseViewController {
         $0.attributedText = attributeString
         
         $0.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .systemFont(ofSize: 12)
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapMoveToPasswordResetLabel))
         $0.isUserInteractionEnabled = true
