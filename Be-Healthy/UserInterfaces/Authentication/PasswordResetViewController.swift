@@ -457,6 +457,8 @@ extension PasswordResetViewController {
     
     /// 인증번호 재발송 클릭 시
     @objc private func didTapVerificationCodeResendLabel(sender: UITapGestureRecognizer) {
+        verificationCodeResendLabel.isEnabled = false
+
         requestVerificationCode(resend: true)
     }
     
@@ -480,6 +482,8 @@ extension PasswordResetViewController {
             sendedVerificationCode = true
             
             authenticationService.requestVerififcationCode(email: email, purpose: "CHANGE_PASSWORD") { [weak self] data in
+                self?.verificationCodeResendLabel.isEnabled = true
+                
                 if let statusCode = data.statusCode {
                     switch statusCode {
                     case 200:

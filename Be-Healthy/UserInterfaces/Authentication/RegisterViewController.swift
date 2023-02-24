@@ -585,6 +585,8 @@ extension RegisterViewController {
     
     /// 인증번호 재발송 클릭 시
     @objc private func didTapVerificationCodeResendLabel(sender: UITapGestureRecognizer) {
+        verificationCodeResendLabel.isEnabled = false
+        
         requestVerificationCode(resend: true)
     }
     
@@ -633,6 +635,8 @@ extension RegisterViewController {
             sendedVerificationCode = true
             
             authenticationService.requestVerififcationCode(email: email, purpose: "SIGN_UP") { [weak self] data in
+                self?.verificationCodeResendLabel.isEnabled = true
+                
                 if let statusCode = data.statusCode {
                     switch statusCode {
                     case 200:
