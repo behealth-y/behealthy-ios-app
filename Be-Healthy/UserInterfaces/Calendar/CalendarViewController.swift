@@ -273,7 +273,7 @@ extension CalendarViewController {
                       
                     if let date = dateFormatter.date(from: $0.key), let cell = self.calendarView.cell(for: date, at: .current) {
                         if $0.value.totalWorkoutTime > 0 {
-                            cell.eventIndicator.tintColor = UIColor.init(named: "mainColor")!
+                            cell.eventIndicator.color = UIColor.init(named: "mainColor")!
                             cell.eventIndicator.numberOfEvents = 1
                             cell.eventIndicator.isHidden = false
                         } else {
@@ -365,6 +365,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
 //    }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
+        print("\(#function) ::: \(date)")
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
         let dateString = dateFormatter.string(from: date)
