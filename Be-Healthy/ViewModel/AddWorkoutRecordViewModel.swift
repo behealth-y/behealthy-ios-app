@@ -77,12 +77,9 @@ class AddWorkoutRecordViewModel {
                         let time = record.workoutTime ?? 0
 
                         if date != logDate {
-                            print("다른 날 ::: \(date), \(logDate)")
-                            
                             self?.repository.setWorkoutTime(date: logDate)
                             self?.repository.setWorkoutTime(date: date)
                         } else {
-                            print("같은 날 ::: \(date), \(logDate)")
                             self?.repository.setWorkoutTime(date: date)
                         }
                     }

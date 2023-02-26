@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol emojiTextFieldDelegate: NSObject {
+    func checkSubmitButtonEnable()
+}
+
 class EmojiTextField: UITextField {
+    weak var emojiTextFieldDelegate: emojiTextFieldDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.delegate = self
@@ -26,7 +32,9 @@ extension EmojiTextField: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if !string.isEmpty {
             textField.text = string
+            emojiTextFieldDelegate?.checkSubmitButtonEnable()
         }
+        
         return false
     }
     

@@ -365,7 +365,6 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
 //    }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
-        print("\(#function) ::: \(date)")
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "YYYY-MM-dd"
         let dateString = dateFormatter.string(from: date)
@@ -424,16 +423,11 @@ extension CalendarViewController: UICollectionViewDelegate, UICollectionViewData
             return UICollectionReusableView()
         }
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("\(#function) :: \(indexPath.item)")
-    }
 }
 
 // MARK: - RecordListCollectionViewCellDelegate
 extension CalendarViewController: RecordListCollectionViewCellDelegate {
     func showMoreMenu(_ idx: Int) {
-        print("\(#function) ::: \(idx)")
         let actionSheet = Helper().actionSheet(delete: true) { [weak self] action in
             switch action {
             case .edit:

@@ -64,7 +64,6 @@ extension RecordListCollectionViewCell {
     // MARK: Actions
     /// 더 보기 버튼 클릭 시 편집 / 삭제 선택 메뉴 노출
     @IBAction func didTapMoreButton(_ sender: UIButton) {
-        print("\(#function) ::: \(idx)")
         guard let idx = idx else { return }
         delegate?.showMoreMenu(idx)
     }

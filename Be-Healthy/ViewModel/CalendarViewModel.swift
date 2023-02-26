@@ -82,13 +82,12 @@ class CalendarViewModel {
         let record = repository.records[date]
         
         if record == nil || (record != nil && !record!.callAPI) {
-            print("API 호출")
+//            print("API 호출")
             service.getWorkoutRecords(date: date) { [weak self] data in
                 if let statusCode = data.statusCode {
                     switch statusCode {
                     case 200:
                         guard let records = data.result.workoutLogs else { return }
-                        print("ASDSDFASDFSADFSADFADSF asdasdasd ::: \(records)")
                         
                         print(records)
                         records.forEach {
@@ -115,7 +114,7 @@ class CalendarViewModel {
                 }
             }
         } else {
-            print("API 호출 안함")
+//            print("API 호출 안함")
             guard let record = repository.records[date] else { return }
             self.repository.setWorkoutTime(date: date)
             self.delegate?.getForDateSuccess(date: date)

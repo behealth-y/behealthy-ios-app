@@ -707,9 +707,9 @@ extension RegisterViewController {
         let vc = GoalTimeSettingView(openProcess: .auth)
         
         if let jwt = UserDefaults.standard.string(forKey: "jwt"), let jwtDecode = JSONWebToken(jsonWebToken: jwt) {
-            print("jwt ::: \(jwt)")
-            print("jwt header ::: \(jwtDecode.header)")
-            print("jwt payload ::: \(jwtDecode.payload)")
+//            print("jwt ::: \(jwt)")
+//            print("jwt header ::: \(jwtDecode.header)")
+//            print("jwt payload ::: \(jwtDecode.payload)")
             
             UserDefaults.standard.set(jwtDecode.payload.name, forKey: "userName")
         }

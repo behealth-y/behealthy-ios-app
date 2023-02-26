@@ -339,13 +339,11 @@ extension HomeViewController {
     /// 캘린더 reload
     @objc private func runCode() {
         timer?.invalidate()
-        print("현재 날짜는 \(self.currentDate)입니다")
         
         let currentDate = Helper().getToday()
         
         if self.currentDate != currentDate {
             self.currentDate = currentDate
-            print("현재 날짜는 \(self.currentDate)입니다 222")
             
             self.repository.setWorkoutTime(date: self.currentDate)
             

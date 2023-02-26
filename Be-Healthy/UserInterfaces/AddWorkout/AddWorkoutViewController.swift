@@ -10,7 +10,7 @@ import SnapKit
 import Then
 import Combine
 
-class AddWorkoutViewController: UIViewController {
+class AddWorkoutViewController: UIViewController, emojiTextFieldDelegate {
     private var idx: Int?
     
     private let viewModel = AddWorkoutRecordViewModel()
@@ -38,6 +38,7 @@ class AddWorkoutViewController: UIViewController {
         $0.textAlignment = .center
         $0.tintColor = .clear
         $0.text = "🔥"
+        $0.emojiTextFieldDelegate = self
     }
     
     private lazy var typeTextField = UITextField().then {
@@ -280,7 +281,7 @@ extension AddWorkoutViewController {
     }
     
     /// "운동 추가하기" 버튼 활성화 / 비활설화 처리
-    private func checkSubmitButtonEnable() {
+    func checkSubmitButtonEnable() {
         let type = typeTextField.text ?? ""
         let date = dateTextField.text ?? ""
         let startTime = startTimeTextField.text ?? ""
