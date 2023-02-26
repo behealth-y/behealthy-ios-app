@@ -395,16 +395,18 @@ extension PasswordResetViewController {
         
         switch passwordResetProcess {
         case .enterEmail:
-            nextPasswordResetProcess = .enterVerificationCode
-            
-            emailTextField.isEnabled = false
-            emailTextField.textColor = .init(hexFromString: "#868181")
-            
-            submitButton.setTitle("인증번호 확인", for: .normal)
-            
-            formStackView.insertArrangedSubview(verificationCodeStackView, at: 0)
-            
-            requestVerificationCode(resend: false)
+            if let email = emailTextField.text, email.emailValidate() {
+                authenticationService.checkEmailDuplicate(email: email) { [weak self] data in
+                    if let statusCode = data.statusCode {
+                        switch statusCode {
+                        case 200:
+                            self?.checkEmailDuplicateFail()
+                        default:
+                            self?.checkEmailDuplicateSuccess()
+                        }
+                    }
+                }
+            }
         case .enterVerificationCode:
             if let email = emailTextField.text, let verificationCode = verificationCodeTextField.text {
                 authenticationService.verifyCode(email: email, purpose: "CHANGE_PASSWORD", emailVerificationCode: verificationCode) { [weak self] data in
@@ -473,6 +475,37 @@ extension PasswordResetViewController {
             passwordConfirmTextField.isSecureTextEntry.toggle()
             passwordEyeButton.setImage(passwordConfirmTextField.isSecureTextEntry ? UIImage(named: "eye_show") : UIImage(named: "eye_hide"), for: .normal)
         }
+    }
+    
+    // MARK: 이메일 중복확인 처리
+    /// 가입된 이메일이 없는 경우
+    private func checkEmailDuplicateSuccess() {
+        print(#function)
+        
+        emailErrorLabel.text = "가입되지 않은 이메일이에요. :("
+        emailErrorLabel.textColor = .systemRed
+        emailErrorLabel.isHidden = false
+        
+        submitButton.isEnabled = false
+    }
+    
+    /// 가입된 이메일인 경우
+    private func checkEmailDuplicateFail() {
+        print(#function)
+        
+        passwordResetProcess = .enterVerificationCode
+        titleLabel.text = titles[passwordResetProcess.rawValue]
+        
+        emailTextField.isEnabled = false
+        emailTextField.textColor = .init(hexFromString: "#868181")
+        
+        emailErrorLabel.isHidden = true
+        
+        submitButton.setTitle("인증번호 확인", for: .normal)
+
+        formStackView.insertArrangedSubview(verificationCodeStackView, at: 0)
+
+        requestVerificationCode(resend: false)
     }
     
     // MARK: 인증번호 처리

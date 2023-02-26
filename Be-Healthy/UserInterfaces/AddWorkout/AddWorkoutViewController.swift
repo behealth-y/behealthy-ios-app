@@ -367,6 +367,8 @@ extension AddWorkoutViewController {
                 intensityButtons[button.tag].backgroundColor = .clear
             }
         }
+        
+        checkSubmitButtonEnable()
     }
     
     /// 운동 추가하기 버튼 클릭 시
