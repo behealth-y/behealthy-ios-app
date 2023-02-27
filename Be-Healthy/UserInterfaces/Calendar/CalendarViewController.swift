@@ -55,9 +55,11 @@ class CalendarViewController: BaseViewController {
         $0.appearance.titleDefaultColor = UIColor.init(hexFromString: "2E2E2E")
         $0.appearance.titleFont = .systemFont(ofSize: 12)
         
-        $0.appearance.todaySelectionColor = .white
-        $0.appearance.todayColor = UIColor.init(hexFromString: "#2E2E2E")
-        $0.appearance.titleTodayColor = .white
+//        $0.appearance.todaySelectionColor = .white
+//        $0.appearance.todayColor = UIColor.init(hexFromString: "#2E2E2E")
+//        $0.appearance.titleTodayColor = .white
+        
+        $0.appearance.titleTodayColor = UIColor.init(hexFromString: "2E2E2E")
     }
     
     // 이전 달 이동 버튼
@@ -267,22 +269,6 @@ extension CalendarViewController {
                     }
                 })
                 
-                data.forEach {
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "YYYY-MM-dd"
-                      
-                    if let date = dateFormatter.date(from: $0.key), let cell = self.calendarView.cell(for: date, at: .current) {
-                        if $0.value.totalWorkoutTime > 0 {
-                            cell.eventIndicator.color = UIColor.init(named: "mainColor")!
-                            cell.eventIndicator.numberOfEvents = 1
-                            cell.eventIndicator.isHidden = false
-                        } else {
-                            cell.eventIndicator.numberOfEvents = 0
-                            cell.eventIndicator.isHidden = true
-                        }
-                    }
-                }
-                
                 self.collectionView.reloadData()
             })
             .store(in: &self.cancellables)
@@ -347,22 +333,58 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         return [UIColor.init(named: "mainColor")!]
     }
     
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        var color: UIColor = .init(hexFromString: "2E2E2E")
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        
+        if let record = repository.get(for: dateString) {
+            if record.totalWorkoutTime > GoalTimeSubject.shared.goalTime {
+                color = .white
+            } else if dateString == dateFormatter.string(from: Date()) {
+                color = .white
+            }
+        }
+        
+        return color
+    }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+        var color: UIColor = .clear
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "YYYY-MM-dd"
+        let dateString = dateFormatter.string(from: date)
+        
+        if let record = repository.get(for: dateString) {
+            if record.totalWorkoutTime > GoalTimeSubject.shared.goalTime {
+                color = .init(named: "mainColor")!
+            } else if dateString == dateFormatter.string(from: Date()) {
+                color = .init(hexFromString: "2E2E2E")
+            }
+        }
+        
+        return color
+    }
+    
     // TODO: 커스텀 Cell 구현
-//    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
 //        let dateFormatter = DateFormatter()
 //        dateFormatter.dateFormat = "YYYY-MM-dd"
-//        let currentDate = dateFormatter.string(from: date)
+//        let dateString = dateFormatter.string(from: date)
 //
-//        let timeLabel = UILabel(frame: CGRect(x: 0, y: cell.frame.height - 5, width: cell.bounds.width, height: 10))
+//        cell.backgroundColor = .clear
 //
-//        if let record = repository.get(for: currentDate) {
-//            timeLabel.font = .systemFont(ofSize: 7)
-//            timeLabel.text = "\(record.totalWorkoutTime)분"
-//            timeLabel.textAlignment = .center
-//            timeLabel.textColor = UIColor.init(named: "mainColor")
-//            cell.addSubview(timeLabel)
+//        if let record = repository.get(for: dateString) {
+//            if record.totalWorkoutTime > GoalTimeSubject.shared.goalTime {
+////                cell.backgroundColor = UIColor.init(named: "mainColor")!
+//
+//
+//            }
 //        }
-//    }
+    }
     
     func calendar(_ calendar: FSCalendar, numberOfEventsFor date: Date) -> Int {
         let dateFormatter = DateFormatter()
@@ -452,6 +474,8 @@ extension CalendarViewController: RecordListCollectionViewCellDelegate {
 extension CalendarViewController: CalendarViewModelDelegate {
     func deleteWorkoutRecordSuccess() {
         print(#function)
+        
+        calendarView.reloadData()
     }
     
     func deleteWorkoutRecordFail() {

@@ -489,6 +489,13 @@ extension AddWorkoutViewController {
             }
         }
     }
+    
+    /// 탭 바 -> 캘린더 -> 작성 / 수정 시 캘린더 리로드
+    private func reloadCalendarView() {
+        if let tabNav = self.presentingViewController as? TabBarViewController, let vc = tabNav.selectedViewController as? CalendarViewController {
+            vc.calendarView.reloadData()
+        }
+    }
 }
 
 // MARK: - UITextFieldDelegate
@@ -505,6 +512,9 @@ extension AddWorkoutViewController: UITextFieldDelegate {
 extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
     func addWorkoutRecordSuccess() {
         print(#function)
+        
+        reloadCalendarView()
+        
         self.dismiss(animated: true)
     }
     
@@ -514,6 +524,9 @@ extension AddWorkoutViewController: AddWorkoutRecordViewModelDelegate {
     
     func updateWorkoutRecordSuccess() {
         print(#function)
+        
+        reloadCalendarView()
+        
         self.dismiss(animated: true)
     }
     
