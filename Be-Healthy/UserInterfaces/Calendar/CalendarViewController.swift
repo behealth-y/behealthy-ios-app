@@ -341,7 +341,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         let dateString = dateFormatter.string(from: date)
         
         if let record = repository.get(for: dateString) {
-            if record.totalWorkoutTime > GoalTimeSubject.shared.goalTime {
+            if record.totalWorkoutTime >= GoalTimeSubject.shared.goalTime {
                 color = .white
             } else if dateString == dateFormatter.string(from: Date()) {
                 color = .white
@@ -359,7 +359,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         let dateString = dateFormatter.string(from: date)
         
         if let record = repository.get(for: dateString) {
-            if record.totalWorkoutTime > GoalTimeSubject.shared.goalTime {
+            if record.totalWorkoutTime >= GoalTimeSubject.shared.goalTime {
                 color = .init(named: "mainColor")!
             } else if dateString == dateFormatter.string(from: Date()) {
                 color = .init(hexFromString: "2E2E2E")
