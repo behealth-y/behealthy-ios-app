@@ -426,6 +426,8 @@ extension HomeViewController {
         if let workoutTimes = workoutTimes {
             for workoutTime in workoutTimes {
                 workoutTimesDict[workoutTime.date] = Double(workoutTime.workoutTime)
+                
+                repository.setWorkoutTime(date: workoutTime.date, time: workoutTime.workoutTime)
             }
         } else {
             dates.forEach { date in
