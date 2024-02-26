@@ -1,6 +1,6 @@
 # BeHealthy
 운동 루틴 관리 iOS 앱
-2022.08.27 ~ 진행중
+2022.08.27 ~ 2023.03.03
 ## Skill
 - Swift
 - SnapKit
